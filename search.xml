@@ -6,6 +6,18 @@
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
   </entry>
   <entry>
+    <title><![CDATA[leetcode-1-Two Sum]]></title>
+    <url>%2F2018%2F11%2F11%2Fleetcode-1-Two-Sum%2F</url>
+    <content type="text"><![CDATA[description`Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not use the same element twice. Example: Given nums = [2, 7, 11, 15], target = 9, Because nums[0] + nums[1] = 2 + 7 = 9, return [0, 1].` common method 1234567891011121314class Solution &#123; public int[] twoSum(int[] nums, int target) &#123; int[] ret = new int[2]; for(int i =0; i&lt;nums.length-1 ;i++)&#123; for (int j = i+1 ;j &lt; nums.length ;j++ )&#123; if (nums[i] + nums[j] == target)&#123; ret = new int[]&#123;i, j&#125;; return ret; &#125; &#125; &#125; return ret ; &#125;&#125; best method1234567891011121314151617class Solution &#123; public int[] twoSum(int[] nums, int target) &#123; int len=nums.length; HashMap&lt;Integer, Integer&gt; map=new HashMap&lt;&gt;(); map.put(nums[0], 0); for(int i=1;i&lt;len;i++)&#123; if(map.containsKey(target-nums[i]))&#123; int[] returnArray=&#123;map.get(target-nums[i]),i&#125;; return returnArray; &#125; else&#123; map.put(nums[i], i); &#125; &#125; int[] returnArray=&#123;0,0&#125;; return returnArray; &#125;&#125;]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>arithmetic</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Hello blog]]></title>
     <url>%2F2018%2F11%2F11%2FHello-blog%2F</url>
     <content type="text"><![CDATA[this is a first blog.It&#39;s a very exciting time make a plan execute have a harvest come on 12345public void start()&#123; while(true)&#123; System.out.println("struggle！"); &#125;&#125;]]></content>
