@@ -69,7 +69,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="java,immutable,">
 
 
 
@@ -80,17 +80,18 @@
 
 
 
-<meta name="description" content="Life is good when it is bad to some extent, because it cannot be worse.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="https://removeif.github.io/tags/index.html">
+<meta name="description" content="多线程下，一个对象会被多个线程共享，存在多线程并发地修改对象的属性，需要做些同步访问控制，如显示锁，CAS操作，会带来额外的开销和问题，如上下文切换、等待时间、ABA问题。Immutable Object模式意图通过使用对外可见的状态不可变的对象，使得天生具有线程安全性。  车辆管理系统状态可变的位置信息模型123456789101112131415161718192021public clas">
+<meta name="keywords" content="java,immutable">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Immutable Object(不可变对象)模式">
+<meta property="og:url" content="https://removeif.github.io/2018/11/13/Immutable-Object-不可变对象-模式/index.html">
 <meta property="og:site_name" content="removeIf">
-<meta property="og:description" content="Life is good when it is bad to some extent, because it cannot be worse.">
+<meta property="og:description" content="多线程下，一个对象会被多个线程共享，存在多线程并发地修改对象的属性，需要做些同步访问控制，如显示锁，CAS操作，会带来额外的开销和问题，如上下文切换、等待时间、ABA问题。Immutable Object模式意图通过使用对外可见的状态不可变的对象，使得天生具有线程安全性。  车辆管理系统状态可变的位置信息模型123456789101112131415161718192021public clas">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-11T00:26:23.237Z">
+<meta property="og:updated_time" content="2018-11-13T15:57:38.436Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description" content="Life is good when it is bad to some extent, because it cannot be worse.">
+<meta name="twitter:title" content="Immutable Object(不可变对象)模式">
+<meta name="twitter:description" content="多线程下，一个对象会被多个线程共享，存在多线程并发地修改对象的属性，需要做些同步访问控制，如显示锁，CAS操作，会带来额外的开销和问题，如上下文切换、等待时间、ABA问题。Immutable Object模式意图通过使用对外可见的状态不可变的对象，使得天生具有线程安全性。  车辆管理系统状态可变的位置信息模型123456789101112131415161718192021public clas">
 
 
 
@@ -120,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://removeif.github.io/tags/">
+  <link rel="canonical" href="https://removeif.github.io/2018/11/13/Immutable-Object-不可变对象-模式/">
 
 
 
 
 
-  <title>tags | removeIf</title>
+  <title>Immutable Object(不可变对象)模式 | removeIf</title>
   
 
 
@@ -272,40 +273,215 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://removeif.github.io/2018/11/13/Immutable-Object-不可变对象-模式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Meiyouor">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="removeIf">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                7 tags in total
+          <h1 class="post-title" itemprop="name headline">Immutable Object(不可变对象)模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-13T23:18:47+08:00">
+                2018-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/current/" itemprop="url" rel="index">
+                    <span itemprop="name">current</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/13/Immutable-Object-不可变对象-模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/11/13/Immutable-Object-不可变对象-模式/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  351
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
             </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/arithmetic/" style="font-size: 12px; color: #ccc">arithmetic</a> <a href="/tags/elasticsearch6/" style="font-size: 12px; color: #ccc">elasticsearch6</a> <a href="/tags/immutable/" style="font-size: 12px; color: #ccc">immutable</a> <a href="/tags/java/" style="font-size: 30px; color: #111">java</a> <a href="/tags/life/" style="font-size: 12px; color: #ccc">life</a> <a href="/tags/query/" style="font-size: 12px; color: #ccc">query</a> <a href="/tags/think/" style="font-size: 12px; color: #ccc">think</a>
-            </div>
-          </div>
-        
-      </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <blockquote>
+<p>多线程下，一个对象会被多个线程共享，存在多线程并发地修改对象的属性，需要做些同步访问控制，<br>如显示锁，CAS操作，会带来额外的开销和问题，如上下文切换、等待时间、ABA问题。Immutable Object<br>模式意图通过使用对外可见的状态不可变的对象，使得天生具有线程安全性。</p>
+</blockquote>
+<h1 id="车辆管理系统"><a href="#车辆管理系统" class="headerlink" title="车辆管理系统"></a>车辆管理系统</h1><h2 id="状态可变的位置信息模型"><a href="#状态可变的位置信息模型" class="headerlink" title="状态可变的位置信息模型"></a>状态可变的位置信息模型</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Location</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> x;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> y;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Location</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">double</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = x;</span><br><span class="line">        <span class="keyword">this</span>.y = y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getX</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getY</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setXY</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">double</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = x;</span><br><span class="line">        <span class="keyword">this</span>.y = y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>管理系统中会调用Location的setXY方法来更新位置，因为是非线程安全，并非原子操作，导致调用时<br>会出现数据不一致的情况</p>
+<h2 id="改进：状态不可变的位置信息模型"><a href="#改进：状态不可变的位置信息模型" class="headerlink" title="改进：状态不可变的位置信息模型"></a>改进：状态不可变的位置信息模型</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Location</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">double</span> x;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">double</span> y;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Location</span><span class="params">(<span class="keyword">double</span> x,<span class="keyword">double</span> y)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = x;</span><br><span class="line">        <span class="keyword">this</span>.y = y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用状态不可变的对象时，更新信息模型时，如果车辆的位置发生变动，更新的是整个位置信息的对象</p>
+<h2 id="更新不可变对象的位置信息"><a href="#更新不可变对象的位置信息" class="headerlink" title="更新不可变对象的位置信息"></a>更新不可变对象的位置信息</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VehicleTracker</span></span>&#123;</span><br><span class="line">     <span class="keyword">private</span> Map&lt;String,Location&gt; locMap = <span class="keyword">new</span> ConcurrentHashMap&lt;String, Location&gt;();</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateLocation</span><span class="params">(String vehicleId,Location newLocation)</span></span>&#123;</span><br><span class="line">         locMap.put(vehicleId,newLocation);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/immutable/" rel="tag"><i class="fa fa-tag"></i> immutable</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/13/elasticsearch6-query-全文查询与词项查询/" rel="next" title="elasticsearch6 query 全文查询与词项查询">
+                <i class="fa fa-chevron-left"></i> elasticsearch6 query 全文查询与词项查询
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -314,6 +490,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -334,8 +517,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -447,6 +639,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#车辆管理系统"><span class="nav-number">1.</span> <span class="nav-text">车辆管理系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#状态可变的位置信息模型"><span class="nav-number">1.1.</span> <span class="nav-text">状态可变的位置信息模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进：状态不可变的位置信息模型"><span class="nav-number">1.2.</span> <span class="nav-text">改进：状态不可变的位置信息模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新不可变对象的位置信息"><span class="nav-number">1.3.</span> <span class="nav-text">更新不可变对象的位置信息</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
