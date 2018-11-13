@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[elasticsearch6 query 全文查询与词项查询]]></title>
+    <url>%2F2018%2F11%2F13%2Felasticsearch6-query-%E5%85%A8%E6%96%87%E6%9F%A5%E8%AF%A2%E4%B8%8E%E8%AF%8D%E9%A1%B9%E6%9F%A5%E8%AF%A2%2F</url>
+    <content type="text"><![CDATA[query全文查询 QueryBuilders.matchQuery(“filed”,”value”).operator(Operator.AND); // 对查询的语句进行分词，分词后的词任意一个匹配doc都能查出来 term query 查询的是词项&lt;分词后的&gt; （eg：Java编程思想） Java编程 term query 不能查到 分词后变成（Java 编程 思想） matchQuery能查到 QueryBuilders.matchPhraseQuery(“field”,”value”);对value进行分词，可以自定义分词器,满足两个条件才能被搜到： 分词后的所有词项都要匹配原字段 顺序还需要一致 QueryBuilders.matchPhrasePrefixQuery(“field”,”value”);与matchPhraseQuery类似,最后一个term支持前缀匹配eg.matchPhraseQuery 查 “hello word” matchPhrasePrefixQuery只需要查 “hello w”即可 QueryBuilders.multiMatchQuery(“value”,”field1”,”field2”); 多字段支持查询，字段可以使用通配符eg,{&quot;中国&quot;,&quot;tit*&quot;,&quot;wor?&quot;} QueryBuilders.commonTermsQuery(“哇”,”hehe”);通用查询，会自动分词为低频和高频项，先查低频，可以控制低频、高频出现概率 eg.the word the就是高频 ，可以先查 word QueryBuilders.queryStringQuery(“”);支持lucene查询语法 QueryBuilders.simpleQueryStringQuery(“”);支持lucene查询语法，具有非常完善的语法查询，解析过程中出现异常不会抛错 QueryBuilders.matchAllQuery();查所有和不写同样效果 词项查询 term query 词项检索 terms query 词项检索，可以多个词项，查到一个都能匹配结果 range query 查询范围内的 gt 大于 gte 大于等于 lt 小于 lte 小于等于 exist query 查询会返回字段中至少有一个非空空字符串也返回的doc prefix query 查询字段中给定前缀的文档 eg.{&quot;title&quot;:&quot;hel&quot;} wildcard query 查询字段通配符eg.&quot;{&quot;title&quot;:&quot;hell?/ *ell*&quot;} regexp query 正则匹配查询eg.{&quot;title&quot;:&quot;W[0-9].+&quot;} fuzzy query 模糊查询，最接近的查询，单词拼错一个字母的时候，消耗资源多 type query 指定类型的文档 ids query 查询具有指定id的文档]]></content>
+      <categories>
+        <category>elasticsearch6</category>
+      </categories>
+      <tags>
+        <tag>elasticsearch6</tag>
+        <tag>query</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Hello World]]></title>
     <url>%2F2018%2F11%2F12%2Fhello-world%2F</url>
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new " My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
