@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://removeif.github.io/about/index.html</loc>
+    
+    <lastmod>2018-11-14T15:10:56.206Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://removeif.github.io/categories/index.html</loc>
+    
+    <lastmod>2018-11-14T15:10:56.203Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://removeif.github.io/2018/11/13/Immutable-Object-%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1-%E6%A8%A1%E5%BC%8F/</loc>
     
     <lastmod>2018-11-14T15:08:41.139Z</lastmod>
@@ -33,20 +47,6 @@
     <loc>https://removeif.github.io/2018/11/11/leetcode-1-Two-Sum/</loc>
     
     <lastmod>2018-11-12T08:26:06.028Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://removeif.github.io/about/index.html</loc>
-    
-    <lastmod>2018-11-11T15:17:36.400Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://removeif.github.io/categories/index.html</loc>
-    
-    <lastmod>2018-11-11T02:26:21.455Z</lastmod>
     
   </url>
   
