@@ -88,7 +88,7 @@
 <meta property="og:site_name" content="removeIf">
 <meta property="og:description" content="多线程下，一个对象会被多个线程共享，存在多线程并发地修改对象的属性，需要做些同步访问控制，如显示锁，CAS操作，会带来额外的开销和问题，如上下文切换、等待时间、ABA问题。Immutable Object模式意图通过使用对外可见的状态不可变的对象，使得天生具有线程安全性。  车辆管理系统状态可变的位置信息模型123456789101112131415161718192021public clas">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-14T15:06:26.440Z">
+<meta property="og:updated_time" content="2018-11-14T15:08:41.139Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Immutable Object(不可变对象)模式">
 <meta name="twitter:description" content="多线程下，一个对象会被多个线程共享，存在多线程并发地修改对象的属性，需要做些同步访问控制，如显示锁，CAS操作，会带来额外的开销和问题，如上下文切换、等待时间、ABA问题。Immutable Object模式意图通过使用对外可见的状态不可变的对象，使得天生具有线程安全性。  车辆管理系统状态可变的位置信息模型123456789101112131415161718192021public clas">
@@ -378,7 +378,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.4k
+                  1.5k
                 </span>
               
 
@@ -394,7 +394,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  5
+                  6
                 </span>
               
             </div>
@@ -444,6 +444,7 @@
 <li>同时对一组相关的数据进行写操作，因此需要保证原子性</li>
 <li>使用某个对象作为安全的HashMap的可以<strong>key</strong>。由于final不可变对象不变所有<strong>hashcode</strong>不变，所以适合作为HashMap 的<strong>key</strong>。</li>
 </ul>
+<p>###参考文献<br><strong>java多线程编程实战指南（设计模式篇）黄文海/著</strong></p>
 
       
     </div>
@@ -708,7 +709,7 @@
 </span>
 </div>
 <div class="theme-info">
-     <span class="post-count"> | Total Words:2.2k</span>
+     <span class="post-count"> | Total Words:2.3k</span>
 </div>
 <br>
   <div class="powered-by">Powered by <a rel="external nofollow" class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
