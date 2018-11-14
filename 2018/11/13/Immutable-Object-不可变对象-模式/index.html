@@ -88,7 +88,7 @@
 <meta property="og:site_name" content="removeIf">
 <meta property="og:description" content="多线程下，一个对象会被多个线程共享，存在多线程并发地修改对象的属性，需要做些同步访问控制，如显示锁，CAS操作，会带来额外的开销和问题，如上下文切换、等待时间、ABA问题。Immutable Object模式意图通过使用对外可见的状态不可变的对象，使得天生具有线程安全性。  车辆管理系统状态可变的位置信息模型123456789101112131415161718192021public clas">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-14T15:08:41.139Z">
+<meta property="og:updated_time" content="2018-11-14T15:14:59.778Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Immutable Object(不可变对象)模式">
 <meta name="twitter:description" content="多线程下，一个对象会被多个线程共享，存在多线程并发地修改对象的属性，需要做些同步访问控制，如显示锁，CAS操作，会带来额外的开销和问题，如上下文切换、等待时间、ABA问题。Immutable Object模式意图通过使用对外可见的状态不可变的对象，使得天生具有线程安全性。  车辆管理系统状态可变的位置信息模型123456789101112131415161718192021public clas">
@@ -444,7 +444,7 @@
 <li>同时对一组相关的数据进行写操作，因此需要保证原子性</li>
 <li>使用某个对象作为安全的HashMap的可以<strong>key</strong>。由于final不可变对象不变所有<strong>hashcode</strong>不变，所以适合作为HashMap 的<strong>key</strong>。</li>
 </ul>
-<p>###参考文献<br><strong>java多线程编程实战指南（设计模式篇）黄文海/著</strong></p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><strong>java多线程编程实战指南（设计模式篇）黄文海/著</strong></p>
 
       
     </div>
@@ -672,7 +672,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#车辆管理系统"><span class="nav-number">1.</span> <span class="nav-text">车辆管理系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#状态可变的位置信息模型"><span class="nav-number">1.1.</span> <span class="nav-text">状态可变的位置信息模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进：状态不可变的位置信息模型"><span class="nav-number">1.2.</span> <span class="nav-text">改进：状态不可变的位置信息模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新不可变对象的位置信息"><span class="nav-number">1.3.</span> <span class="nav-text">更新不可变对象的位置信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例："><span class="nav-number">1.4.</span> <span class="nav-text">实例：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#彩信中心路由规则管理器"><span class="nav-number">1.4.1.</span> <span class="nav-text">彩信中心路由规则管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#彩信中心信息"><span class="nav-number">1.4.2.</span> <span class="nav-text">彩信中心信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#彩信中心、路由表的变更"><span class="nav-number">1.4.3.</span> <span class="nav-text">彩信中心、路由表的变更</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.4.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#车辆管理系统"><span class="nav-number">1.</span> <span class="nav-text">车辆管理系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#状态可变的位置信息模型"><span class="nav-number">1.1.</span> <span class="nav-text">状态可变的位置信息模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进：状态不可变的位置信息模型"><span class="nav-number">1.2.</span> <span class="nav-text">改进：状态不可变的位置信息模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新不可变对象的位置信息"><span class="nav-number">1.3.</span> <span class="nav-text">更新不可变对象的位置信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例："><span class="nav-number">1.4.</span> <span class="nav-text">实例：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#彩信中心路由规则管理器"><span class="nav-number">1.4.1.</span> <span class="nav-text">彩信中心路由规则管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#彩信中心信息"><span class="nav-number">1.4.2.</span> <span class="nav-text">彩信中心信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#彩信中心、路由表的变更"><span class="nav-number">1.4.3.</span> <span class="nav-text">彩信中心、路由表的变更</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.4.4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">1.4.5.</span> <span class="nav-text">参考文献</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
