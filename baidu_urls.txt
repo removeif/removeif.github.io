@@ -1,0 +1,1 @@
+https://removeif.github.io/2018/11/15/Java设计模式之观察者模式/
