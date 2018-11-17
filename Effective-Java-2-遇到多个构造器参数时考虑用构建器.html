@@ -69,7 +69,7 @@
 
 
 
-  <meta name="keywords" content="java,arithmetic,">
+  <meta name="keywords" content="java">
 
 
 
@@ -80,18 +80,18 @@
 
 
 
-<meta name="description" content="description Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not us">
-<meta name="keywords" content="java,arithmetic">
+<meta name="description" content="遇到多个构造器参数时考虑用构建器静态工厂和构造器有个共同的局限性：它们都不能很好地扩展到大量的可选参数。当有超过20个可选域是必须的时候，对于此种情况，程序员一般考虑采用重叠构造器模式。这种模式下，提供第一个只有必要参数的构造器，第二个构造器有一个可选参数，第三个有两个可选参数，以此类推，最后一个构造器包含所有的参数。 重叠构造器模式 含有四个可选域的情况  1234567891011121314">
+<meta name="keywords" content="java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode-1-Two Sum">
-<meta property="og:url" content="https://removeif.github.io/leetcode-1-Two-Sum.html">
+<meta property="og:title" content="Effective-Java-2-遇到多个构造器参数时考虑用构建器">
+<meta property="og:url" content="https://removeif.github.io/Effective-Java-2-遇到多个构造器参数时考虑用构建器.html">
 <meta property="og:site_name" content="removeIf">
-<meta property="og:description" content="description Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not us">
+<meta property="og:description" content="遇到多个构造器参数时考虑用构建器静态工厂和构造器有个共同的局限性：它们都不能很好地扩展到大量的可选参数。当有超过20个可选域是必须的时候，对于此种情况，程序员一般考虑采用重叠构造器模式。这种模式下，提供第一个只有必要参数的构造器，第二个构造器有一个可选参数，第三个有两个可选参数，以此类推，最后一个构造器包含所有的参数。 重叠构造器模式 含有四个可选域的情况  1234567891011121314">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-12T08:26:06.028Z">
+<meta property="og:updated_time" content="2018-11-17T14:16:36.982Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="leetcode-1-Two Sum">
-<meta name="twitter:description" content="description Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not us">
+<meta name="twitter:title" content="Effective-Java-2-遇到多个构造器参数时考虑用构建器">
+<meta name="twitter:description" content="遇到多个构造器参数时考虑用构建器静态工厂和构造器有个共同的局限性：它们都不能很好地扩展到大量的可选参数。当有超过20个可选域是必须的时候，对于此种情况，程序员一般考虑采用重叠构造器模式。这种模式下，提供第一个只有必要参数的构造器，第二个构造器有一个可选参数，第三个有两个可选参数，以此类推，最后一个构造器包含所有的参数。 重叠构造器模式 含有四个可选域的情况  1234567891011121314">
 
 
 
@@ -121,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://removeif.github.io/leetcode-1-Two-Sum.html">
+  <link rel="canonical" href="https://removeif.github.io/Effective-Java-2-遇到多个构造器参数时考虑用构建器.html">
 
 
 
 
 
-  <title>leetcode-1-Two Sum | removeIf</title>
+  <title>Effective-Java-2-遇到多个构造器参数时考虑用构建器 | removeIf</title>
   
 
 
@@ -285,7 +285,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://removeif.github.io/leetcode-1-Two-Sum.html">
+    <link itemprop="mainEntityOfPage" href="https://removeif.github.io/Effective-Java-2-遇到多个构造器参数时考虑用构建器.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Meiyouor">
@@ -302,7 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">leetcode-1-Two Sum</h1>
+          <h1 class="post-title" itemprop="name headline">Effective-Java-2-遇到多个构造器参数时考虑用构建器</h1>
         
 
         <div class="post-meta">
@@ -314,8 +314,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-11T22:26:53+08:00">
-                2018-11-11
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-17T22:14:45+08:00">
+                2018-11-17
               </time>
             
 
@@ -337,8 +337,19 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/Effective-Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Effective-Java</span>
                   </a>
                 </span>
 
@@ -355,8 +366,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/leetcode-1-Two-Sum.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/leetcode-1-Two-Sum.html" itemprop="commentCount"></span>
+                <a href="/Effective-Java-2-遇到多个构造器参数时考虑用构建器.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Effective-Java-2-遇到多个构造器参数时考虑用构建器.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -378,7 +389,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  203
+                  1.5k
                 </span>
               
 
@@ -394,7 +405,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  1
+                  6
                 </span>
               
             </div>
@@ -415,11 +426,31 @@
       
 
       
-        <h1 id="description"><a href="#description" class="headerlink" title="description"></a>description</h1><blockquote>
-<p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.<br> You may assume that each input would have exactly one solution, and you may not use the same element twice.<br>     Example:<br>     Given nums = [2, 7, 11, 15], target = 9,<br>     Because nums[0] + nums[1] = 2 + 7 = 9,<br>     return [0, 1].</p>
+        <h1 id="遇到多个构造器参数时考虑用构建器"><a href="#遇到多个构造器参数时考虑用构建器" class="headerlink" title="遇到多个构造器参数时考虑用构建器"></a>遇到多个构造器参数时考虑用构建器</h1><p>静态工厂和构造器有个共同的局限性：它们都不能很好地扩展到大量的可选参数。当有超过20个可选域是必须的时候，对于此种情况，程序员一般考虑采用<strong>重叠构造器模式</strong>。这种模式下，提供第一个只有必要参数的构造器，第二个构造器有一个可选参数，第三个有两个可选参数，以此类推，最后一个构造器包含所有的参数。</p>
+<h2 id="重叠构造器模式"><a href="#重叠构造器模式" class="headerlink" title="重叠构造器模式"></a>重叠构造器模式</h2><blockquote>
+<p>含有四个可选域的情况</p>
 </blockquote>
-<h1 id="common-method"><a href="#common-method" class="headerlink" title="common method"></a>common method</h1> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] ret = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i&lt;nums.length-<span class="number">1</span> ;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i+<span class="number">1</span> ;j &lt; nums.length ;j++ )&#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[i] + nums[j] == target)&#123;</span><br><span class="line">                    ret = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i, j&#125;;</span><br><span class="line">                    <span class="keyword">return</span> ret;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="best-method"><a href="#best-method" class="headerlink" title="best method"></a>best method</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span> len=nums.length;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; map=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(nums[<span class="number">0</span>], <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;len;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(map.containsKey(target-nums[i]))&#123;</span><br><span class="line">                <span class="keyword">int</span>[] returnArray=&#123;map.get(target-nums[i]),i&#125;;</span><br><span class="line">                <span class="keyword">return</span> returnArray;</span><br><span class="line">            &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">                map.put(nums[i], i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] returnArray=&#123;<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">return</span> returnArray;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NutritionFacts</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> servingSize; <span class="comment">// required</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> servings;   <span class="comment">// required</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> calories;  <span class="comment">// optional</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> fat;      <span class="comment">// optional</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> sodium;   <span class="comment">// optional</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> carbohydrate; <span class="comment">// optional</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NutritionFacts</span><span class="params">(<span class="keyword">int</span> servingSize, <span class="keyword">int</span> servings)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(servingSize, servings, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NutritionFacts</span><span class="params">(<span class="keyword">int</span> servingSize, <span class="keyword">int</span> servings, <span class="keyword">int</span> calories)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(servingSize, servings, calories, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NutritionFacts</span><span class="params">(<span class="keyword">int</span> servingSize, <span class="keyword">int</span> servings, <span class="keyword">int</span> calories, <span class="keyword">int</span> fat)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(servingSize, servings, calories, fat, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NutritionFacts</span><span class="params">(<span class="keyword">int</span> servingSize, <span class="keyword">int</span> servings, <span class="keyword">int</span> calories, <span class="keyword">int</span> fat, <span class="keyword">int</span> sodium)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(servingSize, servings, calories, fat, sodium, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NutritionFacts</span><span class="params">(<span class="keyword">int</span> servingSize, <span class="keyword">int</span> servings, <span class="keyword">int</span> calories, <span class="keyword">int</span> fat, <span class="keyword">int</span> sodium, <span class="keyword">int</span> carbohydrate)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(servingSize, servings, calories, fat, sodium, carbohydrate);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当你想创建实例的时候，就利用参数列表最短的构造器。</p>
+<p><strong>重叠构造器模式可行，但是当有许多参数的时候，客户端代码会很难编写，并且较难阅读，使用的时候容易混淆部分参数容易出错</strong></p>
+<h2 id="JavaBeans模式"><a href="#JavaBeans模式" class="headerlink" title="JavaBeans模式"></a>JavaBeans模式</h2><p>这种模式调用一个无参构造器来创建对象，然后用<code>setter</code>方法来设置必要的参数以及相关参数的值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NutritionFacts</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> servingSize = -<span class="number">1</span>; <span class="comment">// required</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> servings = -<span class="number">1</span>;   <span class="comment">// required</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> calories = <span class="number">0</span>;  <span class="comment">// optional</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> fat = <span class="number">0</span>;      <span class="comment">// optional</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> sodium = <span class="number">0</span>;   <span class="comment">// optional</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> carbohydrate = <span class="number">0</span>; <span class="comment">// optional</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NutritionFacts</span><span class="params">()</span></span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setServingSize</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123; servingSize = val; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setServings</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123; servings = val; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCalories</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123; calories = val; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFat</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123; fat = val; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSodium</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123; sodium = val; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCarbohydrate</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123; carbohydrate = val; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方式弥补了重叠构造器模式的不足，创建实例容易，阅读代码也容易。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NutritionFacts cocaCola = <span class="keyword">new</span>  NutritionFacts();</span><br><span class="line">cocaCola.setServingSize(<span class="number">10</span>);</span><br><span class="line">cocaCola.setServings(<span class="number">10</span>);</span><br><span class="line">cocaCola.setCalories(<span class="number">10</span>);</span><br><span class="line">cocaCola.setFat(<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>遗憾的是自身有严重的缺陷。构造过程被分到了几个调用中，构造过程中JavaBean可能处于不一致状态的对象，将会导致失败。类无法仅仅通难过校验构造器参数的有效性来保证一致性，Javabeans模式阻止了把类做成不可变的可能，需要付出额外的努力来确保它的线程安全。</strong></p>
+<h2 id="Builder模式"><a href="#Builder模式" class="headerlink" title="Builder模式"></a>Builder模式</h2><p>既能保证像重叠构造器模式那样的安全性，也能保证像JavaBeans模式那样的可读性。</p>
+<p>不直接生成想要的对象，而是让客户端利用所有必要的参数调用构造器（或静态工厂），得到一个builder对象。然后客户端在builder对象上调用类似于setter的方法，来设置每个相关的可选参数。最后，客户端调用无参的build方法来生成不可变的对象，这个builder是它构建的类的静态成员类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NutritionFacts</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> servingSize; <span class="comment">// required</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> servings;   <span class="comment">// required</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> calories;  <span class="comment">// optional</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> fat;      <span class="comment">// optional</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> sodium;   <span class="comment">// optional</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> carbohydrate; <span class="comment">// optional</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> servingSize; <span class="comment">// required</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> servings;   <span class="comment">// required</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> calories = <span class="number">0</span>;  <span class="comment">// optional</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> fat = <span class="number">0</span>;      <span class="comment">// optional</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> sodium = <span class="number">0</span>;   <span class="comment">// optional</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> carbohydrate = <span class="number">0</span>; <span class="comment">// optional</span></span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Builder</span><span class="params">(<span class="keyword">int</span> servingSize, <span class="keyword">int</span> servings)</span></span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.servingSize = servingSize;</span><br><span class="line">            <span class="keyword">this</span>.servings =servings;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">calories</span><span class="params">(<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">            calories = val;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">fat</span><span class="params">(<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">            fat = val;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">sodium</span><span class="params">(<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">            sodium = val;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">carbohydrate</span><span class="params">(<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">            carbohydrate = val;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">public</span> NutritionFacts <span class="title">build</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> NutritionFacts(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">NutritionFacts</span><span class="params">(Builder builder)</span></span>&#123;</span><br><span class="line">        servingSize = builder.servingSize; </span><br><span class="line">        servings = builder.servingSize;   </span><br><span class="line">        calories = builder.servingSize;  </span><br><span class="line">        fat = builder.servingSize;      </span><br><span class="line">        sodium = builder.servingSize;   </span><br><span class="line">        carbohydrate = builder.servingSize; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意<code>NutritionFacts</code>是不可变的，所有的默认参数值都单独放一个地方。builder的setter方法返回builder本身，以便可以把调用用调用链连接起来。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NutritionFacts cocaCola = <span class="keyword">new</span> NutritionFacts.Builder(<span class="number">200</span>,<span class="number">20</span>).calories(<span class="number">10</span>).fat(<span class="number">15</span>).sodium(<span class="number">10</span>).build();</span><br></pre></td></tr></table></figure>
+<p>builder像个构造器一样，可以对其参数强加约束条件。build方法可以检验这些约束条件，将参数从builder拷贝到对象中之后，并在对象域而不是builder域中对他们进行校验，这一点很重要。如果违反了任何约束条件，build方法就应该抛出<strong>IllegalStateException</strong>,显示违背了哪个约束条件。</p>
+<p>对多个参数强加约束条件的另一个方法，用多个setter方法对某个约束条件必须持有的所有参数进行检查。如果该约束条件没有得到满足，setter方法就抛出<strong>IllegalStateException</strong>，不用等到在build的时候。</p>
+<p>设置了参数的builder生成了一个很好的抽象工厂，客户端可以将这样一个builder传给方法，使该方法能够为客户端创建一个或者多个对象。要使用这种用法，需要有个类型来表示builder，只要一个泛型就能满足所有的builder，无论他们在构建哪种类型的对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Builder</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">build</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以声明NutritionFacts.Builder类来实现<code>Builder&lt;NutritionFacts&gt;</code> 。</p>
+<p>带有Builder实例的方法通常利用有限制的通配符类型来约束构建器的类型参数。eg.下面就是构建每个节点的方法，它利用一个客户端提供的Builder实例来构建树：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Tree <span class="title">buildTree</span><span class="params">(Builder&lt;? extends Node&gt; nodeBuilder)</span></span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>**Builder模式还比重叠构造器模式更加冗长，因此它只有在很难参数的时候才使用，比如4个或者更多。但是你要记住，将来可能添加参数。简而言之，如果类的构造器或者静态工厂中具有多个参数，设计这种类时，Builder模式就是种不错的选择，特别是大多参数都是可选的时候。代码易于阅读编写，构建器也比JavaBeans更加安全。</p>
 
       
     </div>
@@ -437,9 +468,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+            <a href="/tags/Effective-Java/" rel="tag"><i class="fa fa-tag"></i> Effective-Java</a>
           
-            <a href="/tags/arithmetic/" rel="tag"><i class="fa fa-tag"></i> arithmetic</a>
+            <a href="/tags/构建起/" rel="tag"><i class="fa fa-tag"></i> 构建起</a>
+          
+            <a href="/tags/builder模式/" rel="tag"><i class="fa fa-tag"></i> builder模式</a>
+          
+            <a href="/tags/读书笔记/" rel="tag"><i class="fa fa-tag"></i> 读书笔记</a>
           
         </div>
       
@@ -452,8 +487,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Hello-blog.html" rel="next" title="Hello blog">
-                <i class="fa fa-chevron-left"></i> Hello blog
+              <a href="/Java设计模式之单例模式.html" rel="next" title="Java设计模式之单例模式">
+                <i class="fa fa-chevron-left"></i> Java设计模式之单例模式
               </a>
             
           </div>
@@ -461,10 +496,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/hello-world.html" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -651,7 +682,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#description"><span class="nav-number">1.</span> <span class="nav-text">description</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#common-method"><span class="nav-number">2.</span> <span class="nav-text">common method</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#best-method"><span class="nav-number">3.</span> <span class="nav-text">best method</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#遇到多个构造器参数时考虑用构建器"><span class="nav-number">1.</span> <span class="nav-text">遇到多个构造器参数时考虑用构建器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#重叠构造器模式"><span class="nav-number">1.1.</span> <span class="nav-text">重叠构造器模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaBeans模式"><span class="nav-number">1.2.</span> <span class="nav-text">JavaBeans模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Builder模式"><span class="nav-number">1.3.</span> <span class="nav-text">Builder模式</span></a></li></ol></li></ol></div>
             
 
           </div>
