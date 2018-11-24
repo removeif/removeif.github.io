@@ -1,1 +1,1 @@
-https://removeif.github.io/Effective-Java-2-遇到多个构造器参数时考虑用构建器.html
+https://removeif.github.io/Java设计模式之工厂模式.html
