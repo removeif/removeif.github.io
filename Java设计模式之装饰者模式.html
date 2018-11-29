@@ -69,7 +69,7 @@
 
 
 
-  <meta name="keywords" content="life,think,">
+  <meta name="keywords" content="java">
 
 
 
@@ -80,18 +80,22 @@
 
 
 
-<meta name="description" content="this is a first blog.It&amp;#39;s a very  exciting time  make a plan execute have a harvest come on  12345public void start()&amp;#123;  while(true)&amp;#123;      System.out.println(&quot;struggle！&quot;);  &amp;#125;&amp;#125;">
-<meta name="keywords" content="life,think">
+<meta name="description" content="问题引入咖啡店的类设计：  一个饮料基类，各种饮料类继承这个基类，并且计算各自的价钱。 饮料中需要加入各种调料，考虑在基类中加入一些布尔值变量代表是否加入各种调料，基类的cost()中的计算各种调料的价钱，子类覆盖cost()，并且在其中调用超类的cost()，加上特定饮料的价钱，计算出子类特定饮料的价钱。  缺点：类数量爆炸、基类加入的新功能并不适用于所有的子类、调料价钱的改变、新调料的出现都会">
+<meta name="keywords" content="java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello blog">
-<meta property="og:url" content="https://removeif.github.io/Hello-blog.html">
+<meta property="og:title" content="Java设计模式之装饰者模式">
+<meta property="og:url" content="https://removeif.github.io/Java设计模式之装饰者模式.html">
 <meta property="og:site_name" content="removeIf">
-<meta property="og:description" content="this is a first blog.It&amp;#39;s a very  exciting time  make a plan execute have a harvest come on  12345public void start()&amp;#123;  while(true)&amp;#123;      System.out.println(&quot;struggle！&quot;);  &amp;#125;&amp;#125;">
+<meta property="og:description" content="问题引入咖啡店的类设计：  一个饮料基类，各种饮料类继承这个基类，并且计算各自的价钱。 饮料中需要加入各种调料，考虑在基类中加入一些布尔值变量代表是否加入各种调料，基类的cost()中的计算各种调料的价钱，子类覆盖cost()，并且在其中调用超类的cost()，加上特定饮料的价钱，计算出子类特定饮料的价钱。  缺点：类数量爆炸、基类加入的新功能并不适用于所有的子类、调料价钱的改变、新调料的出现都会">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-12T08:26:06.034Z">
+<meta property="og:image" content="https://wx1.sinaimg.cn/large/b5d1b710gy1fxp0kt6tf9j212w0nbam4.jpg">
+<meta property="og:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1fxp0tbdaqaj210m05amyy.jpg">
+<meta property="og:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1fxp0vn140uj212w0j0qea.jpg">
+<meta property="og:updated_time" content="2018-11-29T13:35:13.170Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello blog">
-<meta name="twitter:description" content="this is a first blog.It&amp;#39;s a very  exciting time  make a plan execute have a harvest come on  12345public void start()&amp;#123;  while(true)&amp;#123;      System.out.println(&quot;struggle！&quot;);  &amp;#125;&amp;#125;">
+<meta name="twitter:title" content="Java设计模式之装饰者模式">
+<meta name="twitter:description" content="问题引入咖啡店的类设计：  一个饮料基类，各种饮料类继承这个基类，并且计算各自的价钱。 饮料中需要加入各种调料，考虑在基类中加入一些布尔值变量代表是否加入各种调料，基类的cost()中的计算各种调料的价钱，子类覆盖cost()，并且在其中调用超类的cost()，加上特定饮料的价钱，计算出子类特定饮料的价钱。  缺点：类数量爆炸、基类加入的新功能并不适用于所有的子类、调料价钱的改变、新调料的出现都会">
+<meta name="twitter:image" content="https://wx1.sinaimg.cn/large/b5d1b710gy1fxp0kt6tf9j212w0nbam4.jpg">
 
 
 
@@ -121,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://removeif.github.io/Hello-blog.html">
+  <link rel="canonical" href="https://removeif.github.io/Java设计模式之装饰者模式.html">
 
 
 
 
 
-  <title>Hello blog | removeIf</title>
+  <title>Java设计模式之装饰者模式 | removeIf</title>
   
 
 
@@ -285,7 +289,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://removeif.github.io/Hello-blog.html">
+    <link itemprop="mainEntityOfPage" href="https://removeif.github.io/Java设计模式之装饰者模式.html">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Meiyouor">
@@ -302,7 +306,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello blog</h1>
+          <h1 class="post-title" itemprop="name headline">Java设计模式之装饰者模式</h1>
         
 
         <div class="post-meta">
@@ -314,8 +318,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-11T08:44:10+08:00">
-                2018-11-11
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-29T21:33:46+08:00">
+                2018-11-29
               </time>
             
 
@@ -337,8 +341,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/books/" itemprop="url" rel="index">
-                    <span itemprop="name">books</span>
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
                   </a>
                 </span>
 
@@ -355,8 +359,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/Hello-blog.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/Hello-blog.html" itemprop="commentCount"></span>
+                <a href="/Java设计模式之装饰者模式.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Java设计模式之装饰者模式.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -378,7 +382,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  34
+                  1.5k
                 </span>
               
 
@@ -394,7 +398,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  1
+                  6
                 </span>
               
             </div>
@@ -415,14 +419,48 @@
       
 
       
-        <h3 id="this-is-a-first-blog"><a href="#this-is-a-first-blog" class="headerlink" title="this is a first blog."></a>this is a first blog.</h3><p><code>It&#39;s a very  exciting time</code></p>
-<ul>
-<li>make a plan</li>
-<li>execute</li>
-<li>have a harvest</li>
-<li>come on</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">      System.out.println(<span class="string">"struggle！"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><p>咖啡店的类设计：</p>
+<ol>
+<li>一个饮料基类，各种饮料类继承这个基类，并且计算各自的价钱。</li>
+<li>饮料中需要加入各种调料，考虑在基类中加入一些布尔值变量代表是否加入各种调料，基类的cost()中的计算各种调料的价钱，子类覆盖cost()，并且在其中调用超类的cost()，加上特定饮料的价钱，计算出子类特定饮料的价钱。</li>
+</ol>
+<p>缺点：类数量爆炸、基类加入的新功能并不适用于所有的子类、调料价钱的改变、新调料的出现都会要求改变现有代码；有的子类并不适合某些调料等情况……</p>
+<h1 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h1><p>　　<strong>类应该对扩展开放，对修改关闭。</strong></p>
+<blockquote>
+<p>我们的目标是允许类容易扩展，在不修改现有代码的情况下，就可搭配新的行为。</p>
+<p>如能实现这样的目标，有什么好处呢？这样的设计具有弹性可以应对改变，可以接受新的功能来应对改变的需求。</p>
+<p>要让OO设计同时具备开放性和关闭性，不是一件容易的事，通常来说，没有必要把设计的每个部分都这么设计。</p>
+<p>遵循开放-关闭原则，通常会引入新的抽象层次，增加代码的复杂度。</p>
+<p>我们需要把注意力集中在设计中最有可能改变的地方，然后应用开放-关闭原则。</p>
+</blockquote>
+<h1 id="用装饰者模式解决问题"><a href="#用装饰者模式解决问题" class="headerlink" title="用装饰者模式解决问题"></a>用装饰者模式解决问题</h1><p>解决咖啡店饮料问题的方法：</p>
+<p>　　以饮料为主体，然后在运行时以调料来“装饰”饮料。</p>
+<p>　　比如，顾客想要摩卡（Mocha）和奶泡（Whip）深焙咖啡（DarkRoast）：</p>
+<p>　　DarkRoast继承自Beverage，有一个cost()方法。</p>
+<p>　　第一步，以DarkRoast对象开始；</p>
+<p>　　第二步，顾客想要摩卡，所以建立一个Mocha装饰者对象，并用它将DarkRoast对象包装（wrap）起来；</p>
+<p>　　第三步，顾客想要奶泡，所以建立一个Whip装饰者对象，并用它将Mocha对象包起来；（Mocha和Whip也继承自Beverage，有一个cost()方法）；</p>
+<p>　　最后，为顾客算钱，通过调用最外圈装饰者（Whip）的cost()就可以。Whip()的cost()会先委托它装饰的对象（Mocha）计算出价钱，然后在加上奶泡的价钱。Mocha的cost()也是类似。</p>
+<h1 id="装饰者模式的特点"><a href="#装饰者模式的特点" class="headerlink" title="装饰者模式的特点"></a>装饰者模式的特点</h1><p>　　装饰者和被装饰对象<strong>有相同的超类型</strong>。</p>
+<p>　　可以用一个或多个装饰者包装一个对象。</p>
+<p>　　因为装饰者和被装饰者具有相同的类型，所以任何需要原始对象的场合，可以用装饰过的对象代替。</p>
+<p>　　<strong>装饰者可以在所委托被装饰者的行为之前与/或之后，加上自己的行为，以达到特定的目的。</strong></p>
+<p>　　对象可以在任何时候被装饰，所以可以在运行时动态地、不限量地用你喜欢的装饰者来装饰对象。</p>
+<h1 id="装饰者模式的定义"><a href="#装饰者模式的定义" class="headerlink" title="装饰者模式的定义"></a>装饰者模式的定义</h1><p><strong>装饰者模式动态地将责任附加到对象上。若要扩展功能，装饰者提供了比继承更有弹性的替代方案。</strong></p>
+<h1 id="装饰者模式的实现"><a href="#装饰者模式的实现" class="headerlink" title="装饰者模式的实现"></a>装饰者模式的实现</h1><h2 id="实现类图"><a href="#实现类图" class="headerlink" title="实现类图"></a>实现类图</h2><p><img src="https://wx1.sinaimg.cn/large/b5d1b710gy1fxp0kt6tf9j212w0nbam4.jpg" alt=""></p>
+<p>装饰者和被装饰者具有共同的超类，利用继承达到“<strong>类型匹配</strong>”，而不是利用继承获得“行为”；将装饰者和被装饰者组合时，加入新的行为。</p>
+<h2 id="实现Java代码"><a href="#实现Java代码" class="headerlink" title="实现Java代码"></a>实现Java代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 抽象饮料类(抽象组件)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Beverage</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    String description = <span class="string">"Unkown Beverage"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> description;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 抽象价格计算方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 浓缩饮料</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Espresso</span> <span class="keyword">extends</span> <span class="title">Beverage</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Espresso</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        description = <span class="string">"Espresso"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1.99</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 又一饮料</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HouseBlend</span> <span class="keyword">extends</span> <span class="title">Beverage</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HouseBlend</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        description = <span class="string">"House Blend"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> .<span class="number">20</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 抽象装饰者类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">CondimentDecorator</span> <span class="keyword">extends</span> <span class="title">Beverage</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 为了后面的调料都能够获取到自己调料的描述</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getDescription</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@desc</span> Mocha调料(具体装饰者)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mocha</span> <span class="keyword">extends</span> <span class="title">CondimentDecorator</span> </span>&#123;</span><br><span class="line">    Beverage beverage;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Mocha</span><span class="params">(Beverage beverage)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.beverage = beverage;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> beverage.getDescription() + <span class="string">",Mocha"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> .<span class="number">20</span> + beverage.cost();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@desc</span> Soy调料(具体装饰者)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Soy</span> <span class="keyword">extends</span> <span class="title">CondimentDecorator</span> </span>&#123;</span><br><span class="line">    Beverage beverage;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Soy</span><span class="params">(Beverage beverage)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.beverage = beverage;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> beverage.getDescription() + <span class="string">",Soy"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> .<span class="number">60</span> + beverage.cost();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@desc</span> Whip调料(具体装饰者)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Whip</span> <span class="keyword">extends</span> <span class="title">CondimentDecorator</span> </span>&#123;</span><br><span class="line">    Beverage beverage;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Whip</span><span class="params">(Beverage beverage)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.beverage = beverage;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> beverage.getDescription() + <span class="string">",Whip"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> .<span class="number">40</span> + beverage.cost();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@desc</span> 测试装饰者模式</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建一种调料</span></span><br><span class="line">        Beverage beverage = <span class="keyword">new</span> Espresso();</span><br><span class="line">        <span class="comment">// 描述和价格</span></span><br><span class="line">        System.out.println(beverage.getDescription() + <span class="string">" $"</span> + beverage.cost());</span><br><span class="line">        Beverage beverage1 = <span class="keyword">new</span> HouseBlend();</span><br><span class="line"></span><br><span class="line">        beverage1 = <span class="keyword">new</span> Mocha(beverage1);</span><br><span class="line">        beverage1 = <span class="keyword">new</span> Whip(beverage1);</span><br><span class="line">        beverage1 = <span class="keyword">new</span> Soy(beverage1);</span><br><span class="line">        System.out.println(beverage1.getDescription() + <span class="string">" $"</span> + beverage1.cost());</span><br><span class="line">        Beverage beverage2 = <span class="keyword">new</span> Espresso();</span><br><span class="line"></span><br><span class="line">        beverage2 = <span class="keyword">new</span> Mocha(beverage2);</span><br><span class="line">        beverage2 = <span class="keyword">new</span> Whip(beverage2);</span><br><span class="line">        beverage2 = <span class="keyword">new</span> Soy(beverage2);</span><br><span class="line">        beverage2 = <span class="keyword">new</span> Mocha(beverage2);</span><br><span class="line">        System.out.println(beverage2.getDescription() + <span class="string">" $"</span> + beverage2.cost());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><p><img src="https://wx2.sinaimg.cn/large/b5d1b710gy1fxp0tbdaqaj210m05amyy.jpg" alt=""></p>
+<p>装饰者和被装饰者具有共同的超类，利用继承达到“<strong>类型匹配</strong>”，而不是利用继承获得“行为”；将装饰者和被装饰者组合时，加入新的行为。</p>
+<p>　　解决本文中饮料的具体问题时，图中Component即为Beverage（可以是抽象类或者接口），而ConcreteComponent为各种饮料，Decorator（抽象装饰者）为调料的抽象类或接口，ConcreteDecoratorX则为各种具体的调料。</p>
+<p>　　因为使用对象组合，可以把饮料和调料更有弹性地加以混合与匹配。</p>
+<p>　　代码外部细节：</p>
+<p>　　代码中实现的时候，通过构造函数将被装饰者传入装饰者中即可，如最后的调用形式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Beverage beverage = <span class="keyword">new</span> DarkRoast();</span><br><span class="line">beverage = <span class="keyword">new</span> Mocha(beverage);</span><br><span class="line">beverage = <span class="keyword">new</span> Whip(beverage);</span><br></pre></td></tr></table></figure>
+<p>即完成了两层包装，此时再调用beverage的cost()函数即可得到总价。</p>
+<h1 id="java-io包内的装饰者模式"><a href="#java-io包内的装饰者模式" class="headerlink" title="java.io包内的装饰者模式"></a>java.io包内的装饰者模式</h1><p><img src="https://wx2.sinaimg.cn/large/b5d1b710gy1fxp0vn140uj212w0j0qea.jpg" alt=""></p>
+<p>装饰者模式的缺点：在设计中加入大量的小类，如果过度使用，会让程序变得复杂。</p>
+<p>参考：<a href="http://www.cnblogs.com/mengdd/archive/2013/01/03/2843439.html" target="_blank" rel="noopener">http://www.cnblogs.com/mengdd/archive/2013/01/03/2843439.html</a></p>
 
       
     </div>
@@ -440,9 +478,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/life/" rel="tag"><i class="fa fa-tag"></i> life</a>
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
           
-            <a href="/tags/think/" rel="tag"><i class="fa fa-tag"></i> think</a>
+            <a href="/tags/设计模式/" rel="tag"><i class="fa fa-tag"></i> 设计模式</a>
+          
+            <a href="/tags/装饰者模式/" rel="tag"><i class="fa fa-tag"></i> 装饰者模式</a>
           
         </div>
       
@@ -455,15 +495,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/Java设计模式之工厂模式.html" rel="next" title="Java设计模式之工厂模式">
+                <i class="fa fa-chevron-left"></i> Java设计模式之工厂模式
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/leetcode-1-Two-Sum.html" rel="prev" title="leetcode-1-Two Sum">
-                leetcode-1-Two Sum <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -660,7 +700,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#this-is-a-first-blog"><span class="nav-number">1.</span> <span class="nav-text">this is a first blog.</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题引入"><span class="nav-number">1.</span> <span class="nav-text">问题引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计原则"><span class="nav-number">2.</span> <span class="nav-text">设计原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用装饰者模式解决问题"><span class="nav-number">3.</span> <span class="nav-text">用装饰者模式解决问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#装饰者模式的特点"><span class="nav-number">4.</span> <span class="nav-text">装饰者模式的特点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#装饰者模式的定义"><span class="nav-number">5.</span> <span class="nav-text">装饰者模式的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#装饰者模式的实现"><span class="nav-number">6.</span> <span class="nav-text">装饰者模式的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现类图"><span class="nav-number">6.1.</span> <span class="nav-text">实现类图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现Java代码"><span class="nav-number">6.2.</span> <span class="nav-text">实现Java代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试结果"><span class="nav-number">6.3.</span> <span class="nav-text">测试结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#java-io包内的装饰者模式"><span class="nav-number">7.</span> <span class="nav-text">java.io包内的装饰者模式</span></a></li></ol></div>
             
 
           </div>

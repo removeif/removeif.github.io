@@ -1,1 +1,1 @@
-https://removeif.github.io/Java设计模式之工厂模式.html
+https://removeif.github.io/Java设计模式之装饰者模式.html
