@@ -1,1 +1,1 @@
-https://removeif.github.io/支付系统设计-转载.html
+https://removeif.github.io/Java设计模式之适配器模式.html
