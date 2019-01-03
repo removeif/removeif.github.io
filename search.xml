@@ -23,8 +23,8 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>设计模式</tag>
+        <tag>java</tag>
         <tag>java高级</tag>
         <tag>适配器模式</tag>
         <tag>Adapter</tag>
@@ -54,9 +54,9 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>设计模式</tag>
         <tag>装饰者模式</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -67,8 +67,8 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>设计模式</tag>
+        <tag>java</tag>
         <tag>工厂模式</tag>
         <tag>简单工作模式</tag>
         <tag>抽象工厂模式</tag>
@@ -97,8 +97,8 @@
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>设计模式</tag>
+        <tag>java</tag>
         <tag>单例模式</tag>
         <tag>饿汉式</tag>
         <tag>饱汉式</tag>
