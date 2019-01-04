@@ -180,16 +180,16 @@ th {
   padding: 0;
 }
 ::selection {
-  background: #262a30;
-  color: #fff;
+  background: #fff;
+  color: #000;
 }
 body {
   position: relative;
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 14px;
   line-height: 2;
-  color: #555;
-  background: #eee;
+  color: #a19999;
+  background: #222;
 }
 @media (max-width: 767px) {
   body {
@@ -277,7 +277,7 @@ p {
   margin: 0 0 20px 0;
 }
 a {
-  color: #555;
+  color: #a19999;
   text-decoration: none;
   outline: none;
   border-bottom: 1px solid #999;
@@ -306,7 +306,7 @@ hr {
 }
 blockquote {
   padding: 0 15px;
-  color: #666;
+  color: #a19999;
   border-left: 4px solid #ddd;
 }
 blockquote cite::before {
@@ -498,7 +498,7 @@ code {
 code {
   padding: 2px 4px;
   word-wrap: break-word;
-  color: #555;
+  color: #a19999;
   background: #eee;
   border-radius: 3px;
   font-size: 13px;
@@ -921,7 +921,7 @@ pre .javascript .function {
 }
 .post-body .tabs ul.nav-tabs li.tab.active a {
   cursor: default;
-  color: #555;
+  color: #a19999;
 }
 .post-body .tabs .tab-content {
   background-color: #fff;
@@ -940,9 +940,9 @@ pre .javascript .function {
   display: inline-block;
   padding: 0 20px;
   font-size: 14px;
-  color: #555;
+  color: #a19999;
   background: #fff;
-  border: 2px solid #555;
+  border: 2px solid #a19999;
   text-decoration: none;
   border-radius: 2px;
   transition-property: background-color;
@@ -967,7 +967,7 @@ pre .javascript .function {
   display: block;
   width: 22px;
   height: 2px;
-  background: #555;
+  background: #a19999;
   border-radius: 1px;
 }
 .btn-bar+.btn-bar {
@@ -1419,7 +1419,7 @@ pre .javascript .function {
   transition-property: background;
 }
 .posts-collapse .post-header:hover {
-  border-bottom-color: #666;
+  border-bottom-color: #a19999;
 }
 .posts-collapse .post-header:hover::before {
   background: #222;
@@ -1444,7 +1444,7 @@ pre .javascript .function {
   opacity: 0.6;
 }
 .posts-collapse .post-title a {
-  color: #666;
+  color: #a19999;
   border-bottom: none;
 }
 .page-home .post-type-quote .post-header,
@@ -1461,7 +1461,7 @@ pre .javascript .function {
 .posts-expand .post-title-link {
   display: inline-block;
   position: relative;
-  color: #555;
+  color: #a19999;
   border-bottom: none;
   line-height: 1.2;
   vertical-align: top;
@@ -1578,7 +1578,7 @@ pre .javascript .function {
   display: block;
   line-height: 25px;
   font-size: 14px;
-  color: #555;
+  color: #a19999;
   border-bottom: none;
 }
 .post-nav-item a:hover {
@@ -1672,7 +1672,7 @@ pre .javascript .function {
 }
 .sidebar a {
   color: #999;
-  border-bottom-color: #555;
+  border-bottom-color: #a19999;
 }
 .sidebar a:hover {
   color: #eee;
@@ -1822,7 +1822,7 @@ pre .javascript .function {
   vertical-align: middle;
   margin-right: 10px;
   margin-bottom: 10px;
-  border-bottom-color: #555;
+  border-bottom-color: #a19999;
   font-size: 13px;
 }
 .links-of-author a:before {
@@ -1833,7 +1833,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #9c79dd;
+  background: #22c26b;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -1868,7 +1868,7 @@ pre .javascript .function {
   cursor: pointer;
   border-bottom: 1px solid transparent;
   font-size: 14px;
-  color: #555;
+  color: #a19999;
 }
 .sidebar-nav li:hover {
   color: #fc6423;
@@ -1894,7 +1894,7 @@ pre .javascript .function {
 }
 .post-toc-empty {
   font-size: 14px;
-  color: #666;
+  color: #a19999;
 }
 .post-toc-wrap {
   overflow: hidden;
@@ -1917,7 +1917,7 @@ pre .javascript .function {
   transition-timing-function: ease-in-out;
   transition-delay: 0s;
   transition-property: all;
-  color: #666;
+  color: #a19999;
   border-bottom-color: #ccc;
 }
 .post-toc ol a:hover {
@@ -2391,7 +2391,7 @@ pre .javascript .function {
   width: 10px;
   height: 10px;
   opacity: 0.5;
-  background: #555;
+  background: #a19999;
   border: 1px solid #fff;
   border-radius: 50%;
 }
@@ -2617,7 +2617,7 @@ pre .javascript .function {
   overflow: hidden;
   padding: 0;
   width: 240px;
-  background: #fff;
+  background: #222;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);
   border-radius: initial;
 }
@@ -2701,7 +2701,7 @@ pre .javascript .function {
   float: left;
   margin-top: 300px;
   width: 240px;
-  background: #eee;
+  background: #222;
   box-shadow: none;
 }
 @media (min-width: 768px) and (max-width: 991px) {
@@ -2899,8 +2899,8 @@ header.post-header {
 .sidebar-inner {
   box-sizing: border-box;
   width: 240px;
-  color: #555;
-  background: #fff;
+  color: #a19999;
+  background: #222;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12), 0 -1px 0.5px 0 rgba(0,0,0,0.09);
   border-radius: initial;
   opacity: 0;
@@ -2924,7 +2924,7 @@ header.post-header {
   clear: both;
 }
 .sidebar a {
-  color: #555;
+  color: #a19999;
 }
 .sidebar a:hover {
   color: #222;
@@ -3036,7 +3036,7 @@ header.post-header {
 }
 .post-block {
   padding: 40px;
-  background: #fff;
+  background: #222;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);
   border-radius: initial;
 }
@@ -3049,7 +3049,7 @@ header.post-header {
   padding: 40px;
   margin: initial;
   margin-top: 12px;
-  background: #fff;
+  background: #222;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12), 0 -1px 0.5px 0 rgba(0,0,0,0.09);
   border-radius: initial;
 }
@@ -3069,7 +3069,7 @@ header.post-header {
 .pagination {
   margin: 12px 0 0;
   border-top: initial;
-  background: #fff;
+  background: #222;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12), 0 -1px 0.5px 0 rgba(0,0,0,0.09);
   border-radius: initial;
   padding: 10px 0 10px;
@@ -3098,19 +3098,19 @@ header.post-header {
 }
 .post-body h1 {
   font-size: 1.6em;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #222;
 }
 .post-body h2 {
   font-size: 1.45em;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #222;
 }
 .post-body h3 {
   font-size: 1.3em;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #222;
 }
 .post-body h4 {
   font-size: 1.2em;
-  border-bottom: 1px dotted #eee;
+  border-bottom: 1px dotted #222;
 }
 .post-body h5 {
   font-size: 1.07em;
