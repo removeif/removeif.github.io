@@ -69,7 +69,7 @@
 
 
 
-  <meta name="keywords" content="java,backend">
+  <meta name="keywords" content="java">
 
 
 
@@ -80,18 +80,21 @@
 
 
 
-<meta name="description" content="tags  java&amp;nbsp; backend &amp;nbsp; code life. Motto  Life is a lonely journey.计划 2019 flag 2018-12-31 21:59  购买的专业书籍至少看完一遍（并发、重构、设计模式…） 微信读书每天一个小时(年终总计300小时) 坚持每周去两次健身房(多练肚子、力量、学会蝶泳) 至少完成一项 前后端分离项目 完成一项">
-<meta name="keywords" content="java,elasticsearch,设计模式,sql">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about me">
-<meta property="og:url" content="https://removeif.github.io/about/index.html">
+<meta name="description" content="目的 将一个请求封装为一个对象，从而可用不同的请求对客户进行参数化；对请求排队或记录日志，以及支持可撤销的操作。 将”发出请求的对象”和”接收与执行这些请求的对象”分隔开来。  效果 command模式将调用操作的对象和实现该操作的对象解耦 可以将多个命令装配成一个复合命令，复合命令是Composite模式的一个实例 增加新的command很容易，无需改变已有的类  适用性 抽象出待执行的动作以参">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java设计模式之命令模式">
+<meta property="og:url" content="https://removeif.github.io/Java设计模式之命令模式.html">
 <meta property="og:site_name" content="冲鸭-&gt;">
-<meta property="og:description" content="tags  java&amp;nbsp; backend &amp;nbsp; code life. Motto  Life is a lonely journey.计划 2019 flag 2018-12-31 21:59  购买的专业书籍至少看完一遍（并发、重构、设计模式…） 微信读书每天一个小时(年终总计300小时) 坚持每周去两次健身房(多练肚子、力量、学会蝶泳) 至少完成一项 前后端分离项目 完成一项">
+<meta property="og:description" content="目的 将一个请求封装为一个对象，从而可用不同的请求对客户进行参数化；对请求排队或记录日志，以及支持可撤销的操作。 将”发出请求的对象”和”接收与执行这些请求的对象”分隔开来。  效果 command模式将调用操作的对象和实现该操作的对象解耦 可以将多个命令装配成一个复合命令，复合命令是Composite模式的一个实例 增加新的command很容易，无需改变已有的类  适用性 抽象出待执行的动作以参">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-04T06:49:00.418Z">
+<meta property="og:image" content="https://wx4.sinaimg.cn/large/b5d1b710gy1fxvvc9t7m4j20us0bita4.jpg">
+<meta property="og:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1fxvwn6gns3j210607k768.jpg">
+<meta property="og:updated_time" content="2019-01-04T07:35:24.601Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about me">
-<meta name="twitter:description" content="tags  java&amp;nbsp; backend &amp;nbsp; code life. Motto  Life is a lonely journey.计划 2019 flag 2018-12-31 21:59  购买的专业书籍至少看完一遍（并发、重构、设计模式…） 微信读书每天一个小时(年终总计300小时) 坚持每周去两次健身房(多练肚子、力量、学会蝶泳) 至少完成一项 前后端分离项目 完成一项">
+<meta name="twitter:title" content="Java设计模式之命令模式">
+<meta name="twitter:description" content="目的 将一个请求封装为一个对象，从而可用不同的请求对客户进行参数化；对请求排队或记录日志，以及支持可撤销的操作。 将”发出请求的对象”和”接收与执行这些请求的对象”分隔开来。  效果 command模式将调用操作的对象和实现该操作的对象解耦 可以将多个命令装配成一个复合命令，复合命令是Composite模式的一个实例 增加新的command很容易，无需改变已有的类  适用性 抽象出待执行的动作以参">
+<meta name="twitter:image" content="https://wx4.sinaimg.cn/large/b5d1b710gy1fxvvc9t7m4j20us0bita4.jpg">
 
 
 
@@ -121,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="https://removeif.github.io/about/">
+  <link rel="canonical" href="https://removeif.github.io/Java设计模式之命令模式.html">
 
 
 
 
 
-  <title>about me | 冲鸭-></title>
+  <title>Java设计模式之命令模式 | 冲鸭-></title>
   
 
 
@@ -273,58 +276,240 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://removeif.github.io/Java设计模式之命令模式.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="番茄酱">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header1.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="冲鸭->">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h2 class="post-title" itemprop="name headline">about me</h2>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <blockquote>
-<p>tags</p>
+          <h2 class="post-title" itemprop="name headline">Java设计模式之命令模式</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-04T15:34:00+08:00">
+                2019-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Java设计模式之命令模式.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Java设计模式之命令模式.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><blockquote>
+<p>将一个请求封装为一个对象，从而可用不同的请求对客户进行参数化；对请求排队或记录日志，以及支持可撤销的操作。</p>
+<p>将”发出请求的对象”和”接收与执行这些请求的对象”分隔开来。</p>
 </blockquote>
-<h2 id="java-nbsp-backend-nbsp-code-life"><a href="#java-nbsp-backend-nbsp-code-life" class="headerlink" title="java&nbsp; backend &nbsp; code life."></a><em><code>java</code>&nbsp; <code>backend</code> &nbsp; <code>code life.</code></em></h2><blockquote>
-<p>Motto</p>
-</blockquote>
-<h2 id="Life-is-a-lonely-journey"><a href="#Life-is-a-lonely-journey" class="headerlink" title="Life is a lonely journey."></a><em><code>Life is a lonely journey.</code></em></h2><h3 id="计划"><a href="#计划" class="headerlink" title="计划"></a>计划</h3><blockquote>
-<p>2019 flag 2018-12-31 21:59</p>
-<ol>
-<li>购买的专业书籍至少看完一遍（并发、重构、设计模式…）</li>
-<li>微信读书每天一个小时(年终总计300小时)</li>
-<li>坚持每周去两次健身房(多练肚子、力量、学会蝶泳)</li>
-<li>至少完成一项 前后端分离项目</li>
-<li>完成一项 微服务项目(类似公司使用相关技术)</li>
-<li><strong>不辞职</strong></li>
-<li>多交朋友、多换位思考、多与朋友交流沟通</li>
-<li>居安思危，多思考关注相关专业前景，生活环境</li>
-<li>Java基础技能强化</li>
-<li>多买书</li>
-<li>学习更多的新菜(至少三项)</li>
-<li>少买电子产品，少网购，少逛数码产品</li>
-<li>学英语记单词、学数学、多看视频教程</li>
-<li>少玩游戏</li>
+<h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><ol>
+<li>command模式将调用操作的对象和实现该操作的对象解耦</li>
+<li>可以将多个命令装配成一个复合命令，复合命令是Composite模式的一个实例</li>
+<li>增加新的command很容易，无需改变已有的类</li>
 </ol>
-</blockquote>
+<h1 id="适用性"><a href="#适用性" class="headerlink" title="适用性"></a>适用性</h1><ol>
+<li>抽象出待执行的动作以参数化某对象</li>
+<li>在不同的时刻指定、排列和执行请求。如请求队列</li>
+<li>支持取消操作</li>
+<li>支持修改日志</li>
+<li>用构建在原语操作上的高层操作构造一个系统。支持事物</li>
+</ol>
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><ol>
+<li>Command<br>声明执行操作的接口</li>
+<li>ConcreteCommand<br>将一个接收者对象绑定于一个动作<br>   　　调用接收者相应的操作，以实现execute</li>
+<li>Client<br>创建一个具体命令对象并设定它的接收者</li>
+<li>Invoker<br>要求该命令执行这个请求</li>
+<li>Receiver<br>知道如何实施与执行一个请求相关的操作。任何类都可能作为一个接收者</li>
+</ol>
+<h1 id="结构图"><a href="#结构图" class="headerlink" title="结构图"></a>结构图</h1><p><img src="https://wx4.sinaimg.cn/large/b5d1b710gy1fxvvc9t7m4j20us0bita4.jpg" alt=""></p>
+<p>协作：<br>　　1)、client创建一个ConcreteCommand对象并指定它的Receiver对象<br>　　2)、某Invoker对象存储该ConcreteCommand对象<br>　　3)、该Invoker通过调用Command对象的execute操作来提交一个请求。若该命令是可撤销的，ConcreteCommand在执行execute操作前存储当前状态以用于取消该命令<br>　　4)、ConcreteCommand对象调用它的Receiver的操作以执行该请求</p>
+<p>命令对象将动作和接受者包进对象中，这个对象只暴露出一个execute()方法，当此方法被调用的时候，接收者就会进行这些动作。从外面来看，其他对象不知道究竟哪个接收者进行了哪些动作，只知道如果调用execute()方法，请求的目的就能达到。 </p>
+<h1 id="java-实现源码"><a href="#java-实现源码" class="headerlink" title="java 实现源码"></a>java 实现源码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@desc</span> 命令接口</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Command</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 执行命令</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">excute</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 撤销命令</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">undo</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@desc</span> 真正命令执行者，接收者</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Receiver</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">action</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"正在执行命令..."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unAction</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"正在撤销命令..."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@desc</span> 创建命令（可实现多条命令以及多个命令执行人）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateCommand</span> <span class="keyword">implements</span> <span class="title">Command</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Receiver receiver;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化命令接收人</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> receiver</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CreateCommand</span><span class="params">(Receiver receiver)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.receiver = receiver;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">excute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        receiver.action();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">undo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        receiver.unAction();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@desc</span> 命令调用者</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Invoker</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Command command;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 命令调用者持有该命令</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> command</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Invoker</span><span class="params">(Command command)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.command = command;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 执行命令</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">runCommand</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        command.excute();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 撤销命令</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unRunCommand</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        command.undo();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@desc</span> 命令模式测试</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestMain</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// new 一个命令执行人</span></span><br><span class="line">        Receiver receiver = <span class="keyword">new</span> Receiver();</span><br><span class="line">        <span class="comment">// new 一条命令</span></span><br><span class="line">        Command command = <span class="keyword">new</span> CreateCommand(receiver);</span><br><span class="line">        <span class="comment">// 开始调用命令</span></span><br><span class="line">        Invoker invoker = <span class="keyword">new</span> Invoker(command);</span><br><span class="line"></span><br><span class="line">        invoker.runCommand();</span><br><span class="line">        invoker.unRunCommand();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a>执行结果</h1><p><img src="https://wx2.sinaimg.cn/large/b5d1b710gy1fxvwn6gns3j210607k768.jpg" alt=""></p>
+<p>常见应用：<br> 1、工作队列，线程池，日程安排<br> 2、日志请求(系统恢复)<br>要点：<br> 1、命令模式将发出请求的对象和执行请求的对象解耦<br> 2、在被解耦的两者之间是通过命令对象进行沟通的。命令对象封装了接收者和一个或一组动作<br> 3、调用者通过调用命令对象的execute()发出请求，这会使得接收者的动作被调用<br> 4、调用者可以接受命令当作参数，甚至在运行时动态的进行<br> 5、命令可以支持撤销，做法是实现一个undo()方法来回到execute()被执行前的状态<br> 6、宏命令是命令的一种简单的延伸，允许调用多个命令。宏方法也可以支持撤销<br> 7、实际操作时，很常见使用”聪明”命令对象，也就是直接实现了请求，而不是将工作委托给接受者(弊端？)<br> 8、命令也可以用来实现日志和事物系统</p>
+<p> 参考：<a href="http://www.cnblogs.com/ikuman/archive/2013/08/06/3233092.html" target="_blank" rel="noopener">http://www.cnblogs.com/ikuman/archive/2013/08/06/3233092.html</a></p>
 
-        
-      </div>
-      
-      
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/设计模式/" rel="tag"><i class="fa fa-tag"></i> 设计模式</a>
+          
+            <a href="/tags/命令模式/" rel="tag"><i class="fa fa-tag"></i> 命令模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/java-8部分读书笔记.html" rel="next" title="java 8部分读书笔记">
+                <i class="fa fa-chevron-left"></i> java 8部分读书笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -333,6 +518,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -489,7 +681,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#java-nbsp-backend-nbsp-code-life"><span class="nav-number">1.</span> <span class="nav-text">java  backend   code life.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Life-is-a-lonely-journey"><span class="nav-number">2.</span> <span class="nav-text">Life is a lonely journey.</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#计划"><span class="nav-number">2.1.</span> <span class="nav-text">计划</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#效果"><span class="nav-number">2.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#适用性"><span class="nav-number">3.</span> <span class="nav-text">适用性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参与者"><span class="nav-number">4.</span> <span class="nav-text">参与者</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结构图"><span class="nav-number">5.</span> <span class="nav-text">结构图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#java-实现源码"><span class="nav-number">6.</span> <span class="nav-text">java 实现源码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行结果"><span class="nav-number">7.</span> <span class="nav-text">执行结果</span></a></li></ol></div>
             
 
           </div>

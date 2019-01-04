@@ -1,1 +1,1 @@
-https://removeif.github.io/java-8部分读书笔记.html
+https://removeif.github.io/Java设计模式之命令模式.html
