@@ -1,1 +1,1 @@
-https://removeif.github.io/Java设计模式之代理模式.html
+https://removeif.github.io/java基础-static关键字.html
