@@ -1,1284 +1,1112 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+<title>Java设计模式之单例模式 - 冲鸭-&gt;</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#222">
-<meta name="google-site-verification" content="67z1CXZ8AOhImIglgTwqAlneRCHTO6xRJo5NeafDAqw">
-<meta name="baidu-site-verification" content="08F6sFn8JQ">
 
 
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/ico321.ico?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/ico321.ico?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/ico161.ico?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/ico321.ico?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="java">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="单例模式 确保一个类只有一个实例，并提供一个全局访问点！  饿汉式：线程安全，但效率比较低123456789101112131415161718/**  * 单例模式的实现：饿汉式,线程安全 但效率比较低  */  public class SingletonTest &amp;#123;      // 定义一个私有的构造方法    private SingletonTest() &amp;#123;">
+    <meta name="description" content="单例模式 确保一个类只有一个实例，并提供一个全局访问点！  饿汉式：线程安全，但效率比较低">
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java设计模式之单例模式">
 <meta property="og:url" content="https://removeif.github.io/Java设计模式之单例模式.html">
 <meta property="og:site_name" content="冲鸭-&gt;">
-<meta property="og:description" content="单例模式 确保一个类只有一个实例，并提供一个全局访问点！  饿汉式：线程安全，但效率比较低123456789101112131415161718/**  * 单例模式的实现：饿汉式,线程安全 但效率比较低  */  public class SingletonTest &amp;#123;      // 定义一个私有的构造方法    private SingletonTest() &amp;#123;">
+<meta property="og:description" content="单例模式 确保一个类只有一个实例，并提供一个全局访问点！  饿汉式：线程安全，但效率比较低">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-17T14:13:26.641Z">
+<meta property="og:updated_time" content="2019-02-27T10:36:00.814Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java设计模式之单例模式">
-<meta name="twitter:description" content="单例模式 确保一个类只有一个实例，并提供一个全局访问点！  饿汉式：线程安全，但效率比较低123456789101112131415161718/**  * 单例模式的实现：饿汉式,线程安全 但效率比较低  */  public class SingletonTest &amp;#123;      // 定义一个私有的构造方法    private SingletonTest() &amp;#123;">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="https://removeif.github.io/Java设计模式之单例模式.html">
+<meta name="twitter:description" content="单例模式 确保一个类只有一个实例，并提供一个全局访问点！  饿汉式：线程安全，但效率比较低">
 
 
 
 
 
-  <title>Java设计模式之单例模式 | 冲鸭-></title>
-  
+<link rel="icon" href="/images/header.png">
 
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
 
 
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
 
 
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
 
 
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
 </head>
-
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-    <a href="https://github.com/removeif" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
-
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">冲鸭-></span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <h1 class="site-subtitle" itemprop="description">尚未执佩剑，转眼即江湖</h1>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
             
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+                <img src="/images/ico32.ico" alt="Java设计模式之单例模式" height="28">
             
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-            归档
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-            搜索
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://removeif.github.io/Java设计模式之单例模式.html">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="番茄酱">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header1.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="冲鸭->">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">Java设计模式之单例模式</h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-17T22:10:13+08:00">
-                2018-11-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/设计模式/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/Java设计模式之单例模式.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/Java设计模式之单例模式.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.8k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  7
-                </span>
-              
-            </div>
-          
-
-          
-
+            </a>
         </div>
-      </header>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
     
-
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="https://ss1.baidu.com/70cFfyinKgQFm2e88IuM_a/forum/pic/item/a9d3fd1f4134970a9b762c7c94cad1c8a7865d5f.jpg" alt="Java设计模式之单例模式">
+        </span>
+    </div>
     
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><blockquote>
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-11-17T14:10:13.000Z">2018-11-17</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/设计模式/">设计模式</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    12 minutes read (About 1856 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Java设计模式之单例模式
+            
+        </h1>
+        <div class="content">
+            <h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><blockquote>
 <p>确保一个类只有一个实例，并提供一个全局访问点！</p>
 </blockquote>
-<h2 id="饿汉式：线程安全，但效率比较低"><a href="#饿汉式：线程安全，但效率比较低" class="headerlink" title="饿汉式：线程安全，但效率比较低"></a>饿汉式：线程安全，但效率比较低</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * 单例模式的实现：饿汉式,线程安全 但效率比较低 </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonTest</span> </span>&#123;  </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义一个私有的构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingletonTest</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将自身的实例对象设置为一个属性,并加上Static和final修饰符</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> SingletonTest instance = <span class="keyword">new</span> SingletonTest();  </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 静态方法返回该类的实例</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonTest <span class="title">getInstancei</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="单例模式的实现：饱汉式，非线程安全"><a href="#单例模式的实现：饱汉式，非线程安全" class="headerlink" title="单例模式的实现：饱汉式，非线程安全"></a>单例模式的实现：饱汉式，非线程安全</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**  </span></span><br><span class="line"><span class="comment"> * 单例模式的实现：饱汉式,非线程安全   </span></span><br><span class="line"><span class="comment"> *   </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义私有构造方法（防止通过 new SingletonTest()去实例化）</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingletonTest</span><span class="params">()</span> </span>&#123;   </span><br><span class="line">    &#125;   </span><br><span class="line">    <span class="comment">// 定义一个SingletonTest类型的变量（不初始化，注意这里没有使用final关键字）</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SingletonTest instance;   </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义一个静态的方法（调用时再初始化SingletonTest，但是多线程访问时，可能造成重复初始化问题）</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonTest <span class="title">getInstance</span><span class="params">()</span> </span>&#123;   </span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>)   </span><br><span class="line">            instance = <span class="keyword">new</span> SingletonTest();   </span><br><span class="line">        <span class="keyword">return</span> instance;   </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="饱汉式，线程安全简单实现"><a href="#饱汉式，线程安全简单实现" class="headerlink" title="饱汉式，线程安全简单实现"></a>饱汉式，线程安全简单实现</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**  </span></span><br><span class="line"><span class="comment"> * 单例模式的实现：饱汉式,线程安全简单实现   </span></span><br><span class="line"><span class="comment"> *   </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义私有构造方法（防止通过 new SingletonTest()去实例化）</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingletonTest</span><span class="params">()</span> </span>&#123;   </span><br><span class="line">    &#125;   </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义一个SingletonTest类型的变量（不初始化，注意这里没有使用final关键字）</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SingletonTest instance;   </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义一个静态的方法（调用时再初始化SingletonTest，使用synchronized 避免多线程访问时，可能造成重的复初始化问题）</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span>  SingletonTest <span class="title">getInstance</span><span class="params">()</span> </span>&#123;   </span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>)   </span><br><span class="line">            instance = <span class="keyword">new</span> SingletonTest();   </span><br><span class="line">        <span class="keyword">return</span> instance;   </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="双重锁机制：线程安全，效率高，单例模式最优方案"><a href="#双重锁机制：线程安全，效率高，单例模式最优方案" class="headerlink" title="双重锁机制：线程安全，效率高，单例模式最优方案"></a>双重锁机制：线程安全，效率高，单例模式最优方案</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**  </span></span><br><span class="line"><span class="comment"> * 单例模式最优方案</span></span><br><span class="line"><span class="comment"> * 线程安全  并且效率高  </span></span><br><span class="line"><span class="comment"> *  </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonTest</span> </span>&#123; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义一个私有构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingletonTest</span><span class="params">()</span> </span>&#123; </span><br><span class="line">    &#125;   </span><br><span class="line">    <span class="comment">//定义一个静态私有变量(不初始化，不使用final关键字，使用volatile保证了多线程访问时instance变量的可见性，避免了instance初始化时其他变量属性还没赋值完时，被另外线程调用)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> SingletonTest instance;  </span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义一个共有的静态方法，返回该类型实例</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonTest <span class="title">getIstance</span><span class="params">()</span> </span>&#123; </span><br><span class="line">        <span class="comment">// 对象实例化时与否判断（不使用同步代码块，instance不等于null时，直接返回对象，提高运行效率）</span></span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">//同步代码块（对象未初始化时，使用同步代码块，保证多线程访问时对象在第一次创建后，不再重复被创建）</span></span><br><span class="line">            <span class="keyword">synchronized</span> (SingletonTest.class) &#123;</span><br><span class="line">                <span class="comment">//未初始化，则初始instance变量</span></span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> SingletonTest();   </span><br><span class="line">                &#125;   </span><br><span class="line">            &#125;   </span><br><span class="line">        &#125;   </span><br><span class="line">        <span class="keyword">return</span> instance;   </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="静态内部类方式"><a href="#静态内部类方式" class="headerlink" title="静态内部类方式"></a>静态内部类方式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 静态内部类方式</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span> </span>&#123;  </span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton INSTANCE = <span class="keyword">new</span> Singleton();  </span><br><span class="line">     &#125;  </span><br><span class="line">     <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">         <span class="keyword">return</span> SingletonHolder.INSTANCE;  </span><br><span class="line">     &#125;  </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="饿汉式：线程安全，但效率比较低"><a href="#饿汉式：线程安全，但效率比较低" class="headerlink" title="饿汉式：线程安全，但效率比较低"></a>饿汉式：线程安全，但效率比较低</h2><a id="more"></a>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/** </span></span><br><span class="line"><span class="hljs-comment"> * 单例模式的实现：饿汉式,线程安全 但效率比较低 </span></span><br><span class="line"><span class="hljs-comment"> */</span>  </span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingletonTest</span> </span>&#123;  </span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 定义一个私有的构造方法</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">SingletonTest</span><span class="hljs-params">()</span> </span>&#123;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 将自身的实例对象设置为一个属性,并加上Static和final修饰符</span></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> SingletonTest instance = <span class="hljs-keyword">new</span> SingletonTest();  </span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 静态方法返回该类的实例</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> SingletonTest <span class="hljs-title">getInstancei</span><span class="hljs-params">()</span> </span>&#123;  </span><br><span class="line">        <span class="hljs-keyword">return</span> instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="单例模式的实现：饱汉式，非线程安全"><a href="#单例模式的实现：饱汉式，非线程安全" class="headerlink" title="单例模式的实现：饱汉式，非线程安全"></a>单例模式的实现：饱汉式，非线程安全</h2><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**  </span></span><br><span class="line"><span class="hljs-comment"> * 单例模式的实现：饱汉式,非线程安全   </span></span><br><span class="line"><span class="hljs-comment"> *   </span></span><br><span class="line"><span class="hljs-comment"> */</span>  </span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingletonTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 定义私有构造方法（防止通过 new SingletonTest()去实例化）</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">SingletonTest</span><span class="hljs-params">()</span> </span>&#123;   </span><br><span class="line">    &#125;   </span><br><span class="line">    <span class="hljs-comment">// 定义一个SingletonTest类型的变量（不初始化，注意这里没有使用final关键字）</span></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> SingletonTest instance;   </span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 定义一个静态的方法（调用时再初始化SingletonTest，但是多线程访问时，可能造成重复初始化问题）</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> SingletonTest <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;   </span><br><span class="line">        <span class="hljs-keyword">if</span> (instance == <span class="hljs-keyword">null</span>)   </span><br><span class="line">            instance = <span class="hljs-keyword">new</span> SingletonTest();   </span><br><span class="line">        <span class="hljs-keyword">return</span> instance;   </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="饱汉式，线程安全简单实现"><a href="#饱汉式，线程安全简单实现" class="headerlink" title="饱汉式，线程安全简单实现"></a>饱汉式，线程安全简单实现</h2><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**  </span></span><br><span class="line"><span class="hljs-comment"> * 单例模式的实现：饱汉式,线程安全简单实现   </span></span><br><span class="line"><span class="hljs-comment"> *   </span></span><br><span class="line"><span class="hljs-comment"> */</span>  </span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingletonTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 定义私有构造方法（防止通过 new SingletonTest()去实例化）</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">SingletonTest</span><span class="hljs-params">()</span> </span>&#123;   </span><br><span class="line">    &#125;   </span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 定义一个SingletonTest类型的变量（不初始化，注意这里没有使用final关键字）</span></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> SingletonTest instance;   </span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 定义一个静态的方法（调用时再初始化SingletonTest，使用synchronized 避免多线程访问时，可能造成重的复初始化问题）</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">synchronized</span>  SingletonTest <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;   </span><br><span class="line">        <span class="hljs-keyword">if</span> (instance == <span class="hljs-keyword">null</span>)   </span><br><span class="line">            instance = <span class="hljs-keyword">new</span> SingletonTest();   </span><br><span class="line">        <span class="hljs-keyword">return</span> instance;   </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="双重锁机制：线程安全，效率高，单例模式最优方案"><a href="#双重锁机制：线程安全，效率高，单例模式最优方案" class="headerlink" title="双重锁机制：线程安全，效率高，单例模式最优方案"></a>双重锁机制：线程安全，效率高，单例模式最优方案</h2><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**  </span></span><br><span class="line"><span class="hljs-comment"> * 单例模式最优方案</span></span><br><span class="line"><span class="hljs-comment"> * 线程安全  并且效率高  </span></span><br><span class="line"><span class="hljs-comment"> *  </span></span><br><span class="line"><span class="hljs-comment"> */</span>  </span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingletonTest</span> </span>&#123; </span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 定义一个私有构造方法</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">SingletonTest</span><span class="hljs-params">()</span> </span>&#123; </span><br><span class="line">    &#125;   </span><br><span class="line">    <span class="hljs-comment">//定义一个静态私有变量(不初始化，不使用final关键字，使用volatile保证了多线程访问时instance变量的可见性，避免了instance初始化时其他变量属性还没赋值完时，被另外线程调用)</span></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">volatile</span> SingletonTest instance;  </span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">//定义一个共有的静态方法，返回该类型实例</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> SingletonTest <span class="hljs-title">getIstance</span><span class="hljs-params">()</span> </span>&#123; </span><br><span class="line">        <span class="hljs-comment">// 对象实例化时与否判断（不使用同步代码块，instance不等于null时，直接返回对象，提高运行效率）</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (instance == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">        <span class="hljs-comment">//同步代码块（对象未初始化时，使用同步代码块，保证多线程访问时对象在第一次创建后，不再重复被创建）</span></span><br><span class="line">            <span class="hljs-keyword">synchronized</span> (SingletonTest.class) &#123;</span><br><span class="line">                <span class="hljs-comment">//未初始化，则初始instance变量</span></span><br><span class="line">                <span class="hljs-keyword">if</span> (instance == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">                    instance = <span class="hljs-keyword">new</span> SingletonTest();   </span><br><span class="line">                &#125;   </span><br><span class="line">            &#125;   </span><br><span class="line">        &#125;   </span><br><span class="line">        <span class="hljs-keyword">return</span> instance;   </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="静态内部类方式"><a href="#静态内部类方式" class="headerlink" title="静态内部类方式"></a>静态内部类方式</h2><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">   * 静态内部类方式</span></span><br><span class="line"><span class="hljs-comment">   *</span></span><br><span class="line"><span class="hljs-comment">   */</span></span><br><span class="line"> <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>&#123;  </span><br><span class="line">     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingletonHolder</span> </span>&#123;  </span><br><span class="line">     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Singleton INSTANCE = <span class="hljs-keyword">new</span> Singleton();  </span><br><span class="line">     &#125;  </span><br><span class="line">     <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span> <span class="hljs-params">()</span></span>&#123;&#125;</span><br><span class="line">     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;  </span><br><span class="line">         <span class="hljs-keyword">return</span> SingletonHolder.INSTANCE;  </span><br><span class="line">     &#125;  </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <p><strong>这种方式同样利用了classloder的机制来保证初始化instance时只有一个线程，它跟第三种和第四种方式不同的是（很细微的差别）：第三种和第四种方式是只要Singleton类被装载了，那么instance就会被实例化（没有达到lazy loading效果），而这种方式是Singleton类被装载了，instance不一定被初始化。因为SingletonHolder类没有被主动使用，只有显示通过调用getInstance方法时，才会显示装载SingletonHolder类，从而实例化instance。想象一下，如果实例化instance很消耗资源，我想让他延迟加载，另外一方面，我不希望在Singleton类加载时就实例化，因为我不能确保Singleton类还可能在其他的地方被主动使用从而被加载，那么这个时候实例化instance显然是不合适的。这个时候，这种方式相比第三和第四种方式就显得很合理。</strong></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>【以上单例模式】传统的两私有一公开（私有构造方法、私有静态实例(懒实例化/直接实例化)、公开的静态获取方法）涉及线程安全问题（即使有多重检查锁也可以通过反射破坏单例）目前最为安全的实现单例的方法是通过内部静态enum的方法来实现，因为JVM会保证enum不能被反射并且构造器方法只执行一次。</p>
-<h3 id="利用反射模式获取"><a href="#利用反射模式获取" class="headerlink" title="利用反射模式获取"></a>利用反射模式获取</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 饿汉试单例模式</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">HelloWorld</span><span class="params">()</span></span>&#123;&#125;;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> HelloWorld hell = <span class="keyword">new</span> HelloWorld();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HelloWorld <span class="title">getHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hell;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getWorld</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hahahahah"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// java反射机制  调用getWorld()方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloJava</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">     <span class="comment">/* HelloWorld hell = HelloWorld.getHello();</span></span><br><span class="line"><span class="comment">        hell.getWorld(); */</span></span><br><span class="line">        <span class="keyword">try</span>  </span><br><span class="line">        &#123;  </span><br><span class="line">            Class class1 = Class.forName(<span class="string">"cn.jr.text.HelloWorld"</span>);  </span><br><span class="line">            Constructor[] constructors = class1.getDeclaredConstructors();  </span><br><span class="line">            AccessibleObject.setAccessible(constructors, <span class="keyword">true</span>);  </span><br><span class="line">            <span class="keyword">for</span> (Constructor con : constructors)  </span><br><span class="line">            &#123;  </span><br><span class="line">                <span class="keyword">if</span> (con.isAccessible())  </span><br><span class="line">                &#123;  </span><br><span class="line">                    Object classObject = con.newInstance();  </span><br><span class="line">                    Method method = class1.getMethod(<span class="string">"getWorld"</span>);  </span><br><span class="line">                    method.invoke(classObject);  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">catch</span> (Exception e)  </span><br><span class="line">        &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="使用枚举的单例模式"><a href="#使用枚举的单例模式" class="headerlink" title="使用枚举的单例模式"></a>使用枚举的单例模式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EnumSingleton</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">EnumSingleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> EnumSingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Singleton.INSTANCE.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">enum</span> Singleton&#123;</span><br><span class="line">        INSTANCE;</span><br><span class="line">        <span class="keyword">private</span> EnumSingleton singleton;</span><br><span class="line">        <span class="comment">//JVM会保证此方法绝对只调用一次</span></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">            singleton = <span class="keyword">new</span> EnumSingleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> EnumSingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> singleton;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="使用枚举，static处调用，初始化一次"><a href="#使用枚举，static处调用，初始化一次" class="headerlink" title="使用枚举，static处调用，初始化一次"></a>使用枚举，static处调用，初始化一次</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticInitTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> List&lt;Integer&gt; dataList = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        dataList = Singleton.INSTANCE.init();</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">enum</span> Singleton &#123;</span><br><span class="line">            INSTANCE;</span><br><span class="line">            <span class="keyword">private</span> List&lt;Integer&gt; list;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">                fillData();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">fillData</span><span class="params">()</span></span>&#123;</span><br><span class="line">                list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;(<span class="number">5</span>);</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">1</span>; i&lt;<span class="number">6</span>; i++)&#123;</span><br><span class="line">                    list.add(i);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> list;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="利用反射模式获取"><a href="#利用反射模式获取" class="headerlink" title="利用反射模式获取"></a>利用反射模式获取</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 饿汉试单例模式</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">HelloWorld</span><span class="hljs-params">()</span></span>&#123;&#125;;</span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> HelloWorld hell = <span class="hljs-keyword">new</span> HelloWorld();</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> HelloWorld <span class="hljs-title">getHello</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> hell;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getWorld</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="hljs-string">"hahahahah"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// java反射机制  调用getWorld()方法</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HelloJava</span></span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;</span><br><span class="line">     <span class="hljs-comment">/* HelloWorld hell = HelloWorld.getHello();</span></span><br><span class="line"><span class="hljs-comment">        hell.getWorld(); */</span></span><br><span class="line">        <span class="hljs-keyword">try</span>  </span><br><span class="line">        &#123;  </span><br><span class="line">            Class class1 = Class.forName(<span class="hljs-string">"cn.jr.text.HelloWorld"</span>);  </span><br><span class="line">            Constructor[] constructors = class1.getDeclaredConstructors();  </span><br><span class="line">            AccessibleObject.setAccessible(constructors, <span class="hljs-keyword">true</span>);  </span><br><span class="line">            <span class="hljs-keyword">for</span> (Constructor con : constructors)  </span><br><span class="line">            &#123;  </span><br><span class="line">                <span class="hljs-keyword">if</span> (con.isAccessible())  </span><br><span class="line">                &#123;  </span><br><span class="line">                    Object classObject = con.newInstance();  </span><br><span class="line">                    Method method = class1.getMethod(<span class="hljs-string">"getWorld"</span>);  </span><br><span class="line">                    method.invoke(classObject);  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="hljs-keyword">catch</span> (Exception e)  </span><br><span class="line">        &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用枚举的单例模式"><a href="#使用枚举的单例模式" class="headerlink" title="使用枚举的单例模式"></a>使用枚举的单例模式</h2><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EnumSingleton</span></span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">EnumSingleton</span><span class="hljs-params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> EnumSingleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> Singleton.INSTANCE.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">enum</span> Singleton&#123;</span><br><span class="line">        INSTANCE;</span><br><span class="line">        <span class="hljs-keyword">private</span> EnumSingleton singleton;</span><br><span class="line">        <span class="hljs-comment">//JVM会保证此方法绝对只调用一次</span></span><br><span class="line">        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">            singleton = <span class="hljs-keyword">new</span> EnumSingleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-function"><span class="hljs-keyword">public</span> EnumSingleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> singleton;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用枚举，static处调用，初始化一次"><a href="#使用枚举，static处调用，初始化一次" class="headerlink" title="使用枚举，static处调用，初始化一次"></a>使用枚举，static处调用，初始化一次</h2><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StaticInitTest</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> List&lt;Integer&gt; dataList = <span class="hljs-keyword">null</span>;</span><br><span class="line">    <span class="hljs-keyword">static</span>&#123;</span><br><span class="line">        dataList = Singleton.INSTANCE.init();</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">enum</span> Singleton &#123;</span><br><span class="line">            INSTANCE;</span><br><span class="line">            <span class="hljs-keyword">private</span> List&lt;Integer&gt; list;</span><br><span class="line"></span><br><span class="line">            <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">                fillData();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">fillData</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">                list = <span class="hljs-keyword">new</span> ArrayList&lt;Integer&gt;(<span class="hljs-number">5</span>);</span><br><span class="line">                <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i =<span class="hljs-number">1</span>; i&lt;<span class="hljs-number">6</span>; i++)&#123;</span><br><span class="line">                    list.add(i);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title">init</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> list;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="最终总结"><a href="#最终总结" class="headerlink" title="最终总结"></a>最终总结</h2><p>有两个问题需要注意：</p>
 <ol>
 <li>如果单例由不同的类装载器装入，那便有可能存在多个单例类的实例。假定不是远端存取，例如一些servlet容器对每个servlet使用完全不同的类  装载器，这样的话如果有两个servlet访问一个单例类，它们就都会有各自的实例。</li>
 <li>如果Singleton实现了java.io.Serializable接口，那么这个类的实例就可能被序列化和复原。不管怎样，如果你序列化一个单例类的对象，接下来复原多个那个对象，那你就会有多个单例类的实例。</li>
 </ol>
 <p>对第一个问题修复的办法是：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Class <span class="title">getClass</span><span class="params">(String classname)</span> <span class="keyword">throws</span> ClassNotFoundException </span>&#123;     </span><br><span class="line">        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();     </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(classLoader == <span class="keyword">null</span>)     </span><br><span class="line">          classLoader = Singleton.class.getClassLoader();     </span><br><span class="line">        </span><br><span class="line">      <span class="keyword">return</span> (classLoader.loadClass(classname));     </span><br><span class="line">    &#125;     </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Class <span class="hljs-title">getClass</span><span class="hljs-params">(String classname)</span> <span class="hljs-keyword">throws</span> ClassNotFoundException </span>&#123;     </span><br><span class="line">        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();     </span><br><span class="line">        </span><br><span class="line">        <span class="hljs-keyword">if</span>(classLoader == <span class="hljs-keyword">null</span>)     </span><br><span class="line">          classLoader = Singleton.class.getClassLoader();     </span><br><span class="line">        </span><br><span class="line">      <span class="hljs-keyword">return</span> (classLoader.loadClass(classname));     </span><br><span class="line">    &#125;     </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <p> 对第二个问题修复的办法是：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;     </span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">static</span> Singleton INSTANCE = <span class="keyword">new</span> Singleton();     </span><br><span class="line">        </span><br><span class="line">     <span class="function"><span class="keyword">protected</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;     </span><br><span class="line">          </span><br><span class="line">     &#125;     </span><br><span class="line">     <span class="function"><span class="keyword">private</span> Object <span class="title">readResolve</span><span class="params">()</span> </span>&#123;     </span><br><span class="line">              <span class="keyword">return</span> INSTANCE;     </span><br><span class="line">       &#125;    </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">java</span>.<span class="hljs-title">io</span>.<span class="hljs-title">Serializable</span> </span>&#123;     </span><br><span class="line">     <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton INSTANCE = <span class="hljs-keyword">new</span> Singleton();     </span><br><span class="line">        </span><br><span class="line">     <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-title">Singleton</span><span class="hljs-params">()</span> </span>&#123;     </span><br><span class="line">          </span><br><span class="line">     &#125;     </span><br><span class="line">     <span class="hljs-function"><span class="hljs-keyword">private</span> Object <span class="hljs-title">readResolve</span><span class="hljs-params">()</span> </span>&#123;     </span><br><span class="line">              <span class="hljs-keyword">return</span> INSTANCE;     </span><br><span class="line">       &#125;    </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <p>对我来说，我比较喜欢第a和e种方式，简单易懂，而且在JVM层实现了线程安全（如果不是多个类加载器环境），一般的情况下，我会使用第a种方式，只有在要明确实现lazy loading效果时才会使用第e种方式，另外，如果涉及到反序列化创建对象时我会试着使用枚举的方式来实现单例，不过，我一直会保证我的程序是线程安全的，如果有其他特殊的需求，我可能会使用第七种方式，毕竟，JDK1.5已经没有双重检查锁定的问题了。</p>
 <p>参考资料：<a href="http://www.cnblogs.com/yangzhilong/p/6148639.html" target="_blank" rel="noopener">java单例之enum实现方式</a><br> 　　　　 <a href="http://www.blogjava.net/kenzhh/archive/2013/03/15/357824.html" target="_blank" rel="noopener">设计模式</a><br>　　　　  <a href="http://www.cnblogs.com/yinxiaoqiexuxing/p/5605338.html" target="_blank" rel="noopener">java设计模式–单例模式</a></p>
 
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
-          
-            <a href="/tags/设计模式/" rel="tag"><i class="fa fa-tag"></i> 设计模式</a>
-          
-            <a href="/tags/单例模式/" rel="tag"><i class="fa fa-tag"></i> 单例模式</a>
-          
-            <a href="/tags/饿汉式/" rel="tag"><i class="fa fa-tag"></i> 饿汉式</a>
-          
-            <a href="/tags/饱汉式/" rel="tag"><i class="fa fa-tag"></i> 饱汉式</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/leetcode-2-Add-Two-Numbers.html" rel="next" title="leetcode-2-Add Two Numbers">
-                <i class="fa fa-chevron-left"></i> leetcode-2-Add Two Numbers
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/Effective-Java-2-遇到多个构造器参数时考虑用构建器.html" rel="prev" title="Effective-Java-2-遇到多个构造器参数时考虑用构建器">
-                Effective-Java-2-遇到多个构造器参数时考虑用构建器 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-    </div>
-  
-
-
-
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="/images/header1.png" alt="番茄酱">
-            
-              <p class="site-author-name" itemprop="name">番茄酱</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">18</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/removeif" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:980099577@qq.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://plus.google.com/meiyouor" target="_blank" title="Google">
-                      
-                        <i class="fa fa-fw fa-google"></i>Google</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://twitter.com/meiyouor" target="_blank" title="Twitter">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
-                  </span>
-                
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/java/">java</a>, <a class="has-link-grey -link" href="/tags/单例模式/">单例模式</a>, <a class="has-link-grey -link" href="/tags/设计模式/">设计模式</a>, <a class="has-link-grey -link" href="/tags/饱汉式/">饱汉式</a>, <a class="has-link-grey -link" href="/tags/饿汉式/">饿汉式</a>
+                </div>
             </div>
-          
-
-          
-          
-
-          
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                友链
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a rel="external nofollow" href="https://weibo.com/u/3050419984" title="weibo" target="_blank">weibo</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a rel="external nofollow" href="https://www.cnblogs.com/KongkOngL/" title="cnblogs" target="_blank">cnblogs</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a rel="external nofollow" href="http://e.xitu.io/" title="xitu" target="_blank">xitu</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a rel="external nofollow" href="https://www.v2ex.com/" title="v2ex" target="_blank">v2ex</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
-
-          
-
         </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单例模式"><span class="nav-number">1.</span> <span class="nav-text">单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#饿汉式：线程安全，但效率比较低"><span class="nav-number">1.1.</span> <span class="nav-text">饿汉式：线程安全，但效率比较低</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式的实现：饱汉式，非线程安全"><span class="nav-number">1.2.</span> <span class="nav-text">单例模式的实现：饱汉式，非线程安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#饱汉式，线程安全简单实现"><span class="nav-number">1.3.</span> <span class="nav-text">饱汉式，线程安全简单实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双重锁机制：线程安全，效率高，单例模式最优方案"><span class="nav-number">1.4.</span> <span class="nav-text">双重锁机制：线程安全，效率高，单例模式最优方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态内部类方式"><span class="nav-number">1.5.</span> <span class="nav-text">静态内部类方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#利用反射模式获取"><span class="nav-number">1.6.1.</span> <span class="nav-text">利用反射模式获取</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用枚举的单例模式"><span class="nav-number">1.7.</span> <span class="nav-text">使用枚举的单例模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用枚举，static处调用，初始化一次"><span class="nav-number">1.8.</span> <span class="nav-text">使用枚举，static处调用，初始化一次</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最终总结"><span class="nav-number">1.9.</span> <span class="nav-text">最终总结</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-
-      
-      <div>
-      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=28456751&auto=1&height=66"></iframe>
-      </div>
-      
-
-
+        
+        
+        
     </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">番茄酱</span>
-
-  
 </div>
 
 
-<div class="powered-by">
-<span id="busuanzi_container_site_uv">
-  网站访问人数:<span id="busuanzi_value_site_uv"></span>
-</span>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/Effective-Java-2-遇到多个构造器参数时考虑用构建器.html">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Effective-Java-2-遇到多个构造器参数时考虑用构建器</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/leetcode-2-Add-Two-Numbers.html">
+                <span class="level-item">leetcode-2-Add Two Numbers</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
 </div>
-<div class="theme-info">
-     <span class="post-count"> | 网站总码字数:29.7k</span>
-</div>
-<br>
-  <div class="powered-by">由 <a rel="external nofollow" class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
         
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item=>{
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: false,
-        notify: false,
-        appId: '6O6YaAEgAihLsjx7Tc7r7iIB-gzGzoHsz',
-        appKey: 'xDY9xtO6cAyVYAr0SqgkiG6S',
-        placeholder: 'Leave your footprints...',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'10' || 10,
-    });
-  </script>
-
-
-
-  
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 <script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: '6O6YaAEgAihLsjx7Tc7r7iIB',
+        app_key: 'xDY9xtO6cAyVYAr0SqgkiG6S',
+        placeholder: '留下你的评论'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/hed.jpeg" alt="等待一点都不苦痛">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        等待一点都不苦痛
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        该来的都在路上了
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>阿尔及亚</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        18
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        11
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        50
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://weibo.com/u/3050419984">
+                Follow</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/removeif">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://github.com/removeif ">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://github.com/removeif ">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="https://github.com/removeif ">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catalogue
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#单例模式">
+        <span class="has-mr-6">1</span>
+        <span>单例模式</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#饿汉式：线程安全，但效率比较低">
+        <span class="has-mr-6">1.1</span>
+        <span>饿汉式：线程安全，但效率比较低</span>
+        </a></li><li>
+        <a class="is-flex" href="#单例模式的实现：饱汉式，非线程安全">
+        <span class="has-mr-6">1.2</span>
+        <span>单例模式的实现：饱汉式，非线程安全</span>
+        </a></li><li>
+        <a class="is-flex" href="#饱汉式，线程安全简单实现">
+        <span class="has-mr-6">1.3</span>
+        <span>饱汉式，线程安全简单实现</span>
+        </a></li><li>
+        <a class="is-flex" href="#双重锁机制：线程安全，效率高，单例模式最优方案">
+        <span class="has-mr-6">1.4</span>
+        <span>双重锁机制：线程安全，效率高，单例模式最优方案</span>
+        </a></li><li>
+        <a class="is-flex" href="#静态内部类方式">
+        <span class="has-mr-6">1.5</span>
+        <span>静态内部类方式</span>
+        </a></li><li>
+        <a class="is-flex" href="#总结">
+        <span class="has-mr-6">1.6</span>
+        <span>总结</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#利用反射模式获取">
+        <span class="has-mr-6">1.6.1</span>
+        <span>利用反射模式获取</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#使用枚举的单例模式">
+        <span class="has-mr-6">1.7</span>
+        <span>使用枚举的单例模式</span>
+        </a></li><li>
+        <a class="is-flex" href="#使用枚举，static处调用，初始化一次">
+        <span class="has-mr-6">1.8</span>
+        <span>使用枚举，static处调用，初始化一次</span>
+        </a></li><li>
+        <a class="is-flex" href="#最终总结">
+        <span class="has-mr-6">1.9</span>
+        <span>最终总结</span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://weibo.com/u/3050419984" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">weibo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">weibo.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.cnblogs.com/KongkOngL/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">cnblogs</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.cnblogs.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/books/">
+            <span class="level-start">
+                <span class="level-item">books</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/current/">
+            <span class="level-start">
+                <span class="level-item">current</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/elasticsearch6/">
+            <span class="level-start">
+                <span class="level-item">elasticsearch6</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/java基础/">
+            <span class="level-start">
+                <span class="level-item">java基础</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/leetcode/">
+            <span class="level-start">
+                <span class="level-item">leetcode</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/支付系统/">
+            <span class="level-start">
+                <span class="level-item">支付系统</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/支付系统/支付系统设计/">
+            <span class="level-start">
+                <span class="level-item">支付系统设计</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/设计模式/">
+            <span class="level-start">
+                <span class="level-item">设计模式</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/读书笔记/">
+            <span class="level-start">
+                <span class="level-item">读书笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/读书笔记/Effective-Java/">
+            <span class="level-start">
+                <span class="level-item">Effective-Java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/读书笔记/Java-8-函数式编程/">
+            <span class="level-start">
+                <span class="level-item">Java 8 函数式编程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/Adapter/" style="font-size: 10px;">Adapter</a> <a href="/tags/Add-Two-Numbers/" style="font-size: 10px;">Add Two Numbers</a> <a href="/tags/Effective-Java/" style="font-size: 10px;">Effective-Java</a> <a href="/tags/Lambda/" style="font-size: 10px;">Lambda</a> <a href="/tags/Stream流/" style="font-size: 10px;">Stream流</a> <a href="/tags/arithmetic/" style="font-size: 10px;">arithmetic</a> <a href="/tags/builder模式/" style="font-size: 10px;">builder模式</a> <a href="/tags/cglib代理/" style="font-size: 10px;">cglib代理</a> <a href="/tags/elasticsearch6/" style="font-size: 10px;">elasticsearch6</a> <a href="/tags/final/" style="font-size: 10px;">final</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/immutable/" style="font-size: 10px;">immutable</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/java设计模式/" style="font-size: 10px;">java设计模式</a> <a href="/tags/java高级/" style="font-size: 10px;">java高级</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/problems/" style="font-size: 10px;">problems</a> <a href="/tags/query/" style="font-size: 10px;">query</a> <a href="/tags/static/" style="font-size: 10px;">static</a> <a href="/tags/think/" style="font-size: 10px;">think</a> <a href="/tags/不可变变量/" style="font-size: 10px;">不可变变量</a> <a href="/tags/不可变对象/" style="font-size: 10px;">不可变对象</a> <a href="/tags/函数接口/" style="font-size: 10px;">函数接口</a> <a href="/tags/动态代理/" style="font-size: 10px;">动态代理</a> <a href="/tags/单例模式/" style="font-size: 10px;">单例模式</a> <a href="/tags/命令模式/" style="font-size: 10px;">命令模式</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/容错处理/" style="font-size: 10px;">容错处理</a> <a href="/tags/工厂模式/" style="font-size: 10px;">工厂模式</a> <a href="/tags/抽象工厂模式/" style="font-size: 10px;">抽象工厂模式</a> <a href="/tags/拉模式/" style="font-size: 10px;">拉模式</a> <a href="/tags/推模式/" style="font-size: 10px;">推模式</a> <a href="/tags/支付安全/" style="font-size: 10px;">支付安全</a> <a href="/tags/支付架构/" style="font-size: 10px;">支付架构</a> <a href="/tags/支付系统/" style="font-size: 10px;">支付系统</a> <a href="/tags/构建起/" style="font-size: 10px;">构建起</a> <a href="/tags/简单工作模式/" style="font-size: 10px;">简单工作模式</a> <a href="/tags/装饰者模式/" style="font-size: 10px;">装饰者模式</a> <a href="/tags/观察者/" style="font-size: 10px;">观察者</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/设计流程/" style="font-size: 10px;">设计流程</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/适配器模式/" style="font-size: 10px;">适配器模式</a> <a href="/tags/静态代理/" style="font-size: 10px;">静态代理</a> <a href="/tags/静态变量/" style="font-size: 10px;">静态变量</a> <a href="/tags/静态导包/" style="font-size: 10px;">静态导包</a> <a href="/tags/静态方法/" style="font-size: 10px;">静态方法</a> <a href="/tags/饱汉式/" style="font-size: 10px;">饱汉式</a> <a href="/tags/饿汉式/" style="font-size: 10px;">饿汉式</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen is-sticky">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/hello-world.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss1.baidu.com/70cFfyinKgQFm2e88IuM_a/forum/pic/item/a9d3fd1f4134970a9b762c7c94cad1c8a7865d5f.jpg" alt="Hello World">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-27T10:36:00.811Z">2019-02-27</time></div>
+                    <a href="/hello-world.html" class="has-link-black-ter is-size-6">Hello World</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/java基础-static关键字.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss1.baidu.com/70cFfyinKgQFm2e88IuM_a/forum/pic/item/a9d3fd1f4134970a9b762c7c94cad1c8a7865d5f.jpg" alt="java基础-static关键字">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-07T13:55:59.000Z">2019-01-07</time></div>
+                    <a href="/java基础-static关键字.html" class="has-link-black-ter is-size-6">java基础-static关键字</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java基础/">java基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/java基础-final关键字.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss1.baidu.com/70cFfyinKgQFm2e88IuM_a/forum/pic/item/a9d3fd1f4134970a9b762c7c94cad1c8a7865d5f.jpg" alt="java基础-final关键字">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-07T13:54:28.000Z">2019-01-07</time></div>
+                    <a href="/java基础-final关键字.html" class="has-link-black-ter is-size-6">java基础-final关键字</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java基础/">java基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/Java设计模式之代理模式.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss1.baidu.com/70cFfyinKgQFm2e88IuM_a/forum/pic/item/a9d3fd1f4134970a9b762c7c94cad1c8a7865d5f.jpg" alt="Java设计模式之代理模式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-06T08:46:28.000Z">2019-01-06</time></div>
+                    <a href="/Java设计模式之代理模式.html" class="has-link-black-ter is-size-6">Java设计模式之代理模式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/设计模式/">设计模式</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/Java设计模式之命令模式.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss1.baidu.com/70cFfyinKgQFm2e88IuM_a/forum/pic/item/a9d3fd1f4134970a9b762c7c94cad1c8a7865d5f.jpg" alt="Java设计模式之命令模式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-04T07:34:00.000Z">2019-01-04</time></div>
+                    <a href="/Java设计模式之命令模式.html" class="has-link-black-ter is-size-6">Java设计模式之命令模式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/设计模式/">设计模式</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">10</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right is-sticky">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/hello-world.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss1.baidu.com/70cFfyinKgQFm2e88IuM_a/forum/pic/item/a9d3fd1f4134970a9b762c7c94cad1c8a7865d5f.jpg" alt="Hello World">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-02-27T10:36:00.811Z">2019-02-27</time></div>
+                    <a href="/hello-world.html" class="has-link-black-ter is-size-6">Hello World</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/java基础-static关键字.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss1.baidu.com/70cFfyinKgQFm2e88IuM_a/forum/pic/item/a9d3fd1f4134970a9b762c7c94cad1c8a7865d5f.jpg" alt="java基础-static关键字">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-07T13:55:59.000Z">2019-01-07</time></div>
+                    <a href="/java基础-static关键字.html" class="has-link-black-ter is-size-6">java基础-static关键字</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java基础/">java基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/java基础-final关键字.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss1.baidu.com/70cFfyinKgQFm2e88IuM_a/forum/pic/item/a9d3fd1f4134970a9b762c7c94cad1c8a7865d5f.jpg" alt="java基础-final关键字">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-07T13:54:28.000Z">2019-01-07</time></div>
+                    <a href="/java基础-final关键字.html" class="has-link-black-ter is-size-6">java基础-final关键字</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java基础/">java基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/Java设计模式之代理模式.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss1.baidu.com/70cFfyinKgQFm2e88IuM_a/forum/pic/item/a9d3fd1f4134970a9b762c7c94cad1c8a7865d5f.jpg" alt="Java设计模式之代理模式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-06T08:46:28.000Z">2019-01-06</time></div>
+                    <a href="/Java设计模式之代理模式.html" class="has-link-black-ter is-size-6">Java设计模式之代理模式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/设计模式/">设计模式</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/Java设计模式之命令模式.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://ss1.baidu.com/70cFfyinKgQFm2e88IuM_a/forum/pic/item/a9d3fd1f4134970a9b762c7c94cad1c8a7865d5f.jpg" alt="Java设计模式之命令模式">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-04T07:34:00.000Z">2019-01-04</time></div>
+                    <a href="/Java设计模式之命令模式.html" class="has-link-black-ter is-size-6">Java设计模式之命令模式</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/设计模式/">设计模式</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">February 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">10</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/ico32.ico" alt="Java设计模式之单例模式" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 番茄酱&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-Hans");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
 </script>
 
 
-  
-  
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
 
-  
+    
+    
 
-  
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
 
-  
 
-  
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
 </body>
 </html>
-
-<script type="text/javascript" src="/js/src/love.js"></script>
