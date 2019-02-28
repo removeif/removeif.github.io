@@ -18,10 +18,10 @@
 <meta property="og:image" content="https://wx4.sinaimg.cn/large/b5d1b710gy1g0lwyjo7y8j212w0qc4dm.jpg">
 <meta property="og:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1g0lx5f5sugj212w0ligyi.jpg">
 <meta property="og:image" content="https://wx1.sinaimg.cn/large/b5d1b710gy1g0lxdc409cj212w0o3dpq.jpg">
-<meta property="og:image" content="https://removeif.github.io/Users/liyuechao/Library/Application%20Support/typora-user-images/image-20190228102516021.png">
+<meta property="og:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1g0ly1fsc3qj212w0qmdp5.jpg">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/b5d1b710gy1g0lxihc5uzj212w0il7bt.jpg">
 <meta property="og:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1g0lxmyvctwj212w0os7c3.jpg">
-<meta property="og:updated_time" content="2019-02-28T02:40:31.515Z">
+<meta property="og:updated_time" content="2019-02-28T02:47:51.504Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装、部分配置icarus主题中文版">
 <meta name="twitter:description" content="摘要发现icarus主题还不错，花了一两个小时研究了下安装、部分配置icarus主题中文版">
@@ -168,7 +168,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    5 minutes read (About 760 words)
+                    5 minutes read (About 753 words)
                 </span>
                 
                 
@@ -184,7 +184,7 @@
             <blockquote>
 <p>摘要<br>发现icarus主题还不错，花了一两个小时研究了下安装、部分配置icarus主题中文版<br><a id="more"></a></p>
 </blockquote>
-<h1 id="安装、部分配置icarus主题中文版"><a href="#安装、部分配置icarus主题中文版" class="headerlink" title="安装、部分配置icarus主题中文版"></a>安装、部分配置icarus主题中文版</h1><h2 id="安装icarus"><a href="#安装icarus" class="headerlink" title="安装icarus"></a>安装icarus</h2><ul>
+<h2 id="安装icarus"><a href="#安装icarus" class="headerlink" title="安装icarus"></a>安装icarus</h2><ul>
 <li>直接下载主题模块放到blog项目 ,blog项目根目录执行</li>
 </ul>
 <figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="hljs-comment">//github.com/ppoffice/hexo-theme-icarus.git themes/icarus</span></span><br></pre></td></tr></table></figure>
@@ -215,7 +215,7 @@
 <h5 id="评论系统开启"><a href="#评论系统开启" class="headerlink" title="评论系统开启"></a>评论系统开启</h5><p>icarus 主题中的配置_config.yml中开启（部分评论系统需要翻墙才能使用，valine不用翻墙个人推荐，<a href="https://valine.js.org/quickstart.html" target="_blank" rel="noopener">valine安装参考</a>）</p>
 <figure class="highlight hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">comment:</span><br><span class="line">    type: valine</span><br><span class="line">    app_id: xxxxxxxx        # (required) LeanCloud application id</span><br><span class="line">    app_key: xxxxxxxx       # (required) LeanCloud application key</span><br><span class="line">    notify: false           # (optional) receive email notification</span><br><span class="line">    verify: false           # (optional) show verification code</span><br><span class="line">    placeholder: xxxxxxxx   # (optional) comment box placeholder text</span><br></pre></td></tr></table></figure>
 <p>开启效果</p>
-<p><img src="/Users/liyuechao/Library/Application Support/typora-user-images/image-20190228102516021.png" alt=""></p>
+<p><img src="https://wx2.sinaimg.cn/large/b5d1b710gy1g0ly1fsc3qj212w0qmdp5.jpg" alt=""></p>
 <h4 id="捐赠收款开启"><a href="#捐赠收款开启" class="headerlink" title="捐赠收款开启"></a>捐赠收款开启</h4><p>icarus 主题中的配置_config.yml中开启 注意如果默认不配置，编译时有报错，可以# 把它注释掉，不启用功能 </p>
 <figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">donate:</span><br><span class="line">    -</span><br><span class="line">        # Donation entry name</span><br><span class="line">        type: alipay</span><br><span class="line">        # Qrcode image URL</span><br><span class="line">        qrcode: <span class="hljs-string">'https://wx2.sinaimg.cn/large/b5d1b710gy1g0lvxdcwm0j20p011i4bg.jpg'</span> </span><br><span class="line">    -</span><br><span class="line">        # Donation entry name</span><br><span class="line">        type: wechat</span><br><span class="line">        # Qrcode image URL</span><br><span class="line">        qrcode: <span class="hljs-string">'https://wx2.sinaimg.cn/large/b5d1b710gy1g0lvwdcpb5j20u014qgy2.jpg'</span></span><br></pre></td></tr></table></figure>
 <p>开启配置效果如下</p>
@@ -431,30 +431,38 @@
                 Catalogue
             </h3>
             <ul class="menu-list"><li>
-        <a class="is-flex" href="#安装、部分配置icarus主题中文版">
-        <span class="has-mr-6">1</span>
-        <span>安装、部分配置icarus主题中文版</span>
-        </a><ul class="menu-list"><li>
         <a class="is-flex" href="#安装icarus">
-        <span class="has-mr-6">1.1</span>
+        <span class="has-mr-6">1</span>
         <span>安装icarus</span>
         </a></li><li>
         <a class="is-flex" href="#配置icarus">
-        <span class="has-mr-6">1.2</span>
+        <span class="has-mr-6">2</span>
         <span>配置icarus</span>
         </a><ul class="menu-list"><li>
         <a class="is-flex" href="#配置文章部分">
-        <span class="has-mr-6">1.2.1</span>
+        <span class="has-mr-6">2.1</span>
         <span>配置文章部分</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#顶部图片添加">
+        <span class="has-mr-6">2.1.1</span>
+        <span>顶部图片添加</span>
         </a></li><li>
+        <a class="is-flex" href="#左边文章导航栏开启">
+        <span class="has-mr-6">2.1.2</span>
+        <span>左边文章导航栏开启</span>
+        </a></li><li>
+        <a class="is-flex" href="#捐赠收款开启">
+        <span class="has-mr-6">2.1.3</span>
+        <span>捐赠收款开启</span>
+        </a></li></ul></li><li>
         <a class="is-flex" href="#全局搜索开启">
-        <span class="has-mr-6">1.2.2</span>
+        <span class="has-mr-6">2.2</span>
         <span>全局搜索开启</span>
         </a></li><li>
         <a class="is-flex" href="#跟多配置请参考官网配置">
-        <span class="has-mr-6">1.2.3</span>
+        <span class="has-mr-6">2.3</span>
         <span>跟多配置请参考官网配置</span>
-        </a></li></ul></li></ul></li></ul>
+        </a></li></ul></li></ul>
         </div>
     </div>
 </div>
