@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://removeif.github.io/about/index.html</loc>
+    
+    <lastmod>2019-02-28T01:39:27.946Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://removeif.github.io/Effective-Java-2-%E9%81%87%E5%88%B0%E5%A4%9A%E4%B8%AA%E6%9E%84%E9%80%A0%E5%99%A8%E5%8F%82%E6%95%B0%E6%97%B6%E8%80%83%E8%99%91%E7%94%A8%E6%9E%84%E5%BB%BA%E5%99%A8.html</loc>
     
     <lastmod>2019-02-27T10:36:00.841Z</lastmod>
@@ -124,13 +131,6 @@
     <loc>https://removeif.github.io/Hello-blog.html</loc>
     
     <lastmod>2019-02-27T10:26:42.812Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://removeif.github.io/about/index.html</loc>
-    
-    <lastmod>2019-01-04T06:49:00.418Z</lastmod>
     
   </url>
   
