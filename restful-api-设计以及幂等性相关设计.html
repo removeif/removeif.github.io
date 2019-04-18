@@ -7,19 +7,19 @@
 
 
 
-    <meta name="description" content="摘要针对项目中部分使用restful-api接口，总结文档如下，没有规矩不成方圆。写代码亦是，设计restful-api接口亦是。 RESTful 的核心思想就是，客户端发出的数据操作指令都是”动词 + 宾语”的结构。比如，GET /articles这个命令，GET是动词，/articles是宾语。 动词通常就是五种 HTTP 方法，对应 CRUD 操作。   GET：读取（Read） POST">
+    <meta name="description" content="摘要针对项目中部分使用restful-api接口，总结文档如下，没有规矩不成方圆。写代码亦是，设计restful-api接口亦是。">
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="restful api 设计以及幂等性相关设计">
 <meta property="og:url" content="https://removeif.github.io/restful-api-设计以及幂等性相关设计.html">
 <meta property="og:site_name" content="冲鸭-&gt;">
-<meta property="og:description" content="摘要针对项目中部分使用restful-api接口，总结文档如下，没有规矩不成方圆。写代码亦是，设计restful-api接口亦是。 RESTful 的核心思想就是，客户端发出的数据操作指令都是”动词 + 宾语”的结构。比如，GET /articles这个命令，GET是动词，/articles是宾语。 动词通常就是五种 HTTP 方法，对应 CRUD 操作。   GET：读取（Read） POST">
+<meta property="og:description" content="摘要针对项目中部分使用restful-api接口，总结文档如下，没有规矩不成方圆。写代码亦是，设计restful-api接口亦是。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://wx3.sinaimg.cn/large/b5d1b710gy1g26x1p2uycj20i60ckdkh.jpg">
-<meta property="og:updated_time" content="2019-04-18T09:31:25.488Z">
+<meta property="og:updated_time" content="2019-04-18T09:36:23.541Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="restful api 设计以及幂等性相关设计">
-<meta name="twitter:description" content="摘要针对项目中部分使用restful-api接口，总结文档如下，没有规矩不成方圆。写代码亦是，设计restful-api接口亦是。 RESTful 的核心思想就是，客户端发出的数据操作指令都是”动词 + 宾语”的结构。比如，GET /articles这个命令，GET是动词，/articles是宾语。 动词通常就是五种 HTTP 方法，对应 CRUD 操作。   GET：读取（Read） POST">
+<meta name="twitter:description" content="摘要针对项目中部分使用restful-api接口，总结文档如下，没有规矩不成方圆。写代码亦是，设计restful-api接口亦是。">
 <meta name="twitter:image" content="https://wx3.sinaimg.cn/large/b5d1b710gy1g26x1p2uycj20i60ckdkh.jpg">
 
 
@@ -156,14 +156,14 @@
                 <time class="level-item has-text-grey" datetime="2019-04-18T09:26:33.000Z">2019-04-18</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java/">java</a>
+                <a class="has-link-grey -link" href="/categories/restful-api设计/">restful-api设计</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    28 分钟 读完 (大约 4153 个字)
+                    28 分钟 读完 (大约 4158 个字)
                 </span>
                 
                 
@@ -177,7 +177,9 @@
         </h1>
         <div class="content">
             <blockquote>
-<p>摘要<br>针对项目中部分使用restful-api接口，总结文档如下，没有规矩不成方圆。写代码亦是，设计restful-api接口亦是。</p>
+<p>摘要<br>针对项目中部分使用restful-api接口，总结文档如下，没有规矩不成方圆。写代码亦是，设计restful-api接口亦是。<br><a id="more"></a></p>
+</blockquote>
+<blockquote>
 <p>RESTful 的核心思想就是，客户端发出的数据操作指令都是”动词 + 宾语”的结构。比如，<code>GET /articles</code>这个命令，<code>GET</code>是动词，<code>/articles</code>是宾语。</p>
 <p>动词通常就是五种 HTTP 方法，对应 CRUD 操作。</p>
 <blockquote>
@@ -189,10 +191,10 @@
 <li>DELETE：删除（Delete）</li>
 </ul>
 </blockquote>
-<p>根据 HTTP 规范，动词一律大写<br><a id="more"></a></p>
+<p>根据 HTTP 规范，动词一律大写</p>
 </blockquote>
 <p>话不多说，先上代码，一份完整的restful-api示例</p>
-<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">package</span> com.dealmoon.local.biz.base.controller;</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">@RestController</span></span><br><span class="line"><span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">"admin/biz-name/v1/user"</span>) <span class="hljs-comment">//@RequestMapping("api/biz-name/v1/city")</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdminUserController</span> </span>&#123;</span><br><span class="line">    <span class="hljs-meta">@Autowired</span></span><br><span class="line">    <span class="hljs-keyword">private</span> UserService service;</span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@GetMapping</span>(<span class="hljs-string">"&#123;id&#125;/county/list"</span>) </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;UserView&gt; <span class="hljs-title">getUsersByCategoryId</span><span class="hljs-params">(@PathVariable(<span class="hljs-string">"id"</span>)</span> Integer id) </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> service.getUsersByCategoryId(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@GetMapping</span>(<span class="hljs-string">"&#123;id&#125;"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> UserView <span class="hljs-title">userInfoById</span><span class="hljs-params">(@PathVariable(<span class="hljs-string">"id"</span>)</span> Integer id) </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> service.getUserInfoById(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@PostMapping</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">create</span><span class="hljs-params">(@RequestBody UserEntityForm form)</span> </span>&#123;</span><br><span class="line">      	<span class="hljs-comment">// 相关验证valid  设置默认值</span></span><br><span class="line">      	service.valid(form);</span><br><span class="line">        <span class="hljs-keyword">if</span> (StringUtil.isEmpty(form.getCsEmail())) &#123;</span><br><span class="line">            form.setCsEmail(<span class="hljs-string">"980099577@qq.com"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Integer id = service.ceate(form);</span><br><span class="line">        <span class="hljs-keyword">return</span> Collections.singletonMap(<span class="hljs-string">"id"</span>, id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@PutMapping</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Result <span class="hljs-title">update</span><span class="hljs-params">(@RequestBody UserEntityForm form)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">// 相关验证 valid</span></span><br><span class="line">        service.valid(form);</span><br><span class="line">        service.update(form);</span><br><span class="line">        <span class="hljs-keyword">return</span> Result.SUCCEED;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@DeleteMapping</span>(<span class="hljs-string">"&#123;id&#125;"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Result <span class="hljs-title">delete</span><span class="hljs-params">(@PathVariable(<span class="hljs-string">"id"</span>)</span> Integer id) </span>&#123;</span><br><span class="line">				<span class="hljs-comment">// 相关验证 valid</span></span><br><span class="line">        service.valid(form);</span><br><span class="line">        service.delete(id);</span><br><span class="line">        <span class="hljs-keyword">return</span> Result.SUCCEED;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="hljs-meta">@RestController</span></span><br><span class="line"><span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">"admin/biz-name/v1/user"</span>) <span class="hljs-comment">//@RequestMapping("api/biz-name/v1/city")</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdminUserController</span> </span>&#123;</span><br><span class="line">    <span class="hljs-meta">@Autowired</span></span><br><span class="line">    <span class="hljs-keyword">private</span> UserService service;</span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@GetMapping</span>(<span class="hljs-string">"&#123;id&#125;/county/list"</span>) </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;UserView&gt; <span class="hljs-title">getUsersByCategoryId</span><span class="hljs-params">(@PathVariable(<span class="hljs-string">"id"</span>)</span> Integer id) </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> service.getUsersByCategoryId(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@GetMapping</span>(<span class="hljs-string">"&#123;id&#125;"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> UserView <span class="hljs-title">userInfoById</span><span class="hljs-params">(@PathVariable(<span class="hljs-string">"id"</span>)</span> Integer id) </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> service.getUserInfoById(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@PostMapping</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">create</span><span class="hljs-params">(@RequestBody UserEntityForm form)</span> </span>&#123;</span><br><span class="line">      	<span class="hljs-comment">// 相关验证valid  设置默认值</span></span><br><span class="line">      	service.valid(form);</span><br><span class="line">        <span class="hljs-keyword">if</span> (StringUtil.isEmpty(form.getCsEmail())) &#123;</span><br><span class="line">            form.setCsEmail(<span class="hljs-string">"980099577@qq.com"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Integer id = service.ceate(form);</span><br><span class="line">        <span class="hljs-keyword">return</span> Collections.singletonMap(<span class="hljs-string">"id"</span>, id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@PutMapping</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Result <span class="hljs-title">update</span><span class="hljs-params">(@RequestBody UserEntityForm form)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">// 相关验证 valid</span></span><br><span class="line">        service.valid(form);</span><br><span class="line">        service.update(form);</span><br><span class="line">        <span class="hljs-keyword">return</span> Result.SUCCEED;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@DeleteMapping</span>(<span class="hljs-string">"&#123;id&#125;"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Result <span class="hljs-title">delete</span><span class="hljs-params">(@PathVariable(<span class="hljs-string">"id"</span>)</span> Integer id) </span>&#123;</span><br><span class="line">				<span class="hljs-comment">// 相关验证 valid</span></span><br><span class="line">        service.valid(form);</span><br><span class="line">        service.delete(id);</span><br><span class="line">        <span class="hljs-keyword">return</span> Result.SUCCEED;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="针对以上restful-api-代码需要注意一下几点："><a href="#针对以上restful-api-代码需要注意一下几点：" class="headerlink" title="针对以上restful-api 代码需要注意一下几点："></a>针对以上restful-api 代码需要注意一下几点：</h2><h3 id="RestController-注解"><a href="#RestController-注解" class="headerlink" title="@RestController 注解"></a>@RestController 注解</h3><p>此注解加在类的上面，返回的结果以json格式，标注此为RestController。不同于Controller注解。Controller非json格式返回。</p>
 <h3 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping"></a>@RequestMapping</h3><p>此注解标识api请求的路劲，可指定相应的请求方法，例如@RequestMapping(“admin/biz-name/v1/user”)：<a href="http://localhost:8080/admin/biz-name/v1/user" target="_blank" rel="noopener">http://localhost:8080/admin/biz-name/v1/user</a></p>
 <p>有如下定义参数：</p>
@@ -219,33 +221,55 @@
 <figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> UserView <span class="hljs-title">userInfoById</span><span class="hljs-params">(@RequestParam(value = <span class="hljs-string">"id"</span>, required = <span class="hljs-keyword">false</span>, defaultValue = <span class="hljs-string">"1"</span>)</span> Integer id）</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>所有的接口方法都应该设计为幂等性，即接口请求多次或一次都应该达到同样的效果。此特性在高并发下面非常适用。</strong></p>
 <h2 id="高并发的核心技术-幂等的实现方案"><a href="#高并发的核心技术-幂等的实现方案" class="headerlink" title="高并发的核心技术 - 幂等的实现方案"></a>高并发的核心技术 - 幂等的实现方案</h2><h3 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h3><p>我们实际系统中有很多操作，是不管做多少次，都应该产生一样的效果或返回一样的结果。  例如： </p>
-<p>\1. 前端重复提交选中的数据，应该后台只产生对应这个数据的一个反应结果。  2. 我们发起一笔付款请求，应该只扣用户账户一次钱，当遇到网络重发或系统bug重发，也应该只扣一次钱；  3. 发送消息，也应该只发一次，同样的短信发给用户，用户会哭的；  4. 创建业务订单，一次业务请求只能创建一个，创建多个就会出大问题。 </p>
+<ol>
+<li>前端重复提交选中的数据，应该后台只产生对应这个数据的一个反应结果。  2. 我们发起一笔付款请求，应该只扣用户账户一次钱，当遇到网络重发或系统bug重发，也应该只扣一次钱；  3. 发送消息，也应该只发一次，同样的短信发给用户，用户会哭的；  4. 创建业务订单，一次业务请求只能创建一个，创建多个就会出大问题。 </li>
+</ol>
 <p>等等很多重要的情况，这些逻辑都需要幂等的特性来支持。 </p>
 <h3 id="二、幂等性概念"><a href="#二、幂等性概念" class="headerlink" title="二、幂等性概念"></a>二、幂等性概念</h3><p>幂等（idempotent、idempotence）是一个数学与计算机学概念，常见于抽象代数中。 </p>
 <p>在编程中.一个幂等操作的特点是其任意多次执行所产生的影响均与一次执行的影响相同。幂等函数，或幂等方法，是指可以使用相同参数重复执行，并能获得相同结果的函数。这些函数不会影响系统状态，也不用担心重复执行会对系统造成改变。例如，“getUsername()和setTrue()”函数就是一个幂等函数. </p>
 <p>更复杂的操作幂等保证是利用唯一交易号(流水号)实现. </p>
 <p>我的理解：幂等就是一个操作，不论执行多少次，产生的效果和返回的结果都是一样的 </p>
-<h3 id="三、技术方案"><a href="#三、技术方案" class="headerlink" title="三、技术方案"></a>三、技术方案</h3><p>\1. 查询操作  查询一次和查询多次，在数据不变的情况下，查询结果是一样的。select是天然的幂等操作 </p>
-<p>\2. 删除操作  删除操作也是幂等的，删除一次和多次删除都是把数据删除。(注意可能返回结果不一样，删除的数据不存在，返回0，删除的数据多条，返回结果多个) </p>
+<h3 id="三、技术方案"><a href="#三、技术方案" class="headerlink" title="三、技术方案"></a>三、技术方案</h3><ol>
+<li><p>查询操作  查询一次和查询多次，在数据不变的情况下，查询结果是一样的。select是天然的幂等操作 </p>
+</li>
+<li><p>删除操作  删除操作也是幂等的，删除一次和多次删除都是把数据删除。(注意可能返回结果不一样，删除的数据不存在，返回0，删除的数据多条，返回结果多个) </p>
+</li>
+</ol>
 <p>3.唯一索引，防止新增脏数据  比如：支付宝的资金账户，支付宝也有用户账户，每个用户只能有一个资金账户，怎么防止给用户创建资金账户多个，那么给资金账户表中的用户ID加唯一索引，所以一个用户新增成功一个资金账户记录 </p>
 <p>要点：  唯一索引或唯一组合索引来防止新增数据存在脏数据  （当表存在唯一索引，并发时新增报错时，再查询一次就可以了，数据应该已经存在了，返回结果即可） </p>
-<p>\4. token机制，防止页面重复提交  业务要求：  页面的数据只能被点击提交一次  发生原因：  由于重复点击或者网络重发，或者nginx重发等情况会导致数据被重复提交  解决办法：  集群环境：采用token加redis（redis单线程的，处理需要排队）  单JVM环境：采用token加redis或token加jvm内存  处理流程：  1. 数据提交前要向服务的申请token，token放到redis或jvm内存，token有效时间  2. 提交后后台校验token，同时删除token，生成新的token返回  token特点：  要申请，一次有效性，可以限流 </p>
+<ol start="4">
+<li>token机制，防止页面重复提交  业务要求：  页面的数据只能被点击提交一次  发生原因：  由于重复点击或者网络重发，或者nginx重发等情况会导致数据被重复提交  解决办法：  集群环境：采用token加redis（redis单线程的，处理需要排队）  单JVM环境：采用token加redis或token加jvm内存  处理流程：  1. 数据提交前要向服务的申请token，token放到redis或jvm内存，token有效时间  2. 提交后后台校验token，同时删除token，生成新的token返回  token特点：  要申请，一次有效性，可以限流 </li>
+</ol>
 <p>注意：redis要用删除操作来判断token，删除成功代表token校验通过，如果用select+delete来校验token，存在并发问题，不建议使用 </p>
-<p>\5. 悲观锁  获取数据的时候加锁获取  select * from table_xxx where id=’xxx’ for update;  注意：id字段一定是主键或者唯一索引，不然是锁表，会死人的  悲观锁使用时一般伴随事务一起使用，数据锁定时间可能会很长，根据实际情况选用 </p>
-<p>\6. 乐观锁  乐观锁只是在更新数据那一刻锁表，其他时间不锁表，所以相对于悲观锁，效率更高。 </p>
+<ol start="5">
+<li><p>悲观锁  获取数据的时候加锁获取  select * from table_xxx where id=’xxx’ for update;  注意：id字段一定是主键或者唯一索引，不然是锁表，会死人的  悲观锁使用时一般伴随事务一起使用，数据锁定时间可能会很长，根据实际情况选用 </p>
+</li>
+<li><p>乐观锁  乐观锁只是在更新数据那一刻锁表，其他时间不锁表，所以相对于悲观锁，效率更高。 </p>
+</li>
+</ol>
 <p>乐观锁的实现方式多种多样可以通过version或者其他状态条件：  1. 通过版本号实现  update table_xxx set name=#name#,version=version+1 where version=#version#  如下图(来自网上)： </p>
 <p><img src="https://wx3.sinaimg.cn/large/b5d1b710gy1g26x1p2uycj20i60ckdkh.jpg" alt=""></p>
-<p>\2. 通过条件限制  update tablexxx set avaiamount=avaiamount-#subAmount# where avaiamount-#subAmount# &gt;= 0  要求：quality-#subQuality# &gt;= ，这个情景适合不用版本号，只更新是做数据安全校验，适合库存模型，扣份额和回滚份额，性能更高 </p>
+<ol start="2">
+<li>通过条件限制  update tablexxx set avaiamount=avaiamount-#subAmount# where avaiamount-#subAmount# &gt;= 0  要求：quality-#subQuality# &gt;= ，这个情景适合不用版本号，只更新是做数据安全校验，适合库存模型，扣份额和回滚份额，性能更高 </li>
+</ol>
 <p>注意：乐观锁的更新操作，最好用主键或者唯一索引来更新,这样是行锁，否则更新时会锁表，上面两个sql改成下面的两个更好  update tablexxx set name=#name#,version=version+1 where id=#id# and version=#version#  update tablexxx set avaiamount=avaiamount-#subAmount# where id=#id# and avai_amount-#subAmount# &gt;= 0 </p>
-<p>\7. 分布式锁  还是拿插入数据的例子，如果是分布是系统，构建全局唯一索引比较困难，例如唯一性的字段没法确定，这时候可以引入分布式锁，通过第三方的系统(redis或zookeeper)，在业务系统插入数据或者更新数据，获取分布式锁，然后做操作，之后释放锁，这样其实是把多线程并发的锁的思路，引入多多个系统，也就是分布式系统中得解决思路。 </p>
+<ol start="7">
+<li>分布式锁  还是拿插入数据的例子，如果是分布是系统，构建全局唯一索引比较困难，例如唯一性的字段没法确定，这时候可以引入分布式锁，通过第三方的系统(redis或zookeeper)，在业务系统插入数据或者更新数据，获取分布式锁，然后做操作，之后释放锁，这样其实是把多线程并发的锁的思路，引入多多个系统，也就是分布式系统中得解决思路。 </li>
+</ol>
 <p>要点：某个长流程处理过程要求不能并发执行，可以在流程执行之前根据某个标志(用户ID+后缀等)获取分布式锁，其他流程执行时获取锁就会失败，也就是同一时间该流程只能有一个能执行成功，执行完成后，释放分布式锁(分布式锁要第三方系统提供) </p>
-<p>\8. select + insert  并发不高的后台系统，或者一些任务JOB，为了支持幂等，支持重复执行，简单的处理方法是，先查询下一些关键数据，判断是否已经执行过，在进行业务处理，就可以了  注意：核心高并发流程不要用这种方法 </p>
-<p>\9. 状态机幂等  在设计单据相关的业务，或者是任务相关的业务，肯定会涉及到状态机(状态变更图)，就是业务单据上面有个状态，状态在不同的情况下会发生变更，一般情况下存在有限状态机，这时候，如果状态机已经处于下一个状态，这时候来了一个上一个状态的变更，理论上是不能够变更的，这样的话，保证了有限状态机的幂等。 </p>
+<ol start="8">
+<li><p>select + insert  并发不高的后台系统，或者一些任务JOB，为了支持幂等，支持重复执行，简单的处理方法是，先查询下一些关键数据，判断是否已经执行过，在进行业务处理，就可以了  注意：核心高并发流程不要用这种方法 </p>
+</li>
+<li><p>状态机幂等  在设计单据相关的业务，或者是任务相关的业务，肯定会涉及到状态机(状态变更图)，就是业务单据上面有个状态，状态在不同的情况下会发生变更，一般情况下存在有限状态机，这时候，如果状态机已经处于下一个状态，这时候来了一个上一个状态的变更，理论上是不能够变更的，这样的话，保证了有限状态机的幂等。 </p>
+</li>
+</ol>
 <p>注意：订单等单据类业务，存在很长的状态流转，一定要深刻理解状态机，对业务系统设计能力提高有很大帮助 </p>
-<p>\10. 对外提供接口的api如何保证幂等  如银联提供的付款接口：需要接入商户提交付款请求时附带：source来源，seq序列号  source+seq在数据库里面做唯一索引，防止多次付款，(并发时，只能处理一个请求) </p>
+<ol start="10">
+<li>对外提供接口的api如何保证幂等  如银联提供的付款接口：需要接入商户提交付款请求时附带：source来源，seq序列号  source+seq在数据库里面做唯一索引，防止多次付款，(并发时，只能处理一个请求) </li>
+</ol>
 <p><strong>重点</strong>对外提供接口为了支持幂等调用，接口有两个字段必须传，一个是来源source，一个是来源方序列号seq，这个两个字段在提供方系统里面做联合唯一索引，这样当第三方调用时，先在本方系统里面查询一下，是否已经处理过，返回相应处理结果；没有处理过，进行相应处理，返回结果。注意，为了幂等友好，一定要先查询一下，是否处理过该笔业务，不查询直接插入业务系统，会报错，但实际已经处理了。 </p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>幂等性应该是合格程序员的一个基因，在设计系统时，是首要考虑的问题，尤其是在像支付宝，银行，互联网金融公司等涉及的都是钱的系统，既要高效，数据也要准确，所以不能出现多扣款，多打款等问题，这样会很难处理，用户体验也不好</p>
-<p>[参考自</p>
+<p><a href="https://mp.weixin.qq.com/s/xy4Jg3LrK0dpYy5q4rAAaw" target="_blank" rel="noopener">参考自</a></p>
 
         </div>
         
@@ -539,7 +563,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-18T09:26:33.000Z">2019-04-18</time></div>
                     <a href="/restful-api-设计以及幂等性相关设计.html" class="has-link-black-ter is-size-6">restful api 设计以及幂等性相关设计</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/restful-api设计/">restful-api设计</a>
                     </p>
                 </div>
             </div>
@@ -726,14 +750,6 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/java/">
-            <span class="level-start">
-                <span class="level-item">java</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
         <a class="level is-marginless" href="/categories/java基础/">
             <span class="level-start">
                 <span class="level-item">java基础</span>
@@ -748,6 +764,14 @@
             </span>
             <span class="level-end">
                 <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/restful-api设计/">
+            <span class="level-start">
+                <span class="level-item">restful-api设计</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/主题配置/">
@@ -1298,7 +1322,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-18T09:26:33.000Z">2019-04-18</time></div>
                     <a href="/restful-api-设计以及幂等性相关设计.html" class="has-link-black-ter is-size-6">restful api 设计以及幂等性相关设计</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/java/">java</a>
+                        <a class="has-link-grey -link" href="/categories/restful-api设计/">restful-api设计</a>
                     </p>
                 </div>
             </div>
@@ -1485,14 +1509,6 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/java/">
-            <span class="level-start">
-                <span class="level-item">java</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
         <a class="level is-marginless" href="/categories/java基础/">
             <span class="level-start">
                 <span class="level-item">java基础</span>
@@ -1507,6 +1523,14 @@
             </span>
             <span class="level-end">
                 <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/restful-api设计/">
+            <span class="level-start">
+                <span class="level-item">restful-api设计</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/主题配置/">
