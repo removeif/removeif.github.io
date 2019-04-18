@@ -1,1 +1,1 @@
-https://removeif.github.io/一千行-MySQL-学习笔记-转载.html
+https://removeif.github.io/restful-api-设计以及幂等性相关设计.html
