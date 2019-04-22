@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://removeif.github.io/hello-world.html</loc>
+    
+    <lastmod>2019-04-22T09:19:45.808Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://removeif.github.io/about/index.html</loc>
     
     <lastmod>2019-04-22T09:16:06.629Z</lastmod>
@@ -73,13 +80,6 @@
   
   <url>
     <loc>https://removeif.github.io/elasticsearch6-query-%E5%85%A8%E6%96%87%E6%9F%A5%E8%AF%A2%E4%B8%8E%E8%AF%8D%E9%A1%B9%E6%9F%A5%E8%AF%A2.html</loc>
-    
-    <lastmod>2019-04-18T09:48:20.776Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://removeif.github.io/hello-world.html</loc>
     
     <lastmod>2019-04-18T09:48:20.776Z</lastmod>
     
