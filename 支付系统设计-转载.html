@@ -15,19 +15,19 @@
 <meta property="og:site_name" content="冲鸭">
 <meta property="og:description" content="支付系统概述支付系统是连接消费者、商家（或平台）和金融机构的桥梁，管理支付数据，调用第三方支付平台接口，记录支付信息（对应订单号，支付金额等），金额对账等功能，根据不同公司对于支付业务的定位不同大概有几个阶段：第一阶段：支付作为一个（封闭）的、独立的应用系统，为各系统提供支付功能支持。一般来说，这个系统仅限于为公司内部的业务提供支付支持，并且和业务紧密耦合。第二阶段：支付作为一个开发的系统，为公司">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://wx1.sinaimg.cn/large/b5d1b710gy1fxp9yxeodcj20wy0u0n39.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1fxpa00sy7uj20zu0f8tf1.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1fxpa17q7vzj20zw0fe41j.jpg">
-<meta property="og:image" content="https://wx1.sinaimg.cn/large/b5d1b710gy1fxpa5vutvdj20zw0i27b0.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1fxpaa2lozdj21230u0n8r.jpg">
-<meta property="og:image" content="https://wx1.sinaimg.cn/large/b5d1b710gy1fxqz4hwfgpj212w0p6gqt.jpg">
-<meta property="og:image" content="https://wx4.sinaimg.cn/large/b5d1b710gy1fxqz5on226j20u00uitgc.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1fxqzaqjji8j212e0sowux.jpg">
-<meta property="og:updated_time" content="2019-04-27T02:53:02.021Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161837.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161851.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161909.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161926.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161950.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162254.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162313.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162337.png">
+<meta property="og:updated_time" content="2019-06-20T08:23:53.936Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="支付系统设计(转载)">
 <meta name="twitter:description" content="支付系统概述支付系统是连接消费者、商家（或平台）和金融机构的桥梁，管理支付数据，调用第三方支付平台接口，记录支付信息（对应订单号，支付金额等），金额对账等功能，根据不同公司对于支付业务的定位不同大概有几个阶段：第一阶段：支付作为一个（封闭）的、独立的应用系统，为各系统提供支付功能支持。一般来说，这个系统仅限于为公司内部的业务提供支付支持，并且和业务紧密耦合。第二阶段：支付作为一个开发的系统，为公司">
-<meta name="twitter:image" content="https://wx1.sinaimg.cn/large/b5d1b710gy1fxp9yxeodcj20wy0u0n39.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161837.png">
 
 
 
@@ -96,7 +96,7 @@
 
 
 <link rel="stylesheet" href="/css/style.css">
-    <meta name="referrer" content="no-referrer"><!--解决图片过期问题-->
+    <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
 </head>
 <body class="is-3-column">
     <nav class="navbar navbar-main">
@@ -157,7 +157,7 @@
     
     <div class="card-image">
         <span class="image is-7by1">
-            <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1fxp9yxeodcj20wy0u0n39.jpg" alt="支付系统设计(转载)">
+            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161802.png" alt="支付系统设计(转载)">
         </span>
     </div>
     
@@ -175,7 +175,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    1 小时 读完 (大约 6852 个字)
+                    1 小时 读完 (大约 6803 个字)
                 </span>
                 
                 
@@ -194,14 +194,14 @@
         </h1>
         <div class="content">
             <h1 id="支付系统"><a href="#支付系统" class="headerlink" title="支付系统"></a>支付系统</h1><h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>支付系统是连接消费者、商家（或平台）和金融机构的桥梁，管理支付数据，调用第三方支付平台接口，记录支付信息（对应订单号，支付金额等），金额对账等功能，根据不同公司对于支付业务的定位不同大概有几个阶段：第一阶段：支付作为一个（封闭）的、独立的应用系统，为各系统提供支付功能支持。一般来说，这个系统仅限于为公司内部的业务提供支付支持，并且和业务紧密耦合。第二阶段：支付作为一个开发的系统，为公司内外部系统、各种业务提供支付服务，支付服务本身应该是和具体的业务解耦合。<br><a id="more"></a></p>
-<h2 id="支付系统架构模块组成图"><a href="#支付系统架构模块组成图" class="headerlink" title="支付系统架构模块组成图"></a>支付系统架构模块组成图</h2><p><img src="https://wx1.sinaimg.cn/large/b5d1b710gy1fxp9yxeodcj20wy0u0n39.jpg" alt=""></p>
+<h2 id="支付系统架构模块组成图"><a href="#支付系统架构模块组成图" class="headerlink" title="支付系统架构模块组成图"></a>支付系统架构模块组成图</h2><p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161837.png" alt=""></p>
 <p>我们先来看一下用户完成一次购物需要进行那些操作：</p>
-<p><img src="https://wx2.sinaimg.cn/large/b5d1b710gy1fxpa00sy7uj20zu0f8tf1.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161851.png" alt=""></p>
 <p>通常消费者在手机APP或者网站都会涉及到支付相关的业务场景，用户只需要简单点击支付按钮输入支付密码，就可以完成整个支付过程，那么我就和大家一起来看看一个完整的支付系统有什么功能组成和设计时需要考虑那些问题。</p>
-<h2 id="支付系统的作用"><a href="#支付系统的作用" class="headerlink" title="支付系统的作用"></a>支付系统的作用</h2><p><img src="https://wx2.sinaimg.cn/large/b5d1b710gy1fxpa17q7vzj20zw0fe41j.jpg" alt=""></p>
+<h2 id="支付系统的作用"><a href="#支付系统的作用" class="headerlink" title="支付系统的作用"></a>支付系统的作用</h2><p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161909.png" alt=""></p>
 <p>从上图中我们可以看出真实的资金流向。首先当用户产生支付行为时，资金从用户端流向支付系统，退款时则相反，从支付系统回流至用户端。因此在整个交易过程中用户端与支付系统是双向资金的流动方式。对于支付系统而言，资金有进有出。从支付系统到商户端就比较简单了，在清算完成后支付系统负责将代收的资金结算给商户，通常结算的操作可以在线上来完成（采用<strong>支付公司代付接口</strong>或者<strong>银企直连接口</strong>来完成），也可以由公司财务通过线下手工转账的方式来完成，因此这种资金流动的方式是单向的。出于资金安全考虑，大多数公司通常这部分采用线下方式实现。</p>
 <p>真实的资金流由支付公司按照约定期限（通常 T+1 ）结算到平台公司对公账户中，然后再由平台公司再按照交易明细进行二次清算后结算给对应的商户。</p>
-<h1 id="支付系统-1"><a href="#支付系统-1" class="headerlink" title="支付系统"></a>支付系统</h1><h2 id="支付系统模块组成"><a href="#支付系统模块组成" class="headerlink" title="支付系统模块组成"></a>支付系统模块组成</h2><p><img src="https://wx1.sinaimg.cn/large/b5d1b710gy1fxpa5vutvdj20zw0i27b0.jpg" alt=""></p>
+<h1 id="支付系统-1"><a href="#支付系统-1" class="headerlink" title="支付系统"></a>支付系统</h1><h2 id="支付系统模块组成"><a href="#支付系统模块组成" class="headerlink" title="支付系统模块组成"></a>支付系统模块组成</h2><p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161926.png" alt=""></p>
 <h2 id="完整的支付系统包括如下的功能"><a href="#完整的支付系统包括如下的功能" class="headerlink" title="完整的支付系统包括如下的功能"></a>完整的支付系统包括如下的功能</h2><ol>
 <li>应用管理: 同时支持公司多个业务系统对接。</li>
 <li>商户管理: 支持商户入驻，商户需要向平台方提供相关的资料备案。</li>
@@ -213,7 +213,7 @@
 <li>结算管理: 根据清算结果，将资金划拨至商户对应的资金帐户中。</li>
 </ol>
 <h2 id="核心流程"><a href="#核心流程" class="headerlink" title="核心流程"></a>核心流程</h2><p>支付系统有几个关键的核心流程：支付流程、对账流程、结算流程</p>
-<p><img src="https://wx2.sinaimg.cn/large/b5d1b710gy1fxpaa2lozdj21230u0n8r.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161950.png" alt=""></p>
 <h2 id="支付流程说明"><a href="#支付流程说明" class="headerlink" title="支付流程说明"></a>支付流程说明</h2><ol>
 <li>用户在商城选购商品并发起支付请求；</li>
 <li>商城将支付订单通过B2C网关收款接口传送至支付网关；</li>
@@ -235,7 +235,7 @@
 <li>支付系统内部间的对账，支付系统一般是分布式的，整个支付系统被拆分成了多个子系统，如交易系统、账户系统、会计系统、账户系统，每个子系统在处理各自的业务，系统间的对账，就是以上系统的核对，用于修正内部系统的数据不一致。</li>
 <li>支付系统与渠道的对账，这里的渠道泛指所有为支付系统提供代收付业务的渠道，如：第三方支付公司、银行、清算中心、网联、银联等。</li>
 </ol>
-<h3 id="对账简易流程"><a href="#对账简易流程" class="headerlink" title="对账简易流程"></a>对账简易流程</h3><p><img src="https://wx1.sinaimg.cn/large/b5d1b710gy1fxqz4hwfgpj212w0p6gqt.jpg" alt=""></p>
+<h3 id="对账简易流程"><a href="#对账简易流程" class="headerlink" title="对账简易流程"></a>对账简易流程</h3><p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162254.png" alt=""></p>
 <h3 id="支付系统与渠道间的对账"><a href="#支付系统与渠道间的对账" class="headerlink" title="支付系统与渠道间的对账"></a>支付系统与渠道间的对账</h3><p>系统间的对账比较好理解，这里主要讲支付系统与渠道间的对账。支付系统与渠道间的对账，又包含2个维度：</p>
 <ol>
 <li>信息流勾对：即业务对账／交易对账，主要是就收单交易的支付信息与银行提供的信息流文件进行勾兑。信息流的勾地能发现支付系统与银行系统间的掉单、两边由于系统间的原因导致的同一笔交易支付金额不一致（可能性很小）或者支付状态不一致。信息流勾兑一般用来恢复掉单数据，可通过补单或者具体系统问题排查解决。</li>
@@ -253,9 +253,9 @@
 <li>支付系统资金流有，而银行没有的差异，可能是因为银行日切早于支付系统的核心账务系统，一旦出现，会出现短款（银行应结算而实际未结算）的现象，银行日切导致段差异，会在下一天与银行的勾对中，将此笔差异勾对上，如果是非日切导致的原因，就需要找银行追款了。</li>
 </ul>
 <p>总结就是，业务对账，即信息流对账，支付系统的交易流水与银行的交易流水间核对，保障支付交易完整入账。资金对账，即资金流对账，支付系统的入账流水与银行的结算流水间核对，保障银行入账流水与实际入账资金的匹配。</p>
-<h2 id="结算"><a href="#结算" class="headerlink" title="结算"></a>结算</h2><h3 id="结算流程"><a href="#结算流程" class="headerlink" title="结算流程"></a>结算流程</h3><p><img src="https://wx4.sinaimg.cn/large/b5d1b710gy1fxqz5on226j20u00uitgc.jpg" alt=""></p>
+<h2 id="结算"><a href="#结算" class="headerlink" title="结算"></a>结算</h2><h3 id="结算流程"><a href="#结算流程" class="headerlink" title="结算流程"></a>结算流程</h3><p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162313.png" alt=""></p>
 <p>在清结算部分，系统按照设定好的清结算规则自动将钱款结算给商户。完善的运营会计体系帮助财务进行精细化核算，提高财务效率。与<strong>支付渠道自动进行对账，确保账务正确</strong>，在异常情况下能及时定位问题并处理。系统更是能对商户进行个性化的费率配置或账期配置，方便灵活。系统的价值不仅体现在支付清结算方面，同时更是<strong>提升了运营管理效率</strong>。支付清结算系统可以有效帮助运营、财务、开发以及管理人员。对于运营人员，系统可帮助处理平台的运营工作，包括各类支付管理，商户、会员管理，营销活动的数据统计等，全面提高运营效率。针对财务人员，可以协助完成资金对账、会计处理，出入款管理，账务差错处理等，大部分工作由系统自动处理，减少人工处理，提高资金处理效率。一套灵活便捷的配置后台供开发人员快速调整系统以适应新的业务，并能方便对系统进行维护，如渠道接入、费率配置、账期调整等，提高开发效率。系统提供资金流转过程中各个环节的数据，能够从各个维度进行核算和分析，形成对管理人员的决策支持，从而提高决策效率。</p>
-<h2 id="关键表设计"><a href="#关键表设计" class="headerlink" title="关键表设计"></a>关键表设计</h2><p><img src="https://wx2.sinaimg.cn/large/b5d1b710gy1fxqzaqjji8j212e0sowux.jpg" alt=""></p>
+<h2 id="关键表设计"><a href="#关键表设计" class="headerlink" title="关键表设计"></a>关键表设计</h2><p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162337.png" alt=""></p>
 <h2 id="支付系统要点"><a href="#支付系统要点" class="headerlink" title="支付系统要点"></a>支付系统要点</h2><p>在支付系统中，支付网关和支付渠道的对接是最繁琐重要的功能之一，其中支付网关是对外提供服务的接口，所有需要渠道支持的资金操作都需要通过网关分发到对应的渠道模块上。一旦定型，后续就很少，也很难调整。而支付渠道模块是接收网关的请求，调用渠道接口执行真正的资金操作。每个渠道的接口，传输方式都不尽相同，所以在这里，支付网关相对于支付渠道模块的作用，类似设计模式中的wrapper，封装各个渠道的差异，对网关呈现统一的接口。而网关的功能是为业务提供通用接口，一些和渠道交互的公共操作，也会放置到网关中。</p>
 <p>支付系统对其他系统，特别是交易系统，提供的支付服务包括签约，支付，退款，充值，转帐，解约等。有些地方还会额外提供签约并支付的接口，用于支持在支付过程中绑卡。 每个服务实现的流程也是基本类似，包括下单，取消订单，退单，查单等操作。每个操作实现，都包括参数校验，支付路由，生成订单，风险评估，调用渠道服务，更新订单和发送消息这7步，对于一些比较复杂的渠道服务，还会涉及到异步同通知处理的步骤。</p>
 <h3 id="网关前置"><a href="#网关前置" class="headerlink" title="网关前置"></a>网关前置</h3><p>支付网关前置是对接业务系统，为其提供支付服务的模块。它是所有支付服务接口的集成前置，将不同支付渠道提供的接口通过统一的方式呈现给业务方。这样接入方就只需要对接支付网关，增加和调整支付渠道对业务方是透明的。 支付网关前置的设计对整个支付系统的稳定性、功能、性能以及其他非功能性需求有着直接的影响。</p>
@@ -653,7 +653,7 @@
             
             <a href="/阿里一年的成长经历.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3zda7i0hij212w0mnhdt.jpg" alt="阿里一年的成长经历">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153347.png" alt="阿里一年的成长经历">
                 </p>
             </a>
             
@@ -672,7 +672,7 @@
             
             <a href="/mysql数据库索引解析.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
                 </p>
             </a>
             
@@ -691,7 +691,7 @@
             
             <a href="/java注解Annotation说明实例.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3kkec1zjxj212w0oknpd.jpg" alt="java注解Annotation说明实例">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155830.png" alt="java注解Annotation说明实例">
                 </p>
             </a>
             
@@ -710,7 +710,7 @@
             
             <a href="/elasticsearch6-x倒排索引和分词.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
                 </p>
             </a>
             
@@ -729,7 +729,7 @@
             
             <a href="/Java版常用正则表达式说明.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2ifmigtuij212w0iv7wh.jpg" alt="Java版常用正则表达式说明">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160241.png" alt="Java版常用正则表达式说明">
                 </p>
             </a>
             
@@ -1158,7 +1158,7 @@
             
             <a href="/阿里一年的成长经历.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3zda7i0hij212w0mnhdt.jpg" alt="阿里一年的成长经历">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153347.png" alt="阿里一年的成长经历">
                 </p>
             </a>
             
@@ -1177,7 +1177,7 @@
             
             <a href="/mysql数据库索引解析.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
                 </p>
             </a>
             
@@ -1196,7 +1196,7 @@
             
             <a href="/java注解Annotation说明实例.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3kkec1zjxj212w0oknpd.jpg" alt="java注解Annotation说明实例">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155830.png" alt="java注解Annotation说明实例">
                 </p>
             </a>
             
@@ -1215,7 +1215,7 @@
             
             <a href="/elasticsearch6-x倒排索引和分词.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
                 </p>
             </a>
             
@@ -1234,7 +1234,7 @@
             
             <a href="/Java版常用正则表达式说明.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2ifmigtuij212w0iv7wh.jpg" alt="Java版常用正则表达式说明">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160241.png" alt="Java版常用正则表达式说明">
                 </p>
             </a>
             

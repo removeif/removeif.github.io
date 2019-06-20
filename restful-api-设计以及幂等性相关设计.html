@@ -15,12 +15,12 @@
 <meta property="og:site_name" content="冲鸭">
 <meta property="og:description" content="摘要针对项目中部分使用restful-api接口，总结文档如下，没有规矩不成方圆。写代码亦是，设计restful-api接口亦是。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/b5d1b710gy1g26x1p2uycj20i60ckdkh.jpg">
-<meta property="og:updated_time" content="2019-04-27T02:53:02.029Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160456.png">
+<meta property="og:updated_time" content="2019-06-20T08:05:10.884Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="restful api 设计以及幂等性相关设计">
 <meta name="twitter:description" content="摘要针对项目中部分使用restful-api接口，总结文档如下，没有规矩不成方圆。写代码亦是，设计restful-api接口亦是。">
-<meta name="twitter:image" content="https://wx3.sinaimg.cn/large/b5d1b710gy1g26x1p2uycj20i60ckdkh.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160456.png">
 
 
 
@@ -89,7 +89,7 @@
 
 
 <link rel="stylesheet" href="/css/style.css">
-    <meta name="referrer" content="no-referrer"><!--解决图片过期问题-->
+    <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
 </head>
 <body class="is-3-column">
     <nav class="navbar navbar-main">
@@ -150,7 +150,7 @@
     
     <div class="card-image">
         <span class="image is-7by1">
-            <img class="thumbnail" src="https://wx3.sinaimg.cn/large/b5d1b710gy1g26wzwqgnvj21120n64qp.jpg" alt="restful api 设计以及幂等性相关设计">
+            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160420.png" alt="restful api 设计以及幂等性相关设计">
         </span>
     </div>
     
@@ -168,7 +168,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    28 分钟 读完 (大约 4158 个字)
+                    28 分钟 读完 (大约 4151 个字)
                 </span>
                 
                 
@@ -258,7 +258,7 @@
 </li>
 </ol>
 <p>乐观锁的实现方式多种多样可以通过version或者其他状态条件：  1. 通过版本号实现  update table_xxx set name=#name#,version=version+1 where version=#version#  如下图(来自网上)： </p>
-<p><img src="https://wx3.sinaimg.cn/large/b5d1b710gy1g26x1p2uycj20i60ckdkh.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160456.png" alt=""></p>
 <ol start="2">
 <li>通过条件限制  update tablexxx set avaiamount=avaiamount-#subAmount# where avaiamount-#subAmount# &gt;= 0  要求：quality-#subQuality# &gt;= ，这个情景适合不用版本号，只更新是做数据安全校验，适合库存模型，扣份额和回滚份额，性能更高 </li>
 </ol>
@@ -571,7 +571,7 @@
             
             <a href="/阿里一年的成长经历.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3zda7i0hij212w0mnhdt.jpg" alt="阿里一年的成长经历">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153347.png" alt="阿里一年的成长经历">
                 </p>
             </a>
             
@@ -590,7 +590,7 @@
             
             <a href="/mysql数据库索引解析.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
                 </p>
             </a>
             
@@ -609,7 +609,7 @@
             
             <a href="/java注解Annotation说明实例.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3kkec1zjxj212w0oknpd.jpg" alt="java注解Annotation说明实例">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155830.png" alt="java注解Annotation说明实例">
                 </p>
             </a>
             
@@ -628,7 +628,7 @@
             
             <a href="/elasticsearch6-x倒排索引和分词.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
                 </p>
             </a>
             
@@ -647,7 +647,7 @@
             
             <a href="/Java版常用正则表达式说明.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2ifmigtuij212w0iv7wh.jpg" alt="Java版常用正则表达式说明">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160241.png" alt="Java版常用正则表达式说明">
                 </p>
             </a>
             
@@ -1076,7 +1076,7 @@
             
             <a href="/阿里一年的成长经历.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3zda7i0hij212w0mnhdt.jpg" alt="阿里一年的成长经历">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153347.png" alt="阿里一年的成长经历">
                 </p>
             </a>
             
@@ -1095,7 +1095,7 @@
             
             <a href="/mysql数据库索引解析.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
                 </p>
             </a>
             
@@ -1114,7 +1114,7 @@
             
             <a href="/java注解Annotation说明实例.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3kkec1zjxj212w0oknpd.jpg" alt="java注解Annotation说明实例">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155830.png" alt="java注解Annotation说明实例">
                 </p>
             </a>
             
@@ -1133,7 +1133,7 @@
             
             <a href="/elasticsearch6-x倒排索引和分词.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
                 </p>
             </a>
             
@@ -1152,7 +1152,7 @@
             
             <a href="/Java版常用正则表达式说明.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2ifmigtuij212w0iv7wh.jpg" alt="Java版常用正则表达式说明">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160241.png" alt="Java版常用正则表达式说明">
                 </p>
             </a>
             

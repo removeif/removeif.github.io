@@ -15,14 +15,14 @@
 <meta property="og:site_name" content="冲鸭">
 <meta property="og:description" content="问题引入咖啡店的类设计：  一个饮料基类，各种饮料类继承这个基类，并且计算各自的价钱。 饮料中需要加入各种调料，考虑在基类中加入一些布尔值变量代表是否加入各种调料，基类的cost()中的计算各种调料的价钱，子类覆盖cost()，并且在其中调用超类的cost()，加上特定饮料的价钱，计算出子类特定饮料的价钱。  缺点：类数量爆炸、基类加入的新功能并不适用于所有的子类、调料价钱的改变、新调料的出现都会">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://wx1.sinaimg.cn/large/b5d1b710gy1fxp0kt6tf9j212w0nbam4.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1fxp0tbdaqaj210m05amyy.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1fxp0vn140uj212w0j0qea.jpg">
-<meta property="og:updated_time" content="2019-06-20T07:29:00.494Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162408.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162440.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162458.png">
+<meta property="og:updated_time" content="2019-06-20T08:25:28.021Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java设计模式之装饰者模式">
 <meta name="twitter:description" content="问题引入咖啡店的类设计：  一个饮料基类，各种饮料类继承这个基类，并且计算各自的价钱。 饮料中需要加入各种调料，考虑在基类中加入一些布尔值变量代表是否加入各种调料，基类的cost()中的计算各种调料的价钱，子类覆盖cost()，并且在其中调用超类的cost()，加上特定饮料的价钱，计算出子类特定饮料的价钱。  缺点：类数量爆炸、基类加入的新功能并不适用于所有的子类、调料价钱的改变、新调料的出现都会">
-<meta name="twitter:image" content="https://wx1.sinaimg.cn/large/b5d1b710gy1fxp0kt6tf9j212w0nbam4.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162408.png">
 
 
 
@@ -91,7 +91,7 @@
 
 
 <link rel="stylesheet" href="/css/style.css">
-    <meta name="referrer" content="no-referrer"><!--解决图片过期问题-->
+    <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
 </head>
 <body class="is-3-column">
     <nav class="navbar navbar-main">
@@ -170,7 +170,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    11 分钟 读完 (大约 1689 个字)
+                    11 分钟 读完 (大约 1670 个字)
                 </span>
                 
                 
@@ -216,10 +216,10 @@
 <p>　　<strong>装饰者可以在所委托被装饰者的行为之前与/或之后，加上自己的行为，以达到特定的目的。</strong></p>
 <p>　　对象可以在任何时候被装饰，所以可以在运行时动态地、不限量地用你喜欢的装饰者来装饰对象。</p>
 <h1 id="装饰者模式的定义"><a href="#装饰者模式的定义" class="headerlink" title="装饰者模式的定义"></a>装饰者模式的定义</h1><p><strong>装饰者模式动态地将责任附加到对象上。若要扩展功能，装饰者提供了比继承更有弹性的替代方案。</strong></p>
-<h1 id="装饰者模式的实现"><a href="#装饰者模式的实现" class="headerlink" title="装饰者模式的实现"></a>装饰者模式的实现</h1><h2 id="实现类图"><a href="#实现类图" class="headerlink" title="实现类图"></a>实现类图</h2><p><img src="https://wx1.sinaimg.cn/large/b5d1b710gy1fxp0kt6tf9j212w0nbam4.jpg" alt=""></p>
+<h1 id="装饰者模式的实现"><a href="#装饰者模式的实现" class="headerlink" title="装饰者模式的实现"></a>装饰者模式的实现</h1><h2 id="实现类图"><a href="#实现类图" class="headerlink" title="实现类图"></a>实现类图</h2><p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162408.png" alt=""></p>
 <p>装饰者和被装饰者具有共同的超类，利用继承达到“<strong>类型匹配</strong>”，而不是利用继承获得“行为”；将装饰者和被装饰者组合时，加入新的行为。</p>
 <h2 id="实现Java代码"><a href="#实现Java代码" class="headerlink" title="实现Java代码"></a>实现Java代码</h2><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 抽象饮料类(抽象组件)</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Beverage</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    String description = <span class="hljs-string">"Unkown Beverage"</span>;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getDescription</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> description;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 抽象价格计算方法</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">double</span> <span class="hljs-title">cost</span><span class="hljs-params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 浓缩饮料</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Espresso</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Beverage</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Espresso</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        description = <span class="hljs-string">"Espresso"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">cost</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-number">1.99</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 又一饮料</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HouseBlend</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Beverage</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">HouseBlend</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        description = <span class="hljs-string">"House Blend"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">cost</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> .<span class="hljs-number">20</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 抽象装饰者类</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CondimentDecorator</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Beverage</span> </span>&#123;</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 为了后面的调料都能够获取到自己调料的描述</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> String <span class="hljs-title">getDescription</span><span class="hljs-params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@desc</span> Mocha调料(具体装饰者)</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Mocha</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CondimentDecorator</span> </span>&#123;</span><br><span class="line">    Beverage beverage;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Mocha</span><span class="hljs-params">(Beverage beverage)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.beverage = beverage;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getDescription</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> beverage.getDescription() + <span class="hljs-string">",Mocha"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">cost</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> .<span class="hljs-number">20</span> + beverage.cost();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@desc</span> Soy调料(具体装饰者)</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Soy</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CondimentDecorator</span> </span>&#123;</span><br><span class="line">    Beverage beverage;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Soy</span><span class="hljs-params">(Beverage beverage)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.beverage = beverage;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getDescription</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> beverage.getDescription() + <span class="hljs-string">",Soy"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">cost</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> .<span class="hljs-number">60</span> + beverage.cost();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@desc</span> Whip调料(具体装饰者)</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Whip</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CondimentDecorator</span> </span>&#123;</span><br><span class="line">    Beverage beverage;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Whip</span><span class="hljs-params">(Beverage beverage)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.beverage = beverage;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getDescription</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> beverage.getDescription() + <span class="hljs-string">",Whip"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">cost</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> .<span class="hljs-number">40</span> + beverage.cost();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@desc</span> 测试装饰者模式</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainTest</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">// 创建一种调料</span></span><br><span class="line">        Beverage beverage = <span class="hljs-keyword">new</span> Espresso();</span><br><span class="line">        <span class="hljs-comment">// 描述和价格</span></span><br><span class="line">        System.out.println(beverage.getDescription() + <span class="hljs-string">" $"</span> + beverage.cost());</span><br><span class="line">        Beverage beverage1 = <span class="hljs-keyword">new</span> HouseBlend();</span><br><span class="line"></span><br><span class="line">        beverage1 = <span class="hljs-keyword">new</span> Mocha(beverage1);</span><br><span class="line">        beverage1 = <span class="hljs-keyword">new</span> Whip(beverage1);</span><br><span class="line">        beverage1 = <span class="hljs-keyword">new</span> Soy(beverage1);</span><br><span class="line">        System.out.println(beverage1.getDescription() + <span class="hljs-string">" $"</span> + beverage1.cost());</span><br><span class="line">        Beverage beverage2 = <span class="hljs-keyword">new</span> Espresso();</span><br><span class="line"></span><br><span class="line">        beverage2 = <span class="hljs-keyword">new</span> Mocha(beverage2);</span><br><span class="line">        beverage2 = <span class="hljs-keyword">new</span> Whip(beverage2);</span><br><span class="line">        beverage2 = <span class="hljs-keyword">new</span> Soy(beverage2);</span><br><span class="line">        beverage2 = <span class="hljs-keyword">new</span> Mocha(beverage2);</span><br><span class="line">        System.out.println(beverage2.getDescription() + <span class="hljs-string">" $"</span> + beverage2.cost());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><p><img src="https://wx2.sinaimg.cn/large/b5d1b710gy1fxp0tbdaqaj210m05amyy.jpg" alt=""></p>
+<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162440.png" alt=""></p>
 <p>装饰者和被装饰者具有共同的超类，利用继承达到“<strong>类型匹配</strong>”，而不是利用继承获得“行为”；将装饰者和被装饰者组合时，加入新的行为。</p>
 <p>　　解决本文中饮料的具体问题时，图中Component即为Beverage（可以是抽象类或者接口），而ConcreteComponent为各种饮料，Decorator（抽象装饰者）为调料的抽象类或接口，ConcreteDecoratorX则为各种具体的调料。</p>
 <p>　　因为使用对象组合，可以把饮料和调料更有弹性地加以混合与匹配。</p>
@@ -227,7 +227,7 @@
 <p>　　代码中实现的时候，通过构造函数将被装饰者传入装饰者中即可，如最后的调用形式如下：</p>
 <figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Beverage beverage = <span class="hljs-keyword">new</span> DarkRoast();</span><br><span class="line">beverage = <span class="hljs-keyword">new</span> Mocha(beverage);</span><br><span class="line">beverage = <span class="hljs-keyword">new</span> Whip(beverage);</span><br></pre></td></tr></table></figure>
 <p>即完成了两层包装，此时再调用beverage的cost()函数即可得到总价。</p>
-<h1 id="java-io包内的装饰者模式"><a href="#java-io包内的装饰者模式" class="headerlink" title="java.io包内的装饰者模式"></a>java.io包内的装饰者模式</h1><p><img src="https://wx2.sinaimg.cn/large/b5d1b710gy1fxp0vn140uj212w0j0qea.jpg" alt=""></p>
+<h1 id="java-io包内的装饰者模式"><a href="#java-io包内的装饰者模式" class="headerlink" title="java.io包内的装饰者模式"></a>java.io包内的装饰者模式</h1><p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162458.png" alt=""></p>
 <p>装饰者模式的缺点：在设计中加入大量的小类，如果过度使用，会让程序变得复杂。</p>
 <p>参考：<a href="http://www.cnblogs.com/mengdd/archive/2013/01/03/2843439.html" target="_blank" rel="noopener">http://www.cnblogs.com/mengdd/archive/2013/01/03/2843439.html</a></p>
 
@@ -501,7 +501,7 @@
             
             <a href="/阿里一年的成长经历.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3zda7i0hij212w0mnhdt.jpg" alt="阿里一年的成长经历">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153347.png" alt="阿里一年的成长经历">
                 </p>
             </a>
             
@@ -520,7 +520,7 @@
             
             <a href="/mysql数据库索引解析.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
                 </p>
             </a>
             
@@ -539,7 +539,7 @@
             
             <a href="/java注解Annotation说明实例.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3kkec1zjxj212w0oknpd.jpg" alt="java注解Annotation说明实例">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155830.png" alt="java注解Annotation说明实例">
                 </p>
             </a>
             
@@ -558,7 +558,7 @@
             
             <a href="/elasticsearch6-x倒排索引和分词.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
                 </p>
             </a>
             
@@ -577,7 +577,7 @@
             
             <a href="/Java版常用正则表达式说明.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2ifmigtuij212w0iv7wh.jpg" alt="Java版常用正则表达式说明">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160241.png" alt="Java版常用正则表达式说明">
                 </p>
             </a>
             
@@ -1006,7 +1006,7 @@
             
             <a href="/阿里一年的成长经历.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3zda7i0hij212w0mnhdt.jpg" alt="阿里一年的成长经历">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153347.png" alt="阿里一年的成长经历">
                 </p>
             </a>
             
@@ -1025,7 +1025,7 @@
             
             <a href="/mysql数据库索引解析.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
                 </p>
             </a>
             
@@ -1044,7 +1044,7 @@
             
             <a href="/java注解Annotation说明实例.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3kkec1zjxj212w0oknpd.jpg" alt="java注解Annotation说明实例">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155830.png" alt="java注解Annotation说明实例">
                 </p>
             </a>
             
@@ -1063,7 +1063,7 @@
             
             <a href="/elasticsearch6-x倒排索引和分词.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
                 </p>
             </a>
             
@@ -1082,7 +1082,7 @@
             
             <a href="/Java版常用正则表达式说明.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2ifmigtuij212w0iv7wh.jpg" alt="Java版常用正则表达式说明">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160241.png" alt="Java版常用正则表达式说明">
                 </p>
             </a>
             

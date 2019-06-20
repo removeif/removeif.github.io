@@ -15,14 +15,14 @@
 <meta property="og:site_name" content="冲鸭">
 <meta property="og:description" content="static用法 static和final是两个我们必须掌握的关键字。不同于其他关键字，他们都有多种用法，而且在一定环境下使用，可以提高程序的运行性能，优化程序的结构。下面我们先来了解一下static关键字及其用法。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1fyxt7wzizoj20p80boq6b.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1fyxt8or9l8j20qq0i8dl4.jpg">
-<meta property="og:image" content="https://wx4.sinaimg.cn/large/b5d1b710gy1fyxta8fo30j20py0i679f.jpg">
-<meta property="og:updated_time" content="2019-06-20T07:29:00.515Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161230.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161254.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161315.png">
+<meta property="og:updated_time" content="2019-06-20T08:13:28.178Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java基础-static关键字">
 <meta name="twitter:description" content="static用法 static和final是两个我们必须掌握的关键字。不同于其他关键字，他们都有多种用法，而且在一定环境下使用，可以提高程序的运行性能，优化程序的结构。下面我们先来了解一下static关键字及其用法。">
-<meta name="twitter:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1fyxt7wzizoj20p80boq6b.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161230.png">
 
 
 
@@ -91,7 +91,7 @@
 
 
 <link rel="stylesheet" href="/css/style.css">
-    <meta name="referrer" content="no-referrer"><!--解决图片过期问题-->
+    <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
 </head>
 <body class="is-3-column">
     <nav class="navbar navbar-main">
@@ -170,7 +170,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    21 分钟 读完 (大约 3202 个字)
+                    21 分钟 读完 (大约 3181 个字)
                 </span>
                 
                 
@@ -194,14 +194,14 @@
 <h2 id="修饰成员变量"><a href="#修饰成员变量" class="headerlink" title="修饰成员变量"></a>修饰成员变量</h2><p>在我们平时的使用当中，static最常用的功能就是修饰类的属性和方法，让他们成为类的成员属性和方法，我们通常将用static修饰的成员称为类成员或者静态成员。</p>
 <figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="hljs-keyword">int</span> age;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-string">"Name:"</span> + name + <span class="hljs-string">", Age:"</span> + age;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Person p1 = <span class="hljs-keyword">new</span> Person();</span><br><span class="line">        p1.name = <span class="hljs-string">"zhangsan"</span>;</span><br><span class="line">        p1.age = <span class="hljs-number">10</span>;</span><br><span class="line">        Person p2 = <span class="hljs-keyword">new</span> Person();</span><br><span class="line">        p2.name = <span class="hljs-string">"lisi"</span>;</span><br><span class="line">        p2.age = <span class="hljs-number">12</span>;</span><br><span class="line">        System.out.println(p1);</span><br><span class="line">        System.out.println(p2);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-comment">/**Output</span></span><br><span class="line"><span class="hljs-comment">     * Name:zhangsan, Age:10</span></span><br><span class="line"><span class="hljs-comment">     * Name:lisi, Age:12</span></span><br><span class="line"><span class="hljs-comment">     */</span><span class="hljs-comment">//~</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>根据Person构造出的每一个对象都是独立存在的，保存有自己独立的成员变量，相互不会影响，他们在内存中的示意如下:</p>
-<p><img src="https://wx2.sinaimg.cn/large/b5d1b710gy1fyxt7wzizoj20p80boq6b.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161230.png" alt=""></p>
 <p>从上图中可以看出，p1和p2两个变量引用的对象分别存储在内存中堆区域的不同地址中，所以他们之间相互不会干扰。但其实，在这当中，我们省略了一些重要信息，相信大家也都会想到，对象的成员属性都在这了，由每个对象自己保存，那么他们的方法呢？实际上，不论一个类创建了几个对象，他们的方法都是一样的：</p>
-<p><img src="https://wx2.sinaimg.cn/large/b5d1b710gy1fyxt8or9l8j20qq0i8dl4.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161254.png" alt=""></p>
 <p>从上面的图中我们可以看到，两个Person对象的方法实际上只是指向了同一个方法定义。这个方法定义是位于内存中的一块不变区域（由jvm划分），我们暂称它为静态存储区。这一块存储区不仅存放了方法的定义，实际上从更大的角度而言，它存放的是各种类的定义，当我们通过new来生成对象时，会根据这里定义的类的定义去创建对象。多个对象仅会对应同一个方法，这里有一个让我们充分信服的理由，那就是不管多少的对象，他们的方法总是相同的，尽管最后的输出会有所不同，但是方法总是会按照我们预想的结果去操作，即不同的对象去调用同一个方法，结果会不尽相同。</p>
 <p>static关键字可以修饰成员变量和方法，来让它们变成类的所属，而不是对象的所属，比如我们将Person的age属性用static进行修饰，结果会是什么样呢?</p>
 <figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> age;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">/* 其余代码不变... */</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**Output</span></span><br><span class="line"><span class="hljs-comment">     * Name:zhangsan, Age:12</span></span><br><span class="line"><span class="hljs-comment">     * Name:lisi, Age:12</span></span><br><span class="line"><span class="hljs-comment">     */</span><span class="hljs-comment">//~</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>我们发现，结果发生了一点变化，在给p2的age属性赋值时，干扰了p1的age属性，这是为什么呢？我们还是来看他们在内存中的示意：</p>
-<p><img src="https://wx4.sinaimg.cn/large/b5d1b710gy1fyxta8fo30j20py0i679f.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620161315.png" alt=""></p>
 <p>我们发现，给age属性加了<strong>static</strong>关键字之后，Person对象就不再拥有age属性了，age属性会统一交给Person类去管理，即多个Person对象只会对应一个age属性，一个对象如果对age属性做了改变，其他的对象都会受到影响。我们看到此时的age和toString()方法一样，都是交由类去管理。</p>
 <p>虽然我们看到static可以让对象共享属性，但是实际中我们很少这么用，也不推荐这么使用。因为这样会让该属性变得难以控制，因为它在任何地方都有可能被改变。如果我们想共享属性，一般我们会采用其他的办法：</p>
 <figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;</span><br><span class="line">    <span class="hljs-keyword">int</span> id;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="hljs-keyword">int</span> age;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        id = ++count;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-string">"Id:"</span> + id + <span class="hljs-string">", Name:"</span> + name + <span class="hljs-string">", Age:"</span> + age;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Person p1 = <span class="hljs-keyword">new</span> Person();</span><br><span class="line">        p1.name = <span class="hljs-string">"zhangsan"</span>;</span><br><span class="line">        p1.age = <span class="hljs-number">10</span>;</span><br><span class="line">        Person p2 = <span class="hljs-keyword">new</span> Person();</span><br><span class="line">        p2.name = <span class="hljs-string">"lisi"</span>;</span><br><span class="line">        p2.age = <span class="hljs-number">12</span>;</span><br><span class="line">        System.out.println(p1);</span><br><span class="line">        System.out.println(p2);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-comment">/**Output</span></span><br><span class="line"><span class="hljs-comment">     * Id:1, Name:zhangsan, Age:10</span></span><br><span class="line"><span class="hljs-comment">     * Id:2, Name:lisi, Age:12</span></span><br><span class="line"><span class="hljs-comment">     */</span><span class="hljs-comment">//~</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -485,7 +485,7 @@
             
             <a href="/阿里一年的成长经历.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3zda7i0hij212w0mnhdt.jpg" alt="阿里一年的成长经历">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153347.png" alt="阿里一年的成长经历">
                 </p>
             </a>
             
@@ -504,7 +504,7 @@
             
             <a href="/mysql数据库索引解析.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
                 </p>
             </a>
             
@@ -523,7 +523,7 @@
             
             <a href="/java注解Annotation说明实例.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3kkec1zjxj212w0oknpd.jpg" alt="java注解Annotation说明实例">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155830.png" alt="java注解Annotation说明实例">
                 </p>
             </a>
             
@@ -542,7 +542,7 @@
             
             <a href="/elasticsearch6-x倒排索引和分词.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
                 </p>
             </a>
             
@@ -561,7 +561,7 @@
             
             <a href="/Java版常用正则表达式说明.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2ifmigtuij212w0iv7wh.jpg" alt="Java版常用正则表达式说明">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160241.png" alt="Java版常用正则表达式说明">
                 </p>
             </a>
             
@@ -990,7 +990,7 @@
             
             <a href="/阿里一年的成长经历.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3zda7i0hij212w0mnhdt.jpg" alt="阿里一年的成长经历">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153347.png" alt="阿里一年的成长经历">
                 </p>
             </a>
             
@@ -1009,7 +1009,7 @@
             
             <a href="/mysql数据库索引解析.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
                 </p>
             </a>
             
@@ -1028,7 +1028,7 @@
             
             <a href="/java注解Annotation说明实例.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3kkec1zjxj212w0oknpd.jpg" alt="java注解Annotation说明实例">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155830.png" alt="java注解Annotation说明实例">
                 </p>
             </a>
             
@@ -1047,7 +1047,7 @@
             
             <a href="/elasticsearch6-x倒排索引和分词.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
                 </p>
             </a>
             
@@ -1066,7 +1066,7 @@
             
             <a href="/Java版常用正则表达式说明.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2ifmigtuij212w0iv7wh.jpg" alt="Java版常用正则表达式说明">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160241.png" alt="Java版常用正则表达式说明">
                 </p>
             </a>
             

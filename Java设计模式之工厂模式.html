@@ -15,12 +15,12 @@
 <meta property="og:site_name" content="冲鸭">
 <meta property="og:description" content="工厂模式序言工厂模式在《Java与模式》中分为三类：  简单工厂模式（Simple Factory）：不利于产生系列产品；  工厂方法模式（Factory Method）：又称为多形性工厂；  抽象工厂模式（Abstract Factory）：又称为工具箱，产生产品族，但不利于产生新的产品；">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://wx4.sinaimg.cn/large/b5d1b710gy1fxj76r3vyij210u0b6myn.jpg">
-<meta property="og:updated_time" content="2019-06-20T07:29:00.519Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162547.png">
+<meta property="og:updated_time" content="2019-06-20T08:26:00.546Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java设计模式之工厂模式">
 <meta name="twitter:description" content="工厂模式序言工厂模式在《Java与模式》中分为三类：  简单工厂模式（Simple Factory）：不利于产生系列产品；  工厂方法模式（Factory Method）：又称为多形性工厂；  抽象工厂模式（Abstract Factory）：又称为工具箱，产生产品族，但不利于产生新的产品；">
-<meta name="twitter:image" content="https://wx4.sinaimg.cn/large/b5d1b710gy1fxj76r3vyij210u0b6myn.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162547.png">
 
 
 
@@ -89,7 +89,7 @@
 
 
 <link rel="stylesheet" href="/css/style.css">
-    <meta name="referrer" content="no-referrer"><!--解决图片过期问题-->
+    <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
 </head>
 <body class="is-3-column">
     <nav class="navbar navbar-main">
@@ -168,7 +168,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    16 分钟 读完 (大约 2394 个字)
+                    16 分钟 读完 (大约 2387 个字)
                 </span>
                 
                 
@@ -205,7 +205,7 @@
 <li>抽象产品角色：它一般是具体产品继承的父类或者实现的接口。在java中由接口或者抽象类来实现。</li>
 <li>具体产品角色：工厂类所创建的对象就是此角色的实例。在java中由一个具体类实现。</li>
 </ol>
-<h3 id="简单工厂模式的UML图"><a href="#简单工厂模式的UML图" class="headerlink" title="简单工厂模式的UML图"></a>简单工厂模式的UML图</h3><p><img src="https://wx4.sinaimg.cn/large/b5d1b710gy1fxj76r3vyij210u0b6myn.jpg" alt=""></p>
+<h3 id="简单工厂模式的UML图"><a href="#简单工厂模式的UML图" class="headerlink" title="简单工厂模式的UML图"></a>简单工厂模式的UML图</h3><p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162547.png" alt=""></p>
 <h3 id="简单工厂模式的Java代码"><a href="#简单工厂模式的Java代码" class="headerlink" title="简单工厂模式的Java代码"></a>简单工厂模式的Java代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 抽象接口 人类</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Human</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">say</span><span class="hljs-params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 男人</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Man</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Human</span> </span>&#123;</span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">say</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="hljs-string">"男人"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 女人</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Woman</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Human</span> </span>&#123;</span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">say</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="hljs-string">"女人"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 简单工厂</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SampleFactory</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Human <span class="hljs-title">makeHuman</span><span class="hljs-params">(String type)</span></span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(type.equals(<span class="hljs-string">"man"</span>))&#123;</span><br><span class="line">            Human man = <span class="hljs-keyword">new</span> Man();</span><br><span class="line">            <span class="hljs-keyword">return</span> man;</span><br><span class="line">        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(type.equals(<span class="hljs-string">"womman"</span>))&#123;</span><br><span class="line">            Human woman = <span class="hljs-keyword">new</span> Woman();</span><br><span class="line">            <span class="hljs-keyword">return</span> woman;</span><br><span class="line">        &#125;<span class="hljs-keyword">else</span>&#123;</span><br><span class="line">            System.out.println(<span class="hljs-string">"生产不出来"</span>);</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">        &#125;            </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 简单工厂模式反射实现</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SampleFactory1</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Human <span class="hljs-title">makeHuman</span><span class="hljs-params">(Class c)</span></span>&#123;</span><br><span class="line">        Human human = <span class="hljs-keyword">null</span>;</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            human = (Human) Class.forName(c.getName()).newInstance();</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (InstantiationException e) &#123;</span><br><span class="line">            <span class="hljs-comment">// TODO Auto-generated catch block</span></span><br><span class="line">            System.out.println(<span class="hljs-string">"不支持抽象类或接口"</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">            <span class="hljs-comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            System.out.println(<span class="hljs-string">"没有足够权限，即不能访问私有对象"</span>);</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            <span class="hljs-comment">// TODO Auto-generated catch block</span></span><br><span class="line">            System.out.println(<span class="hljs-string">"类不存在"</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;    </span><br><span class="line">        <span class="hljs-keyword">return</span> human;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">// 简单工厂测试</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Human man = SampleFactory.makeHuman(<span class="hljs-string">"man"</span>);</span><br><span class="line">        man.say();</span><br><span class="line">        Human womman = SampleFactory.makeHuman(<span class="hljs-string">"womman"</span>);</span><br><span class="line">        womman.say();</span><br><span class="line">        Human test = SampleFactory.makeHuman(<span class="hljs-string">"tttt"</span>);</span><br><span class="line">        </span><br><span class="line">        Human man = SampleFactory1.makeHuman(Man.class);</span><br><span class="line">        man.say();</span><br><span class="line">        Human woman = SampleFactory1.makeHuman(Woman.class);</span><br><span class="line">        woman.say();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="优缺点："><a href="#优缺点：" class="headerlink" title="优缺点："></a>优缺点：</h3><p>  优点：工厂类是整个模式的关键.包含了必要的逻辑判断,根据外界给定的信息,决定究竟应该创建哪个具体类的对象.通过使用工厂类,外界可以从直接创建具体产品对象的尴尬局面摆脱出来,仅仅需要负责“消费”对象就可以了。而不必管这些对象究竟如何创建及如何组织的．明确了各自的职责和权利，有利于整个<a href="http://baike.baidu.com/view/1317046.htm" target="_blank" rel="noopener">软件体系结构</a>的优化。</p>
 <p>  缺点：由于工厂类集中了所有实例的创建逻辑，违反了<a href="http://baike.baidu.com/view/292136.htm" target="_blank" rel="noopener">高内聚</a>责任分配原则，将全部创建逻辑集中到了一个工厂类中；它所能创建的类只能是事先考虑到的，如果需要添加新的类，则就需要改变工厂类了。当系统中的具体产品类不断增多时候，可能会出现要求工厂类根据不同条件创建不同实例的需求．这种对条件的判断和对具体产品类型的判断交错在一起，很难避免模块功能的蔓延，对系统的维护和扩展非常不利；</p>
@@ -514,7 +514,7 @@
             
             <a href="/阿里一年的成长经历.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3zda7i0hij212w0mnhdt.jpg" alt="阿里一年的成长经历">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153347.png" alt="阿里一年的成长经历">
                 </p>
             </a>
             
@@ -533,7 +533,7 @@
             
             <a href="/mysql数据库索引解析.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
                 </p>
             </a>
             
@@ -552,7 +552,7 @@
             
             <a href="/java注解Annotation说明实例.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3kkec1zjxj212w0oknpd.jpg" alt="java注解Annotation说明实例">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155830.png" alt="java注解Annotation说明实例">
                 </p>
             </a>
             
@@ -571,7 +571,7 @@
             
             <a href="/elasticsearch6-x倒排索引和分词.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
                 </p>
             </a>
             
@@ -590,7 +590,7 @@
             
             <a href="/Java版常用正则表达式说明.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2ifmigtuij212w0iv7wh.jpg" alt="Java版常用正则表达式说明">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160241.png" alt="Java版常用正则表达式说明">
                 </p>
             </a>
             
@@ -1019,7 +1019,7 @@
             
             <a href="/阿里一年的成长经历.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3zda7i0hij212w0mnhdt.jpg" alt="阿里一年的成长经历">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153347.png" alt="阿里一年的成长经历">
                 </p>
             </a>
             
@@ -1038,7 +1038,7 @@
             
             <a href="/mysql数据库索引解析.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
                 </p>
             </a>
             
@@ -1057,7 +1057,7 @@
             
             <a href="/java注解Annotation说明实例.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3kkec1zjxj212w0oknpd.jpg" alt="java注解Annotation说明实例">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155830.png" alt="java注解Annotation说明实例">
                 </p>
             </a>
             
@@ -1076,7 +1076,7 @@
             
             <a href="/elasticsearch6-x倒排索引和分词.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
                 </p>
             </a>
             
@@ -1095,7 +1095,7 @@
             
             <a href="/Java版常用正则表达式说明.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2ifmigtuij212w0iv7wh.jpg" alt="Java版常用正则表达式说明">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160241.png" alt="Java版常用正则表达式说明">
                 </p>
             </a>
             

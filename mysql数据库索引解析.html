@@ -15,25 +15,25 @@
 <meta property="og:site_name" content="冲鸭">
 <meta property="og:description" content="摘要看了很多关于索引的博客，讲的大同小异。但是始终没有让我明白关于索引的一些概念，如B-Tree索引，Hash索引，唯一索引….或许有很多人和我一样，没搞清楚概念就开始研究B-Tree，B+Tree等结构，导致在面试的时候答非所问！">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://r.sinaimg.cn/large/article/4d6d9c2adb252632e630f19fe04d3896">
-<meta property="og:image" content="https://r.sinaimg.cn/large/article/1003061251a5154b67e3fd79d2930dec">
-<meta property="og:image" content="https://r.sinaimg.cn/large/article/cb94d3a1dfa3c6dda2cd39113eddc659">
-<meta property="og:image" content="https://r.sinaimg.cn/large/article/92531cab99639df644e307d9dd9b2e2b">
-<meta property="og:image" content="https://r.sinaimg.cn/large/article/4bc42badd705128af34cbd950249aa39">
-<meta property="og:image" content="https://r.sinaimg.cn/large/article/da4486d8e3e7cb937a3c1124e066e996">
-<meta property="og:image" content="https://r.sinaimg.cn/large/article/d2edc1ccaa436bd8f148c497bb3fded5">
-<meta property="og:image" content="https://r.sinaimg.cn/large/article/c5f1ea889a1636e74ac28ea645f39086">
-<meta property="og:image" content="https://r.sinaimg.cn/large/article/202d22895c2ad9c8d6bd5771374c1dcb">
-<meta property="og:image" content="https://r.sinaimg.cn/large/article/f0fa7c092ea97d07580744bc7a7af2d4">
-<meta property="og:image" content="https://r.sinaimg.cn/large/article/161adf9faa49f1db4cf301c6f8cb05da">
-<meta property="og:image" content="https://r.sinaimg.cn/large/article/8f54ec34eef8ac7207fa4b9e77bb7110">
-<meta property="og:image" content="https://r.sinaimg.cn/large/article/045d0026fd103195d97b1ac3358dc897">
-<meta property="og:image" content="https://r.sinaimg.cn/large/article/a33047a6f4f7ed083fbdab1a3022b87f">
-<meta property="og:updated_time" content="2019-06-04T11:40:18.119Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153804.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153834.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153924.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153946.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620154003.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620154020.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/b5d1b710ly4g3pc5ln9mmg20di04fjsq.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/b5d1b710ly4g3pc6246isg20di04fjwr.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620154236.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620154344.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620154405.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620154422.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620154438.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620154455.png">
+<meta property="og:updated_time" content="2019-06-20T07:56:53.303Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql数据库索引解析">
 <meta name="twitter:description" content="摘要看了很多关于索引的博客，讲的大同小异。但是始终没有让我明白关于索引的一些概念，如B-Tree索引，Hash索引，唯一索引….或许有很多人和我一样，没搞清楚概念就开始研究B-Tree，B+Tree等结构，导致在面试的时候答非所问！">
-<meta name="twitter:image" content="https://r.sinaimg.cn/large/article/4d6d9c2adb252632e630f19fe04d3896">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153804.png">
 
 
 
@@ -102,7 +102,7 @@
 
 
 <link rel="stylesheet" href="/css/style.css">
-    <meta name="referrer" content="no-referrer"><!--解决图片过期问题-->
+    <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
 </head>
 <body class="is-3-column">
     <nav class="navbar navbar-main">
@@ -163,7 +163,7 @@
     
     <div class="card-image">
         <span class="image is-7by1">
-            <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
         </span>
     </div>
     
@@ -181,7 +181,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    30 分钟 读完 (大约 4518 个字)
+                    30 分钟 读完 (大约 4470 个字)
                 </span>
                 
                 
@@ -221,12 +221,12 @@
 <h3 id="索引的底层实现"><a href="#索引的底层实现" class="headerlink" title="索引的底层实现"></a>索引的底层实现</h3><p>mysql默认存储引擎innodb只显式支持B-Tree( 从技术上来说是B+Tree)索引，对于频繁访问的表，innodb会透明建立自适应hash索引，即在B树索引基础上建立hash索引，可以显著提高查找效率，对于客户端是透明的，不可控制的，隐式的。</p>
 <p>不谈存储引擎，只讨论实现(抽象)</p>
 <h4 id="Hash索引"><a href="#Hash索引" class="headerlink" title="Hash索引"></a>Hash索引</h4><p>基于哈希表实现，只有精确匹配索引所有列的查询才有效，对于每一行数据，存储引擎都会对所有的索引列计算一个哈希码（hash code），并且Hash索引将所有的哈希码存储在索引中，同时在索引表中保存指向每个数据行的指针。</p>
-<p><img src="https://r.sinaimg.cn/large/article/4d6d9c2adb252632e630f19fe04d3896" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153804.png" alt=""></p>
 <h4 id="B-Tree索引（MySQL使用B-Tree）"><a href="#B-Tree索引（MySQL使用B-Tree）" class="headerlink" title="B-Tree索引（MySQL使用B+Tree）"></a>B-Tree索引（MySQL使用B+Tree）</h4><p>B-Tree能加快数据的访问速度，因为存储引擎不再需要进行全表扫描来获取数据，数据分布在各个节点之中。</p>
-<p><img src="https://r.sinaimg.cn/large/article/1003061251a5154b67e3fd79d2930dec" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153834.png" alt=""></p>
 <p>B+Tree索引</p>
 <p>是B-Tree的改进版本，同时也是数据库索引索引所采用的存储结构。数据都在叶子节点上，并且增加了顺序访问指针，每个叶子节点都指向相邻的叶子节点的地址。相比B-Tree来说，进行范围查找时只需要查找两个节点，进行遍历即可。而B-Tree需要获取所有节点，相比之下B+Tree效率更高。</p>
-<p><img src="https://r.sinaimg.cn/large/article/cb94d3a1dfa3c6dda2cd39113eddc659" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153924.png" alt=""></p>
 <p>结合存储引擎来讨论（一般默认使用B+Tree）</p>
 <p>案例：假设有一张学生表，id为主键</p>
 <table>
@@ -276,10 +276,10 @@
 </tbody>
 </table>
 <p><strong>在MyISAM引擎中的实现</strong>（二级索引也是这样实现的）</p>
-<p><img src="https://r.sinaimg.cn/large/article/92531cab99639df644e307d9dd9b2e2b" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153946.png" alt=""></p>
 <p>在InnoDB中的实现</p>
-<p><img src="https://r.sinaimg.cn/large/article/4bc42badd705128af34cbd950249aa39" alt=""></p>
-<p><img src="https://r.sinaimg.cn/large/article/da4486d8e3e7cb937a3c1124e066e996" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620154003.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620154020.png" alt=""></p>
 <h3 id="为什么索引结构默认使用B-Tree，而不是Hash，二叉树，红黑树？"><a href="#为什么索引结构默认使用B-Tree，而不是Hash，二叉树，红黑树？" class="headerlink" title="为什么索引结构默认使用B+Tree，而不是Hash，二叉树，红黑树？"></a>为什么索引结构默认使用B+Tree，而不是Hash，二叉树，红黑树？</h3><p>B+tree：因为B树<strong>不管叶子节点还是非叶子节点，都会保存数据</strong>，这样导致在非叶子节点中能保存的指针数量变少（有些资料也称为扇出），指针少的情况下要保存大量数据，只能增加树的高度，导致IO操作变多，查询性能变低；</p>
 <p>Hash：虽然可以快速定位，但是没有顺序，IO复杂度高。</p>
 <p>二叉树：树的高度不均匀，不能自平衡，查找效率跟数据有关（树的高度），并且IO代价高。</p>
@@ -296,9 +296,9 @@
 </blockquote>
 <h3 id="为什么官方建议使用自增长主键作为索引？"><a href="#为什么官方建议使用自增长主键作为索引？" class="headerlink" title="为什么官方建议使用自增长主键作为索引？"></a>为什么官方建议使用自增长主键作为索引？</h3><p>结合B+Tree的特点，自增主键是连续的，在插入过程中尽量减少页分裂，即使要进行页分裂，也只会分裂很少一部分。并且能减少数据的移动，每次插入都是插入到最后。总之就是减少分裂和移动的频率。</p>
 <p>插入连续的数据：</p>
-<p><img src="https://r.sinaimg.cn/large/article/d2edc1ccaa436bd8f148c497bb3fded5" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/b5d1b710ly4g3pc5ln9mmg20di04fjsq.gif" alt=""></p>
 <p>插入非连续的数据</p>
-<p><img src="https://r.sinaimg.cn/large/article/c5f1ea889a1636e74ac28ea645f39086" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/b5d1b710ly4g3pc6246isg20di04fjwr.gif" alt=""></p>
 <h3 id="简单总结下"><a href="#简单总结下" class="headerlink" title="简单总结下"></a>简单总结下</h3><ol>
 <li>MySQL使用B+Tree作为索引数据结构。 </li>
 <li>B+Tree在新增数据时，会根据索引指定列的值对旧的B+Tree做调整。</li>
@@ -312,12 +312,12 @@
 <p>我们都知道计算机在存储数据的时候，有最小存储单元，这就好比我们今天进行现金的流通最小单位是一毛。在计算机中磁盘存储数据最小单元是扇区，一个扇区的大小是512字节，而文件系统（例如XFS/EXT4）他的最小单元是块，一个块的大小是4k，而对于我们的InnoDB存储引擎也有自己的最小储存单元——页（Page），一个页的大小是16K。</p>
 <p>innodb的所有数据文件（后缀为ibd的文件），他的大小始终都是16384（16k）的整数倍。</p>
 <p>磁盘扇区、文件系统、InnoDB存储引擎都有各自的最小存储单元。</p>
-<p><img src="https://r.sinaimg.cn/large/article/202d22895c2ad9c8d6bd5771374c1dcb" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620154236.png" alt=""></p>
 <p>在MySQL中我们的InnoDB页的大小默认是16k，当然也可以通过参数设置：</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like </span><br><span class="line">&apos;innodb_page_size&apos;;</span><br><span class="line">+------------------+-------+</span><br><span class="line">| Variable_name| Value|</span><br><span class="line">+------------------+-------+</span><br><span class="line">| innodb_page_size | 16384|</span><br><span class="line">+------------------+-------+</span><br><span class="line">1 row in set(0.00sec)</span><br></pre></td></tr></table></figure>
 <p>数据表中的数据都是存储在页中的，所以一个页中能存储多少行数据呢？假设一行数据的大小是1k，那么一个页可以存放16行这样的数据。</p>
 <p>如果数据库只按这样的方式存储，那么如何查找数据就成为一个问题，因为我们不知道要查找的数据存在哪个页中，也不可能把所有的页遍历一遍，那样太慢了。所以人们想了一个办法，用B+树的方式组织这些数据。如图所示：</p>
-<p><img src="https://r.sinaimg.cn/large/article/f0fa7c092ea97d07580744bc7a7af2d4" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620154344.png" alt=""></p>
 <p>我们先将数据记录按主键进行排序，分别存放在不同的页中（为了便于理解我们这里一个页中只存放3条记录，实际情况可以存放很多），除了存放数据的页以外，还有存放键值+指针的页，如图中page number=3的页，该页存放键值和指向数据页的指针，这样的页由N个键值+指针组成。当然它也是排好序的。这样的数据组织形式，我们称为索引组织表。现在来看下，要查找一条数据，怎么查？</p>
 <p>如<strong>select * from user where id=5</strong>;</p>
 <p>这里id是主键,我们通过这棵B+树来查找，首先找到根页，你怎么知道user表的根页在哪呢？其实每张表的根页位置在表空间文件中是固定的，即page number=3的页（这点我们下文还会进一步证明），找到根页后通过二分查找法，定位到id=5的数据应该在指针P5指向的页中，那么进一步去page number=5的页中查找，同样通过二分查询法即可找到id=5的记录：</p>
@@ -335,17 +335,17 @@
 <p>在实际操作之前，你可以通过InnoDB元数据表确认主键索引根页的page number为3，你也可以从《InnoDB存储引擎》这本书中得到确认。</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">b.name, a.name, index_id, type, a.space, a.PAGE_NO</span><br><span class="line">FROM</span><br><span class="line">information_schema.INNODB_SYS_INDEXES a,</span><br><span class="line">information_schema.INNODB_SYS_TABLES b</span><br><span class="line">WHERE</span><br><span class="line">a.table_id = b.table_id AND a.space &lt;&gt; 0;</span><br></pre></td></tr></table></figure>
 <p>执行结果：</p>
-<p><img src="https://r.sinaimg.cn/large/article/161adf9faa49f1db4cf301c6f8cb05da" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620154405.png" alt=""></p>
 <p>可以看出数据库dbt3下的customer表、lineitem表主键索引根页的page number均为3，而其他的二级索引page number为4。关于二级索引与主键索引的区别请参考MySQL相关书籍，本文不在此介绍。</p>
 <p><strong>下面我们对数据库表空间文件做想相关的解析：</strong></p>
-<p><img src="https://r.sinaimg.cn/large/article/8f54ec34eef8ac7207fa4b9e77bb7110" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620154422.png" alt=""></p>
 <p>因为主键索引B+树的根页在整个表空间文件中的第3个页开始，所以可以算出它在文件中的偏移量：<strong>16384*3=49152（16384为页大小）</strong>。</p>
 <p>另外根据《InnoDB存储引擎》中描述在根页的64偏移量位置前2个字节，保存了page level的值，因此我们想要的page level的值在整个文件中的偏移量为：<strong>16384*3+64=49152+64=49216</strong>，前2个字节中。</p>
 <p><strong>接下来我们用hexdump工具，查看表空间文件指定偏移量上的数据：</strong></p>
-<p><img src="https://r.sinaimg.cn/large/article/045d0026fd103195d97b1ac3358dc897" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620154438.png" alt=""></p>
 <p><strong>linetem表的page level为2，B+树高度为page level+1=3；**</strong>region表的page level为0，B+树高度为page level+1=1；<strong>**customer表的page level为2，B+树高度为page level+1=3；</strong></p>
 <p><strong>这三张表的数据量如下：</strong></p>
-<p><img src="https://r.sinaimg.cn/large/article/a33047a6f4f7ed083fbdab1a3022b87f" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620154455.png" alt=""></p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>lineitem表的数据行数为600多万，B+树高度为3，customer表数据行数只有15万，B+树高度也为3。可以看出尽管数据量差异较大，这两个表树的高度都是3，换句话说这两个表通过索引查询效率并没有太大差异，因为都只需要做3次IO。那么如果有一张表行数是一千万，那么他的B+树高度依旧是3，查询效率仍然不会相差太大。</p>
 <p>region表只有5行数据，当然他的B+树高度为1。</p>
 <h3 id="最后回顾一道面试题"><a href="#最后回顾一道面试题" class="headerlink" title="最后回顾一道面试题"></a>最后回顾一道面试题</h3><p>有一道MySQL的面试题，为什么MySQL的索引要使用B+树而不是其它树形结构？比如B树？</p>
@@ -644,7 +644,7 @@
             
             <a href="/阿里一年的成长经历.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3zda7i0hij212w0mnhdt.jpg" alt="阿里一年的成长经历">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153347.png" alt="阿里一年的成长经历">
                 </p>
             </a>
             
@@ -663,7 +663,7 @@
             
             <a href="/mysql数据库索引解析.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
                 </p>
             </a>
             
@@ -682,7 +682,7 @@
             
             <a href="/java注解Annotation说明实例.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3kkec1zjxj212w0oknpd.jpg" alt="java注解Annotation说明实例">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155830.png" alt="java注解Annotation说明实例">
                 </p>
             </a>
             
@@ -701,7 +701,7 @@
             
             <a href="/elasticsearch6-x倒排索引和分词.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
                 </p>
             </a>
             
@@ -720,7 +720,7 @@
             
             <a href="/Java版常用正则表达式说明.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2ifmigtuij212w0iv7wh.jpg" alt="Java版常用正则表达式说明">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160241.png" alt="Java版常用正则表达式说明">
                 </p>
             </a>
             
@@ -1149,7 +1149,7 @@
             
             <a href="/阿里一年的成长经历.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3zda7i0hij212w0mnhdt.jpg" alt="阿里一年的成长经历">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153347.png" alt="阿里一年的成长经历">
                 </p>
             </a>
             
@@ -1168,7 +1168,7 @@
             
             <a href="/mysql数据库索引解析.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
                 </p>
             </a>
             
@@ -1187,7 +1187,7 @@
             
             <a href="/java注解Annotation说明实例.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3kkec1zjxj212w0oknpd.jpg" alt="java注解Annotation说明实例">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155830.png" alt="java注解Annotation说明实例">
                 </p>
             </a>
             
@@ -1206,7 +1206,7 @@
             
             <a href="/elasticsearch6-x倒排索引和分词.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
                 </p>
             </a>
             
@@ -1225,7 +1225,7 @@
             
             <a href="/Java版常用正则表达式说明.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2ifmigtuij212w0iv7wh.jpg" alt="Java版常用正则表达式说明">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160241.png" alt="Java版常用正则表达式说明">
                 </p>
             </a>
             

@@ -15,18 +15,18 @@
 <meta property="og:site_name" content="冲鸭">
 <meta property="og:description" content="摘要倒排索引（Inverted Index）也叫反向索引，有反向索引必有正向索引。通俗地来讲，正向索引是通过key找value，反向索引则是通过value找key。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/b5d1b710gy1g2rmf8w54kj212w0gkn1c.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/b5d1b710gy1g2rmj2gyvlj212w0ay0w8.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/b5d1b710gy1g2rmq77b5fj212w0m0n3m.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1g2rmqz7oufj212w0j8k0c.jpg">
-<meta property="og:image" content="https://wx2.sinaimg.cn/large/b5d1b710gy1g2rmrp2xg6j212w0i1n04.jpg">
-<meta property="og:image" content="https://wx4.sinaimg.cn/large/b5d1b710gy1g2rmsb5gonj212w0lcq83.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/b5d1b710gy1g2rmt4e45vj212w0dp798.jpg">
-<meta property="og:updated_time" content="2019-05-06T08:07:15.382Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155952.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160007.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160026.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160044.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160102.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160121.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160140.png">
+<meta property="og:updated_time" content="2019-06-20T08:01:53.060Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="elasticsearch6.x倒排索引和分词">
 <meta name="twitter:description" content="摘要倒排索引（Inverted Index）也叫反向索引，有反向索引必有正向索引。通俗地来讲，正向索引是通过key找value，反向索引则是通过value找key。">
-<meta name="twitter:image" content="https://wx3.sinaimg.cn/large/b5d1b710gy1g2rmf8w54kj212w0gkn1c.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155952.png">
 
 
 
@@ -95,7 +95,7 @@
 
 
 <link rel="stylesheet" href="/css/style.css">
-    <meta name="referrer" content="no-referrer"><!--解决图片过期问题-->
+    <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
 </head>
 <body class="is-3-column">
     <nav class="navbar navbar-main">
@@ -156,7 +156,7 @@
     
     <div class="card-image">
         <span class="image is-7by1">
-            <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
         </span>
     </div>
     
@@ -174,7 +174,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    19 分钟 读完 (大约 2901 个字)
+                    19 分钟 读完 (大约 2848 个字)
                 </span>
                 
                 
@@ -201,7 +201,7 @@
 <li>倒排索引：单词到文档id的关联关系</li>
 </ul>
 <p>示例：<br>对以下三个文档去除停用词后构造倒排索引</p>
-<p><img src="https://wx3.sinaimg.cn/large/b5d1b710gy1g2rmf8w54kj212w0gkn1c.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155952.png" alt=""></p>
 <h4 id="倒排索引-查询过程"><a href="#倒排索引-查询过程" class="headerlink" title="倒排索引-查询过程"></a>倒排索引-查询过程</h4><p>查询包含“<strong>搜索引擎</strong>”的文档</p>
 <ol>
 <li>通过倒排索引获得“搜索引擎”对应的文档id列表，有1，3</li>
@@ -221,7 +221,7 @@
 <li><a href="https://www.cnblogs.com/nullzx/p/8729425.html" target="_blank" rel="noopener">B树和B+树的插入、删除图文详解</a></li>
 </ol>
 </blockquote>
-<p><img src="https://wx3.sinaimg.cn/large/b5d1b710gy1g2rmj2gyvlj212w0ay0w8.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160007.png" alt=""></p>
 <h4 id="倒排列表（Posting-List）"><a href="#倒排列表（Posting-List）" class="headerlink" title="倒排列表（Posting List）"></a>倒排列表（Posting List）</h4><ul>
 <li><p>倒排列表记录了单词对应的文档集合，有倒排索引项（Posting）组成</p>
 </li>
@@ -232,14 +232,14 @@
 <li>位置（Posting），记录单词在文档中的分词位置（多个），用于做词语搜索（Phrase Query）</li>
 <li>偏移（Offset），记录单词在文档的开始和结束位置，用于高亮显示</li>
 </ol>
-<p><img src="https://wx3.sinaimg.cn/large/b5d1b710gy1g2rmq77b5fj212w0m0n3m.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160026.png" alt=""></p>
 </li>
 </ul>
 <p>B+树<strong>内部结点存索引，叶子结点存数据</strong>，这里的 单词词典就是B+树索引，倒排列表就是数据，整合在一起后如下所示</p>
-<p><img src="https://wx2.sinaimg.cn/large/b5d1b710gy1g2rmqz7oufj212w0j8k0c.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160044.png" alt=""></p>
 <p>ES存储的是一个JSON格式的文档，其中包含多个字段，每个字段会有自己的倒排索引</p>
 <h3 id="分词"><a href="#分词" class="headerlink" title="分词"></a>分词</h3><p>分词是将文本转换成一系列单词（Term or Token）的过程，也可以叫文本分析，在ES里面称为Analysis</p>
-<p><img src="https://wx2.sinaimg.cn/large/b5d1b710gy1g2rmrp2xg6j212w0i1n04.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160102.png" alt=""></p>
 <h4 id="分词器"><a href="#分词器" class="headerlink" title="分词器"></a>分词器</h4><p>分词器是ES中专门处理分词的组件，英文为Analyzer，它的组成如下：</p>
 <ul>
 <li>Character Filters：针对原始文本进行处理，比如去除html标签</li>
@@ -247,12 +247,12 @@
 <li>Token Filters：针对Tokenizer处理的单词进行再加工，比如转小写、删除或增新等处理</li>
 </ul>
 <p>分词器调用顺序</p>
-<p><img src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2rmsb5gonj212w0lcq83.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160121.png" alt=""></p>
 <h3 id="Analyze-API"><a href="#Analyze-API" class="headerlink" title="Analyze API"></a><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis.html" target="_blank" rel="noopener">Analyze API</a></h3><p>ES提供了一个可以测试分词的API接口，方便验证分词效果，endpoint是_analyze</p>
 <ul>
 <li>可以直接指定analyzer进行测试</li>
 </ul>
-<p><img src="https://wx3.sinaimg.cn/large/b5d1b710gy1g2rmt4e45vj212w0dp798.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160140.png" alt=""></p>
 <ul>
 <li>可以直接指定索引中的字段进行测试</li>
 </ul>
@@ -710,7 +710,7 @@
             
             <a href="/阿里一年的成长经历.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3zda7i0hij212w0mnhdt.jpg" alt="阿里一年的成长经历">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153347.png" alt="阿里一年的成长经历">
                 </p>
             </a>
             
@@ -729,7 +729,7 @@
             
             <a href="/mysql数据库索引解析.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
                 </p>
             </a>
             
@@ -748,7 +748,7 @@
             
             <a href="/java注解Annotation说明实例.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3kkec1zjxj212w0oknpd.jpg" alt="java注解Annotation说明实例">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155830.png" alt="java注解Annotation说明实例">
                 </p>
             </a>
             
@@ -767,7 +767,7 @@
             
             <a href="/elasticsearch6-x倒排索引和分词.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
                 </p>
             </a>
             
@@ -786,7 +786,7 @@
             
             <a href="/Java版常用正则表达式说明.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2ifmigtuij212w0iv7wh.jpg" alt="Java版常用正则表达式说明">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160241.png" alt="Java版常用正则表达式说明">
                 </p>
             </a>
             
@@ -1215,7 +1215,7 @@
             
             <a href="/阿里一年的成长经历.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3zda7i0hij212w0mnhdt.jpg" alt="阿里一年的成长经历">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153347.png" alt="阿里一年的成长经历">
                 </p>
             </a>
             
@@ -1234,7 +1234,7 @@
             
             <a href="/mysql数据库索引解析.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
                 </p>
             </a>
             
@@ -1253,7 +1253,7 @@
             
             <a href="/java注解Annotation说明实例.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3kkec1zjxj212w0oknpd.jpg" alt="java注解Annotation说明实例">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155830.png" alt="java注解Annotation说明实例">
                 </p>
             </a>
             
@@ -1272,7 +1272,7 @@
             
             <a href="/elasticsearch6-x倒排索引和分词.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
                 </p>
             </a>
             
@@ -1291,7 +1291,7 @@
             
             <a href="/Java版常用正则表达式说明.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2ifmigtuij212w0iv7wh.jpg" alt="Java版常用正则表达式说明">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160241.png" alt="Java版常用正则表达式说明">
                 </p>
             </a>
             

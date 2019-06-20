@@ -15,14 +15,14 @@
 <meta property="og:site_name" content="冲鸭">
 <meta property="og:description" content="定义 在阎宏博士的《JAVA与模式》一书中开头是这样描述观察者（Observer）模式的：观察者模式是对象的行为模式，又叫发布-订阅(Publish/Subscribe)模式、模型-视图(Model/View)模式、源-监听器(Source/Listener)模式或从属者(Dependents)模式。观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。这个主题对象在状态上">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://wx1.sinaimg.cn/large/b5d1b710gy1fx8qsa449bj20xw0e8wgt.jpg">
-<meta property="og:image" content="https://wx4.sinaimg.cn/large/b5d1b710gy1fx8qyo05zvj20zm09mtb2.jpg">
-<meta property="og:image" content="https://wx3.sinaimg.cn/large/b5d1b710gy1fx8r6w4lrlj20wc08oju8.jpg">
-<meta property="og:updated_time" content="2019-06-20T07:29:00.245Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162654.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162711.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162744.png">
+<meta property="og:updated_time" content="2019-06-20T08:27:58.781Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java设计模式之观察者模式">
 <meta name="twitter:description" content="定义 在阎宏博士的《JAVA与模式》一书中开头是这样描述观察者（Observer）模式的：观察者模式是对象的行为模式，又叫发布-订阅(Publish/Subscribe)模式、模型-视图(Model/View)模式、源-监听器(Source/Listener)模式或从属者(Dependents)模式。观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。这个主题对象在状态上">
-<meta name="twitter:image" content="https://wx1.sinaimg.cn/large/b5d1b710gy1fx8qsa449bj20xw0e8wgt.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162654.png">
 
 
 
@@ -91,7 +91,7 @@
 
 
 <link rel="stylesheet" href="/css/style.css">
-    <meta name="referrer" content="no-referrer"><!--解决图片过期问题-->
+    <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
 </head>
 <body class="is-3-column">
     <nav class="navbar navbar-main">
@@ -170,7 +170,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    14 分钟 读完 (大约 2072 个字)
+                    14 分钟 读完 (大约 2052 个字)
                 </span>
                 
                 
@@ -194,7 +194,7 @@
 <h1 id="推结构模式"><a href="#推结构模式" class="headerlink" title="推结构模式"></a>推结构模式</h1><h2 id="推模式相关结构说明"><a href="#推模式相关结构说明" class="headerlink" title="推模式相关结构说明"></a>推模式相关结构说明</h2><p>一个软件系统里面包含了各种对象，就像一片欣欣向荣的森林充满了各种生物一样。在一片森林中，各种生物彼此依赖和约束，形成一个个生物链。一种生物的状态变化会造成其他一些生物的相应行动，每一个生物都处于别的生物的互动之中。</p>
 <p>同样，一个软件系统常常要求在某一个对象的状态发生变化的时候，某些其他的对象做出相应的改变。做到这一点的设计方案有很多，但是为了使系统能够易于复用，应该选择低耦合度的设计方案。减少对象之间的耦合有利于系统的复用，但是同时设计师需要使这些低耦合度的对象之间能够维持行动的协调一致，保证高度的协作。观察者模式是满足这一要求的各种设计方案中最重要的一种。</p>
 <p>下面以一个简单的示意性实现为例，讨论观察者模式的结构。</p>
-<p><img src="https://wx1.sinaimg.cn/large/b5d1b710gy1fx8qsa449bj20xw0e8wgt.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162654.png" alt=""></p>
 <h2 id="观察者模式所涉及的角色有："><a href="#观察者模式所涉及的角色有：" class="headerlink" title="观察者模式所涉及的角色有："></a>观察者模式所涉及的角色有：</h2><p>　　●　　<strong>抽象主题(Subject)角色：</strong>抽象主题角色把所有对观察者对象的引用保存在一个聚集（比如ArrayList对象）里，每个主题都可以有任何数量的观察者。抽象主题提供一个接口，可以增加和删除观察者对象，抽象主题角色又叫做抽象被观察者(Observable)角色。</p>
 <p>　　●　　<strong>具体主题(ConcreteSubject)角色：</strong>将有关状态存入具体观察者对象；在具体主题的内部状态改变时，给所有登记过的观察者发出通知。具体主题角色又叫做具体被观察者(Concrete Observable)角色。</p>
 <p>　　●　　<strong>抽象观察者(Observer)角色：</strong>为所有的具体观察者定义一个接口，在得到主题的通知时更新自己，这个接口叫做更新接口。</p>
@@ -205,7 +205,7 @@
 <h3 id="抽象主题角色"><a href="#抽象主题角色" class="headerlink" title="抽象主题角色"></a>抽象主题角色</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Subject</span> </span>&#123;</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 保存观察者的容器</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-keyword">private</span> List&lt;Observer&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;Observer&gt;();</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 注册观察者</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">register</span><span class="hljs-params">(Observer o)</span> </span>&#123;</span><br><span class="line">        list.add(o);</span><br><span class="line">        System.out.println(<span class="hljs-string">"增加了一个观察者:"</span> + o.getName());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 移除观察者</span></span><br><span class="line"><span class="hljs-comment">     * </span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> o</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(Observer o)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="hljs-string">"移除了一个观察者:"</span> + o.getName());</span><br><span class="line">        list.remove(o);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 通知观察者</span></span><br><span class="line"><span class="hljs-comment">     * </span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> newState</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">nodifyObservers</span><span class="hljs-params">(String newState)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">for</span> (Observer observer : list) &#123;</span><br><span class="line">            observer.update(newState);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="具体主题角色"><a href="#具体主题角色" class="headerlink" title="具体主题角色"></a>具体主题角色</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcreteSubject</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Subject</span> </span>&#123;</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 状态</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-keyword">private</span> String state;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getState</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">change</span><span class="hljs-params">(String newState)</span> </span>&#123;</span><br><span class="line">        state = newState;</span><br><span class="line">        System.out.println(<span class="hljs-string">"状态变为："</span> + newState);</span><br><span class="line">        System.out.println(<span class="hljs-string">"开始通知观察者..."</span>);</span><br><span class="line">        <span class="hljs-keyword">this</span>.nodifyObservers(state);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainTest</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Observer o1 = <span class="hljs-keyword">new</span> ConcreteObserver(<span class="hljs-string">"o1"</span>);</span><br><span class="line">        Observer o2 = <span class="hljs-keyword">new</span> ConcreteObserver(<span class="hljs-string">"o2"</span>);</span><br><span class="line">        Observer o3 = <span class="hljs-keyword">new</span> ConcreteObserver(<span class="hljs-string">"o3"</span>);</span><br><span class="line">        ConcreteSubject csj = <span class="hljs-keyword">new</span> ConcreteSubject();</span><br><span class="line">        csj.register(o1);</span><br><span class="line">        csj.register(o2);</span><br><span class="line">        csj.register(o3);</span><br><span class="line">        csj.remove(o2);</span><br><span class="line">        csj.change(<span class="hljs-string">"new State！"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><p><img src="https://wx4.sinaimg.cn/large/b5d1b710gy1fx8qyo05zvj20zm09mtb2.jpg" alt=""></p>
+<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162711.png" alt=""></p>
 <p>在运行时，这个客户端首先创建了具体主题类的实例，以及一个观察者对象。然后，它调用主题对象的register()方法，将这个观察者对象向主题对象登记，也就是将它加入到主题对象的聚集中去。 </p>
 <p>这时，客户端调用主题的change()方法，改变了主题对象的内部状态。主题对象在状态发生变化时，调用超类的notifyObservers()方法，通知所有登记过的观察者对象</p>
 <h1 id="拉模式结构"><a href="#拉模式结构" class="headerlink" title="拉模式结构"></a>拉模式结构</h1><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>   主题对象在通知观察者的时候，只传递少量信息。如果观察者需要更具体的信息，由观察者主动到主题对象中获取，相当于是观察者从主题对象中拉数据。一般这种模型的实现中，会把主题对象自身通过update()方法传递给观察者，这样在观察者需要获取数据的时候，就可以通过这个引用来获取了。</p>
@@ -214,7 +214,7 @@
 <h3 id="抽象主题角色-1"><a href="#抽象主题角色-1" class="headerlink" title="抽象主题角色"></a>抽象主题角色</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Subject</span> </span>&#123;</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 保存观察者的容器</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-keyword">private</span> List&lt;Observer&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;Observer&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 注册观察者</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">register</span><span class="hljs-params">(Observer o)</span> </span>&#123;</span><br><span class="line">        list.add(o);</span><br><span class="line">        System.out.println(<span class="hljs-string">"增加了一个观察者:"</span> + o.getName());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 移除观察者</span></span><br><span class="line"><span class="hljs-comment">     * </span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> o</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(Observer o)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="hljs-string">"移除了一个观察者:"</span> + o.getName());</span><br><span class="line">        list.remove(o);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 通知观察者</span></span><br><span class="line"><span class="hljs-comment">     * </span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> newState</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">nodifyObservers</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">for</span> (Observer observer : list) &#123;</span><br><span class="line">            observer.update(<span class="hljs-keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="具体主题角色-1"><a href="#具体主题角色-1" class="headerlink" title="具体主题角色"></a>具体主题角色</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcreteSubject</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Subject</span> </span>&#123;</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 状态</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-keyword">private</span> String state;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getState</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">change</span><span class="hljs-params">(String newState)</span> </span>&#123;</span><br><span class="line">        state = newState;</span><br><span class="line">        System.out.println(<span class="hljs-string">"状态变为："</span> + newState);</span><br><span class="line">        System.out.println(<span class="hljs-string">"开始通知观察者..."</span>);</span><br><span class="line">        <span class="hljs-keyword">this</span>.nodifyObservers();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainTest</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Observer o1 = <span class="hljs-keyword">new</span> ConcreteObserver(<span class="hljs-string">"o1"</span>);</span><br><span class="line">        Observer o2 = <span class="hljs-keyword">new</span> ConcreteObserver(<span class="hljs-string">"o2"</span>);</span><br><span class="line">        Observer o3 = <span class="hljs-keyword">new</span> ConcreteObserver(<span class="hljs-string">"o3"</span>);</span><br><span class="line">        ConcreteSubject csj = <span class="hljs-keyword">new</span> ConcreteSubject();</span><br><span class="line">        csj.register(o1);</span><br><span class="line">        csj.register(o2);</span><br><span class="line">        csj.register(o3);</span><br><span class="line">        csj.remove(o2);</span><br><span class="line">        csj.change(<span class="hljs-string">"new State！"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h3><p><img src="https://wx3.sinaimg.cn/large/b5d1b710gy1fx8r6w4lrlj20wc08oju8.jpg" alt=""></p>
+<h3 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h3><p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620162744.png" alt=""></p>
 <h1 id="两种模式的比较"><a href="#两种模式的比较" class="headerlink" title="两种模式的比较"></a>两种模式的比较</h1><ol>
 <li><p>推模型是假定主题对象知道观察者需要的数据；而拉模型是主题对象不知道观察者具体需要什么数据，没有办法的情况下，干脆把自身传递给观察者，让观察者自己去按需要取值。</p>
 </li>
@@ -529,7 +529,7 @@
             
             <a href="/阿里一年的成长经历.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3zda7i0hij212w0mnhdt.jpg" alt="阿里一年的成长经历">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153347.png" alt="阿里一年的成长经历">
                 </p>
             </a>
             
@@ -548,7 +548,7 @@
             
             <a href="/mysql数据库索引解析.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
                 </p>
             </a>
             
@@ -567,7 +567,7 @@
             
             <a href="/java注解Annotation说明实例.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3kkec1zjxj212w0oknpd.jpg" alt="java注解Annotation说明实例">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155830.png" alt="java注解Annotation说明实例">
                 </p>
             </a>
             
@@ -586,7 +586,7 @@
             
             <a href="/elasticsearch6-x倒排索引和分词.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
                 </p>
             </a>
             
@@ -605,7 +605,7 @@
             
             <a href="/Java版常用正则表达式说明.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2ifmigtuij212w0iv7wh.jpg" alt="Java版常用正则表达式说明">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160241.png" alt="Java版常用正则表达式说明">
                 </p>
             </a>
             
@@ -1034,7 +1034,7 @@
             
             <a href="/阿里一年的成长经历.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3zda7i0hij212w0mnhdt.jpg" alt="阿里一年的成长经历">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153347.png" alt="阿里一年的成长经历">
                 </p>
             </a>
             
@@ -1053,7 +1053,7 @@
             
             <a href="/mysql数据库索引解析.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3pcxdk3waj212w0fvapl.jpg" alt="mysql数据库索引解析">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620153720.png" alt="mysql数据库索引解析">
                 </p>
             </a>
             
@@ -1072,7 +1072,7 @@
             
             <a href="/java注解Annotation说明实例.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g3kkec1zjxj212w0oknpd.jpg" alt="java注解Annotation说明实例">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155830.png" alt="java注解Annotation说明实例">
                 </p>
             </a>
             
@@ -1091,7 +1091,7 @@
             
             <a href="/elasticsearch6-x倒排索引和分词.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx1.sinaimg.cn/large/b5d1b710gy1g2rn7eyvxcj212w0m0doz.jpg" alt="elasticsearch6.x倒排索引和分词">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
                 </p>
             </a>
             
@@ -1110,7 +1110,7 @@
             
             <a href="/Java版常用正则表达式说明.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://wx4.sinaimg.cn/large/b5d1b710gy1g2ifmigtuij212w0iv7wh.jpg" alt="Java版常用正则表达式说明">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620160241.png" alt="Java版常用正则表达式说明">
                 </p>
             </a>
             
