@@ -294,18 +294,19 @@
     <div class="card-content">
         <h3 class="title is-5 has-text-weight-normal">评论</h3>
         
-<div id="valine-thread" class="content"></div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
 <script>
-    new Valine({
-        el: '#valine-thread' ,
-        notify: false,
-        verify: false,
-        app_id: '6O6YaAEgAihLsjx7Tc7r7iIB-gzGzoHsz',
-        app_key: 'xDY9xtO6cAyVYAr0SqgkiG6S',
-        placeholder: '留下你的评论'
-    });
+    var gitalk = new Gitalk({
+        clientID: '46a9f3481b46ea0129d8',
+        clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+        id: 'e5fd175b9cd2a8cdd6568ddfd584f28d',
+        repo: 'blog_comment',
+        owner: 'removeif',
+        admin: "admin"
+    })
+    gitalk.render('comment-container')
 </script>
 
     </div>
