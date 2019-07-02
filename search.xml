@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[test-issue2]]></title>
+    <url>%2F2019%2F07%2F02%2Ftest-issue2.html</url>
+    <content type="text"><![CDATA[摘要哈哈哈哈]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[test issue]]></title>
     <url>%2F2019%2F07%2F02%2Ftest-issue.html</url>
     <content type="text"><![CDATA[摘要createIssueManually]]></content>
