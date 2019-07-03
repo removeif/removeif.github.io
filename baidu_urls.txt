@@ -1,1 +1,1 @@
-https://removeif.github.io/2019/06/25/一次数据库的死锁问题排查过程.html
+https://removeif.github.io/2019/07/03/mysql索引优化方案.html
