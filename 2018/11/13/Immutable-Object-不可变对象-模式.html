@@ -6,6 +6,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <meta name="google-site-verification" content="67z1CXZ8AOhImIglgTwqAlneRCHTO6xRJo5NeafDAqw">
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
 
     <meta name="description" content="多线程下，一个对象会被多个线程共享，存在多线程并发地修改对象的属性，需要做些同步访问控制，如显示锁，CAS操作，会带来额外的开销和问题，如上下文切换、等待时间、ABA问题。Immutable Object模式意图通过使用对外可见的状态不可变的对象，使得天生具有线程安全性。">
 <meta name="keywords" content="java">

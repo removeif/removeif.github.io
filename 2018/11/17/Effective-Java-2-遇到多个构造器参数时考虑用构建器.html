@@ -6,6 +6,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <meta name="google-site-verification" content="67z1CXZ8AOhImIglgTwqAlneRCHTO6xRJo5NeafDAqw">
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
 
     <meta name="description" content="遇到多个构造器参数时考虑用构建器静态工厂和构造器有个共同的局限性：它们都不能很好地扩展到大量的可选参数。当有超过20个可选域是必须的时候，对于此种情况，程序员一般考虑采用重叠构造器模式。这种模式下，提供第一个只有必要参数的构造器，第二个构造器有一个可选参数，第三个有两个可选参数，以此类推，最后一个构造器包含所有的参数。">
 <meta name="keywords" content="java">
