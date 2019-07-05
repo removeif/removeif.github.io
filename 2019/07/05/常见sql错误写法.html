@@ -2,7 +2,7 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>标签: 设计模式 - 辣椒の酱</title>
+<title>常见sql错误写法 - 辣椒の酱</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <meta name="google-site-verification" content="67z1CXZ8AOhImIglgTwqAlneRCHTO6xRJo5NeafDAqw">
@@ -21,17 +21,18 @@
 })();
 </script>
 
-    <meta name="description" content="生活坏到一定程度就会好起来，因为它无法更坏">
-<meta name="keywords" content="java,elasticsearch,设计模式,sql">
-<meta property="og:type" content="website">
-<meta property="og:title" content="辣椒の酱">
-<meta property="og:url" content="https://removeif.github.io/tags/设计模式/index.html">
+    <meta name="description" content="摘要sql语句应用不当，可能仅仅一个顺序的不同，往往会带来成千上万倍的耗时问题。">
+<meta name="keywords" content="数据库,mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见sql错误写法">
+<meta property="og:url" content="https://removeif.github.io/2019/07/05/常见sql错误写法.html">
 <meta property="og:site_name" content="辣椒の酱">
-<meta property="og:description" content="生活坏到一定程度就会好起来，因为它无法更坏">
+<meta property="og:description" content="摘要sql语句应用不当，可能仅仅一个顺序的不同，往往会带来成千上万倍的耗时问题。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-05T08:09:10.814Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="辣椒の酱">
-<meta name="twitter:description" content="生活坏到一定程度就会好起来，因为它无法更坏">
+<meta name="twitter:title" content="常见sql错误写法">
+<meta name="twitter:description" content="摘要sql语句应用不当，可能仅仅一个顺序的不同，往往会带来成千上万倍的耗时问题。">
 
 
 
@@ -108,7 +109,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/ico.png" alt="辣椒の酱" height="28">
+                <img src="/images/ico.png" alt="常见sql错误写法" height="28">
             
             </a>
         </div>
@@ -142,6 +143,10 @@
                     
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -156,441 +161,208 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">设计模式</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    <div class="card">
     
     <div class="card-image">
-        <a href="/2019/01/06/Java设计模式之代理模式.html" class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620152744.png" alt="Java设计模式之代理模式">
-        </a>
+        <span class="image is-7by1">
+            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190705160715.png" alt="常见sql错误写法">
+        </span>
     </div>
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-01-06T08:46:28.000Z">2019-01-06</time>
+                <time class="level-item has-text-grey" datetime="2019-07-05T08:05:12.000Z">2019-07-05</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java设计模式/">java设计模式</a>
+                <a class="has-link-grey -link" href="/categories/数据库/">数据库</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    15 分钟 读完 (大约 2290 个字)
+                    17 分钟 读完 (大约 2483 个字)
                 </span>
                 
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    1<span id="busuanzi_value_page_pv"></span> 次查看
+                </span>
                 
             </div>
         </div>
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/01/06/Java设计模式之代理模式.html">Java设计模式之代理模式</a>
+                常见sql错误写法
             
         </h1>
         <div class="content">
-            <h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><p>代理(Proxy)是一种设计模式,提供了对目标对象另外的访问方式;即通过代理对象访问目标对象.这样做的好处是:可以在目标对象实现的基础上,增强额外的功能操作,即扩展目标对象的功能.<br>这里使用到编程中的一个思想:不要随意去修改别人已经写好的代码或者方法,如果需改修改,可以通过代理的方式来扩展该方法</p>
-<p>举个例子来说明代理的作用:假设我们想邀请一位明星,那么并不是直接连接明星,而是联系明星的经纪人,来达到同样的目的.明星就是一个目标对象,他只要负责活动中的节目,而其他琐碎的事情就交给他的代理人(经纪人)来解决.这就是代理思想在现实中的一个例子.<br></p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/01/06/Java设计模式之代理模式.html#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/01/04/Java设计模式之命令模式.html" class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620152744.png" alt="Java设计模式之命令模式">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-01-04T07:34:00.000Z">2019-01-04</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java设计模式/">java设计模式</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    7 分钟 读完 (大约 1102 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/01/04/Java设计模式之命令模式.html">Java设计模式之命令模式</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><blockquote>
-<p>将一个请求封装为一个对象，从而可用不同的请求对客户进行参数化；对请求排队或记录日志，以及支持可撤销的操作。</p>
-<p>将”发出请求的对象”和”接收与执行这些请求的对象”分隔开来。<br></p></blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/01/04/Java设计模式之命令模式.html#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2018/12/04/Java设计模式之适配器模式.html" class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620152744.png" alt="Java设计模式之适配器模式">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-12-04T13:05:30.000Z">2018-12-04</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java设计模式/">java设计模式</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    22 分钟 读完 (大约 3246 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/12/04/Java设计模式之适配器模式.html">Java设计模式之适配器模式</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><blockquote>
-<p>适配器模式把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口不匹配而无法在一起工作的两个类能够在一起工作。<br></p></blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2018/12/04/Java设计模式之适配器模式.html#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2018/11/29/Java设计模式之装饰者模式.html" class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620152744.png" alt="Java设计模式之装饰者模式">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-11-29T13:33:46.000Z">2018-11-29</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java设计模式/">java设计模式</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    11 分钟 读完 (大约 1670 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/11/29/Java设计模式之装饰者模式.html">Java设计模式之装饰者模式</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><p>咖啡店的类设计：</p>
-<ol>
-<li>一个饮料基类，各种饮料类继承这个基类，并且计算各自的价钱。</li>
-<li>饮料中需要加入各种调料，考虑在基类中加入一些布尔值变量代表是否加入各种调料，基类的cost()中的计算各种调料的价钱，子类覆盖cost()，并且在其中调用超类的cost()，加上特定饮料的价钱，计算出子类特定饮料的价钱。</li>
-</ol>
-<p>缺点：类数量爆炸、基类加入的新功能并不适用于所有的子类、调料价钱的改变、新调料的出现都会要求改变现有代码；有的子类并不适合某些调料等情况……<br></p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2018/11/29/Java设计模式之装饰者模式.html#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2018/11/24/Java设计模式之工厂模式.html" class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620152744.png" alt="Java设计模式之工厂模式">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-11-24T08:12:13.000Z">2018-11-24</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java设计模式/">java设计模式</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    16 分钟 读完 (大约 2387 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/11/24/Java设计模式之工厂模式.html">Java设计模式之工厂模式</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h1><h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>工厂模式在《Java与模式》中分为三类：</p>
-<ol>
-<li><p>简单工厂模式（Simple Factory）：不利于产生系列产品；</p>
-</li>
-<li><p>工厂方法模式（Factory Method）：又称为多形性工厂；</p>
-</li>
-<li><p>抽象工厂模式（Abstract Factory）：又称为工具箱，产生产品族，但不利于产生新的产品；</p></li></ol>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2018/11/24/Java设计模式之工厂模式.html#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2018/11/17/Java设计模式之单例模式.html" class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620152744.png" alt="Java设计模式之单例模式">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-11-17T14:10:13.000Z">2018-11-17</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java设计模式/">java设计模式</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    14 分钟 读完 (大约 2067 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/11/17/Java设计模式之单例模式.html">Java设计模式之单例模式</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><blockquote>
-<p>确保一个类只有一个实例，并提供一个全局访问点！</p>
+            <blockquote>
+<p>摘要<br>sql语句应用不当，可能仅仅一个顺序的不同，往往会带来成千上万倍的耗时问题。<br><a id="more"></a></p>
 </blockquote>
-<h2 id="饿汉式：线程安全，但效率比较低"><a href="#饿汉式：线程安全，但效率比较低" class="headerlink" title="饿汉式：线程安全，但效率比较低"></a>饿汉式：线程安全，但效率比较低</h2>
+<h3 id="1、LIMIT-语句"><a href="#1、LIMIT-语句" class="headerlink" title="1、LIMIT 语句"></a><strong>1、LIMIT 语句</strong></h3><p>分页查询是最常用的场景之一，但也通常也是最容易出问题的地方。比如对于下面简单的语句，一般 DBA 想到的办法是在 type, name, create_time 字段上加组合索引。这样条件排序都能有效的利用到索引，性能迅速提升。</p>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">SELECT</span> * </span><br><span class="line"><span class="hljs-keyword">FROM</span>   operation </span><br><span class="line"><span class="hljs-keyword">WHERE</span>  <span class="hljs-keyword">type</span> = <span class="hljs-string">'SQLStats'</span> </span><br><span class="line">       <span class="hljs-keyword">AND</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'SlowLog'</span> </span><br><span class="line"><span class="hljs-keyword">ORDER</span>  <span class="hljs-keyword">BY</span> create_time </span><br><span class="line"><span class="hljs-keyword">LIMIT</span>  <span class="hljs-number">1000</span>, <span class="hljs-number">10</span>;</span><br></pre></td></tr></table></figure>
+<p>好吧，可能90%以上的 DBA 解决该问题就到此为止。但当 LIMIT 子句变成 “LIMIT 1000000,10” 时，程序员仍然会抱怨：我只取10条记录为什么还是慢？</p>
+<p>要知道数据库也并不知道第1000000条记录从什么地方开始，即使有索引也需要从头计算一次。出现这种性能问题，多数情形下是程序员偷懒了。</p>
+<p>在前端数据浏览翻页，或者大数据分批导出等场景下，是可以将上一页的最大值当成参数作为查询条件的。SQL 重新设计如下：</p>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">SELECT</span>   * </span><br><span class="line"><span class="hljs-keyword">FROM</span>     operation </span><br><span class="line"><span class="hljs-keyword">WHERE</span>    <span class="hljs-keyword">type</span> = <span class="hljs-string">'SQLStats'</span> </span><br><span class="line"><span class="hljs-keyword">AND</span>      <span class="hljs-keyword">name</span> = <span class="hljs-string">'SlowLog'</span> </span><br><span class="line"><span class="hljs-keyword">AND</span>      create_time &gt; <span class="hljs-string">'2017-03-16 14:00:00'</span> </span><br><span class="line"><span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> create_time <span class="hljs-keyword">limit</span> <span class="hljs-number">10</span>;</span><br></pre></td></tr></table></figure>
+<p>在新设计下查询时间基本固定，不会随着数据量的增长而发生变化。</p>
+<h3 id="2、隐式转换"><a href="#2、隐式转换" class="headerlink" title="2、隐式转换"></a><strong>2、隐式转换</strong></h3><p>SQL语句中查询变量和字段定义类型不匹配是另一个常见的错误。比如下面的语句：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; explain extended SELECT * </span><br><span class="line">     &gt; FROM   my_balance b </span><br><span class="line">     &gt; WHERE  b.bpn = 14000000123 </span><br><span class="line">     &gt;       AND b.isverified IS NULL ;</span><br><span class="line">mysql&gt; show warnings;</span><br><span class="line">| Warning | 1739 | Cannot use ref access on index &apos;bpn&apos; due to type or collation conversion on field &apos;bpn&apos;</span><br></pre></td></tr></table></figure>
+<p>其中字段 bpn 的定义为 varchar(20)，MySQL 的策略是将字符串转换为数字之后再比较。函数作用于表字段，索引失效。</p>
+<p>上述情况可能是应用程序框架自动填入的参数，而不是程序员的原意。现在应用框架很多很繁杂，使用方便的同时也小心它可能给自己挖坑。</p>
+<h3 id="3、关联更新、删除"><a href="#3、关联更新、删除" class="headerlink" title="3、关联更新、删除"></a><strong>3、关联更新、删除</strong></h3><p>虽然 MySQL5.6 引入了物化特性，但需要特别注意它目前仅仅针对查询语句的优化。对于更新或删除需要手工重写成 JOIN。</p>
+<p>比如下面 UPDATE 语句，MySQL 实际执行的是循环/嵌套子查询（DEPENDENT SUBQUERY)，其执行时间可想而知。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">UPDATE operation o </span><br><span class="line">SET    status = &apos;applying&apos; </span><br><span class="line">WHERE  o.id IN (SELECT id </span><br><span class="line">                FROM   (SELECT o.id, </span><br><span class="line">                               o.status </span><br><span class="line">                        FROM   operation o </span><br><span class="line">                        WHERE  o.group = 123 </span><br><span class="line">                               AND o.status NOT IN ( &apos;done&apos; ) </span><br><span class="line">                        ORDER  BY o.parent, </span><br><span class="line">                                  o.id </span><br><span class="line">                        LIMIT  1) t);</span><br></pre></td></tr></table></figure>
+<p>执行计划：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+----+--------------------+-------+-------+---------------+---------+---------+-------+------+-----------------------------------------------------+</span><br><span class="line">| id | select_type        | table | type  | possible_keys | key     | key_len | ref   | rows | Extra                                               |</span><br><span class="line">+----+--------------------+-------+-------+---------------+---------+---------+-------+------+-----------------------------------------------------+</span><br><span class="line">| 1  | PRIMARY            | o     | index |               | PRIMARY | 8       |       | 24   | Using where; Using temporary                        |</span><br><span class="line">| 2  | DEPENDENT SUBQUERY |       |       |               |         |         |       |      | Impossible WHERE noticed after reading const tables |</span><br><span class="line">| 3  | DERIVED            | o     | ref   | idx_2,idx_5   | idx_5   | 8       | const | 1    | Using where; Using filesort                         |</span><br><span class="line">+----+--------------------+-------+-------+---------------+---------+---------+-------+------+-----------------------------------------------------+</span><br></pre></td></tr></table></figure>
+<p>重写为 JOIN 之后，子查询的选择模式从 DEPENDENT SUBQUERY 变成 DERIVED，执行速度大大加快，从7秒降低到2毫秒。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">UPDATE operation o </span><br><span class="line">       JOIN  (SELECT o.id, </span><br><span class="line">                            o.status </span><br><span class="line">                     FROM   operation o </span><br><span class="line">                     WHERE  o.group = 123 </span><br><span class="line">                            AND o.status NOT IN ( &apos;done&apos; ) </span><br><span class="line">                     ORDER  BY o.parent, </span><br><span class="line">                               o.id </span><br><span class="line">                     LIMIT  1) t</span><br><span class="line">         ON o.id = t.id </span><br><span class="line">SET    status = &apos;applying&apos;</span><br></pre></td></tr></table></figure>
+<p>执行计划简化为：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+----+-------------+-------+------+---------------+-------+---------+-------+------+-----------------------------------------------------+</span><br><span class="line">| id | select_type | table | type | possible_keys | key   | key_len | ref   | rows | Extra                                               |</span><br><span class="line">+----+-------------+-------+------+---------------+-------+---------+-------+------+-----------------------------------------------------+</span><br><span class="line">| 1  | PRIMARY     |       |      |               |       |         |       |      | Impossible WHERE noticed after reading const tables |</span><br><span class="line">| 2  | DERIVED     | o     | ref  | idx_2,idx_5   | idx_5 | 8       | const | 1    | Using where; Using filesort                         |</span><br><span class="line">+----+-------------+-------+------+---------------+-------+---------+-------+------+-----------------------------------------------------+</span><br></pre></td></tr></table></figure>
+<h3 id="4、混合排序"><a href="#4、混合排序" class="headerlink" title="4、混合排序"></a><strong>4、混合排序</strong></h3><p>MySQL 不能利用索引进行混合排序。但在某些场景，还是有机会使用特殊方法提升性能的。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT * </span><br><span class="line">FROM   my_order o </span><br><span class="line">       INNER JOIN my_appraise a ON a.orderid = o.id </span><br><span class="line">ORDER  BY a.is_reply ASC, </span><br><span class="line">          a.appraise_time DESC </span><br><span class="line">LIMIT  0, 20</span><br></pre></td></tr></table></figure>
+<p>执行计划显示为全表扫描：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+----+-------------+-------+--------+-------------+---------+---------+---------------+---------+-+</span><br><span class="line">| id | select_type | table | type   | possible_keys     | key     | key_len | ref      | rows    | Extra    </span><br><span class="line">+----+-------------+-------+--------+-------------+---------+---------+---------------+---------+-+</span><br><span class="line">|  1 | SIMPLE      | a     | ALL    | idx_orderid | NULL    | NULL    | NULL    | 1967647 | Using filesort |</span><br><span class="line">|  1 | SIMPLE      | o     | eq_ref | PRIMARY     | PRIMARY | 122     | a.orderid |       1 | NULL           |</span><br><span class="line">+----+-------------+-------+--------+---------+---------+---------+-----------------+---------+-+</span><br></pre></td></tr></table></figure>
+<p>由于 is_reply 只有0和1两种状态，我们按照下面的方法重写后，执行时间从1.58秒降低到2毫秒。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">SELECT * </span><br><span class="line">FROM   ((SELECT *</span><br><span class="line">         FROM   my_order o </span><br><span class="line">                INNER JOIN my_appraise a </span><br><span class="line">                        ON a.orderid = o.id </span><br><span class="line">                           AND is_reply = 0 </span><br><span class="line">         ORDER  BY appraise_time DESC </span><br><span class="line">         LIMIT  0, 20) </span><br><span class="line">        UNION ALL </span><br><span class="line">        (SELECT *</span><br><span class="line">         FROM   my_order o </span><br><span class="line">                INNER JOIN my_appraise a </span><br><span class="line">                        ON a.orderid = o.id </span><br><span class="line">                           AND is_reply = 1 </span><br><span class="line">         ORDER  BY appraise_time DESC </span><br><span class="line">         LIMIT  0, 20)) t </span><br><span class="line">ORDER  BY  is_reply ASC, </span><br><span class="line">          appraisetime DESC </span><br><span class="line">LIMIT  20;</span><br></pre></td></tr></table></figure>
+<h3 id="5、EXISTS语句"><a href="#5、EXISTS语句" class="headerlink" title="5、EXISTS语句"></a><strong>5、EXISTS语句</strong></h3><p>MySQL 对待 EXISTS 子句时，仍然采用嵌套子查询的执行方式。如下面的 SQL 语句：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">SELECT *</span><br><span class="line">FROM   my_neighbor n </span><br><span class="line">       LEFT JOIN my_neighbor_apply sra </span><br><span class="line">              ON n.id = sra.neighbor_id </span><br><span class="line">                 AND sra.user_id = &apos;xxx&apos; </span><br><span class="line">WHERE  n.topic_status &lt; 4 </span><br><span class="line">       AND EXISTS(SELECT 1 </span><br><span class="line">                  FROM   message_info m </span><br><span class="line">                  WHERE  n.id = m.neighbor_id </span><br><span class="line">                         AND m.inuser = &apos;xxx&apos;) </span><br><span class="line">       AND n.topic_type &lt;&gt; 5</span><br></pre></td></tr></table></figure>
+<p>执行计划为：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+----+--------------------+-------+------+-----+------------------------------------------+---------+-------+---------+ -----+</span><br><span class="line">| id | select_type        | table | type | possible_keys     | key   | key_len | ref   | rows    | Extra   |</span><br><span class="line">+----+--------------------+-------+------+ -----+------------------------------------------+---------+-------+---------+ -----+</span><br><span class="line">|  1 | PRIMARY            | n     | ALL  |  | NULL     | NULL    | NULL  | 1086041 | Using where                   |</span><br><span class="line">|  1 | PRIMARY            | sra   | ref  |  | idx_user_id | 123     | const |       1 | Using where          |</span><br><span class="line">|  2 | DEPENDENT SUBQUERY | m     | ref  |  | idx_message_info   | 122     | const |       1 | Using index condition; Using where |</span><br><span class="line">+----+--------------------+-------+------+ -----+------------------------------------------+---------+-------+---------+ -----+</span><br></pre></td></tr></table></figure>
+<p>去掉 exists 更改为 join，能够避免嵌套子查询，将执行时间从1.93秒降低为1毫秒。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SELECT *</span><br><span class="line">FROM   my_neighbor n </span><br><span class="line">       INNER JOIN message_info m </span><br><span class="line">               ON n.id = m.neighbor_id </span><br><span class="line">                  AND m.inuser = &apos;xxx&apos; </span><br><span class="line">       LEFT JOIN my_neighbor_apply sra </span><br><span class="line">              ON n.id = sra.neighbor_id </span><br><span class="line">                 AND sra.user_id = &apos;xxx&apos; </span><br><span class="line">WHERE  n.topic_status &lt; 4 </span><br><span class="line">       AND n.topic_type &lt;&gt; 5</span><br></pre></td></tr></table></figure>
+<p>新的执行计划：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+----+-------------+-------+--------+ -----+------------------------------------------+---------+ -----+------+ -----+</span><br><span class="line">| id | select_type | table | type   | possible_keys     | key       | key_len | ref   | rows | Extra                 |</span><br><span class="line">+----+-------------+-------+--------+ -----+------------------------------------------+---------+ -----+------+ -----+</span><br><span class="line">|  1 | SIMPLE      | m     | ref    | | idx_message_info   | 122     | const    |    1 | Using index condition |</span><br><span class="line">|  1 | SIMPLE      | n     | eq_ref | | PRIMARY   | 122     | ighbor_id |    1 | Using where      |</span><br><span class="line">|  1 | SIMPLE      | sra   | ref    | | idx_user_id | 123     | const     |    1 | Using where           |</span><br><span class="line">+----+-------------+-------+--------+ -----+------------------------------------------+---------+ -----+------+ -----+</span><br></pre></td></tr></table></figure>
+<h3 id="6、条件下推"><a href="#6、条件下推" class="headerlink" title="6、条件下推"></a><strong>6、条件下推</strong></h3><p>外部查询条件不能够下推到复杂的视图或子查询的情况有：</p>
+<ul>
+<li>聚合子查询；</li>
+<li>含有 LIMIT 的子查询；</li>
+<li>UNION 或 UNION ALL 子查询；</li>
+<li>输出字段中的子查询；</li>
+</ul>
+<p>如下面的语句，从执行计划可以看出其条件作用于聚合子查询之后：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT * </span><br><span class="line">FROM   (SELECT target, </span><br><span class="line">               Count(*) </span><br><span class="line">        FROM   operation </span><br><span class="line">        GROUP  BY target) t </span><br><span class="line">WHERE  target = &apos;rm-xxxx&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+----+-------------+------------+-------+---------------+-------------+---------+-------+------+-------------+</span><br><span class="line">| id | select_type | table      | type  | possible_keys | key         | key_len | ref   | rows | Extra       |</span><br><span class="line">+----+-------------+------------+-------+---------------+-------------+---------+-------+------+-------------+</span><br><span class="line">|  1 | PRIMARY     | &lt;derived2&gt; | ref   | &lt;auto_key0&gt;   | &lt;auto_key0&gt; | 514     | const |    2 | Using where |</span><br><span class="line">|  2 | DERIVED     | operation  | index | idx_4         | idx_4       | 519     | NULL  |   20 | Using index |</span><br><span class="line">+----+-------------+------------+-------+---------------+-------------+---------+-------+------+-------------+</span><br></pre></td></tr></table></figure>
+<p>确定从语义上查询条件可以直接下推后，重写如下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT target, </span><br><span class="line">       Count(*) </span><br><span class="line">FROM   operation </span><br><span class="line">WHERE  target = &apos;rm-xxxx&apos; </span><br><span class="line">GROUP  BY target</span><br></pre></td></tr></table></figure>
+<p>执行计划变为：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+----+-------------+-----------+------+---------------+-------+---------+-------+------+--------------------+</span><br><span class="line">| id | select_type | table | type | possible_keys | key | key_len | ref | rows | Extra |</span><br><span class="line">+----+-------------+-----------+------+---------------+-------+---------+-------+------+--------------------+</span><br><span class="line">| 1 | SIMPLE | operation | ref | idx_4 | idx_4 | 514 | const | 1 | Using where; Using index |</span><br><span class="line">+----+-------------+-----------+------+---------------+-------+---------+-------+------+--------------------+</span><br></pre></td></tr></table></figure>
+<p>关于 MySQL 外部条件不能下推的详细解释说明请<a href="http://mysql.taobao.org/monthly/2016/07/08" target="_blank" rel="noopener">参考文章</a>：</p>
+<h3 id="7、提前缩小范围"><a href="#7、提前缩小范围" class="headerlink" title="7、提前缩小范围"></a><strong>7、提前缩小范围</strong></h3><p>先上初始 SQL 语句：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SELECT * </span><br><span class="line">FROM   my_order o </span><br><span class="line">       LEFT JOIN my_userinfo u </span><br><span class="line">              ON o.uid = u.uid</span><br><span class="line">       LEFT JOIN my_productinfo p </span><br><span class="line">              ON o.pid = p.pid </span><br><span class="line">WHERE  ( o.display = 0 ) </span><br><span class="line">       AND ( o.ostaus = 1 ) </span><br><span class="line">ORDER  BY o.selltime DESC </span><br><span class="line">LIMIT  0, 15</span><br></pre></td></tr></table></figure>
+<p>该SQL语句原意是：先做一系列的左连接，然后排序取前15条记录。从执行计划也可以看出，最后一步估算排序记录数为90万，时间消耗为12秒。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+----+-------------+-------+--------+---------------+---------+---------+-----------------+--------+----------------------------------------------------+</span><br><span class="line">| id | select_type | table | type   | possible_keys | key     | key_len | ref             | rows   | Extra                                              |</span><br><span class="line">+----+-------------+-------+--------+---------------+---------+---------+-----------------+--------+----------------------------------------------------+</span><br><span class="line">|  1 | SIMPLE      | o     | ALL    | NULL          | NULL    | NULL    | NULL            | 909119 | Using where; Using temporary; Using filesort       |</span><br><span class="line">|  1 | SIMPLE      | u     | eq_ref | PRIMARY       | PRIMARY | 4       | o.uid |      1 | NULL                                               |</span><br><span class="line">|  1 | SIMPLE      | p     | ALL    | PRIMARY       | NULL    | NULL    | NULL            |      6 | Using where; Using join buffer (Block Nested Loop) |</span><br><span class="line">+----+-------------+-------+--------+---------------+---------+---------+-----------------+--------+----------------------------------------------------+</span><br></pre></td></tr></table></figure>
+<p>由于最后 WHERE 条件以及排序均针对最左主表，因此可以先对 my_order 排序提前缩小数据量再做左连接。SQL 重写后如下，执行时间缩小为1毫秒左右。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">SELECT * </span><br><span class="line">FROM (</span><br><span class="line">SELECT * </span><br><span class="line">FROM   my_order o </span><br><span class="line">WHERE  ( o.display = 0 ) </span><br><span class="line">       AND ( o.ostaus = 1 ) </span><br><span class="line">ORDER  BY o.selltime DESC </span><br><span class="line">LIMIT  0, 15</span><br><span class="line">) o </span><br><span class="line">     LEFT JOIN my_userinfo u </span><br><span class="line">              ON o.uid = u.uid </span><br><span class="line">     LEFT JOIN my_productinfo p </span><br><span class="line">              ON o.pid = p.pid </span><br><span class="line">ORDER BY  o.selltime DESC</span><br><span class="line">limit 0, 15</span><br></pre></td></tr></table></figure>
+<p>再检查执行计划：子查询物化后（select_type=DERIVED)参与 JOIN。虽然估算行扫描仍然为90万，但是利用了索引以及 LIMIT 子句后，实际执行时间变得很小。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+----+-------------+------------+--------+---------------+---------+---------+-------+--------+----------------------------------------------------+</span><br><span class="line">| id | select_type | table      | type   | possible_keys | key     | key_len | ref   | rows   | Extra                                              |</span><br><span class="line">+----+-------------+------------+--------+---------------+---------+---------+-------+--------+----------------------------------------------------+</span><br><span class="line">|  1 | PRIMARY     | &lt;derived2&gt; | ALL    | NULL          | NULL    | NULL    | NULL  |     15 | Using temporary; Using filesort                    |</span><br><span class="line">|  1 | PRIMARY     | u          | eq_ref | PRIMARY       | PRIMARY | 4       | o.uid |      1 | NULL                                               |</span><br><span class="line">|  1 | PRIMARY     | p          | ALL    | PRIMARY       | NULL    | NULL    | NULL  |      6 | Using where; Using join buffer (Block Nested Loop) |</span><br><span class="line">|  2 | DERIVED     | o          | index  | NULL          | idx_1   | 5       | NULL  | 909112 | Using where                                        |</span><br><span class="line">+----+-------------+------------+--------+---------------+---------+---------+-------+--------+----------------------------------------------------+</span><br></pre></td></tr></table></figure>
+<h3 id="8、中间结果集下推"><a href="#8、中间结果集下推" class="headerlink" title="8、中间结果集下推"></a><strong>8、中间结果集下推</strong></h3><p>再来看下面这个已经初步优化过的例子(左连接中的主表优先作用查询条件)：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">SELECT    a.*, </span><br><span class="line">          c.allocated </span><br><span class="line">FROM      ( </span><br><span class="line">              SELECT   resourceid </span><br><span class="line">              FROM     my_distribute d </span><br><span class="line">                   WHERE    isdelete = 0 </span><br><span class="line">                   AND      cusmanagercode = &apos;1234567&apos; </span><br><span class="line">                   ORDER BY salecode limit 20) a </span><br><span class="line">LEFT JOIN </span><br><span class="line">          ( </span><br><span class="line">              SELECT   resourcesid， sum(ifnull(allocation, 0) * 12345) allocated </span><br><span class="line">              FROM     my_resources </span><br><span class="line">                   GROUP BY resourcesid) c </span><br><span class="line">ON        a.resourceid = c.resourcesid</span><br></pre></td></tr></table></figure>
+<p>那么该语句还存在其它问题吗？不难看出子查询 c 是全表聚合查询，在表数量特别大的情况下会导致整个语句的性能下降。</p>
+<p>其实对于子查询 c，左连接最后结果集只关心能和主表 resourceid 能匹配的数据。因此我们可以重写语句如下，执行时间从原来的2秒下降到2毫秒。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">SELECT    a.*, </span><br><span class="line">          c.allocated </span><br><span class="line">FROM      ( </span><br><span class="line">                   SELECT   resourceid </span><br><span class="line">                   FROM     my_distribute d </span><br><span class="line">                   WHERE    isdelete = 0 </span><br><span class="line">                   AND      cusmanagercode = &apos;1234567&apos; </span><br><span class="line">                   ORDER BY salecode limit 20) a </span><br><span class="line">LEFT JOIN </span><br><span class="line">          ( </span><br><span class="line">                   SELECT   resourcesid， sum(ifnull(allocation, 0) * 12345) allocated </span><br><span class="line">                   FROM     my_resources r, </span><br><span class="line">                            ( </span><br><span class="line">                                     SELECT   resourceid </span><br><span class="line">                                     FROM     my_distribute d </span><br><span class="line">                                     WHERE    isdelete = 0 </span><br><span class="line">                                     AND      cusmanagercode = &apos;1234567&apos; </span><br><span class="line">                                     ORDER BY salecode limit 20) a </span><br><span class="line">                   WHERE    r.resourcesid = a.resourcesid </span><br><span class="line">                   GROUP BY resourcesid) c </span><br><span class="line">ON        a.resourceid = c.resourcesid</span><br></pre></td></tr></table></figure>
+<p>但是子查询 a 在我们的SQL语句中出现了多次。这种写法不仅存在额外的开销，还使得整个语句显的繁杂。使用 WITH 语句再次重写：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">WITH a AS </span><br><span class="line">( </span><br><span class="line">         SELECT   resourceid </span><br><span class="line">         FROM     my_distribute d </span><br><span class="line">         WHERE    isdelete = 0 </span><br><span class="line">         AND      cusmanagercode = &apos;1234567&apos; </span><br><span class="line">         ORDER BY salecode limit 20)</span><br><span class="line">SELECT    a.*, </span><br><span class="line">          c.allocated </span><br><span class="line">FROM      a </span><br><span class="line">LEFT JOIN </span><br><span class="line">          ( </span><br><span class="line">                   SELECT   resourcesid， sum(ifnull(allocation, 0) * 12345) allocated </span><br><span class="line">                   FROM     my_resources r, </span><br><span class="line">                            a </span><br><span class="line">                   WHERE    r.resourcesid = a.resourcesid </span><br><span class="line">                   GROUP BY resourcesid) c </span><br><span class="line">ON        a.resourceid = c.resourcesid</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>数据库编译器产生执行计划，决定着SQL的实际执行方式。但是编译器只是尽力服务，所有数据库的编译器都不是尽善尽美的。</p>
+<p>上述提到的多数场景，在其它数据库中也存在性能问题。了解数据库编译器的特性，才能避规其短处，写出高性能的SQL语句。</p>
+<p>程序员在设计数据模型以及编写SQL语句时，要把算法的思想或意识带进来。</p>
+<p>编写复杂SQL语句要养成使用 WITH 语句的习惯。简洁且思路清晰的SQL语句也能减小数据库的负担 。<br><a href="https://mp.weixin.qq.com/s/mS2In3ZkQ2eMDz3szt920Q" target="_blank" rel="noopener">转自</a></p>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2018/11/17/Java设计模式之单例模式.html#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/sql/">sql</a>
                 </div>
             </div>
         </div>
         
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
         
     </div>
 </div>
 
 
 
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190621093947.png" alt="支付宝"></div>
+</a>
 
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190621094314.png" alt="微信"></div>
+</a>
 
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2018/11/15/Java设计模式之观察者模式.html" class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620152744.png" alt="Java设计模式之观察者模式">
-        </a>
+                
+        </div>
     </div>
-    
-    <div class="card-content article ">
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-11-15T07:03:42.000Z">2018-11-15</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java设计模式/">java设计模式</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    14 分钟 读完 (大约 2052 个字)
-                </span>
-                
-                
-            </div>
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/07/03/mysql索引优化方案.html">
+                <span class="level-item">mysql索引优化方案</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/11/15/Java设计模式之观察者模式.html">Java设计模式之观察者模式</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><blockquote>
-<p>在阎宏博士的《JAVA与模式》一书中开头是这样描述观察者（Observer）模式的：<br><strong>观察者模式是对象的行为模式，又叫发布-订阅(Publish/Subscribe)模式、模型-视图(Model/View)模式、源-监听器(Source/Listener)模式或从属者(Dependents)模式。</strong><br><strong>观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。这个主题对象在状态上发生变化时，会通知所有观察者对象，使它们能够自动更新自己。</strong><br></p></blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2018/11/15/Java设计模式之观察者模式.html#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
         
     </div>
 </div>
 
 
 
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '46a9f3481b46ea0129d8',
+        clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+        id: '8eec7dd8924ac43c9e85bbe303af6325',
+        repo: 'blog_comment',
+        owner: 'removeif',
+        admin: "removeif",
+        createIssueManually: true
+    })
+    gitalk.render('comment-container')
+</script>
 
-
-
-
-
+    </div>
+</div>
 </div>
                 
 
@@ -703,6 +475,53 @@
 </div>
     
         
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#1、LIMIT-语句">
+        <span class="has-mr-6">1</span>
+        <span>1、LIMIT 语句</span>
+        </a></li><li>
+        <a class="is-flex" href="#2、隐式转换">
+        <span class="has-mr-6">2</span>
+        <span>2、隐式转换</span>
+        </a></li><li>
+        <a class="is-flex" href="#3、关联更新、删除">
+        <span class="has-mr-6">3</span>
+        <span>3、关联更新、删除</span>
+        </a></li><li>
+        <a class="is-flex" href="#4、混合排序">
+        <span class="has-mr-6">4</span>
+        <span>4、混合排序</span>
+        </a></li><li>
+        <a class="is-flex" href="#5、EXISTS语句">
+        <span class="has-mr-6">5</span>
+        <span>5、EXISTS语句</span>
+        </a></li><li>
+        <a class="is-flex" href="#6、条件下推">
+        <span class="has-mr-6">6</span>
+        <span>6、条件下推</span>
+        </a></li><li>
+        <a class="is-flex" href="#7、提前缩小范围">
+        <span class="has-mr-6">7</span>
+        <span>7、提前缩小范围</span>
+        </a></li><li>
+        <a class="is-flex" href="#8、中间结果集下推">
+        <span class="has-mr-6">8</span>
+        <span>8、中间结果集下推</span>
+        </a></li><li>
+        <a class="is-flex" href="#总结">
+        <span class="has-mr-6">9</span>
+        <span>总结</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
     
     
         <div class="column-right-shadow is-hidden-widescreen ">
@@ -1784,7 +1603,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/ico.png" alt="辣椒の酱" height="28">
+                    <img src="/images/ico.png" alt="常见sql错误写法" height="28">
                 
                 </a>
                 <p class="is-size-7">
