@@ -21,18 +21,18 @@
 })();
 </script>
 
-    <meta name="description" content="摘要BIO 全称Block-IO 是一种同步且阻塞的通信模式。是一个比较传统的通信方式，模式简单，使用方便。但并发处理能力低，通信耗时，依赖网速。  Java BIO使用BIO实现文件的读取和写入。 123456789101112131415161718192021222324252627282930313233343536//Initializes The ObjectUser1 user =">
+    <meta name="description" content="摘要BIO 全称Block-IO 是一种同步且阻塞的通信模式。是一个比较传统的通信方式，模式简单，使用方便。但并发处理能力低，通信耗时，依赖网速。">
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java BIO NIO AIO区别与使用">
 <meta property="og:url" content="https://removeif.github.io/2019/07/19/Java-BIO-NIO-AIO区别与使用.html">
 <meta property="og:site_name" content="辣椒の酱">
-<meta property="og:description" content="摘要BIO 全称Block-IO 是一种同步且阻塞的通信模式。是一个比较传统的通信方式，模式简单，使用方便。但并发处理能力低，通信耗时，依赖网速。  Java BIO使用BIO实现文件的读取和写入。 123456789101112131415161718192021222324252627282930313233343536//Initializes The ObjectUser1 user =">
+<meta property="og:description" content="摘要BIO 全称Block-IO 是一种同步且阻塞的通信模式。是一个比较传统的通信方式，模式简单，使用方便。但并发处理能力低，通信耗时，依赖网速。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-19T08:21:12.593Z">
+<meta property="og:updated_time" content="2019-07-19T08:31:20.035Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java BIO NIO AIO区别与使用">
-<meta name="twitter:description" content="摘要BIO 全称Block-IO 是一种同步且阻塞的通信模式。是一个比较传统的通信方式，模式简单，使用方便。但并发处理能力低，通信耗时，依赖网速。  Java BIO使用BIO实现文件的读取和写入。 123456789101112131415161718192021222324252627282930313233343536//Initializes The ObjectUser1 user =">
+<meta name="twitter:description" content="摘要BIO 全称Block-IO 是一种同步且阻塞的通信模式。是一个比较传统的通信方式，模式简单，使用方便。但并发处理能力低，通信耗时，依赖网速。">
 
 
 
@@ -164,7 +164,7 @@
     
     <div class="card-image">
         <span class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190719161536.png" alt="Java BIO NIO AIO区别与使用">
+            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190719163035.png" alt="Java BIO NIO AIO区别与使用">
         </span>
     </div>
     
@@ -182,7 +182,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    11 分钟 读完 (大约 1716 个字)
+                    11 分钟 读完 (大约 1717 个字)
                 </span>
                 
                 
@@ -201,7 +201,7 @@
         </h1>
         <div class="content">
             <blockquote>
-<p>摘要<br>BIO 全称Block-IO 是一种<strong>同步且阻塞</strong>的通信模式。是一个比较传统的通信方式，模式简单，使用方便。但并发处理能力低，通信耗时，依赖网速。</p>
+<p>摘要<br>BIO 全称Block-IO 是一种<strong>同步且阻塞</strong>的通信模式。是一个比较传统的通信方式，模式简单，使用方便。但并发处理能力低，通信耗时，依赖网速。<br><a id="more"></a></p>
 </blockquote>
 <h2 id="Java-BIO"><a href="#Java-BIO" class="headerlink" title="Java BIO"></a>Java BIO</h2><p>使用BIO实现文件的读取和写入。</p>
 <figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//Initializes The Object</span></span><br><span class="line">User1 user = <span class="hljs-keyword">new</span> User1();</span><br><span class="line">user.setName(<span class="hljs-string">"hollis"</span>);</span><br><span class="line">user.setAge(<span class="hljs-number">23</span>);</span><br><span class="line">System.out.println(user);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//Write Obj to File</span></span><br><span class="line">ObjectOutputStream oos = <span class="hljs-keyword">null</span>;</span><br><span class="line"><span class="hljs-keyword">try</span> &#123;</span><br><span class="line">    oos = <span class="hljs-keyword">new</span> ObjectOutputStream(<span class="hljs-keyword">new</span> FileOutputStream(<span class="hljs-string">"tempFile"</span>));</span><br><span class="line">    oos.writeObject(user);</span><br><span class="line">&#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125; <span class="hljs-keyword">finally</span> &#123;</span><br><span class="line">    IOUtils.closeQuietly(oos);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//Read Obj from File</span></span><br><span class="line">File file = <span class="hljs-keyword">new</span> File(<span class="hljs-string">"tempFile"</span>);</span><br><span class="line">ObjectInputStream ois = <span class="hljs-keyword">null</span>;</span><br><span class="line"><span class="hljs-keyword">try</span> &#123;</span><br><span class="line">    ois = <span class="hljs-keyword">new</span> ObjectInputStream(<span class="hljs-keyword">new</span> FileInputStream(file));</span><br><span class="line">    User1 newUser = (User1) ois.readObject();</span><br><span class="line">    System.out.println(newUser);</span><br><span class="line">&#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125; <span class="hljs-keyword">finally</span> &#123;</span><br><span class="line">    IOUtils.closeQuietly(ois);</span><br><span class="line">    <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">        FileUtils.forceDelete(file);</span><br><span class="line">    &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -480,7 +480,7 @@
             
             <a href="/2019/07/19/Java-BIO-NIO-AIO区别与使用.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190719161536.png" alt="Java BIO NIO AIO区别与使用">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190719163035.png" alt="Java BIO NIO AIO区别与使用">
                 </p>
             </a>
             
@@ -1018,7 +1018,7 @@
             
             <a href="/2019/07/19/Java-BIO-NIO-AIO区别与使用.html" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190719161536.png" alt="Java BIO NIO AIO区别与使用">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190719163035.png" alt="Java BIO NIO AIO区别与使用">
                 </p>
             </a>
             
