@@ -233,7 +233,7 @@ img.thumbnail {
   overflow: hidden;
 }
 .donate .qrcode img {
-  max-width: 280px;
+  max-width: 140px;
 }
 .donate:hover .qrcode {
   display: block;
