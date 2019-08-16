@@ -1,5 +1,5 @@
 function showComment() {
-    $("#myButton").html("loading...please wait a moment!");
+    $("#myButton").val("loading...please wait a moment!");
     Date.prototype.Format = function (fmt) { //author: meizz
         var o = {
             "M+": this.getMonth() + 1,                 //月份
@@ -66,8 +66,10 @@ function showComment() {
         window.COMMENT_ARR = resultArr;
         window.COMMENT = resultMap;
         COMMENT_ARR = resultArr;
+    }else{
+        console.log("load cache data...");
     }
-    console.log("load cache data...");
+
     var htmlContent = "";
     for (var i = 0; i < COMMENT_ARR.length; i++) {
         var item = COMMENT_ARR[i];
@@ -80,5 +82,5 @@ function showComment() {
     }
     $("#myContent").html("");
     $("#myContent").append(htmlContent);
-    $("#myButton").html("click show latest 10 comments!");
+    $("#myButton").val("click show latest 10 comments!");
 }
