@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Java容器集合 - 辣椒の酱</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<meta name="google-site-verification" content="67z1CXZ8AOhImIglgTwqAlneRCHTO6xRJo5NeafDAqw">
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    <meta name="description" content="容器主要包括 Collection 和 Map 两种，Collection 存储着对象的集合，而 Map 存储着键值对（两个对象）的映射表。">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java容器集合">
+<meta property="og:url" content="https://removeif.github.io/2019/08/16/Java容器集合.html">
+<meta property="og:site_name" content="辣椒の酱">
+<meta property="og:description" content="容器主要包括 Collection 和 Map 两种，Collection 存储着对象的集合，而 Map 存储着键值对（两个对象）的映射表。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816172510.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816172618.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816172707.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816172831.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816173047.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816173126.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816173203.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816173430.png">
+<meta property="og:updated_time" content="2019-08-16T09:42:33.253Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java容器集合">
+<meta name="twitter:description" content="容器主要包括 Collection 和 Map 两种，Collection 存储着对象的集合，而 Map 存储着键值对（两个对象）的映射表。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816172510.png">
+
+
+
+
+
+<link rel="icon" href="/images/kaixinguo.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+    <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/ico.png" alt="Java容器集合" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">主页</a>
+                
+                <a class="navbar-item" href="/archives">归档</a>
+                
+                <a class="navbar-item" href="/categories">分类</a>
+                
+                <a class="navbar-item" href="/tags">标签</a>
+                
+                <a class="navbar-item" href="/message">留言板</a>
+                
+                <a class="navbar-item" href="/comment">最新评论</a>
+                
+                <a class="navbar-item" href="/album">相册</a>
+                
+                <a class="navbar-item" href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/removeif">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-08-16T09:41:01.000Z">2019-08-16</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/java基础/">java基础</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    39 分钟 读完 (大约 5803 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    1<span id="busuanzi_value_page_pv"></span> 次查看
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Java容器集合
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>容器主要包括 Collection 和 Map 两种，Collection 存储着对象的集合，而 Map 存储着键值对（两个对象）的映射表。<br><a id="more"></a></p>
+</blockquote>
+<h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>容器主要包括 Collection 和 Map 两种，Collection 存储着对象的集合，而 Map 存储着键值对（两个对象）的映射表。</p>
+<h3 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h3><p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816172510.png" alt=""></p>
+<h4 id="1-Set"><a href="#1-Set" class="headerlink" title="1. Set"></a>1. Set</h4><ul>
+<li>TreeSet：基于红黑树实现，支持有序性操作，例如根据一个范围查找元素的操作。但是查找效率不如 HashSet，HashSet 查找的时间复杂度为 O(1)，TreeSet 则为 O(logN)。</li>
+<li>HashSet：基于哈希表实现，支持快速查找，但不支持有序性操作。并且失去了元素的插入顺序信息，也就是说使用 Iterator 遍历 HashSet 得到的结果是不确定的。</li>
+<li>LinkedHashSet：具有 HashSet 的查找效率，且内部使用双向链表维护元素的插入顺序。</li>
+</ul>
+<h4 id="2-List"><a href="#2-List" class="headerlink" title="2. List"></a>2. List</h4><ul>
+<li>ArrayList：基于动态数组实现，支持随机访问。</li>
+<li>Vector：和 ArrayList 类似，但它是线程安全的。</li>
+<li>LinkedList：基于双向链表实现，只能顺序访问，但是可以快速地在链表中间插入和删除元素。不仅如此，LinkedList 还可以用作栈、队列和双向队列。</li>
+</ul>
+<h4 id="3-Queue"><a href="#3-Queue" class="headerlink" title="3. Queue"></a>3. Queue</h4><ul>
+<li>LinkedList：可以用它来实现双向队列。</li>
+<li>PriorityQueue：基于堆结构实现，可以用它来实现优先队列。</li>
+</ul>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816172618.png" alt=""></p>
+<ul>
+<li>TreeMap：基于红黑树实现。</li>
+<li>HashMap：基于哈希表实现。</li>
+<li>HashTable：和 HashMap 类似，但它是线程安全的，这意味着同一时刻多个线程可以同时写入 HashTable 并且不会导致数据不一致。它是遗留类，不应该去使用它。现在可以使用 ConcurrentHashMap 来支持线程安全，并且 ConcurrentHashMap 的效率会更高，因为 ConcurrentHashMap 引入了分段锁。</li>
+<li>LinkedHashMap：使用双向链表来维护元素的顺序，顺序为插入顺序或者最近最少使用（LRU）顺序。</li>
+</ul>
+<h2 id="容器中的设计模式"><a href="#容器中的设计模式" class="headerlink" title="容器中的设计模式"></a>容器中的设计模式</h2><h3 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h3><p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816172707.png" alt=""></p>
+<p>Collection 继承了 Iterable 接口，其中的 iterator() 方法能够产生一个 Iterator 对象，通过这个对象就可以迭代遍历 Collection 中的元素。</p>
+<p>从 JDK 1.5 之后可以使用 foreach 方法来遍历实现了 Iterable 接口的聚合对象。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">list.add(<span class="hljs-string">"a"</span>);</span><br><span class="line">list.add(<span class="hljs-string">"b"</span>);</span><br><span class="line"><span class="hljs-keyword">for</span> (String item : list) &#123;</span><br><span class="line">    System.out.println(item);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h3><p>java.util.Arrays#asList() 可以把数组类型转换为 List 类型。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@SafeVarargs</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">List&lt;T&gt; <span class="hljs-title">asList</span><span class="hljs-params">(T... a)</span></span></span><br></pre></td></tr></table></figure>
+<p>应该注意的是 asList() 的参数为泛型的变长参数，不能使用基本类型数组作为参数，只能使用相应的包装类型数组。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[] arr = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;;</span><br><span class="line">List list = Arrays.asList(arr);</span><br></pre></td></tr></table></figure>
+<p>也可以使用以下方式调用 asList()：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List list = Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><p>如果没有特别说明，以下源码分析基于 JDK 1.8。</p>
+<p>在 IDEA 中 double shift 调出 Search EveryWhere，查找源码文件，找到之后就可以阅读源码。</p>
+<h3 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h3><h4 id="1-概览"><a href="#1-概览" class="headerlink" title="1. 概览"></a>1. 概览</h4><p>因为 ArrayList 是基于数组实现的，所以支持快速随机访问。RandomAccess 接口标识着该类支持快速随机访问。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ArrayList</span>&lt;<span class="hljs-title">E</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractList</span>&lt;<span class="hljs-title">E</span>&gt;</span></span><br><span class="line"><span class="hljs-class">        <span class="hljs-keyword">implements</span> <span class="hljs-title">List</span>&lt;<span class="hljs-title">E</span>&gt;, <span class="hljs-title">RandomAccess</span>, <span class="hljs-title">Cloneable</span>, <span class="hljs-title">java</span>.<span class="hljs-title">io</span>.<span class="hljs-title">Serializable</span></span></span><br></pre></td></tr></table></figure>
+<p>数组的默认大小为 10。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> DEFAULT_CAPACITY = <span class="hljs-number">10</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816172831.png" alt=""></p>
+<h4 id="2-扩容"><a href="#2-扩容" class="headerlink" title="2. 扩容"></a>2. 扩容</h4><p>添加元素时使用 ensureCapacityInternal() 方法来保证容量足够，如果不够时，需要使用 grow() 方法进行扩容，新容量的大小为 <code>oldCapacity + (oldCapacity &gt;&gt; 1)</code>，也就是旧容量的 1.5 倍。</p>
+<p>扩容操作需要调用 <code>Arrays.copyOf()</code> 把原数组整个复制到新数组中，这个操作代价很高，因此最好在创建 ArrayList 对象时就指定大概的容量大小，减少扩容操作的次数。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">add</span><span class="hljs-params">(E e)</span> </span>&#123;</span><br><span class="line">    ensureCapacityInternal(size + <span class="hljs-number">1</span>);  <span class="hljs-comment">// Increments modCount!!</span></span><br><span class="line">    elementData[size++] = e;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ensureCapacityInternal</span><span class="hljs-params">(<span class="hljs-keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span> (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123;</span><br><span class="line">        minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);</span><br><span class="line">    &#125;</span><br><span class="line">    ensureExplicitCapacity(minCapacity);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ensureExplicitCapacity</span><span class="hljs-params">(<span class="hljs-keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    modCount++;</span><br><span class="line">    <span class="hljs-comment">// overflow-conscious code</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (minCapacity - elementData.length &gt; <span class="hljs-number">0</span>)</span><br><span class="line">        grow(minCapacity);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">grow</span><span class="hljs-params">(<span class="hljs-keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-comment">// overflow-conscious code</span></span><br><span class="line">    <span class="hljs-keyword">int</span> oldCapacity = elementData.length;</span><br><span class="line">    <span class="hljs-keyword">int</span> newCapacity = oldCapacity + (oldCapacity &gt;&gt; <span class="hljs-number">1</span>);</span><br><span class="line">    <span class="hljs-keyword">if</span> (newCapacity - minCapacity &lt; <span class="hljs-number">0</span>)</span><br><span class="line">        newCapacity = minCapacity;</span><br><span class="line">    <span class="hljs-keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="hljs-number">0</span>)</span><br><span class="line">        newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">    <span class="hljs-comment">// minCapacity is usually close to size, so this is a win:</span></span><br><span class="line">    elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-删除元素"><a href="#3-删除元素" class="headerlink" title="3. 删除元素"></a>3. 删除元素</h4><p>需要调用 System.arraycopy() 将 index+1 后面的元素都复制到 index 位置上，该操作的时间复杂度为 O(N)，可以看出 ArrayList 删除元素的代价是非常高的。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> E <span class="hljs-title">remove</span><span class="hljs-params">(<span class="hljs-keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    rangeCheck(index);</span><br><span class="line">    modCount++;</span><br><span class="line">    E oldValue = elementData(index);</span><br><span class="line">    <span class="hljs-keyword">int</span> numMoved = size - index - <span class="hljs-number">1</span>;</span><br><span class="line">    <span class="hljs-keyword">if</span> (numMoved &gt; <span class="hljs-number">0</span>)</span><br><span class="line">        System.arraycopy(elementData, index+<span class="hljs-number">1</span>, elementData, index, numMoved);</span><br><span class="line">    elementData[--size] = <span class="hljs-keyword">null</span>; <span class="hljs-comment">// clear to let GC do its work</span></span><br><span class="line">    <span class="hljs-keyword">return</span> oldValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-Fail-Fast"><a href="#4-Fail-Fast" class="headerlink" title="4. Fail-Fast"></a>4. Fail-Fast</h4><p>modCount 用来记录 ArrayList 结构发生变化的次数。结构发生变化是指添加或者删除至少一个元素的所有操作，或者是调整内部数组的大小，仅仅只是设置元素的值不算结构发生变化。</p>
+<p>在进行序列化或者迭代等操作时，需要比较操作前后 modCount 是否改变，如果改变了需要抛出 ConcurrentModificationException。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeObject</span><span class="hljs-params">(java.io.ObjectOutputStream s)</span></span></span><br><span class="line"><span class="hljs-function">    <span class="hljs-keyword">throws</span> java.io.IOException</span>&#123;</span><br><span class="line">    <span class="hljs-comment">// Write out element count, and any hidden stuff</span></span><br><span class="line">    <span class="hljs-keyword">int</span> expectedModCount = modCount;</span><br><span class="line">    s.defaultWriteObject();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// Write out size as capacity for behavioural compatibility with clone()</span></span><br><span class="line">    s.writeInt(size);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// Write out all elements in the proper order.</span></span><br><span class="line">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;size; i++) &#123;</span><br><span class="line">        s.writeObject(elementData[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">if</span> (modCount != expectedModCount) &#123;</span><br><span class="line">        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConcurrentModificationException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-序列化"><a href="#5-序列化" class="headerlink" title="5. 序列化"></a>5. 序列化</h4><p>ArrayList 基于数组实现，并且具有动态扩容特性，因此保存元素的数组不一定都会被使用，那么就没必要全部进行序列化。</p>
+<p>保存元素的数组 elementData 使用 transient 修饰，该关键字声明数组默认不会被序列化。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">transient</span> Object[] elementData; <span class="hljs-comment">// non-private to simplify nested class access</span></span><br></pre></td></tr></table></figure>
+<p>ArrayList 实现了 writeObject() 和 readObject() 来控制只序列化数组中有元素填充那部分内容。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">readObject</span><span class="hljs-params">(java.io.ObjectInputStream s)</span></span></span><br><span class="line"><span class="hljs-function">    <span class="hljs-keyword">throws</span> java.io.IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">    elementData = EMPTY_ELEMENTDATA;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// Read in size, and any hidden stuff</span></span><br><span class="line">    s.defaultReadObject();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// Read in capacity</span></span><br><span class="line">    s.readInt(); <span class="hljs-comment">// ignored</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">if</span> (size &gt; <span class="hljs-number">0</span>) &#123;</span><br><span class="line">        <span class="hljs-comment">// be like clone(), allocate array based upon size not capacity</span></span><br><span class="line">        ensureCapacityInternal(size);</span><br><span class="line"></span><br><span class="line">        Object[] a = elementData;</span><br><span class="line">        <span class="hljs-comment">// Read in all elements in the proper order.</span></span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;size; i++) &#123;</span><br><span class="line">            a[i] = s.readObject();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeObject</span><span class="hljs-params">(java.io.ObjectOutputStream s)</span></span></span><br><span class="line"><span class="hljs-function">    <span class="hljs-keyword">throws</span> java.io.IOException</span>&#123;</span><br><span class="line">    <span class="hljs-comment">// Write out element count, and any hidden stuff</span></span><br><span class="line">    <span class="hljs-keyword">int</span> expectedModCount = modCount;</span><br><span class="line">    s.defaultWriteObject();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// Write out size as capacity for behavioural compatibility with clone()</span></span><br><span class="line">    s.writeInt(size);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// Write out all elements in the proper order.</span></span><br><span class="line">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;size; i++) &#123;</span><br><span class="line">        s.writeObject(elementData[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">if</span> (modCount != expectedModCount) &#123;</span><br><span class="line">        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConcurrentModificationException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>序列化时需要使用 ObjectOutputStream 的 writeObject() 将对象转换为字节流并输出。而 writeObject() 方法在传入的对象存在 writeObject() 的时候会去反射调用该对象的 writeObject() 来实现序列化。反序列化使用的是 ObjectInputStream 的 readObject() 方法，原理类似。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ArrayList list = <span class="hljs-keyword">new</span> ArrayList();</span><br><span class="line">ObjectOutputStream oos = <span class="hljs-keyword">new</span> ObjectOutputStream(<span class="hljs-keyword">new</span> FileOutputStream(file));</span><br><span class="line">oos.writeObject(list);</span><br></pre></td></tr></table></figure>
+<h3 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h3><h4 id="1-同步"><a href="#1-同步" class="headerlink" title="1. 同步"></a>1. 同步</h4><p>它的实现与 ArrayList 类似，但是使用了 synchronized 进行同步。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">add</span><span class="hljs-params">(E e)</span> </span>&#123;</span><br><span class="line">    modCount++;</span><br><span class="line">    ensureCapacityHelper(elementCount + <span class="hljs-number">1</span>);</span><br><span class="line">    elementData[elementCount++] = e;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> E <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span> (index &gt;= elementCount)</span><br><span class="line">        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArrayIndexOutOfBoundsException(index);</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">return</span> elementData(index);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-与-ArrayList-的比较"><a href="#2-与-ArrayList-的比较" class="headerlink" title="2. 与 ArrayList 的比较"></a>2. 与 ArrayList 的比较</h4><ul>
+<li>Vector 是同步的，因此开销就比 ArrayList 要大，访问速度更慢。最好使用 ArrayList 而不是 Vector，因为同步操作完全可以由程序员自己来控制；</li>
+<li>Vector 每次扩容请求其大小的 2 倍空间，而 ArrayList 是 1.5 倍。</li>
+</ul>
+<h4 id="3-替代方案"><a href="#3-替代方案" class="headerlink" title="3. 替代方案"></a>3. 替代方案</h4><p>可以使用 <code>Collections.synchronizedList();</code> 得到一个线程安全的 ArrayList。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">List&lt;String&gt; synList = Collections.synchronizedList(list);</span><br></pre></td></tr></table></figure>
+<p>也可以使用 concurrent 并发包下的 CopyOnWriteArrayList 类。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="hljs-keyword">new</span> CopyOnWriteArrayList&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<h3 id="CopyOnWriteArrayList"><a href="#CopyOnWriteArrayList" class="headerlink" title="CopyOnWriteArrayList"></a>CopyOnWriteArrayList</h3><h4 id="读写分离"><a href="#读写分离" class="headerlink" title="读写分离"></a>读写分离</h4><p>写操作在一个复制的数组上进行，读操作还是在原始数组中进行，读写分离，互不影响。</p>
+<p>写操作需要加锁，防止并发写入时导致写入数据丢失。</p>
+<p>写操作结束之后需要把原始数组指向新的复制数组。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">add</span><span class="hljs-params">(E e)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">final</span> ReentrantLock lock = <span class="hljs-keyword">this</span>.lock;</span><br><span class="line">    lock.lock();</span><br><span class="line">    <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">        Object[] elements = getArray();</span><br><span class="line">        <span class="hljs-keyword">int</span> len = elements.length;</span><br><span class="line">        Object[] newElements = Arrays.copyOf(elements, len + <span class="hljs-number">1</span>);</span><br><span class="line">        newElements[len] = e;</span><br><span class="line">        setArray(newElements);</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">    &#125; <span class="hljs-keyword">finally</span> &#123;</span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setArray</span><span class="hljs-params">(Object[] a)</span> </span>&#123;</span><br><span class="line">    array = a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-meta">@SuppressWarnings</span>(<span class="hljs-string">"unchecked"</span>)</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> E <span class="hljs-title">get</span><span class="hljs-params">(Object[] a, <span class="hljs-keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> (E) a[index];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><p>CopyOnWriteArrayList 在写操作的同时允许读操作，大大提高了读操作的性能，因此很适合读多写少的应用场景。</p>
+<p>但是 CopyOnWriteArrayList 有其缺陷：</p>
+<ul>
+<li>内存占用：在写操作时需要复制一个新的数组，使得内存占用为原来的两倍左右；</li>
+<li>数据不一致：读操作不能读取实时性的数据，因为部分写操作的数据还未同步到读数组中。</li>
+</ul>
+<p>所以 CopyOnWriteArrayList 不适合内存敏感以及对实时性要求很高的场景。</p>
+<h3 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h3><h4 id="1-概览-1"><a href="#1-概览-1" class="headerlink" title="1. 概览"></a>1. 概览</h4><p>基于双向链表实现，使用 Node 存储链表节点信息。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span>&lt;<span class="hljs-title">E</span>&gt; </span>&#123;</span><br><span class="line">    E item;</span><br><span class="line">    Node&lt;E&gt; next;</span><br><span class="line">    Node&lt;E&gt; prev;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每个链表存储了 first 和 last 指针：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">transient</span> Node&lt;E&gt; first;</span><br><span class="line"><span class="hljs-keyword">transient</span> Node&lt;E&gt; last;</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816173047.png" alt=""></p>
+<h4 id="2-与-ArrayList-的比较-1"><a href="#2-与-ArrayList-的比较-1" class="headerlink" title="2. 与 ArrayList 的比较"></a>2. 与 ArrayList 的比较</h4><ul>
+<li>ArrayList 基于动态数组实现，LinkedList 基于双向链表实现；</li>
+<li>ArrayList 支持随机访问，LinkedList 不支持；</li>
+<li>LinkedList 在任意位置添加删除元素更快。</li>
+</ul>
+<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><p>为了便于理解，以下源码分析以 JDK 1.7 为主。</p>
+<h4 id="1-存储结构"><a href="#1-存储结构" class="headerlink" title="1. 存储结构"></a>1. 存储结构</h4><p>内部包含了一个 Entry 类型的数组 table。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">transient</span> Entry[] table;</span><br></pre></td></tr></table></figure>
+<p>Entry 存储着键值对。它包含了四个字段，从 next 字段我们可以看出 Entry 是一个链表。即数组中的每个位置被当成一个桶，一个桶存放一个链表。HashMap 使用拉链法来解决冲突，同一个链表中存放哈希值和散列桶取模运算结果相同的 Entry。</p>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816173126.png" alt=""></p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Entry</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title">Map</span>.<span class="hljs-title">Entry</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">final</span> K key;</span><br><span class="line">    V value;</span><br><span class="line">    Entry&lt;K,V&gt; next;</span><br><span class="line">    <span class="hljs-keyword">int</span> hash;</span><br><span class="line"></span><br><span class="line">    Entry(<span class="hljs-keyword">int</span> h, K k, V v, Entry&lt;K,V&gt; n) &#123;</span><br><span class="line">        value = v;</span><br><span class="line">        next = n;</span><br><span class="line">        key = k;</span><br><span class="line">        hash = h;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> K <span class="hljs-title">getKey</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> key;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> V <span class="hljs-title">getValue</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> V <span class="hljs-title">setValue</span><span class="hljs-params">(V newValue)</span> </span>&#123;</span><br><span class="line">        V oldValue = value;</span><br><span class="line">        value = newValue;</span><br><span class="line">        <span class="hljs-keyword">return</span> oldValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">equals</span><span class="hljs-params">(Object o)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (!(o <span class="hljs-keyword">instanceof</span> Map.Entry))</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        Map.Entry e = (Map.Entry)o;</span><br><span class="line">        Object k1 = getKey();</span><br><span class="line">        Object k2 = e.getKey();</span><br><span class="line">        <span class="hljs-keyword">if</span> (k1 == k2 || (k1 != <span class="hljs-keyword">null</span> &amp;&amp; k1.equals(k2))) &#123;</span><br><span class="line">            Object v1 = getValue();</span><br><span class="line">            Object v2 = e.getValue();</span><br><span class="line">            <span class="hljs-keyword">if</span> (v1 == v2 || (v1 != <span class="hljs-keyword">null</span> &amp;&amp; v1.equals(v2)))</span><br><span class="line">                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> <span class="hljs-title">hashCode</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> Objects.hashCode(getKey()) ^ Objects.hashCode(getValue());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> getKey() + <span class="hljs-string">"="</span> + getValue();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-拉链法的工作原理"><a href="#2-拉链法的工作原理" class="headerlink" title="2. 拉链法的工作原理"></a>2. 拉链法的工作原理</h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;String, String&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">map.put(<span class="hljs-string">"K1"</span>, <span class="hljs-string">"V1"</span>);</span><br><span class="line">map.put(<span class="hljs-string">"K2"</span>, <span class="hljs-string">"V2"</span>);</span><br><span class="line">map.put(<span class="hljs-string">"K3"</span>, <span class="hljs-string">"V3"</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>新建一个 HashMap，默认大小为 16；</li>
+<li>插入 &lt;K1,V1&gt; 键值对，先计算 K1 的 hashCode 为 115，使用除留余数法得到所在的桶下标 115%16=3。</li>
+<li>插入 &lt;K2,V2&gt; 键值对，先计算 K2 的 hashCode 为 118，使用除留余数法得到所在的桶下标 118%16=6。</li>
+<li>插入 &lt;K3,V3&gt; 键值对，先计算 K3 的 hashCode 为 118，使用除留余数法得到所在的桶下标 118%16=6，插在 &lt;K2,V2&gt; 前面。</li>
+</ul>
+<p>应该注意到链表的插入是以头插法方式进行的，例如上面的 &lt;K3,V3&gt; 不是插在 &lt;K2,V2&gt; 后面，而是插入在链表头部。</p>
+<p>查找需要分成两步进行：</p>
+<ul>
+<li>计算键值对所在的桶；</li>
+<li>在链表上顺序查找，时间复杂度显然和链表的长度成正比。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816173203.png" alt=""></p>
+<h4 id="3-put-操作"><a href="#3-put-操作" class="headerlink" title="3. put 操作"></a>3. put 操作</h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> V <span class="hljs-title">put</span><span class="hljs-params">(K key, V value)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span> (table == EMPTY_TABLE) &#123;</span><br><span class="line">        inflateTable(threshold);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-comment">// 键为 null 单独处理</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (key == <span class="hljs-keyword">null</span>)</span><br><span class="line">        <span class="hljs-keyword">return</span> putForNullKey(value);</span><br><span class="line">    <span class="hljs-keyword">int</span> hash = hash(key);</span><br><span class="line">    <span class="hljs-comment">// 确定桶下标</span></span><br><span class="line">    <span class="hljs-keyword">int</span> i = indexFor(hash, table.length);</span><br><span class="line">    <span class="hljs-comment">// 先找出是否已经存在键为 key 的键值对，如果存在的话就更新这个键值对的值为 value</span></span><br><span class="line">    <span class="hljs-keyword">for</span> (Entry&lt;K,V&gt; e = table[i]; e != <span class="hljs-keyword">null</span>; e = e.next) &#123;</span><br><span class="line">        Object k;</span><br><span class="line">        <span class="hljs-keyword">if</span> (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k))) &#123;</span><br><span class="line">            V oldValue = e.value;</span><br><span class="line">            e.value = value;</span><br><span class="line">            e.recordAccess(<span class="hljs-keyword">this</span>);</span><br><span class="line">            <span class="hljs-keyword">return</span> oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modCount++;</span><br><span class="line">    <span class="hljs-comment">// 插入新键值对</span></span><br><span class="line">    addEntry(hash, key, value, i);</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>HashMap 允许插入键为 null 的键值对。但是因为无法调用 null 的 hashCode() 方法，也就无法确定该键值对的桶下标，只能通过强制指定一个桶下标来存放。HashMap 使用第 0 个桶存放键为 null 的键值对。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> V <span class="hljs-title">putForNullKey</span><span class="hljs-params">(V value)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">for</span> (Entry&lt;K,V&gt; e = table[<span class="hljs-number">0</span>]; e != <span class="hljs-keyword">null</span>; e = e.next) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (e.key == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            V oldValue = e.value;</span><br><span class="line">            e.value = value;</span><br><span class="line">            e.recordAccess(<span class="hljs-keyword">this</span>);</span><br><span class="line">            <span class="hljs-keyword">return</span> oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    modCount++;</span><br><span class="line">    addEntry(<span class="hljs-number">0</span>, <span class="hljs-keyword">null</span>, value, <span class="hljs-number">0</span>);</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用链表的头插法，也就是新的键值对插在链表的头部，而不是链表的尾部。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addEntry</span><span class="hljs-params">(<span class="hljs-keyword">int</span> hash, K key, V value, <span class="hljs-keyword">int</span> bucketIndex)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span> ((size &gt;= threshold) &amp;&amp; (<span class="hljs-keyword">null</span> != table[bucketIndex])) &#123;</span><br><span class="line">        resize(<span class="hljs-number">2</span> * table.length);</span><br><span class="line">        hash = (<span class="hljs-keyword">null</span> != key) ? hash(key) : <span class="hljs-number">0</span>;</span><br><span class="line">        bucketIndex = indexFor(hash, table.length);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    createEntry(hash, key, value, bucketIndex);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">createEntry</span><span class="hljs-params">(<span class="hljs-keyword">int</span> hash, K key, V value, <span class="hljs-keyword">int</span> bucketIndex)</span> </span>&#123;</span><br><span class="line">    Entry&lt;K,V&gt; e = table[bucketIndex];</span><br><span class="line">    <span class="hljs-comment">// 头插法，链表头部指向新的键值对</span></span><br><span class="line">    table[bucketIndex] = <span class="hljs-keyword">new</span> Entry&lt;&gt;(hash, key, value, e);</span><br><span class="line">    size++;</span><br><span class="line">&#125;</span><br><span class="line">Entry(<span class="hljs-keyword">int</span> h, K k, V v, Entry&lt;K,V&gt; n) &#123;</span><br><span class="line">    value = v;</span><br><span class="line">    next = n;</span><br><span class="line">    key = k;</span><br><span class="line">    hash = h;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-确定桶下标"><a href="#4-确定桶下标" class="headerlink" title="4. 确定桶下标"></a>4. 确定桶下标</h4><p>很多操作都需要先确定一个键值对所在的桶下标。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">int</span> hash = hash(key);</span><br><span class="line"><span class="hljs-keyword">int</span> i = indexFor(hash, table.length);</span><br></pre></td></tr></table></figure>
+<p><strong>4.1 计算 hash 值</strong></p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> <span class="hljs-title">hash</span><span class="hljs-params">(Object k)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> h = hashSeed;</span><br><span class="line">    <span class="hljs-keyword">if</span> (<span class="hljs-number">0</span> != h &amp;&amp; k <span class="hljs-keyword">instanceof</span> String) &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> sun.misc.Hashing.stringHash32((String) k);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    h ^= k.hashCode();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// This function ensures that hashCodes that differ only by</span></span><br><span class="line">    <span class="hljs-comment">// constant multiples at each bit position have a bounded</span></span><br><span class="line">    <span class="hljs-comment">// number of collisions (approximately 8 at default load factor).</span></span><br><span class="line">    h ^= (h &gt;&gt;&gt; <span class="hljs-number">20</span>) ^ (h &gt;&gt;&gt; <span class="hljs-number">12</span>);</span><br><span class="line">    <span class="hljs-keyword">return</span> h ^ (h &gt;&gt;&gt; <span class="hljs-number">7</span>) ^ (h &gt;&gt;&gt; <span class="hljs-number">4</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> <span class="hljs-title">hashCode</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> Objects.hashCode(key) ^ Objects.hashCode(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>4.2 取模</strong></p>
+<p>令 x = 1&lt;&lt;4，即 x 为 2 的 4 次方，它具有以下性质：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x   : <span class="hljs-number">00010000</span></span><br><span class="line">x-<span class="hljs-number">1</span> : <span class="hljs-number">00001111</span></span><br></pre></td></tr></table></figure>
+<p>令一个数 y 与 x-1 做与运算，可以去除 y 位级表示的第 4 位以上数：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">y       : <span class="hljs-number">10110010</span></span><br><span class="line">x-<span class="hljs-number">1</span>     : <span class="hljs-number">00001111</span></span><br><span class="line">y&amp;(x-<span class="hljs-number">1</span>) : <span class="hljs-number">00000010</span></span><br></pre></td></tr></table></figure>
+<p>这个性质和 y 对 x 取模效果是一样的：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">y   : <span class="hljs-number">10110010</span></span><br><span class="line">x   : <span class="hljs-number">00010000</span></span><br><span class="line">y%x : <span class="hljs-number">00000010</span></span><br></pre></td></tr></table></figure>
+<p>我们知道，位运算的代价比求模运算小的多，因此在进行这种计算时用位运算的话能带来更高的性能。</p>
+<p>确定桶下标的最后一步是将 key 的 hash 值对桶个数取模：hash%capacity，如果能保证 capacity 为 2 的 n 次方，那么就可以将这个操作转换为位运算。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">indexFor</span><span class="hljs-params">(<span class="hljs-keyword">int</span> h, <span class="hljs-keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> h &amp; (length-<span class="hljs-number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-扩容-基本原理"><a href="#5-扩容-基本原理" class="headerlink" title="5. 扩容-基本原理"></a>5. 扩容-基本原理</h4><p>设 HashMap 的 table 长度为 M，需要存储的键值对数量为 N，如果哈希函数满足均匀性的要求，那么每条链表的长度大约为 N/M，因此平均查找次数的复杂度为 O(N/M)。</p>
+<p>为了让查找的成本降低，应该尽可能使得 N/M 尽可能小，因此需要保证 M 尽可能大，也就是说 table 要尽可能大。HashMap 采用动态扩容来根据当前的 N 值来调整 M 值，使得空间效率和时间效率都能得到保证。</p>
+<p>和扩容相关的参数主要有：capacity、size、threshold 和 load_factor。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>capacity</td>
+<td>table 的容量大小，默认为 16。需要注意的是 capacity 必须保证为 2 的 n 次方。</td>
+</tr>
+<tr>
+<td>size</td>
+<td>键值对数量。</td>
+</tr>
+<tr>
+<td>threshold</td>
+<td>size 的临界值，当 size 大于等于 threshold 就必须进行扩容操作。</td>
+</tr>
+<tr>
+<td>loadFactor</td>
+<td>装载因子，table 能够使用的比例，threshold = capacity * loadFactor。</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="hljs-number">16</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> MAXIMUM_CAPACITY = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">30</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">float</span> DEFAULT_LOAD_FACTOR = <span class="hljs-number">0.75f</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">transient</span> Entry[] table;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">transient</span> <span class="hljs-keyword">int</span> size;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">int</span> threshold;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">final</span> <span class="hljs-keyword">float</span> loadFactor;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">transient</span> <span class="hljs-keyword">int</span> modCount;</span><br></pre></td></tr></table></figure>
+<p>从下面的添加元素代码中可以看出，当需要扩容时，令 capacity 为原来的两倍。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addEntry</span><span class="hljs-params">(<span class="hljs-keyword">int</span> hash, K key, V value, <span class="hljs-keyword">int</span> bucketIndex)</span> </span>&#123;</span><br><span class="line">    Entry&lt;K,V&gt; e = table[bucketIndex];</span><br><span class="line">    table[bucketIndex] = <span class="hljs-keyword">new</span> Entry&lt;&gt;(hash, key, value, e);</span><br><span class="line">    <span class="hljs-keyword">if</span> (size++ &gt;= threshold)</span><br><span class="line">        resize(<span class="hljs-number">2</span> * table.length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>扩容使用 resize() 实现，需要注意的是，扩容操作同样需要把 oldTable 的所有键值对重新插入 newTable 中，因此这一步是很费时的。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">resize</span><span class="hljs-params">(<span class="hljs-keyword">int</span> newCapacity)</span> </span>&#123;</span><br><span class="line">    Entry[] oldTable = table;</span><br><span class="line">    <span class="hljs-keyword">int</span> oldCapacity = oldTable.length;</span><br><span class="line">    <span class="hljs-keyword">if</span> (oldCapacity == MAXIMUM_CAPACITY) &#123;</span><br><span class="line">        threshold = Integer.MAX_VALUE;</span><br><span class="line">        <span class="hljs-keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Entry[] newTable = <span class="hljs-keyword">new</span> Entry[newCapacity];</span><br><span class="line">    transfer(newTable);</span><br><span class="line">    table = newTable;</span><br><span class="line">    threshold = (<span class="hljs-keyword">int</span>)(newCapacity * loadFactor);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">transfer</span><span class="hljs-params">(Entry[] newTable)</span> </span>&#123;</span><br><span class="line">    Entry[] src = table;</span><br><span class="line">    <span class="hljs-keyword">int</span> newCapacity = newTable.length;</span><br><span class="line">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; src.length; j++) &#123;</span><br><span class="line">        Entry&lt;K,V&gt; e = src[j];</span><br><span class="line">        <span class="hljs-keyword">if</span> (e != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            src[j] = <span class="hljs-keyword">null</span>;</span><br><span class="line">            <span class="hljs-keyword">do</span> &#123;</span><br><span class="line">                Entry&lt;K,V&gt; next = e.next;</span><br><span class="line">                <span class="hljs-keyword">int</span> i = indexFor(e.hash, newCapacity);</span><br><span class="line">                e.next = newTable[i];</span><br><span class="line">                newTable[i] = e;</span><br><span class="line">                e = next;</span><br><span class="line">            &#125; <span class="hljs-keyword">while</span> (e != <span class="hljs-keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="6-扩容-重新计算桶下标"><a href="#6-扩容-重新计算桶下标" class="headerlink" title="6. 扩容-重新计算桶下标"></a>6. 扩容-重新计算桶下标</h4><p>在进行扩容时，需要把键值对重新放到对应的桶上。HashMap 使用了一个特殊的机制，可以降低重新计算桶下标的操作。</p>
+<p>假设原数组长度 capacity 为 16，扩容之后 new capacity 为 32：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">capacity     : <span class="hljs-number">00010000</span></span><br><span class="line"><span class="hljs-keyword">new</span> capacity : <span class="hljs-number">00100000</span></span><br></pre></td></tr></table></figure>
+<p>对于一个 Key，</p>
+<ul>
+<li>它的哈希值如果在第 5 位上为 0，那么取模得到的结果和之前一样；</li>
+<li>如果为 1，那么得到的结果为原来的结果 +16。</li>
+</ul>
+<h4 id="7-计算数组容量"><a href="#7-计算数组容量" class="headerlink" title="7. 计算数组容量"></a>7. 计算数组容量</h4><p>HashMap 构造函数允许用户传入的容量不是 2 的 n 次方，因为它可以自动地将传入的容量转换为 2 的 n 次方。</p>
+<p>先考虑如何求一个数的掩码，对于 10010000，它的掩码为 11111111，可以使用以下方法得到：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mask |= mask &gt;&gt; <span class="hljs-number">1</span>    <span class="hljs-number">11011000</span></span><br><span class="line">mask |= mask &gt;&gt; <span class="hljs-number">2</span>    <span class="hljs-number">11111110</span></span><br><span class="line">mask |= mask &gt;&gt; <span class="hljs-number">4</span>    <span class="hljs-number">11111111</span></span><br></pre></td></tr></table></figure>
+<p>mask+1 是大于原始数字的最小的 2 的 n 次方。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num     <span class="hljs-number">10010000</span></span><br><span class="line">mask+<span class="hljs-number">1</span> <span class="hljs-number">100000000</span></span><br></pre></td></tr></table></figure>
+<p>以下是 HashMap 中计算数组容量的代码：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> <span class="hljs-title">tableSizeFor</span><span class="hljs-params">(<span class="hljs-keyword">int</span> cap)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> n = cap - <span class="hljs-number">1</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="hljs-number">1</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="hljs-number">2</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="hljs-number">4</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="hljs-number">8</span>;</span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="hljs-number">16</span>;</span><br><span class="line">    <span class="hljs-keyword">return</span> (n &lt; <span class="hljs-number">0</span>) ? <span class="hljs-number">1</span> : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + <span class="hljs-number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="8-链表转红黑树"><a href="#8-链表转红黑树" class="headerlink" title="8. 链表转红黑树"></a>8. 链表转红黑树</h4><p>从 JDK 1.8 开始，一个桶存储的链表长度大于 8 时会将链表转换为红黑树。 应该是：从 JDK 1.8 开始， table的长度也就是HashMap的capacity(不是size)不能小于64而且在桶存储的链表长度为8时(准确的说是长度为7并且在继续塞第8个时),转换成红黑树,而不是超过8。</p>
+<h4 id="9-与-HashTable-的比较"><a href="#9-与-HashTable-的比较" class="headerlink" title="9. 与 HashTable 的比较"></a>9. 与 HashTable 的比较</h4><ul>
+<li>HashTable 使用 synchronized 来进行同步。</li>
+<li>HashMap 可以插入键为 null 的 Entry。</li>
+<li>HashMap 的迭代器是 fail-fast 迭代器。</li>
+<li>HashMap 不能保证随着时间的推移 Map 中的元素次序是不变的。</li>
+</ul>
+<h3 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h3><h4 id="1-存储结构-1"><a href="#1-存储结构-1" class="headerlink" title="1. 存储结构"></a>1. 存储结构</h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HashEntry</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> hash;</span><br><span class="line">    <span class="hljs-keyword">final</span> K key;</span><br><span class="line">    <span class="hljs-keyword">volatile</span> V value;</span><br><span class="line">    <span class="hljs-keyword">volatile</span> HashEntry&lt;K,V&gt; next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ConcurrentHashMap 和 HashMap 实现上类似，最主要的差别是 ConcurrentHashMap 采用了分段锁（Segment），每个分段锁维护着几个桶（HashEntry），多个线程可以同时访问不同分段锁上的桶，从而使其并发度更高（并发度就是 Segment 的个数）。</p>
+<p>Segment 继承自 ReentrantLock。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Segment</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">ReentrantLock</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = <span class="hljs-number">2249069246763182397L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> MAX_SCAN_RETRIES =</span><br><span class="line">        Runtime.getRuntime().availableProcessors() &gt; <span class="hljs-number">1</span> ? <span class="hljs-number">64</span> : <span class="hljs-number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">transient</span> <span class="hljs-keyword">volatile</span> HashEntry&lt;K,V&gt;[] table;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">transient</span> <span class="hljs-keyword">int</span> count;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">transient</span> <span class="hljs-keyword">int</span> modCount;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">transient</span> <span class="hljs-keyword">int</span> threshold;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">final</span> <span class="hljs-keyword">float</span> loadFactor;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">final</span> Segment&lt;K,V&gt;[] segments;</span><br></pre></td></tr></table></figure>
+<p>默认的并发级别为 16，也就是说默认创建 16 个 Segment。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> DEFAULT_CONCURRENCY_LEVEL = <span class="hljs-number">16</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190816173430.png" alt=""></p>
+<h4 id="2-size-操作"><a href="#2-size-操作" class="headerlink" title="2. size 操作"></a>2. size 操作</h4><p>每个 Segment 维护了一个 count 变量来统计该 Segment 中的键值对个数。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * The number of elements. Accessed only either within locks</span></span><br><span class="line"><span class="hljs-comment"> * or among other volatile reads that maintain visibility.</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">transient</span> <span class="hljs-keyword">int</span> count;</span><br></pre></td></tr></table></figure>
+<p>在执行 size 操作时，需要遍历所有 Segment 然后把 count 累计起来。</p>
+<p>ConcurrentHashMap 在执行 size 操作时先尝试不加锁，如果连续两次不加锁操作得到的结果一致，那么可以认为这个结果是正确的。</p>
+<p>尝试次数使用 RETRIES_BEFORE_LOCK 定义，该值为 2，retries 初始值为 -1，因此尝试次数为 3。</p>
+<p>如果尝试的次数超过 3 次，就需要对每个 Segment 加锁。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * Number of unsynchronized retries in size and containsValue</span></span><br><span class="line"><span class="hljs-comment"> * methods before resorting to locking. This is used to avoid</span></span><br><span class="line"><span class="hljs-comment"> * unbounded retries if tables undergo continuous modification</span></span><br><span class="line"><span class="hljs-comment"> * which would make it impossible to obtain an accurate result.</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> RETRIES_BEFORE_LOCK = <span class="hljs-number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">size</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    <span class="hljs-comment">// Try a few times to get accurate count. On failure due to</span></span><br><span class="line">    <span class="hljs-comment">// continuous async changes in table, resort to locking.</span></span><br><span class="line">    <span class="hljs-keyword">final</span> Segment&lt;K,V&gt;[] segments = <span class="hljs-keyword">this</span>.segments;</span><br><span class="line">    <span class="hljs-keyword">int</span> size;</span><br><span class="line">    <span class="hljs-keyword">boolean</span> overflow; <span class="hljs-comment">// true if size overflows 32 bits</span></span><br><span class="line">    <span class="hljs-keyword">long</span> sum;         <span class="hljs-comment">// sum of modCounts</span></span><br><span class="line">    <span class="hljs-keyword">long</span> last = <span class="hljs-number">0L</span>;   <span class="hljs-comment">// previous sum</span></span><br><span class="line">    <span class="hljs-keyword">int</span> retries = -<span class="hljs-number">1</span>; <span class="hljs-comment">// first iteration isn't retry</span></span><br><span class="line">    <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">        <span class="hljs-keyword">for</span> (;;) &#123;</span><br><span class="line">            <span class="hljs-comment">// 超过尝试次数，则对每个 Segment 加锁</span></span><br><span class="line">            <span class="hljs-keyword">if</span> (retries++ == RETRIES_BEFORE_LOCK) &#123;</span><br><span class="line">                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; segments.length; ++j)</span><br><span class="line">                    ensureSegment(j).lock(); <span class="hljs-comment">// force creation</span></span><br><span class="line">            &#125;</span><br><span class="line">            sum = <span class="hljs-number">0L</span>;</span><br><span class="line">            size = <span class="hljs-number">0</span>;</span><br><span class="line">            overflow = <span class="hljs-keyword">false</span>;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; segments.length; ++j) &#123;</span><br><span class="line">                Segment&lt;K,V&gt; seg = segmentAt(segments, j);</span><br><span class="line">                <span class="hljs-keyword">if</span> (seg != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">                    sum += seg.modCount;</span><br><span class="line">                    <span class="hljs-keyword">int</span> c = seg.count;</span><br><span class="line">                    <span class="hljs-keyword">if</span> (c &lt; <span class="hljs-number">0</span> || (size += c) &lt; <span class="hljs-number">0</span>)</span><br><span class="line">                        overflow = <span class="hljs-keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-comment">// 连续两次得到的结果一致，则认为这个结果是正确的</span></span><br><span class="line">            <span class="hljs-keyword">if</span> (sum == last)</span><br><span class="line">                <span class="hljs-keyword">break</span>;</span><br><span class="line">            last = sum;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="hljs-keyword">finally</span> &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (retries &gt; RETRIES_BEFORE_LOCK) &#123;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; segments.length; ++j)</span><br><span class="line">                segmentAt(segments, j).unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> overflow ? Integer.MAX_VALUE : size;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-JDK-1-8-的改动"><a href="#3-JDK-1-8-的改动" class="headerlink" title="3. JDK 1.8 的改动"></a>3. JDK 1.8 的改动</h4><p>JDK 1.7 使用分段锁机制来实现并发更新操作，核心类为 Segment，它继承自重入锁 ReentrantLock，并发度与 Segment 数量相等。</p>
+<p>JDK 1.8 使用了 CAS 操作来支持更高的并发度，在 CAS 操作失败时使用内置锁 synchronized。</p>
+<p>并且 JDK 1.8 的实现也在链表过长时会转换为红黑树。</p>
+<h3 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h3><h4 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h4><p>继承自 HashMap，因此具有和 HashMap 一样的快速查找特性。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinkedHashMap</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">HashMap</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title">Map</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>内部维护了一个双向链表，用来维护插入顺序或者 LRU 顺序。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * The head (eldest) of the doubly linked list.</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; head;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * The tail (youngest) of the doubly linked list.</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; tail;</span><br></pre></td></tr></table></figure>
+<p>accessOrder 决定了顺序，默认为 false，此时维护的是插入顺序。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> accessOrder;</span><br></pre></td></tr></table></figure>
+<p>LinkedHashMap 最重要的是以下用于维护顺序的函数，它们会在 put、get 等方法中调用。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">afterNodeAccess</span><span class="hljs-params">(Node&lt;K,V&gt; p)</span> </span>&#123; &#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">afterNodeInsertion</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> evict)</span> </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="afterNodeAccess"><a href="#afterNodeAccess" class="headerlink" title="afterNodeAccess()"></a>afterNodeAccess()</h3><p>当一个节点被访问时，如果 accessOrder 为 true，则会将该节点移到链表尾部。也就是说指定为 LRU 顺序之后，在每次访问一个节点时，会将这个节点移到链表尾部，保证链表尾部是最近访问的节点，那么链表首部就是最近最久未使用的节点。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">afterNodeAccess</span><span class="hljs-params">(Node&lt;K,V&gt; e)</span> </span>&#123; <span class="hljs-comment">// move node to last</span></span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; last;</span><br><span class="line">    <span class="hljs-keyword">if</span> (accessOrder &amp;&amp; (last = tail) != e) &#123;</span><br><span class="line">        LinkedHashMap.Entry&lt;K,V&gt; p =</span><br><span class="line">            (LinkedHashMap.Entry&lt;K,V&gt;)e, b = p.before, a = p.after;</span><br><span class="line">        p.after = <span class="hljs-keyword">null</span>;</span><br><span class="line">        <span class="hljs-keyword">if</span> (b == <span class="hljs-keyword">null</span>)</span><br><span class="line">            head = a;</span><br><span class="line">        <span class="hljs-keyword">else</span></span><br><span class="line">            b.after = a;</span><br><span class="line">        <span class="hljs-keyword">if</span> (a != <span class="hljs-keyword">null</span>)</span><br><span class="line">            a.before = b;</span><br><span class="line">        <span class="hljs-keyword">else</span></span><br><span class="line">            last = b;</span><br><span class="line">        <span class="hljs-keyword">if</span> (last == <span class="hljs-keyword">null</span>)</span><br><span class="line">            head = p;</span><br><span class="line">        <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            p.before = last;</span><br><span class="line">            last.after = p;</span><br><span class="line">        &#125;</span><br><span class="line">        tail = p;</span><br><span class="line">        ++modCount;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="afterNodeInsertion"><a href="#afterNodeInsertion" class="headerlink" title="afterNodeInsertion()"></a>afterNodeInsertion()</h4><p>在 put 等操作之后执行，当 removeEldestEntry() 方法返回 true 时会移除最晚的节点，也就是链表首部节点 first。</p>
+<p>evict 只有在构建 Map 的时候才为 false，在这里为 true。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">afterNodeInsertion</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> evict)</span> </span>&#123; <span class="hljs-comment">// possibly remove eldest</span></span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; first;</span><br><span class="line">    <span class="hljs-keyword">if</span> (evict &amp;&amp; (first = head) != <span class="hljs-keyword">null</span> &amp;&amp; removeEldestEntry(first)) &#123;</span><br><span class="line">        K key = first.key;</span><br><span class="line">        removeNode(hash(key), key, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">false</span>, <span class="hljs-keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>removeEldestEntry() 默认为 false，如果需要让它为 true，需要继承 LinkedHashMap 并且覆盖这个方法的实现，这在实现 LRU 的缓存中特别有用，通过移除最近最久未使用的节点，从而保证缓存空间足够，并且缓存的数据都是热点数据。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">removeEldestEntry</span><span class="hljs-params">(Map.Entry&lt;K,V&gt; eldest)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="LRU-缓存"><a href="#LRU-缓存" class="headerlink" title="LRU 缓存"></a>LRU 缓存</h4><p>以下是使用 LinkedHashMap 实现的一个 LRU 缓存：</p>
+<ul>
+<li>设定最大缓存空间 MAX_ENTRIES 为 3；</li>
+<li>使用 LinkedHashMap 的构造函数将 accessOrder 设置为 true，开启 LRU 顺序；</li>
+<li>覆盖 removeEldestEntry() 方法实现，在节点多于 MAX_ENTRIES 就会将最近最久未使用的数据移除。</li>
+</ul>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LRUCache</span>&lt;<span class="hljs-title">K</span>, <span class="hljs-title">V</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">LinkedHashMap</span>&lt;<span class="hljs-title">K</span>, <span class="hljs-title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> MAX_ENTRIES = <span class="hljs-number">3</span>;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">removeEldestEntry</span><span class="hljs-params">(Map.Entry eldest)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> size() &gt; MAX_ENTRIES;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    LRUCache() &#123;</span><br><span class="line">        <span class="hljs-keyword">super</span>(MAX_ENTRIES, <span class="hljs-number">0.75f</span>, <span class="hljs-keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line">    LRUCache&lt;Integer, String&gt; cache = <span class="hljs-keyword">new</span> LRUCache&lt;&gt;();</span><br><span class="line">    cache.put(<span class="hljs-number">1</span>, <span class="hljs-string">"a"</span>);</span><br><span class="line">    cache.put(<span class="hljs-number">2</span>, <span class="hljs-string">"b"</span>);</span><br><span class="line">    cache.put(<span class="hljs-number">3</span>, <span class="hljs-string">"c"</span>);</span><br><span class="line">    cache.get(<span class="hljs-number">1</span>);</span><br><span class="line">    cache.put(<span class="hljs-number">4</span>, <span class="hljs-string">"d"</span>);</span><br><span class="line">    System.out.println(cache.keySet());</span><br><span class="line">&#125;</span><br><span class="line">[<span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="WeakHashMap"><a href="#WeakHashMap" class="headerlink" title="WeakHashMap"></a>WeakHashMap</h3><h4 id="存储结构-1"><a href="#存储结构-1" class="headerlink" title="存储结构"></a>存储结构</h4><p>WeakHashMap 的 Entry 继承自 WeakReference，被 WeakReference 关联的对象在下一次垃圾回收时会被回收。</p>
+<p>WeakHashMap 主要用来实现缓存，通过使用 WeakHashMap 来引用缓存对象，由 JVM 对这部分缓存进行回收。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Entry</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">WeakReference</span>&lt;<span class="hljs-title">Object</span>&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title">Map</span>.<span class="hljs-title">Entry</span>&lt;<span class="hljs-title">K</span>,<span class="hljs-title">V</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="ConcurrentCache"><a href="#ConcurrentCache" class="headerlink" title="ConcurrentCache"></a>ConcurrentCache</h4><p>Tomcat 中的 ConcurrentCache 使用了 WeakHashMap 来实现缓存功能。</p>
+<p>ConcurrentCache 采取的是分代缓存：</p>
+<ul>
+<li>经常使用的对象放入 eden 中，eden 使用 ConcurrentHashMap 实现，不用担心会被回收（伊甸园）；</li>
+<li>不常用的对象放入 longterm，longterm 使用 WeakHashMap 实现，这些老对象会被垃圾收集器回收。</li>
+<li>当调用 get() 方法时，会先从 eden 区获取，如果没有找到的话再到 longterm 获取，当从 longterm 获取到就把对象放入 eden 中，从而保证经常被访问的节点不容易被回收。</li>
+<li>当调用 put() 方法时，如果 eden 的大小超过了 size，那么就将 eden 中的所有对象都放入 longterm 中，利用虚拟机回收掉一部分不经常使用的对象。</li>
+</ul>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcurrentCache</span>&lt;<span class="hljs-title">K</span>, <span class="hljs-title">V</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> size;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map&lt;K, V&gt; eden;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map&lt;K, V&gt; longterm;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ConcurrentCache</span><span class="hljs-params">(<span class="hljs-keyword">int</span> size)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.size = size;</span><br><span class="line">        <span class="hljs-keyword">this</span>.eden = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;(size);</span><br><span class="line">        <span class="hljs-keyword">this</span>.longterm = <span class="hljs-keyword">new</span> WeakHashMap&lt;&gt;(size);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> V <span class="hljs-title">get</span><span class="hljs-params">(K k)</span> </span>&#123;</span><br><span class="line">        V v = <span class="hljs-keyword">this</span>.eden.get(k);</span><br><span class="line">        <span class="hljs-keyword">if</span> (v == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            v = <span class="hljs-keyword">this</span>.longterm.get(k);</span><br><span class="line">            <span class="hljs-keyword">if</span> (v != <span class="hljs-keyword">null</span>)</span><br><span class="line">                <span class="hljs-keyword">this</span>.eden.put(k, v);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> v;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">put</span><span class="hljs-params">(K k, V v)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.eden.size() &gt;= size) &#123;</span><br><span class="line">            <span class="hljs-keyword">this</span>.longterm.putAll(<span class="hljs-keyword">this</span>.eden);</span><br><span class="line">            <span class="hljs-keyword">this</span>.eden.clear();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">this</span>.eden.put(k, v);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="[https://github.com/CyC2018/CS-Notes/blob/master/notes/Java%20%E5%AE%B9%E5%99%A8.md](https://github.com/CyC2018/CS-Notes/blob/master/notes/Java 容器.md">文章来源</a>)</p>
+<p>.</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/集合/">集合</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135456.png" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135550.png" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/08/08/中华人民共和国网络安全法.html">
+                <span class="level-item">中华人民共和国网络安全法</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '46a9f3481b46ea0129d8',
+        clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+        id: '4e67ce23893792fe230fccb82d2dcd9a',
+        repo: 'blog_comment',
+        owner: 'removeif',
+        admin: "removeif",
+        createIssueManually: true,
+        distractionFreeMode: true
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/tuzi.jpg" alt="辣椒の酱">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        辣椒の酱
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        尚未执佩剑，转眼即江湖
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>阿尔及利亚</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        36
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        21
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        24
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://weibo.com/u/3050419984">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/removeif">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://github.com/removeif ">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://github.com/removeif ">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="https://github.com/removeif ">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#概览">
+        <span class="has-mr-6">1</span>
+        <span>概览</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Collection">
+        <span class="has-mr-6">1.1</span>
+        <span>Collection</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-Set">
+        <span class="has-mr-6">1.1.1</span>
+        <span>1. Set</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-List">
+        <span class="has-mr-6">1.1.2</span>
+        <span>2. List</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-Queue">
+        <span class="has-mr-6">1.1.3</span>
+        <span>3. Queue</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Map">
+        <span class="has-mr-6">1.2</span>
+        <span>Map</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#容器中的设计模式">
+        <span class="has-mr-6">2</span>
+        <span>容器中的设计模式</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#迭代器模式">
+        <span class="has-mr-6">2.1</span>
+        <span>迭代器模式</span>
+        </a></li><li>
+        <a class="is-flex" href="#适配器模式">
+        <span class="has-mr-6">2.2</span>
+        <span>适配器模式</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#源码分析">
+        <span class="has-mr-6">3</span>
+        <span>源码分析</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#ArrayList">
+        <span class="has-mr-6">3.1</span>
+        <span>ArrayList</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-概览">
+        <span class="has-mr-6">3.1.1</span>
+        <span>1. 概览</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-扩容">
+        <span class="has-mr-6">3.1.2</span>
+        <span>2. 扩容</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-删除元素">
+        <span class="has-mr-6">3.1.3</span>
+        <span>3. 删除元素</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-Fail-Fast">
+        <span class="has-mr-6">3.1.4</span>
+        <span>4. Fail-Fast</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-序列化">
+        <span class="has-mr-6">3.1.5</span>
+        <span>5. 序列化</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Vector">
+        <span class="has-mr-6">3.2</span>
+        <span>Vector</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-同步">
+        <span class="has-mr-6">3.2.1</span>
+        <span>1. 同步</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-与-ArrayList-的比较">
+        <span class="has-mr-6">3.2.2</span>
+        <span>2. 与 ArrayList 的比较</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-替代方案">
+        <span class="has-mr-6">3.2.3</span>
+        <span>3. 替代方案</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#CopyOnWriteArrayList">
+        <span class="has-mr-6">3.3</span>
+        <span>CopyOnWriteArrayList</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#读写分离">
+        <span class="has-mr-6">3.3.1</span>
+        <span>读写分离</span>
+        </a></li><li>
+        <a class="is-flex" href="#适用场景">
+        <span class="has-mr-6">3.3.2</span>
+        <span>适用场景</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#LinkedList">
+        <span class="has-mr-6">3.4</span>
+        <span>LinkedList</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-概览-1">
+        <span class="has-mr-6">3.4.1</span>
+        <span>1. 概览</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-与-ArrayList-的比较-1">
+        <span class="has-mr-6">3.4.2</span>
+        <span>2. 与 ArrayList 的比较</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#HashMap">
+        <span class="has-mr-6">3.5</span>
+        <span>HashMap</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-存储结构">
+        <span class="has-mr-6">3.5.1</span>
+        <span>1. 存储结构</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-拉链法的工作原理">
+        <span class="has-mr-6">3.5.2</span>
+        <span>2. 拉链法的工作原理</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-put-操作">
+        <span class="has-mr-6">3.5.3</span>
+        <span>3. put 操作</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-确定桶下标">
+        <span class="has-mr-6">3.5.4</span>
+        <span>4. 确定桶下标</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-扩容-基本原理">
+        <span class="has-mr-6">3.5.5</span>
+        <span>5. 扩容-基本原理</span>
+        </a></li><li>
+        <a class="is-flex" href="#6-扩容-重新计算桶下标">
+        <span class="has-mr-6">3.5.6</span>
+        <span>6. 扩容-重新计算桶下标</span>
+        </a></li><li>
+        <a class="is-flex" href="#7-计算数组容量">
+        <span class="has-mr-6">3.5.7</span>
+        <span>7. 计算数组容量</span>
+        </a></li><li>
+        <a class="is-flex" href="#8-链表转红黑树">
+        <span class="has-mr-6">3.5.8</span>
+        <span>8. 链表转红黑树</span>
+        </a></li><li>
+        <a class="is-flex" href="#9-与-HashTable-的比较">
+        <span class="has-mr-6">3.5.9</span>
+        <span>9. 与 HashTable 的比较</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#ConcurrentHashMap">
+        <span class="has-mr-6">3.6</span>
+        <span>ConcurrentHashMap</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-存储结构-1">
+        <span class="has-mr-6">3.6.1</span>
+        <span>1. 存储结构</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-size-操作">
+        <span class="has-mr-6">3.6.2</span>
+        <span>2. size 操作</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-JDK-1-8-的改动">
+        <span class="has-mr-6">3.6.3</span>
+        <span>3. JDK 1.8 的改动</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#LinkedHashMap">
+        <span class="has-mr-6">3.7</span>
+        <span>LinkedHashMap</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#存储结构">
+        <span class="has-mr-6">3.7.1</span>
+        <span>存储结构</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#afterNodeAccess">
+        <span class="has-mr-6">3.8</span>
+        <span>afterNodeAccess()</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#afterNodeInsertion">
+        <span class="has-mr-6">3.8.1</span>
+        <span>afterNodeInsertion()</span>
+        </a></li><li>
+        <a class="is-flex" href="#LRU-缓存">
+        <span class="has-mr-6">3.8.2</span>
+        <span>LRU 缓存</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#WeakHashMap">
+        <span class="has-mr-6">3.9</span>
+        <span>WeakHashMap</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#存储结构-1">
+        <span class="has-mr-6">3.9.1</span>
+        <span>存储结构</span>
+        </a></li><li>
+        <a class="is-flex" href="#ConcurrentCache">
+        <span class="has-mr-6">3.9.2</span>
+        <span>ConcurrentCache</span>
+        </a></li></ul></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            <div span="" class="tag is-danger">通知：</div>
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://weibo.com/u/3050419984" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">2019.08.11：网站升级</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">2019.02.01：采用Icarus主题</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.cnblogs.com/KongkOngL/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">2018.11.11：建站</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+    
+        <div class="column-right-shadow  ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/08/16/Java容器集合.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Java容器集合">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-16T09:41:01.000Z">2019-08-16</time></div>
+                    <a href="/2019/08/16/Java容器集合.html" class="has-link-black-ter is-size-6">Java容器集合</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a> / <a class="has-link-grey -link" href="/categories/java/java基础/">java基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/08/08/中华人民共和国网络安全法.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190808215355.png" alt="中华人民共和国网络安全法">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-08T13:46:09.000Z">2019-08-08</time></div>
+                    <a href="/2019/08/08/中华人民共和国网络安全法.html" class="has-link-black-ter is-size-6">中华人民共和国网络安全法</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/法律/">法律</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/08/07/Java并发相关知识点.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190807155537.png" alt="Java并发相关知识点">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-07T07:52:06.000Z">2019-08-07</time></div>
+                    <a href="/2019/08/07/Java并发相关知识点.html" class="has-link-black-ter is-size-6">Java并发相关知识点</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a> / <a class="has-link-grey -link" href="/categories/java/并发/">并发</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/24/Java-垃圾回收.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190719161445.png" alt="Java 垃圾回收">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-24T06:16:58.000Z">2019-07-24</time></div>
+                    <a href="/2019/07/24/Java-垃圾回收.html" class="has-link-black-ter is-size-6">Java 垃圾回收</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a> / <a class="has-link-grey -link" href="/categories/java/JVM/">JVM</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/19/Java-BIO-NIO-AIO区别与使用.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190719163035.png" alt="Java BIO NIO AIO区别与使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-19T08:19:21.000Z">2019-07-19</time></div>
+                    <a href="/2019/07/19/Java-BIO-NIO-AIO区别与使用.html" class="has-link-black-ter is-size-6">Java BIO NIO AIO区别与使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/java/">java</a> / <a class="has-link-grey -link" href="/categories/java/java基础/">java基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/java/">
+            <span class="level-start">
+                <span class="level-item">java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">22</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/java/JVM/">
+            <span class="level-start">
+                <span class="level-item">JVM</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/java/arithmetic/">
+            <span class="level-start">
+                <span class="level-item">arithmetic</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/java/elasticsearch6/">
+            <span class="level-start">
+                <span class="level-item">elasticsearch6</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/java/java基础/">
+            <span class="level-start">
+                <span class="level-item">java基础</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/java/并发/">
+            <span class="level-start">
+                <span class="level-item">并发</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/java/设计模式/">
+            <span class="level-start">
+                <span class="level-item">设计模式</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/java/读书笔记/">
+            <span class="level-start">
+                <span class="level-item">读书笔记</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/test/">
+            <span class="level-start">
+                <span class="level-item">test</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/test/test1/">
+            <span class="level-start">
+                <span class="level-item">test1</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/test/test2/">
+            <span class="level-start">
+                <span class="level-item">test2</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/基础工具类/">
+            <span class="level-start">
+                <span class="level-item">基础工具类</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/基础工具类/正则/">
+            <span class="level-start">
+                <span class="level-item">正则</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/工具教程/">
+            <span class="level-start">
+                <span class="level-item">工具教程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/工具教程/主题工具/">
+            <span class="level-start">
+                <span class="level-item">主题工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/数据库/">
+            <span class="level-start">
+                <span class="level-item">数据库</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/数据库/mysql/">
+            <span class="level-start">
+                <span class="level-item">mysql</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/架构/">
+            <span class="level-start">
+                <span class="level-item">架构</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/架构/设计/">
+            <span class="level-start">
+                <span class="level-item">设计</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/法律/">
+            <span class="level-start">
+                <span class="level-item">法律</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/经验成长/">
+            <span class="level-start">
+                <span class="level-item">经验成长</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Effective-Java/">
+                        <span class="tag">Effective-Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/arithmetic/">
+                        <span class="tag">arithmetic</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/elasticsearch6/">
+                        <span class="tag">elasticsearch6</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo主题/">
+                        <span class="tag">hexo主题</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/icarus主题配置/">
+                        <span class="tag">icarus主题配置</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java/">
+                        <span class="tag">java</span>
+                        <span class="tag is-grey">17</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java-并发-多线程/">
+                        <span class="tag">java,并发,多线程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/leetcode/">
+                        <span class="tag">leetcode</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mysql/">
+                        <span class="tag">mysql</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/query/">
+                        <span class="tag">query</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/sql/">
+                        <span class="tag">sql</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/think/">
+                        <span class="tag">think</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/工具教程/">
+                        <span class="tag">工具教程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/幂等性-restful-api/">
+                        <span class="tag">幂等性,restful-api</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/支付架构/">
+                        <span class="tag">支付架构</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/支付系统/">
+                        <span class="tag">支付系统</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/正则表达式/">
+                        <span class="tag">正则表达式</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/法律/">
+                        <span class="tag">法律</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/索引/">
+                        <span class="tag">索引</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/索引分词/">
+                        <span class="tag">索引分词</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/经验成长/">
+                        <span class="tag">经验成长</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/读书笔记/">
+                        <span class="tag">读书笔记</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/集合/">
+                        <span class="tag">集合</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Effective-Java/" style="font-size: 10px;">Effective-Java</a> <a href="/tags/arithmetic/" style="font-size: 10px;">arithmetic</a> <a href="/tags/elasticsearch6/" style="font-size: 12.5px;">elasticsearch6</a> <a href="/tags/hexo主题/" style="font-size: 10px;">hexo主题</a> <a href="/tags/icarus主题配置/" style="font-size: 10px;">icarus主题配置</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/java-并发-多线程/" style="font-size: 10px;">java,并发,多线程</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/query/" style="font-size: 10px;">query</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/think/" style="font-size: 12.5px;">think</a> <a href="/tags/工具教程/" style="font-size: 10px;">工具教程</a> <a href="/tags/幂等性-restful-api/" style="font-size: 10px;">幂等性,restful-api</a> <a href="/tags/支付架构/" style="font-size: 10px;">支付架构</a> <a href="/tags/支付系统/" style="font-size: 10px;">支付系统</a> <a href="/tags/正则表达式/" style="font-size: 10px;">正则表达式</a> <a href="/tags/法律/" style="font-size: 10px;">法律</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/索引分词/" style="font-size: 10px;">索引分词</a> <a href="/tags/经验成长/" style="font-size: 10px;">经验成长</a> <a href="/tags/设计模式/" style="font-size: 17.5px;">设计模式</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/集合/" style="font-size: 10px;">集合</a>
+    </div>
+</div>
+
+        
+            
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://weibo.com/u/3050419984" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">微博</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">weibo.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://www.cnblogs.com/KongkOngL/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">博客园</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.cnblogs.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/ico.png" alt="Java容器集合" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 辣椒の酱&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                <br>
+                &copy; 版权说明：[本网站所有内容均收集于互联网或自己创作,<br>&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="https://removeif.github.io/message/" target="_blank">留言</a>，立即处理]
+                <br>
+                <span id="busuanzi_container_site_uv">
+                                                ❤️感谢 1<span id="busuanzi_value_site_uv"></span> 小伙伴的 
+                                                </span>
+                                                1<span id="busuanzi_value_site_pv"></span> 次光临 ❤️
+                                                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/removeif">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
