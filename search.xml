@@ -425,10 +425,6 @@
     <title><![CDATA[Hello blog]]></title>
     <url>%2F2018%2F11%2F11%2FHello-blog.html</url>
     <content type="text"><![CDATA[this is a first blog.It&#39;s a very exciting time make a plan execute have a harvest come on 12345public void start()&#123; while(true)&#123; System.out.println("struggle！"); &#125;&#125;]]></content>
-      <categories>
-        <category>test</category>
-        <category>test2</category>
-      </categories>
       <tags>
         <tag>think</tag>
       </tags>
@@ -437,10 +433,6 @@
     <title><![CDATA[Hello World]]></title>
     <url>%2F2018%2F11%2F11%2Fhello-world.html</url>
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new " My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
-      <categories>
-        <category>test</category>
-        <category>test1</category>
-      </categories>
       <tags>
         <tag>think</tag>
       </tags>
