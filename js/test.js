@@ -1,4 +1,5 @@
 function showComment() {
+    alert("loading...please wait a moment!");
     $("#myButton").val("loading...please wait a moment!");
     Date.prototype.Format = function (fmt) { //author: meizz
         var o = {
