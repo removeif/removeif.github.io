@@ -1,5 +1,10 @@
 function showComment() {
     $("#myContent").html("loading...please wait a moment!");
+
+    function stringToObject(json) {
+        return eval("(" + json + ")");
+    }
+
     Date.prototype.Format = function (fmt) { //author: meizz
         var o = {
             "M+": this.getMonth() + 1,                 //月份
@@ -18,9 +23,18 @@ function showComment() {
         return fmt;
     }
 
-    var COMMENT_ARR = window.COMMENT_ARR;
-    var COMMENT = window.COMMENT;
-    if (COMMENT == undefined || new Date().getTime() - COMMENT["date"] > 60 * 1000 * 10) { // flush per one 10 mins
+    var COMMENT_ARR = {};
+    var COMMENT_COOKIE = document.cookie;
+    var COMMENT = {};
+
+    if(COMMENT_COOKIE != ''){
+        console.log("load cache data...");
+        COMMENT = stringToObject(COMMENT_COOKIE.split("=")[1]);
+        COMMENT_ARR = COMMENT["data"];
+    }
+
+
+    if (COMMENT_COOKIE == '' || new Date().getTime() - COMMENT["date"] > 60 * 1000 * 10) { // flush per one 10 mins
         console.log("load data...");
         $.ajaxSettings.async = false;
         var timesSet = [];
@@ -63,11 +77,8 @@ function showComment() {
         }
         resultMap["date"] = new Date().getTime();
         resultMap["data"] = resultArr;
-        window.COMMENT_ARR = resultArr;
-        window.COMMENT = resultMap;
         COMMENT_ARR = resultArr;
-    }else{
-        console.log("load cache data...");
+        document.cookie = "comment="+JSON.stringify(resultMap);
     }
 
     var htmlContent = "";
