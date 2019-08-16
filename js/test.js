@@ -1,4 +1,5 @@
 function showComment() {
+    $("#myButton").html("loading...please wait a moment!");
     Date.prototype.Format = function (fmt) { //author: meizz
         var o = {
             "M+": this.getMonth() + 1,                 //月份
@@ -20,6 +21,7 @@ function showComment() {
     var COMMENT_ARR = window.COMMENT_ARR;
     var COMMENT = window.COMMENT;
     if (COMMENT == undefined || new Date().getTime() - COMMENT["date"] > 60 * 1000 * 10) { // flush per one 10 mins
+        console.log("load data...");
         $.ajaxSettings.async = false;
         var timesSet = [];
         var timesBodyMap = {};
@@ -29,7 +31,6 @@ function showComment() {
         $.getJSON("https://api.github.com/repos/removeif/blog_comment/issues?per_page=80", function (result) {
             $.each(result, function (i, item) {
                 var commentsCount = item.comments;
-                console.log("flush-data...");
                 if (commentsCount > 0) {
                     $.getJSON(item.comments_url, function (commentResult) {
                         $.each(commentResult, function (k, item1) {
@@ -60,13 +61,13 @@ function showComment() {
                 resultArr.push(timesBodyMap[timesSetMap[timesSet[i]]]);
             }
         }
-        console.log(resultMap);
         resultMap["date"] = new Date().getTime();
         resultMap["data"] = resultArr;
         window.COMMENT_ARR = resultArr;
         window.COMMENT = resultMap;
         COMMENT_ARR = resultArr;
     }
+    console.log("load cache data...");
     var htmlContent = "";
     for (var i = 0; i < COMMENT_ARR.length; i++) {
         var item = COMMENT_ARR[i];
@@ -79,5 +80,5 @@ function showComment() {
     }
     $("#myContent").html("");
     $("#myContent").append(htmlContent);
-    //$("#myButton").attr("style","display:none;");
+    $("#myButton").html("click show latest 10 comments!");
 }
