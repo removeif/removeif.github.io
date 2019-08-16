@@ -1,6 +1,5 @@
 function showComment() {
-    alert("loading...please wait a moment!");
-    $("#myButton").val("loading...please wait a moment!");
+    $("#myContent").html("loading...please wait a moment!");
     Date.prototype.Format = function (fmt) { //author: meizz
         var o = {
             "M+": this.getMonth() + 1,                 //月份
@@ -83,5 +82,4 @@ function showComment() {
     }
     $("#myContent").html("");
     $("#myContent").append(htmlContent);
-    $("#myButton").val("click show latest 10 comments!");
 }
