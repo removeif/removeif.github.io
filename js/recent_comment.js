@@ -1,10 +1,6 @@
 function showComment() {
     $("#myContent").html("loading...please wait a moment!");
 
-    function stringToObject(json) {
-        return eval("(" + json + ")");
-    }
-
     Date.prototype.Format = function (fmt) { //author: meizz
         var o = {
             "M+": this.getMonth() + 1,                 //月份
@@ -29,12 +25,12 @@ function showComment() {
 
     if(COMMENT_COOKIE != ''){
         console.log("load cache data...");
-        COMMENT = stringToObject(COMMENT_COOKIE.split("=")[1]);
+        COMMENT = JSON.parse(COMMENT_COOKIE.split("=")[1]);
         COMMENT_ARR = COMMENT["data"];
     }
 
 
-    if (COMMENT_COOKIE == '' || new Date().getTime() - COMMENT["date"] > 60 * 1000 * 10) { // flush per one 10 mins
+    if (COMMENT_COOKIE == '' || new Date().getTime() - COMMENT["date"] > 60 * 1000 * 10) { // request per 10 minutes
         console.log("load data...");
         $.ajaxSettings.async = false;
         var timesSet = [];
@@ -42,7 +38,7 @@ function showComment() {
         var timesSetMap = {};
         var resultMap = {};
         var resultArr = [];
-        $.getJSON("https://api.github.com/repos/removeif/blog_comment/issues?per_page=80", function (result) {
+        $.getJSON("https://api.github.com/repos/removeif/blog_comment/issues?per_page=1000", function (result) {
             $.each(result, function (i, item) {
                 var commentsCount = item.comments;
                 if (commentsCount > 0) {
@@ -53,7 +49,9 @@ function showComment() {
                                 "title": item.title.substr(0, item.title.indexOf("-") - 1),
                                 "url": item.body.substr(0, item.body.indexOf("\n") - 1),
                                 "content": item1.body,
-                                "date": item1.created_at
+                                "date": item1.created_at,
+                                "userName":item1["user"].login,
+                                "userUrl":item1["user"].html_url
                             };
                             timesSetMap[new Date(item1.created_at).getTime()] = item1.created_at;
                         });
@@ -89,7 +87,15 @@ function showComment() {
         if(contentStr.length > 80){
             contentStr = contentStr.substr(0,80);
         }
-        htmlContent += "<div class=\"tag is-warning\">"+timeStr.Format("yyyy-MM-dd hh:mm:ss") + "</div>  <a href =\"" + item.url + "\"target=\"_blank\">" + item.title + "</a><br>&nbsp;&nbsp;&nbsp;<div class=\"tag is-success\" style='margin-top: 4px'>" + contentStr + "</div><br><hr>";
+        contentStr = contentStr.trim();
+        if(contentStr.indexOf(">") != 0){
+            contentStr = ">&nbsp;"+contentStr;
+        }
+        // 拼上作者
+        contentStr = "<a href=\""+item.userUrl+"\"target=\"_blank\">"+item.userName+"</a>&nbsp;&nbsp;"+contentStr;
+        htmlContent += "<div class=\"tag is-warning\">"+timeStr.Format("yyyy-MM-dd hh:mm:ss") + "</div>  " +
+            "<a href =\"" + item.url + "\"target=\"_blank\">" + item.title + "</a>" +
+            "<br>&nbsp;&nbsp;&nbsp;<div class=\"tag is-success\" style='margin-top: 4px'>" + contentStr + "</div><br><hr>";
     }
     $("#myContent").html("");
     $("#myContent").append(htmlContent);

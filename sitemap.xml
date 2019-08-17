@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://removeif.github.io/comment/index.html</loc>
+    
+    <lastmod>2019-08-17T12:34:34.061Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://removeif.github.io/2018/11/11/Hello-blog.html</loc>
     
     <lastmod>2019-08-16T09:49:07.517Z</lastmod>
@@ -250,13 +257,6 @@
     <loc>https://removeif.github.io/2018/11/17/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.html</loc>
     
     <lastmod>2019-08-16T09:13:50.643Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://removeif.github.io/comment/index.html</loc>
-    
-    <lastmod>2019-08-16T02:24:37.122Z</lastmod>
     
   </url>
   
