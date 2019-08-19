@@ -85,7 +85,7 @@ function showComment() {
         var timeStr = new Date(item.date);
         var contentStr = item.content;
         if(contentStr.length > 50){
-            contentStr = contentStr.substr(0,50);
+            contentStr = contentStr.substr(0,60);
         }
         contentStr = contentStr.trim();
         if(contentStr.indexOf(">") != 0){
