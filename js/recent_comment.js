@@ -45,10 +45,15 @@ function showComment() {
                     $.getJSON(item.comments_url, function (commentResult) {
                         $.each(commentResult, function (k, item1) {
                             timesSet.push(new Date(item1.created_at).getTime());
+                            var contentStr = item1.body.trim();
+                            if(contentStr.length > 50){
+                                contentStr = contentStr.substr(0,60);
+                                contentStr +="...";
+                            }
                             timesBodyMap[item1.created_at] = {
                                 "title": item.title.substr(0, item.title.indexOf("-") - 1),
                                 "url": item.body.substr(0, item.body.indexOf("\n") - 1),
-                                "content": item1.body,
+                                "content": contentStr,
                                 "date": item1.created_at,
                                 "userName":item1["user"].login,
                                 "userUrl":item1["user"].html_url
@@ -84,18 +89,14 @@ function showComment() {
         var item = COMMENT_ARR[i];
         var timeStr = new Date(item.date);
         var contentStr = item.content;
-        if(contentStr.length > 50){
-            contentStr = contentStr.substr(0,60);
-        }
-        contentStr = contentStr.trim();
         if(contentStr.indexOf(">") != 0){
             contentStr = ">&nbsp;"+contentStr;
         }
         // 拼上作者
         contentStr = "<a href=\""+item.userUrl+"\"target=\"_blank\">"+item.userName+"</a>&nbsp;&nbsp;"+contentStr;
-        htmlContent += "<div class=\"tag is-warning\">"+timeStr.Format("yyyy-MM-dd hh:mm:ss") + "</div>  " +
+        htmlContent += "<div class=\"tag is-warning\" style='background-color: #f5f9fe;color:rgb(164, 164, 164);'>"+timeStr.Format("yyyy-MM-dd hh:mm:ss") + "</div>  " +
             "<a href =\"" + item.url + "\"target=\"_blank\">" + item.title + "</a>" +
-            "<br>&nbsp;&nbsp;&nbsp;<div class=\"tag is-success\" style='margin-top: 4px'>" + contentStr + "</div><br><hr>";
+            "<br>&nbsp;&nbsp;&nbsp;<div class=\"tag is-success\" style='margin-top: 5px;background-color:#f9f9f9;color:#3d3d3d;'>" + contentStr + "</div><br><hr>";
     }
     $("#myContent").html("");
     $("#myContent").append(htmlContent);
