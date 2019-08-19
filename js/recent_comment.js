@@ -1,4 +1,4 @@
-function showComment() {
+$(document).ready(function () { // 加载页面时同步加载
     $("#myContent").html("loading...please wait a moment!");
 
     Date.prototype.Format = function (fmt) { //author: meizz
@@ -23,7 +23,7 @@ function showComment() {
     var COMMENT_COOKIE = document.cookie;
     var COMMENT = {};
 
-    if(COMMENT_COOKIE != ''){
+    if (COMMENT_COOKIE != '') {
         console.log("load cache data...");
         COMMENT = JSON.parse(COMMENT_COOKIE.split("=")[1]);
         COMMENT_ARR = COMMENT["data"];
@@ -46,17 +46,17 @@ function showComment() {
                         $.each(commentResult, function (k, item1) {
                             timesSet.push(new Date(item1.created_at).getTime());
                             var contentStr = item1.body.trim();
-                            if(contentStr.length > 50){
-                                contentStr = contentStr.substr(0,60);
-                                contentStr +="...";
+                            if (contentStr.length > 50) {
+                                contentStr = contentStr.substr(0, 60);
+                                contentStr += "...";
                             }
                             timesBodyMap[item1.created_at] = {
                                 "title": item.title.substr(0, item.title.indexOf("-") - 1),
                                 "url": item.body.substr(0, item.body.indexOf("\n") - 1),
                                 "content": contentStr,
                                 "date": item1.created_at,
-                                "userName":item1["user"].login,
-                                "userUrl":item1["user"].html_url
+                                "userName": item1["user"].login,
+                                "userUrl": item1["user"].html_url
                             };
                             timesSetMap[new Date(item1.created_at).getTime()] = item1.created_at;
                         });
@@ -81,7 +81,7 @@ function showComment() {
         resultMap["date"] = new Date().getTime();
         resultMap["data"] = resultArr;
         COMMENT_ARR = resultArr;
-        document.cookie = "comment="+JSON.stringify(resultMap);
+        document.cookie = "comment=" + JSON.stringify(resultMap);
     }
 
     var htmlContent = "";
@@ -89,15 +89,15 @@ function showComment() {
         var item = COMMENT_ARR[i];
         var timeStr = new Date(item.date);
         var contentStr = item.content;
-        if(contentStr.indexOf(">") != 0){
-            contentStr = ">&nbsp;"+contentStr;
+        if (contentStr.indexOf(">") != 0) {
+            contentStr = ">&nbsp;" + contentStr;
         }
         // 拼上作者
-        contentStr = "<a href=\""+item.userUrl+"\"target=\"_blank\">"+item.userName+"</a>&nbsp;&nbsp;"+contentStr;
-        htmlContent += "<div class=\"tag is-warning\" style='background-color: #f5f9fe;color:rgb(164, 164, 164);'>"+timeStr.Format("yyyy-MM-dd hh:mm:ss") + "</div>  " +
+        contentStr = "<a href=\"" + item.userUrl + "\"target=\"_blank\">" + item.userName + "</a>&nbsp;&nbsp;" + contentStr;
+        htmlContent += "<div class=\"tag is-warning\" style='background-color: #f5f9fe;color:rgb(164, 164, 164);'>" + timeStr.Format("yyyy-MM-dd hh:mm:ss") + "</div>  " +
             "<a href =\"" + item.url + "\"target=\"_blank\">" + item.title + "</a>" +
             "<br>&nbsp;&nbsp;&nbsp;<div class=\"tag is-success\" style='margin-top: 5px;background-color:#f9f9f9;color:#3d3d3d;'>" + contentStr + "</div><br><hr>";
     }
     $("#myContent").html("");
     $("#myContent").append(htmlContent);
-}
+});
