@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://removeif.github.io/about/index.html</loc>
+    
+    <lastmod>2019-08-21T09:14:13.608Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://removeif.github.io/music1/index.html</loc>
+    
+    <lastmod>2019-08-21T09:14:13.599Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://removeif.github.io/2019/08/21/mysql%E9%AB%98%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E8%A7%84%E8%8C%83%E6%96%B9%E6%B3%95.html</loc>
+    
+    <lastmod>2019-08-21T09:11:15.259Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://removeif.github.io/comment/index.html</loc>
     
     <lastmod>2019-08-19T14:51:36.879Z</lastmod>
@@ -261,13 +282,6 @@
   </url>
   
   <url>
-    <loc>https://removeif.github.io/about/index.html</loc>
-    
-    <lastmod>2019-08-11T06:40:35.456Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://removeif.github.io/album/index.html</loc>
     
     <lastmod>2019-08-10T03:37:08.524Z</lastmod>
@@ -278,13 +292,6 @@
     <loc>https://removeif.github.io/music/index.html</loc>
     
     <lastmod>2019-07-30T02:46:07.877Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://removeif.github.io/music1/index.html</loc>
-    
-    <lastmod>2019-07-30T02:46:07.873Z</lastmod>
     
   </url>
   
