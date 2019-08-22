@@ -508,3 +508,47 @@ figure.highlight:hover .copy {
 .gist .file {
   all: initial;
 }
+.about:not(body) {
+  align-items: center;
+  border-radius: 4px;
+  display: inline-flex;
+  font-size: 1.5rem;
+  height: 2em;
+  justify-content: center;
+  line-height: 1;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+  padding-top: 0.3em;
+  padding-bottom: 0.4em;
+  white-space: nowrap;
+  word-wrap: break-word;
+  word-break: normal;
+}
+.about:not(body).record-time {
+  background-color: #f5f9fe;
+  color: #a4a4a4;
+  font-size: inherit;
+}
+.about:not(body).record-content {
+  margin-top: 5px;
+  background-color: #f9f9f9;
+  color: #3d3d3d;
+  height: auto;
+}
+.content blockquote {
+  background-color: #f5f5f5;
+  border-left: 3px solid #6190e8;
+  padding: 1em 1em;
+}
+.content h2 {
+  font-size: 1.8em;
+  color: #03145f;
+}
+.content h3 {
+  font-size: 1.3em;
+  color: #052dad;
+}
+.content h4 {
+  font-size: 1.2em;
+  color: #3a71fd;
+}
