@@ -2,7 +2,7 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>标签: 设计模式 - 辣椒の酱</title>
+<title>分类: redis - 辣椒の酱</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <meta name="google-site-verification" content="67z1CXZ8AOhImIglgTwqAlneRCHTO6xRJo5NeafDAqw">
@@ -25,7 +25,7 @@
 <meta name="keywords" content="java,elasticsearch,设计模式,sql">
 <meta property="og:type" content="website">
 <meta property="og:title" content="辣椒の酱">
-<meta property="og:url" content="https://removeif.github.io/tags/设计模式/index.html">
+<meta property="og:url" content="https://removeif.github.io/categories/数据库/redis/index.html">
 <meta property="og:site_name" content="辣椒の酱">
 <meta property="og:description" content="生活坏到一定程度就会好起来，因为它无法更坏">
 <meta property="og:locale" content="zh-CN">
@@ -165,8 +165,11 @@
     <div class="card-content">
         <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">设计模式</a></li>
+            <li><a href="/categories">分类</a></li>
+            
+            <li><a href="/categories/数据库/">数据库</a></li>
+            
+            <li class="is-active"><a href="#" aria-current="page">redis</a></li>
         </ul>
         </nav>
     </div>
@@ -176,8 +179,8 @@
     <div class="card">
     
     <div class="card-image">
-        <a href="/2019/01/06/Java设计模式之代理模式.html" class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620152744.png" alt="Java设计模式之代理模式">
+        <a href="/2019/08/22/redis分布式锁Redlock的实现.html" class="image is-7by1">
+            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190817211453.png" alt="redis分布式锁Redlock的实现">
         </a>
     </div>
     
@@ -185,17 +188,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-01-06T08:46:28.000Z">2019-01-06</time>
+                <time class="level-item has-text-grey" datetime="2019-08-22T09:41:23.000Z">2019-08-22</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/设计模式/">设计模式</a>
+                <a class="has-link-grey -link" href="/categories/数据库/">数据库</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/数据库/redis/">redis</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    15 分钟 读完 (大约 2290 个字)
+                    13 分钟 读完 (大约 1948 个字)
                 </span>
                 
                 
@@ -204,385 +207,18 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/01/06/Java设计模式之代理模式.html">Java设计模式之代理模式</a>
+                <a class="has-link-black-ter" href="/2019/08/22/redis分布式锁Redlock的实现.html">redis分布式锁Redlock的实现</a>
             
         </h1>
         <div class="content">
-            <h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><p>代理(Proxy)是一种设计模式,提供了对目标对象另外的访问方式;即通过代理对象访问目标对象.这样做的好处是:可以在目标对象实现的基础上,增强额外的功能操作,即扩展目标对象的功能.<br>这里使用到编程中的一个思想:不要随意去修改别人已经写好的代码或者方法,如果需改修改,可以通过代理的方式来扩展该方法</p>
-<p>举个例子来说明代理的作用:假设我们想邀请一位明星,那么并不是直接连接明星,而是联系明星的经纪人,来达到同样的目的.明星就是一个目标对象,他只要负责活动中的节目,而其他琐碎的事情就交给他的代理人(经纪人)来解决.这就是代理思想在现实中的一个例子.<br></p>
+            <h2 id="普通实现"><a href="#普通实现" class="headerlink" title="普通实现"></a>普通实现</h2><p>说道Redis分布式锁大部分人都会想到：<code>setnx+lua</code>，或者知道<code>set key value px milliseconds nx</code>。后一种方式的核心实现命令如下：</p>
         </div>
         
         
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/01/06/Java设计模式之代理模式.html#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/01/04/Java设计模式之命令模式.html" class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620152744.png" alt="Java设计模式之命令模式">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-01-04T07:34:00.000Z">2019-01-04</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/设计模式/">设计模式</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    7 分钟 读完 (大约 1102 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/01/04/Java设计模式之命令模式.html">Java设计模式之命令模式</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><blockquote>
-<p>将一个请求封装为一个对象，从而可用不同的请求对客户进行参数化；对请求排队或记录日志，以及支持可撤销的操作。</p>
-<p>将”发出请求的对象”和”接收与执行这些请求的对象”分隔开来。<br></p></blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/01/04/Java设计模式之命令模式.html#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2018/12/04/Java设计模式之适配器模式.html" class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620152744.png" alt="Java设计模式之适配器模式">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-12-04T13:05:30.000Z">2018-12-04</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/设计模式/">设计模式</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    22 分钟 读完 (大约 3246 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/12/04/Java设计模式之适配器模式.html">Java设计模式之适配器模式</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><blockquote>
-<p>适配器模式把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口不匹配而无法在一起工作的两个类能够在一起工作。<br></p></blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2018/12/04/Java设计模式之适配器模式.html#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2018/11/29/Java设计模式之装饰者模式.html" class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620152744.png" alt="Java设计模式之装饰者模式">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-11-29T13:33:46.000Z">2018-11-29</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/设计模式/">设计模式</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    11 分钟 读完 (大约 1670 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/11/29/Java设计模式之装饰者模式.html">Java设计模式之装饰者模式</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><p>咖啡店的类设计：</p>
-<ol>
-<li>一个饮料基类，各种饮料类继承这个基类，并且计算各自的价钱。</li>
-<li>饮料中需要加入各种调料，考虑在基类中加入一些布尔值变量代表是否加入各种调料，基类的cost()中的计算各种调料的价钱，子类覆盖cost()，并且在其中调用超类的cost()，加上特定饮料的价钱，计算出子类特定饮料的价钱。</li>
-</ol>
-<p>缺点：类数量爆炸、基类加入的新功能并不适用于所有的子类、调料价钱的改变、新调料的出现都会要求改变现有代码；有的子类并不适合某些调料等情况……<br></p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2018/11/29/Java设计模式之装饰者模式.html#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2018/11/24/Java设计模式之工厂模式.html" class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620152744.png" alt="Java设计模式之工厂模式">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-11-24T08:12:13.000Z">2018-11-24</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/设计模式/">设计模式</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    16 分钟 读完 (大约 2387 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/11/24/Java设计模式之工厂模式.html">Java设计模式之工厂模式</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h1><h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>工厂模式在《Java与模式》中分为三类：</p>
-<ol>
-<li><p>简单工厂模式（Simple Factory）：不利于产生系列产品；</p>
-</li>
-<li><p>工厂方法模式（Factory Method）：又称为多形性工厂；</p>
-</li>
-<li><p>抽象工厂模式（Abstract Factory）：又称为工具箱，产生产品族，但不利于产生新的产品；</p></li></ol>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2018/11/24/Java设计模式之工厂模式.html#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2018/11/17/Java设计模式之单例模式.html" class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620152744.png" alt="Java设计模式之单例模式">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-11-17T14:10:13.000Z">2018-11-17</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/设计模式/">设计模式</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    14 分钟 读完 (大约 2067 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/11/17/Java设计模式之单例模式.html">Java设计模式之单例模式</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><blockquote>
-<p>确保一个类只有一个实例，并提供一个全局访问点！</p>
-</blockquote>
-<h2 id="饿汉式：线程安全，但效率比较低"><a href="#饿汉式：线程安全，但效率比较低" class="headerlink" title="饿汉式：线程安全，但效率比较低"></a>饿汉式：线程安全，但效率比较低</h2>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2018/11/17/Java设计模式之单例模式.html#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2018/11/15/Java设计模式之观察者模式.html" class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190620152744.png" alt="Java设计模式之观察者模式">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-11-15T07:03:42.000Z">2018-11-15</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/设计模式/">设计模式</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    14 分钟 读完 (大约 2052 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/11/15/Java设计模式之观察者模式.html">Java设计模式之观察者模式</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><blockquote>
-<p>在阎宏博士的《JAVA与模式》一书中开头是这样描述观察者（Observer）模式的：<br><strong>观察者模式是对象的行为模式，又叫发布-订阅(Publish/Subscribe)模式、模型-视图(Model/View)模式、源-监听器(Source/Listener)模式或从属者(Dependents)模式。</strong><br><strong>观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。这个主题对象在状态上发生变化时，会通知所有观察者对象，使它们能够自动更新自己。</strong><br></p></blockquote>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2018/11/15/Java设计模式之观察者模式.html#more">阅读更多</a>
+                <a class="button is-size-7 is-light" href="/2019/08/22/redis分布式锁Redlock的实现.html#more">阅读更多</a>
                 </div>
             </div>
         </div>

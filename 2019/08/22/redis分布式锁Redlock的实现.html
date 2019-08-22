@@ -2,7 +2,7 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>mysql索引优化方案 - 辣椒の酱</title>
+<title>redis分布式锁Redlock的实现 - 辣椒の酱</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <meta name="google-site-verification" content="67z1CXZ8AOhImIglgTwqAlneRCHTO6xRJo5NeafDAqw">
@@ -21,21 +21,18 @@
 })();
 </script>
 
-    <meta name="description" content="摘要mysql自带优化：先执行explain sql，在执行explain extended sql，得到优化结果，show warnings显示优化后的结果sql.">
-<meta name="keywords" content="mysql">
+    <meta name="description" content="普通实现说道Redis分布式锁大部分人都会想到：setnx+lua，或者知道set key value px milliseconds nx。后一种方式的核心实现命令如下：">
+<meta name="keywords" content="categories-redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql索引优化方案">
-<meta property="og:url" content="https://removeif.github.io/2019/07/03/mysql索引优化方案.html">
+<meta property="og:title" content="redis分布式锁Redlock的实现">
+<meta property="og:url" content="https://removeif.github.io/2019/08/22/redis分布式锁Redlock的实现.html">
 <meta property="og:site_name" content="辣椒の酱">
-<meta property="og:description" content="摘要mysql自带优化：先执行explain sql，在执行explain extended sql，得到优化结果，show warnings显示优化后的结果sql.">
+<meta property="og:description" content="普通实现说道Redis分布式锁大部分人都会想到：setnx+lua，或者知道set key value px milliseconds nx。后一种方式的核心实现命令如下：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190703164516.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190703165642.png">
-<meta property="og:updated_time" content="2019-08-16T09:13:50.727Z">
+<meta property="og:updated_time" content="2019-08-22T09:44:33.104Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mysql索引优化方案">
-<meta name="twitter:description" content="摘要mysql自带优化：先执行explain sql，在执行explain extended sql，得到优化结果，show warnings显示优化后的结果sql.">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/removeif/blog_image/master/20190703164516.png">
+<meta name="twitter:title" content="redis分布式锁Redlock的实现">
+<meta name="twitter:description" content="普通实现说道Redis分布式锁大部分人都会想到：setnx+lua，或者知道set key value px milliseconds nx。后一种方式的核心实现命令如下：">
 
 
 
@@ -112,7 +109,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/ico.png" alt="mysql索引优化方案" height="28">
+                <img src="/images/ico.png" alt="redis分布式锁Redlock的实现" height="28">
             
             </a>
         </div>
@@ -173,7 +170,7 @@
     
     <div class="card-image">
         <span class="image is-7by1">
-            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/20190703170329.png" alt="mysql索引优化方案">
+            <img class="thumbnail" src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190817211453.png" alt="redis分布式锁Redlock的实现">
         </span>
     </div>
     
@@ -181,17 +178,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-03T09:02:13.000Z">2019-07-03</time>
+                <time class="level-item has-text-grey" datetime="2019-08-22T09:41:23.000Z">2019-08-22</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/数据库/">数据库</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/数据库/mysql/">mysql</a>
+                <a class="has-link-grey -link" href="/categories/数据库/">数据库</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/数据库/redis/">redis</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    26 分钟 读完 (大约 3948 个字)
+                    13 分钟 读完 (大约 1948 个字)
                 </span>
                 
                 
@@ -205,168 +202,59 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                mysql索引优化方案
+                redis分布式锁Redlock的实现
             
         </h1>
         <div class="content">
-            <blockquote>
-<p>摘要<br>mysql自带优化：先执行explain sql，在执行explain extended sql，得到优化结果，show warnings显示优化后的结果sql.<br><a id="more"></a></p>
-</blockquote>
-<h2 id="索引基数"><a href="#索引基数" class="headerlink" title="索引基数"></a>索引基数</h2><p><strong>基数</strong>是<strong>数据列所包含的不同值的数量</strong>，例如，某个数据列包含值 1、3、7、4、7、3，那么它的基数就是 4。索引的基数相对于数据表行数较高（也就是说，列中包含很多不同的值，重复的值很少）的时候，它的工作效果最好。如果某数据列含有很多不同的年龄，索引会很快地分辨数据行；如果某个数据列用于记录性别（只有“M”和“F”两种值），那么索引的用处就不大；如果值出现的几率几乎相等，那么无论搜索哪个值都可能得到一半的数据行。在这些情况下，最好根本不要使用索引，因为查询优化器发现某个值出现在表的数据行中的百分比很高的时候，它一般会忽略索引，进行全表扫描。惯用的百分比界线是“30%”。</p>
-<h2 id="索引失效原因"><a href="#索引失效原因" class="headerlink" title="索引失效原因"></a>索引失效原因</h2><p>索引失效的原因有如下几点：</p>
+            <h2 id="普通实现"><a href="#普通实现" class="headerlink" title="普通实现"></a>普通实现</h2><p>说道Redis分布式锁大部分人都会想到：<code>setnx+lua</code>，或者知道<code>set key value px milliseconds nx</code>。后一种方式的核心实现命令如下：</p>
+<a id="more"></a>
+<figure class="highlight ruby hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- 获取锁（unique_value可以是UUID等）</span><br><span class="line">SET resource_name unique_value NX PX <span class="hljs-number">30000</span></span><br><span class="line"></span><br><span class="line">- 释放锁（lua脚本中，一定要比较value，防止误解锁）</span><br><span class="line"><span class="hljs-keyword">if</span> redis.call(<span class="hljs-string">"get"</span>,KEYS[<span class="hljs-number">1</span>]) == ARGV[<span class="hljs-number">1</span>] <span class="hljs-keyword">then</span></span><br><span class="line">    <span class="hljs-keyword">return</span> redis.call(<span class="hljs-string">"del"</span>,KEYS[<span class="hljs-number">1</span>])</span><br><span class="line"><span class="hljs-keyword">else</span></span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span></span><br><span class="line"><span class="hljs-keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>这种实现方式有3大要点（也是面试概率非常高的地方）：</p>
+<ol>
+<li>set命令要用<code>set key value px milliseconds nx</code>；</li>
+<li>value要具有唯一性；</li>
+<li>释放锁时要验证value值，不能误解锁；</li>
+</ol>
+<p>事实上这类琐最大的缺点就是它加锁时只作用在一个Redis节点上，即使Redis通过sentinel保证高可用，如果这个master节点由于某些原因发生了主从切换，那么就会出现锁丢失的情况：</p>
+<ol>
+<li>在Redis的master节点上拿到了锁；</li>
+<li>但是这个加锁的key还没有同步到slave节点；</li>
+<li>master故障，发生故障转移，slave节点升级为master节点；</li>
+<li>导致锁丢失。</li>
+</ol>
+<p>正因为如此，Redis作者antirez基于分布式环境下提出了一种更高级的分布式锁的实现方式：<strong>Redlock</strong>。笔者认为，Redlock也是Redis所有分布式锁实现方式中唯一能让面试官高潮的方式。</p>
+<h2 id="Redlock实现"><a href="#Redlock实现" class="headerlink" title="Redlock实现"></a>Redlock实现</h2><p>antirez提出的redlock算法大概是这样的：</p>
+<p>在Redis的分布式环境中，我们假设有N个Redis master。这些节点<strong>完全互相独立，不存在主从复制或者其他集群协调机制</strong>。我们确保将在N个实例上使用与在Redis单实例下相同方法获取和释放锁。现在我们假设有5个Redis master节点，同时我们需要在5台服务器上面运行这些Redis实例，这样保证他们不会同时都宕掉。</p>
+<p>为了取到锁，客户端应该执行以下操作:</p>
 <ul>
-<li>对索引列运算，运算包括（+、-、*、/、！、&lt;&gt;、%、like’%_’（% 放在前面）。</li>
-<li>类型错误，如字段类型为 varchar，where 条件用 number。</li>
-<li>对索引应用内部函数，这种情况下应该要建立基于函数的索引。例如 select * from template t where ROUND (t.logicdb_id) = 1，此时应该建 ROUND (t.logicdb_id) 为索引。</li>
+<li>获取当前Unix时间，以毫秒为单位。</li>
+<li>依次尝试从5个实例，使用相同的key和<strong>具有唯一性的value</strong>（例如UUID）获取锁。当向Redis请求获取锁时，客户端应该设置一个网络连接和响应超时时间，这个超时时间应该小于锁的失效时间。例如你的锁自动失效时间为10秒，则超时时间应该在5-50毫秒之间。这样可以避免服务器端Redis已经挂掉的情况下，客户端还在死死地等待响应结果。如果服务器端没有在规定时间内响应，客户端应该尽快尝试去另外一个Redis实例请求获取锁。</li>
+<li>客户端使用当前时间减去开始获取锁时间（步骤1记录的时间）就得到获取锁使用的时间。<strong>当且仅当从大多数</strong>（N/2+1，这里是3个节点）<strong>的Redis节点都取到锁，并且使用的时间小于锁失效时间时，锁才算获取成功</strong>。</li>
+<li>如果取到了锁，key的真正有效时间等于有效时间减去获取锁所使用的时间（步骤3计算的结果）。</li>
+<li>如果因为某些原因，获取锁失败（没有在至少N/2+1个Redis实例取到锁或者取锁时间已经超过了有效时间），客户端应该在<strong>所有的Redis实例上进行解锁</strong>（即便某些Redis实例根本就没有加锁成功，防止某些节点获取到锁但是客户端没有得到响应而导致接下来的一段时间不能被重新获取锁）。</li>
 </ul>
-<p>MySQL 8.0 开始支持函数索引，5.7 可以通过虚拟列的方式来支持，之前只能新建一个 ROUND (t.logicdb_id) 列然后去维护。</p>
+<h2 id="Redlock源码"><a href="#Redlock源码" class="headerlink" title="Redlock源码"></a>Redlock源码</h2><p>redisson已经有对redlock算法封装，接下来对其用法进行简单介绍，并对核心源码进行分析（假设5个redis实例）。</p>
 <ul>
-<li>如果条件有 or，即使其中有条件带索引也不会使用（这也是为什么建议少使用 or 的原因），如果想使用 or，又想索引有效，只能将 or 条件中的每个列加上索引。</li>
-<li>如果列类型是字符串，那一定要在条件中数据使用引号，否则不使用索引。</li>
-<li><strong>B-tree 索引 is null 不会走，is not null 会走，位图索引 is null，is not null 都会走</strong>。</li>
-<li><strong>组合索引</strong>遵循<strong>最左原则</strong>。</li>
+<li>POM依赖</li>
 </ul>
-<h2 id="索引的建立"><a href="#索引的建立" class="headerlink" title="索引的建立"></a>索引的建立</h2><p>索引的建立需要注意以下几点：</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">&lt;!-- https://mvnrepository.com/artifact/org.redisson/redisson --&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.redisson<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>redisson<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.3.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h4><p>首先，我们来看一下redission封装的redlock算法实现的分布式锁用法，非常简单，跟重入锁（ReentrantLock）有点类似：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Config config = <span class="hljs-keyword">new</span> Config();</span><br><span class="line">config.useSentinelServers().addSentinelAddress(<span class="hljs-string">"127.0.0.1:6369"</span>,<span class="hljs-string">"127.0.0.1:6379"</span>, <span class="hljs-string">"127.0.0.1:6389"</span>)</span><br><span class="line">        .setMasterName(<span class="hljs-string">"masterName"</span>)</span><br><span class="line">        .setPassword(<span class="hljs-string">"password"</span>).setDatabase(<span class="hljs-number">0</span>);</span><br><span class="line">RedissonClient redissonClient = Redisson.create(config);</span><br><span class="line"><span class="hljs-comment">// 还可以getFairLock(), getReadWriteLock()</span></span><br><span class="line">RLock redLock = redissonClient.getLock(<span class="hljs-string">"REDLOCK_KEY"</span>);</span><br><span class="line"><span class="hljs-keyword">boolean</span> isLock;</span><br><span class="line"><span class="hljs-keyword">try</span> &#123;</span><br><span class="line">    isLock = redLock.tryLock();</span><br><span class="line">    <span class="hljs-comment">// 500ms拿不到锁, 就认为获取锁失败。10000ms即10s是锁失效时间。</span></span><br><span class="line">    isLock = redLock.tryLock(<span class="hljs-number">500</span>, <span class="hljs-number">10000</span>, TimeUnit.MILLISECONDS);</span><br><span class="line">    <span class="hljs-keyword">if</span> (isLock) &#123;</span><br><span class="line">        <span class="hljs-comment">//TODO if get lock success, do something;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;</span><br><span class="line">&#125; <span class="hljs-keyword">finally</span> &#123;</span><br><span class="line">    <span class="hljs-comment">// 无论如何, 最后都要解锁</span></span><br><span class="line">    redLock.unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="唯一ID"><a href="#唯一ID" class="headerlink" title="唯一ID"></a>唯一ID</h4><p>实现分布式锁的一个非常重要的点就是set的value要具有唯一性，redisson的value是怎样保证value的唯一性呢？答案是<strong>UUID+threadId</strong>。<strong>入口</strong>在redissonClient.getLock(“REDLOCK_KEY”)，源码在Redisson.java和RedissonLock.java中：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> UUID id = UUID.randomUUID();</span><br><span class="line"><span class="hljs-function">String <span class="hljs-title">getLockName</span><span class="hljs-params">(<span class="hljs-keyword">long</span> threadId)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> id + <span class="hljs-string">":"</span> + threadId;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="获取锁"><a href="#获取锁" class="headerlink" title="获取锁"></a>获取锁</h4><p>获取锁的代码为redLock.tryLock()或者redLock.tryLock(500, 10000, TimeUnit.MILLISECONDS)，两者的最终核心源码都是下面这段代码，只不过前者获取锁的默认租约时间（leaseTime）是LOCK_EXPIRATION_INTERVAL_SECONDS，即30s：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;T&gt; <span class="hljs-function">RFuture&lt;T&gt; <span class="hljs-title">tryLockInnerAsync</span><span class="hljs-params">(<span class="hljs-keyword">long</span> leaseTime, TimeUnit unit, <span class="hljs-keyword">long</span> threadId, RedisStrictCommand&lt;T&gt; command)</span> </span>&#123;</span><br><span class="line">    internalLockLeaseTime = unit.toMillis(leaseTime);</span><br><span class="line">    <span class="hljs-comment">// 获取锁时向5个redis实例发送的命令</span></span><br><span class="line">    <span class="hljs-keyword">return</span> commandExecutor.evalWriteAsync(getName(), LongCodec.INSTANCE, command,</span><br><span class="line">              <span class="hljs-comment">// 首先分布式锁的KEY不能存在，如果确实不存在，那么执行hset命令（hset REDLOCK_KEY uuid+threadId 1），并通过pexpire设置失效时间（也是锁的租约时间）</span></span><br><span class="line">              <span class="hljs-string">"if (redis.call('exists', KEYS[1]) == 0) then "</span> +</span><br><span class="line">                  <span class="hljs-string">"redis.call('hset', KEYS[1], ARGV[2], 1); "</span> +</span><br><span class="line">                  <span class="hljs-string">"redis.call('pexpire', KEYS[1], ARGV[1]); "</span> +</span><br><span class="line">                  <span class="hljs-string">"return nil; "</span> +</span><br><span class="line">              <span class="hljs-string">"end; "</span> +</span><br><span class="line">              <span class="hljs-comment">// 如果分布式锁的KEY已经存在，并且value也匹配，表示是当前线程持有的锁，那么重入次数加1，并且设置失效时间</span></span><br><span class="line">              <span class="hljs-string">"if (redis.call('hexists', KEYS[1], ARGV[2]) == 1) then "</span> +</span><br><span class="line">                  <span class="hljs-string">"redis.call('hincrby', KEYS[1], ARGV[2], 1); "</span> +</span><br><span class="line">                  <span class="hljs-string">"redis.call('pexpire', KEYS[1], ARGV[1]); "</span> +</span><br><span class="line">                  <span class="hljs-string">"return nil; "</span> +</span><br><span class="line">              <span class="hljs-string">"end; "</span> +</span><br><span class="line">              <span class="hljs-comment">// 获取分布式锁的KEY的失效时间毫秒数</span></span><br><span class="line">              <span class="hljs-string">"return redis.call('pttl', KEYS[1]);"</span>,</span><br><span class="line">              <span class="hljs-comment">// 这三个参数分别对应KEYS[1]，ARGV[1]和ARGV[2]</span></span><br><span class="line">                Collections.&lt;Object&gt;singletonList(getName()), internalLockLeaseTime, getLockName(threadId));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>获取锁的命令中，</p>
 <ul>
-<li><p>最重要的肯定是根据业务经常查询的语句。</p>
-</li>
-<li><p>尽量选择区分度高的列作为索引，区分度的公式是<br>$$<br>COUNT(DISTINCT空格col) / COUNT(*):表示字段不重复的比率，比率越大我们扫描的记录数就越少。<br>$$</p>
-</li>
-<li><p>如果业务中唯一特性最好建立唯一键，一方面可以保证数据的正确性，另一方面索引的效率能大大提高。</p>
-</li>
+<li><strong>KEYS[1]</strong>就是Collections.singletonList(getName())，表示分布式锁的key，即REDLOCK_KEY；</li>
+<li><strong>ARGV[1]</strong>就是internalLockLeaseTime，即锁的租约时间，默认30s；</li>
+<li><strong>ARGV[2]</strong>就是getLockName(threadId)，是获取锁时set的唯一值，即UUID+threadId：</li>
 </ul>
-<h2 id="EXPLIAN-中有用的信息"><a href="#EXPLIAN-中有用的信息" class="headerlink" title="EXPLIAN 中有用的信息"></a>EXPLIAN 中有用的信息</h2><p>EXPLIAN 基本用法如下：</p>
-<ul>
-<li>desc 或者 explain 加上你的 SQL。</li>
-<li>explain extended 加上你的 SQL，然后通过 show warnings 可以查看实际执行的语句，这一点也是非常有用的，很多时候不同的写法经 SQL 分析后，实际执行的代码是一样的。</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190703164516.png" alt=""></p>
-<h2 id="提高性能的特性"><a href="#提高性能的特性" class="headerlink" title="提高性能的特性"></a>提高性能的特性</h2><p>EXPLIAN 提高性能的特性如下：</p>
-<ul>
-<li>索引覆盖(covering index)：需要查询的数据在索引上都可以查到<strong>不需要回表 EXTRA</strong> 列显示 using index。</li>
-<li>ICP特性(Index Condition Pushdown)：本来 index 仅仅是 data access 的一种访问模式，存数引擎通过索引回表获取的数据会传递到 MySQL Server 层进行 where 条件过滤。</li>
-</ul>
-<p>5.6 版本开始当 ICP 打开时，如果部分 where 条件能使用索引的字段，MySQL Server 会把这部分下推到引擎层，可以利用 index 过滤的 where 条件在存储引擎层进行数据过滤。</p>
-<p>EXTRA 显示 using index condition。需要了解 MySQL 的架构图分为 Server 和存储引擎层。</p>
-<ul>
-<li>索引合并(index merge)：对多个索引分别进行条件扫描，然后将它们各自的结果进行合并(intersect/union)。</li>
-</ul>
-<p>一般用 or 会用到，如果是 AND 条件，考虑建立复合索引。EXPLAIN 显示的索引类型会显示 index_merge，EXTRA 会显示具体的合并算法和用到的索引。</p>
-<h2 id="Extra字段"><a href="#Extra字段" class="headerlink" title="Extra字段"></a>Extra字段</h2><p>Extra 字段使用：</p>
-<ul>
-<li>using filesort：说明 MySQL 会对数据使用一个外部的索引排序，而不是按照表内的索引顺序进行读取。</li>
-</ul>
-<p>MySQL 中无法利用索引完成的排序操作称为“文件排序”，其实不一定是文件排序，内部使用的是快排。</p>
-<ul>
-<li>using temporary：使用了临时表保存中间结果，MySQL 在对查询结果排序时使用临时表。常见于排序 order by 和分组查询 group by。</li>
-<li>using index：表示相应的 SELECT 操作中使用了覆盖索引（Covering Index），避免访问了表的数据行，效率不错。</li>
-<li>impossible where：where 子句的值总是 false，不能用来获取任何元组。</li>
-<li>select tables optimized away：在没有 group by 子句的情况下基于索引优化 MIN/MAX 操作或者对于 MyISAM 存储引擎优化 COUNT(*) 操作，不必等到执行阶段再进行计算，查询执行计划生成的阶段即完成优化。</li>
-<li>distinct：优化 distinct 操作，在找到第一匹配的元组后即停止找同样值的操作。</li>
-</ul>
-<p><strong>using filesort、using temporary</strong> 这两项出现时需要注意下，这两项是十分耗费性能的</p>
-<p>在使用 group by 的时候，虽然没有使用 order by，如果没有索引，是可能同时出现 using filesort，using temporary 的。因为 group by 就是先排序在分组，如果没有排序的需要，可以加上一个 <strong>order by NULL</strong> 来避免排序，这样 using filesort 就会去除，能提升一点性能。</p>
-<h2 id="type字段"><a href="#type字段" class="headerlink" title="type字段"></a>type字段</h2><ul>
-<li>system：表只有一行记录（等于系统表），这是 const 类型的特例，平时不会出现。</li>
-<li>const：如果通过索引依次就找到了，const 用于比较主键索引或者 unique 索引。因为只能匹配一行数据，所以很快。如果将主键置于 where 列表中，MySQL 就能将该查询转换为一个常量。</li>
-<li>eq_ref：唯一性索引扫描，对于每个索引键，表中只有一条记录与之匹配。常见于主键或唯一索引扫描。</li>
-<li>ref：非唯一性索引扫描，返回匹配某个单独值的所有行。本质上也是一种索引访问，它返回所有匹配某个单独值的行，然而它可能会找到多个符合条件的行，所以它应该属于查找和扫描的混合体。</li>
-<li>range：只检索给定范围的行，使用一个索引来选择行。key 列显示使用了哪个索引，一般就是在你的 where 语句中出现 between、&lt;、&gt;、in 等的查询。</li>
-</ul>
-<p>这种范围扫描索引比全表扫描要好，因为只需要开始于缩印的某一点，而结束于另一点，不用扫描全部索引。</p>
-<ul>
-<li>index：Full Index Scan ，index 与 ALL 的区别为 index 类型只遍历索引树，这通常比 ALL 快，因为索引文件通常比数据文件小。</li>
-</ul>
-<p>也就是说虽然 ALL 和 index 都是读全表，但 index 是从索引中读取的，而 ALL 是从硬盘读取的。</p>
-<ul>
-<li>all：Full Table Scan，遍历全表获得匹配的行。</li>
-</ul>
-<h2 id="字段类型和编码"><a href="#字段类型和编码" class="headerlink" title="字段类型和编码"></a>字段类型和编码</h2><ul>
-<li><p>MySQL 返回字符串长度</p>
-<p>CHARACTER_LENGTH(同CHAR_LENGTH)方法返回的是字符数，LENGTH 函数返回的是字节数，一个汉字三个字节。</p>
-</li>
-<li><p>varchar 等字段建立索引长度计算语句</p>
-<p>select count(distinct left(test,5))/count(*) from table；越趋近 1 越好。</p>
-</li>
-<li><p>MySQL 的 utf8</p>
-<p>MySQL 的 utf8 最大是 3 个字节不支持 emoji 表情符号，必须只用 utf8mb4。需要在 MySQL 配置文件中配置客户端字符集为 utf8mb4。</p>
-</li>
-</ul>
-<p>JDBC 的连接串不支持配置 characterEncoding=utf8mb4，最好的办法是在连接池中指定初始化 SQL。例如：hikari 连接池，其他连接池类似 spring . datasource . hikari . connection - init - sql =set names utf8mb4。否则需要每次执行 SQL 前都先执行 set names utf8mb4。</p>
-<h2 id="MySQL-排序规则"><a href="#MySQL-排序规则" class="headerlink" title="MySQL 排序规则"></a>MySQL 排序规则</h2><p>一般使用 _bin 和 _genera_ci：</p>
-<ul>
-<li>utf8_genera_ci 不区分大小写，ci 为 case insensitive 的缩写，即大小写不敏感。</li>
-<li>utf8_general_cs 区分大小写，cs 为 case sensitive 的缩写，即大小写敏感，但是目前 MySQL 版本中已经不支持类似于 _genera_cs 的排序规则，直接使用 utf8_bin 替代。</li>
-<li>utf8_bin 将字符串中的每一个字符用二进制数据存储，区分大小写。</li>
-</ul>
-<p>那么，同样是区分大小写，utf8_general_cs 和 utf8_bin 有什么区别？</p>
-<ul>
-<li>cs 为 case sensitive 的缩写，即大小写敏感；bin 的意思是二进制，也就是二进制编码比较。</li>
-<li>utf8_general_cs 排序规则下，即便是区分了大小写，但是某些西欧的字符和拉丁字符是不区分的，比如 ä=a，但是有时并不需要 ä=a，所以才有 utf8_bin。</li>
-<li>utf8_bin 的特点在于使用字符的二进制的编码进行运算，任何不同的二进制编码都是不同的，因此在 utf8_bin 排序规则下：ä&lt;&gt;a。</li>
-</ul>
-<h2 id="SQL语句总结"><a href="#SQL语句总结" class="headerlink" title="SQL语句总结"></a>SQL语句总结</h2><h3 id="常用但容易忘的"><a href="#常用但容易忘的" class="headerlink" title="常用但容易忘的"></a>常用但容易忘的</h3><ul>
-<li>如果有主键或者唯一键冲突则不插入：insert ignore into。</li>
-<li>如果有主键或者唯一键冲突则更新，注意这个会影响自增的增量：INSERT INTO room_remarks(room_id,room_remarks)VALUE(1,”sdf”) ON DUPLICATE KEY UPDATE room_remarks = “234”。</li>
-<li>如果有就用新的替代，values 如果不包含自增列，自增列的值会变化：REPLACE INTO room_remarks(room_id,room_remarks) VALUE(1,”sdf”)。</li>
-<li>备份表：CREATE TABLE user_info SELECT * FROM user_info。</li>
-<li>复制表结构：CREATE TABLE user_v2 LIKE user。</li>
-<li>从查询语句中导入：INSERT INTO user_v2 SELECT * FROM user 或者 INSERT INTO user_v2(id,num) SELECT id,num FROM user。</li>
-<li>连表更新：UPDATE user a, room b SET a.num=a.num+1 WHERE a.room_id=b.id。</li>
-<li>连表删除：DELETE user FROM user,black WHERE user.id=black.id。</li>
-</ul>
-<h3 id="锁相关"><a href="#锁相关" class="headerlink" title="锁相关"></a>锁相关</h3><p>锁相关(作为了解，很少用)：</p>
-<ul>
-<li>共享锁：select id from tb_test where id = 1 lock in share mode。</li>
-<li>排它锁：select id from tb_test where id = 1 for update。</li>
-</ul>
-<h3 id="优化时用到"><a href="#优化时用到" class="headerlink" title="优化时用到"></a>优化时用到</h3><ul>
-<li>强制使用某个索引：select * from table force index(idx_user) limit 2。</li>
-<li>禁止使用某个索引：select * from table ignore index(idx_user) limit 2。</li>
-<li>禁用缓存(在测试时去除缓存的影响)：select SQL_NO_CACHE from table limit 2。</li>
-</ul>
-<h3 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h3><ul>
-<li>查看字符集：SHOW VARIABLES LIKE ‘character_set%’。</li>
-<li>查看排序规则：SHOW VARIABLES LIKE ‘collation%’。</li>
-</ul>
-<h3 id="SQL编写注意"><a href="#SQL编写注意" class="headerlink" title="SQL编写注意"></a>SQL编写注意</h3><ul>
-<li>where 语句的解析顺序是从右到左，条件尽量放 where 不要放 having。</li>
-<li>采用延迟关联(deferred join)技术优化超多分页场景，比如 limit 10000,10,延迟关联可以避免回表。</li>
-<li>distinct 语句非常损耗性能，可以通过 group by 来优化。</li>
-<li>连表尽量不要超过三个表。</li>
-</ul>
-<h2 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h2><ul>
-<li>如果有自增列，truncate 语句会把自增列的基数重置为 0，有些场景用自增列作为业务上的 ID 需要十分重视。</li>
-<li>聚合函数会自动滤空，比如 a 列的类型是 int 且全部是 NULL，则 SUM(a) 返回的是 NULL 而不是 0。</li>
-<li>MySQL 判断 null 相等不能用 “a=null”，这个结果永远为 UnKnown，where 和 having 中，UnKnown 永远被视为 false，check 约束中，UnKnown 就会视为 true 来处理。所以要用“a is null”处理。</li>
-</ul>
-<p>千万大表在线修改MySQL 在表数据量很大的时候，如果修改表结构会导致锁表，业务请求被阻塞。MySQL 在 5.6 之后引入了在线更新，但是在某些情况下还是会锁表，所以一般都采用 PT 工具( Percona Toolkit)。如对表添加索引：</p>
-<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pt-online-schema-<span class="hljs-keyword">change</span> <span class="hljs-comment">--user='root' --host='localhost' --ask-pass --alter "add index idx_user_id(room_id,create_time)" </span></span><br><span class="line"></span><br><span class="line">D=fission_show_room_v2,t=room_favorite_info <span class="hljs-comment">--execute</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>慢查询日志</li>
-</ul>
-<p>有时候如果线上请求超时，应该去关注下慢查询日志，慢查询的分析很简单，先找到慢查询日志文件的位置，然后利用 mysqldumpslow 去分析。</p>
-<p>查询慢查询日志信息可以直接通过执行 SQL 命令查看相关变量，常用的 SQL 如下：</p>
-<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/20190703165642.png" alt=""></p>
-<p>mysqldumpslow 的工具十分简单，我主要用到的参数如下：</p>
-<ul>
-<li><strong>-t：</strong>限制输出的行数，我一般取前十条就够了。</li>
-<li><strong>-s：</strong>根据什么来排序默认是平均查询时间 at，我还经常用到 c 查询次数，因为查询次数很频繁但是时间不高也是有必要优化的，还有 t 查询时间，查看那个语句特别卡。</li>
-<li><strong>-v：</strong>输出详细信息。</li>
-</ul>
-<p>例子：mysqldumpslow -v -s t -t 10 mysql_slow.log.2018-11-20-0500。</p>
-<ul>
-<li><p>一些数据库性能的思考</p>
-<p>在对公司慢查询日志做优化的时候，很多时候可能是忘了建索引，像这种问题很容易解决，加个索引就行了。但是有几种情况就不是简单加索引能解决了 </p>
-<p><strong>业务代码循环读数据库</strong></p>
-<p>​    考虑这样一个场景，获取用户粉丝列表信息，加入分页是十个，其实像这样的 SQL 是十分简单的，通过连表查询性能也很高。</p>
-<p>​    但是有时候，很多开发采用了取出一串 ID，然后循环读每个 ID 的信息，这样如果 ID 很多对数据库的压力是很大的，而且性能也很低。</p>
-<p><strong>统计 SQL</strong></p>
-<p>​    很多时候，业务上都会有排行榜这种，发现公司有很多地方直接采用数据库做计算，在对一些大表做聚合运算的时候，经常超过五秒，这些 SQL 一般很长而且很难优化。像这种场景，如果业务允许（比如一致性要求不高或者是隔一段时间才统计的），可以专门在从库里面做统计。另外我建议还是采用 Redis 缓存来处理这种业务。</p>
-<p><strong>超大分页</strong></p>
-<p>​    在慢查询日志中发现了一些超大分页的慢查询如 Limit 40000，1000，因为 MySQL 的分页是在 Server 层做的，可以采用延迟关联在减少回表。但是看了相关的业务代码正常的业务逻辑是不会出现这样的请求的，所以很有可能是有恶意用户在刷接口，最好在开发的时候也对接口加上校验拦截这些恶意请求。</p>
-</li>
-</ul>
+<hr>
+<h4 id="释放锁"><a href="#释放锁" class="headerlink" title="释放锁"></a>释放锁</h4><p>释放锁的代码为redLock.unlock()，核心源码如下：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">protected</span> RFuture&lt;Boolean&gt; <span class="hljs-title">unlockInnerAsync</span><span class="hljs-params">(<span class="hljs-keyword">long</span> threadId)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-comment">// 向5个redis实例都执行如下命令</span></span><br><span class="line">    <span class="hljs-keyword">return</span> commandExecutor.evalWriteAsync(getName(), LongCodec.INSTANCE, RedisCommands.EVAL_BOOLEAN,</span><br><span class="line">            <span class="hljs-comment">// 如果分布式锁KEY不存在，那么向channel发布一条消息</span></span><br><span class="line">            <span class="hljs-string">"if (redis.call('exists', KEYS[1]) == 0) then "</span> +</span><br><span class="line">                <span class="hljs-string">"redis.call('publish', KEYS[2], ARGV[1]); "</span> +</span><br><span class="line">                <span class="hljs-string">"return 1; "</span> +</span><br><span class="line">            <span class="hljs-string">"end;"</span> +</span><br><span class="line">            <span class="hljs-comment">// 如果分布式锁存在，但是value不匹配，表示锁已经被占用，那么直接返回</span></span><br><span class="line">            <span class="hljs-string">"if (redis.call('hexists', KEYS[1], ARGV[3]) == 0) then "</span> +</span><br><span class="line">                <span class="hljs-string">"return nil;"</span> +</span><br><span class="line">            <span class="hljs-string">"end; "</span> +</span><br><span class="line">            <span class="hljs-comment">// 如果就是当前线程占有分布式锁，那么将重入次数减1</span></span><br><span class="line">            <span class="hljs-string">"local counter = redis.call('hincrby', KEYS[1], ARGV[3], -1); "</span> +</span><br><span class="line">            <span class="hljs-comment">// 重入次数减1后的值如果大于0，表示分布式锁有重入过，那么只设置失效时间，还不能删除</span></span><br><span class="line">            <span class="hljs-string">"if (counter &gt; 0) then "</span> +</span><br><span class="line">                <span class="hljs-string">"redis.call('pexpire', KEYS[1], ARGV[2]); "</span> +</span><br><span class="line">                <span class="hljs-string">"return 0; "</span> +</span><br><span class="line">            <span class="hljs-string">"else "</span> +</span><br><span class="line">                <span class="hljs-comment">// 重入次数减1后的值如果为0，表示分布式锁只获取过1次，那么删除这个KEY，并发布解锁消息</span></span><br><span class="line">                <span class="hljs-string">"redis.call('del', KEYS[1]); "</span> +</span><br><span class="line">                <span class="hljs-string">"redis.call('publish', KEYS[2], ARGV[1]); "</span> +</span><br><span class="line">                <span class="hljs-string">"return 1; "</span>+</span><br><span class="line">            <span class="hljs-string">"end; "</span> +</span><br><span class="line">            <span class="hljs-string">"return nil;"</span>,</span><br><span class="line">            <span class="hljs-comment">// 这5个参数分别对应KEYS[1]，KEYS[2]，ARGV[1]，ARGV[2]和ARGV[3]</span></span><br><span class="line">            Arrays.&lt;Object&gt;asList(getName(), getChannelName()), LockPubSub.unlockMessage, internalLockLeaseTime, getLockName(threadId));</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzU0MzQ5MDA0Mw==&amp;mid=2247485917&amp;idx=1&amp;sn=289fd9fcd1c8141111b8bc337e8c5353&amp;chksm=fb0be349cc7c6a5f1c525c97f2d8a90d712475e58bcf79b3b1f8d83f4cd8a0fa617acf1de955&amp;token=1885824046&amp;lang=zh_CN&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">文章来源</a></p>
+<p>.</p>
 
         </div>
         
@@ -374,7 +262,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/mysql/">mysql</a>
+                    <a class="has-link-grey -link" href="/tags/redis/">redis</a>
                 </div>
             </div>
         </div>
@@ -424,17 +312,10 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/07/05/常见sql错误写法.html">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">常见sql错误写法</span>
-            </a>
-        </div>
-        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/06/25/一次数据库的死锁问题排查过程.html">
-                <span class="level-item">一次数据库的死锁问题排查过程</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/08/21/中华人民共和国劳动法.html">
+                <span class="level-item">中华人民共和国劳动法</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -455,7 +336,7 @@
     var gitalk = new Gitalk({
         clientID: '46a9f3481b46ea0129d8',
         clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
-        id: '0d7c44a29d0c9219185828e0c46eefa3',
+        id: '88bc484f5fc25acbd7a30cbc687f8b6e',
         repo: 'blog_comment',
         owner: 'removeif',
         admin: "removeif",
@@ -586,70 +467,34 @@
                 目录
             </h3>
             <ul class="menu-list"><li>
-        <a class="is-flex" href="#索引基数">
+        <a class="is-flex" href="#普通实现">
         <span class="has-mr-6">1</span>
-        <span>索引基数</span>
+        <span>普通实现</span>
         </a></li><li>
-        <a class="is-flex" href="#索引失效原因">
+        <a class="is-flex" href="#Redlock实现">
         <span class="has-mr-6">2</span>
-        <span>索引失效原因</span>
+        <span>Redlock实现</span>
         </a></li><li>
-        <a class="is-flex" href="#索引的建立">
+        <a class="is-flex" href="#Redlock源码">
         <span class="has-mr-6">3</span>
-        <span>索引的建立</span>
-        </a></li><li>
-        <a class="is-flex" href="#EXPLIAN-中有用的信息">
-        <span class="has-mr-6">4</span>
-        <span>EXPLIAN 中有用的信息</span>
-        </a></li><li>
-        <a class="is-flex" href="#提高性能的特性">
-        <span class="has-mr-6">5</span>
-        <span>提高性能的特性</span>
-        </a></li><li>
-        <a class="is-flex" href="#Extra字段">
-        <span class="has-mr-6">6</span>
-        <span>Extra字段</span>
-        </a></li><li>
-        <a class="is-flex" href="#type字段">
-        <span class="has-mr-6">7</span>
-        <span>type字段</span>
-        </a></li><li>
-        <a class="is-flex" href="#字段类型和编码">
-        <span class="has-mr-6">8</span>
-        <span>字段类型和编码</span>
-        </a></li><li>
-        <a class="is-flex" href="#MySQL-排序规则">
-        <span class="has-mr-6">9</span>
-        <span>MySQL 排序规则</span>
-        </a></li><li>
-        <a class="is-flex" href="#SQL语句总结">
-        <span class="has-mr-6">10</span>
-        <span>SQL语句总结</span>
+        <span>Redlock源码</span>
         </a><ul class="menu-list"><li>
-        <a class="is-flex" href="#常用但容易忘的">
-        <span class="has-mr-6">10.1</span>
-        <span>常用但容易忘的</span>
+        <a class="is-flex" href="#用法">
+        <span class="has-mr-6">3.1</span>
+        <span>用法</span>
         </a></li><li>
-        <a class="is-flex" href="#锁相关">
-        <span class="has-mr-6">10.2</span>
-        <span>锁相关</span>
+        <a class="is-flex" href="#唯一ID">
+        <span class="has-mr-6">3.2</span>
+        <span>唯一ID</span>
         </a></li><li>
-        <a class="is-flex" href="#优化时用到">
-        <span class="has-mr-6">10.3</span>
-        <span>优化时用到</span>
+        <a class="is-flex" href="#获取锁">
+        <span class="has-mr-6">3.3</span>
+        <span>获取锁</span>
         </a></li><li>
-        <a class="is-flex" href="#查看状态">
-        <span class="has-mr-6">10.4</span>
-        <span>查看状态</span>
-        </a></li><li>
-        <a class="is-flex" href="#SQL编写注意">
-        <span class="has-mr-6">10.5</span>
-        <span>SQL编写注意</span>
-        </a></li></ul></li><li>
-        <a class="is-flex" href="#踩坑">
-        <span class="has-mr-6">11</span>
-        <span>踩坑</span>
-        </a></li></ul>
+        <a class="is-flex" href="#释放锁">
+        <span class="has-mr-6">3.4</span>
+        <span>释放锁</span>
+        </a></li></ul></li></ul>
         </div>
     </div>
 </div>
@@ -1329,7 +1174,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/ico.png" alt="mysql索引优化方案" height="28">
+                    <img src="/images/ico.png" alt="redis分布式锁Redlock的实现" height="28">
                 
                 </a>
                 <p class="is-size-7">
