@@ -21,18 +21,18 @@
 })();
 </script>
 
-    <meta name="description" content="普通实现说道Redis分布式锁大部分人都会想到：setnx+lua，或者知道set key value px milliseconds nx。后一种方式的核心实现命令如下：">
+    <meta name="description" content="普通实现 说道Redis分布式锁大部分人都会想到：setnx+lua，或者知道set key value px milliseconds nx。后一种方式的核心实现命令如下：">
 <meta name="keywords" content="categories-redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis分布式锁Redlock的实现">
 <meta property="og:url" content="https://removeif.github.io/2019/08/22/redis分布式锁Redlock的实现.html">
 <meta property="og:site_name" content="辣椒の酱">
-<meta property="og:description" content="普通实现说道Redis分布式锁大部分人都会想到：setnx+lua，或者知道set key value px milliseconds nx。后一种方式的核心实现命令如下：">
+<meta property="og:description" content="普通实现 说道Redis分布式锁大部分人都会想到：setnx+lua，或者知道set key value px milliseconds nx。后一种方式的核心实现命令如下：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-22T09:44:33.104Z">
+<meta property="og:updated_time" content="2019-08-23T01:20:17.649Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis分布式锁Redlock的实现">
-<meta name="twitter:description" content="普通实现说道Redis分布式锁大部分人都会想到：setnx+lua，或者知道set key value px milliseconds nx。后一种方式的核心实现命令如下：">
+<meta name="twitter:description" content="普通实现 说道Redis分布式锁大部分人都会想到：setnx+lua，或者知道set key value px milliseconds nx。后一种方式的核心实现命令如下：">
 
 
 
@@ -178,7 +178,7 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-08-22T09:41:23.000Z">2019-08-22</time>
+                <time class="level-item has-text-grey" datetime="2019-08-22T10:41:23.000Z">2019-08-22</time>
                 
                 <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/数据库/">数据库</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/数据库/redis/">redis</a>
@@ -206,7 +206,9 @@
             
         </h1>
         <div class="content">
-            <h2 id="普通实现"><a href="#普通实现" class="headerlink" title="普通实现"></a>普通实现</h2><p>说道Redis分布式锁大部分人都会想到：<code>setnx+lua</code>，或者知道<code>set key value px milliseconds nx</code>。后一种方式的核心实现命令如下：</p>
+            <h2 id="普通实现"><a href="#普通实现" class="headerlink" title="普通实现"></a>普通实现</h2><blockquote>
+<p>说道Redis分布式锁大部分人都会想到：<code>setnx+lua</code>，或者知道<code>set key value px milliseconds nx</code>。后一种方式的核心实现命令如下：</p>
+</blockquote>
 <a id="more"></a>
 <figure class="highlight ruby hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- 获取锁（unique_value可以是UUID等）</span><br><span class="line">SET resource_name unique_value NX PX <span class="hljs-number">30000</span></span><br><span class="line"></span><br><span class="line">- 释放锁（lua脚本中，一定要比较value，防止误解锁）</span><br><span class="line"><span class="hljs-keyword">if</span> redis.call(<span class="hljs-string">"get"</span>,KEYS[<span class="hljs-number">1</span>]) == ARGV[<span class="hljs-number">1</span>] <span class="hljs-keyword">then</span></span><br><span class="line">    <span class="hljs-keyword">return</span> redis.call(<span class="hljs-string">"del"</span>,KEYS[<span class="hljs-number">1</span>])</span><br><span class="line"><span class="hljs-keyword">else</span></span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span></span><br><span class="line"><span class="hljs-keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>这种实现方式有3大要点（也是面试概率非常高的地方）：</p>
@@ -555,7 +557,7 @@
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-22T09:41:23.000Z">2019-08-22</time></div>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-22T10:41:23.000Z">2019-08-22</time></div>
                     <a href="/2019/08/22/redis分布式锁Redlock的实现.html" class="has-link-black-ter is-size-6">redis分布式锁Redlock的实现</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/数据库/">数据库</a> / <a class="has-link-grey -link" href="/categories/数据库/redis/">redis</a>
