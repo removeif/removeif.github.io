@@ -646,3 +646,6 @@
     padding: 20px;
     border-radius: 6px;
 }
+.social-share {
+    display: none;
+}
