@@ -649,3 +649,10 @@
 .social-share {
     display: none;
 }
+
+.article .content a img {
+    margin: auto;
+    display: block;
+    height: 90px;
+    width: 90px;
+}
