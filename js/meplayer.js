@@ -72,7 +72,7 @@
 
 	var root = (typeof window === 'undefined' ? 'undefined' : _typeof(window)) == 'object' && window.window === window ? window : (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global.global === global ? global : undefined;
 
-	root.mePlayer = function (options) {
+	root.mePlayer = function (options,endcallback) {
 	  // 检查必填选项
 	  if (!(options.music && options.music.src)) {
 	    console.error('必须指定音乐地址哦~');
