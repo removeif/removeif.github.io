@@ -3,6 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
         $('.article').lightGallery({ selector: '.gallery-item', loop: true, escKey: true, keyPress: true});
     }
     if (typeof ($.fn.justifiedGallery) === 'function') {
-        $('.justified-gallery').justifiedGallery({rowHeight:170, margins:5});
+        $('.justified-gallery').justifiedGallery({rowHeight:220, margins:4});
     }
 });
