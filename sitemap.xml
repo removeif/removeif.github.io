@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://removeif.github.io/poetry/index.html</loc>
+    
+    <lastmod>2019-08-31T15:45:27.162Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://removeif.github.io/about/index.html</loc>
     
     <lastmod>2019-08-31T11:49:11.619Z</lastmod>
@@ -33,13 +40,6 @@
     <loc>https://removeif.github.io/2019/08/28/MyBatis%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98.html</loc>
     
     <lastmod>2019-08-29T02:01:20.781Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://removeif.github.io/poetry/index.html</loc>
-    
-    <lastmod>2019-08-24T06:20:46.166Z</lastmod>
     
   </url>
   

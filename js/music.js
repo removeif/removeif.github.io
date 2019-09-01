@@ -34,10 +34,11 @@ $.getJSON("../json_data/music.json", function (data) {
         $li.css('height', '40px');
         $li.css('color', '#888888');
         $li.click(function (event) {
-            playMusic(musicJsons[this.id]);
+            var id = Number(this.id);
+            playMusic(musicJsons[id]);
             $('#musiclist #' + lastIndex).css('color', '#888888');
             $(this).css('color', '#3273dc');
-            lastIndex = this.id;
+            lastIndex = id;
             mePlayerMethod.play();
         });
         var $musiclist = $('#musiclist');
