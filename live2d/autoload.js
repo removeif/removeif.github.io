@@ -1,28 +1,15 @@
-//注意：live2d_path参数应使用绝对路径
-const live2d_path = "/live2d/";
-//const live2d_path = "/live2d-widget/";
-
-//加载waifu.css
-$("<link>").attr({ href: live2d_path + "waifu.css", rel: "stylesheet" }).appendTo("head");
-
-//加载live2d.min.js
-$.ajax({
-    url: live2d_path + "live2d.js",
-    dataType: "script",
-    cache: true
-});
-
-//加载waifu-tips.js
-$.ajax({
-    url: live2d_path + "waifu-tips.js",
-    dataType: "script",
-    cache: true
-});
-
-//初始化看板娘，会自动加载指定目录下的waifu-tips.json
-$(window).on("load", function() {
-    initWidget(live2d_path + "waifu-tips.json", "https://live2d.fghrsh.net/api");
-});
-//initWidget第一个参数为waifu-tips.json的路径
-//第二个参数为api地址（无需修改）
-//api后端可自行搭建，参考https://github.com/fghrsh/live2d_api
+try {
+    $("<link>").attr({href: "/live2d/waifu.css?v=1.4.2", rel: "stylesheet", type: "text/css"}).appendTo('head');
+    $('body').append('<div class="waifu"><div class="waifu-tips"></div><canvas id="live2d" class="live2d"></canvas><div class="waifu-tool"><span class="fui-home"></span> <span class="fui-chat"></span> <span class="fui-eye"></span> <span class="fui-user"></span> <span class="fui-photo"></span> <span class="fui-info-circle"></span> <span class="fui-cross"></span></div></div>');
+    $.ajax({url: "/live2d/waifu-tips.js?v=1.4.2", dataType:"script", cache: true, success: function() {
+        $.ajax({url: "/live2d/live2d.js?v=1.0.5", dataType:"script", cache: true, success: function() {
+            /* 可直接修改部分参数 */
+            live2d_settings['hitokotoAPI'] = "hitokoto.cn";  // 一言 API
+            live2d_settings['modelId'] = 1;                  // 默认模型 ID
+            live2d_settings['modelTexturesId'] = 90;          // 默认材质 ID
+            live2d_settings['modelStorage'] = false;         // 不储存模型 ID
+            /* 在 initModel 前添加 */
+            initModel("/live2d/waifu-tips.json");
+        }});
+    }});
+} catch(err) { console.log("[Error] JQuery is not defined.") }
