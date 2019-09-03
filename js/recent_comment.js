@@ -56,7 +56,8 @@ $(document).ready(function () { // 加载页面时同步加载
                                 "content": contentStr,
                                 "date": item1.created_at,
                                 "userName": item1["user"].login,
-                                "userUrl": item1["user"].html_url
+                                "userUrl": item1["user"].html_url,
+                                "commentCount": commentsCount
                             };
                             timesSetMap[new Date(item1.created_at).getTime()] = item1.created_at;
                         });
@@ -95,7 +96,7 @@ $(document).ready(function () { // 加载页面时同步加载
         // 拼上作者
         contentStr = "<a href=\"" + item.userUrl + "\"target=\"_blank\">" + item.userName + "</a>&nbsp;&nbsp;" + contentStr;
         htmlContent += "<div class=\"tag is-warning\" style='background-color: #f5f9fe;color:rgb(164, 164, 164);'>" + timeStr.Format("yyyy-MM-dd hh:mm:ss") + "</div>  " +
-            "<a href =\"" + item.url + "\"target=\"_blank\">" + item.title + "</a>" +
+            "<a href =\"" + item.url + "\"target=\"_blank\">" + item.title + "&nbsp;&nbsp;✉️" + item.commentCount + "</a>" +
             "<br>&nbsp;&nbsp;&nbsp;<div class=\"tag is-success\" style='margin-top: 5px;background-color:#f9f9f9;color:#3d3d3d;'>" + contentStr + "</div><br><hr>";
     }
     $("#myContent").html("");
