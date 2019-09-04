@@ -52,8 +52,8 @@ live2d_settings['showCopyMessage']      = true;         // 显示 复制内容 �
 live2d_settings['showWelcomeMessage']   = true;         // 显示进入面页欢迎词
 
 //看板娘样式设置
-live2d_settings['waifuSize']            = '250x225';    // 看板娘大小，例如 '280x250', '600x535'
-live2d_settings['waifuTipsSize']        = '240x70';     // 提示框大小，例如 '250x70', '570x150'
+live2d_settings['waifuSize']            = '200x170';    // 看板娘大小，例如 '280x250', '600x535'
+live2d_settings['waifuTipsSize']        = '150x50';     // 提示框大小，例如 '250x70', '570x150'
 live2d_settings['waifuFontSize']        = '12px';       // 提示框字体，例如 '12px', '30px'
 live2d_settings['waifuToolFont']        = '14px';       // 工具栏字体，例如 '14px', '36px'
 live2d_settings['waifuToolLine']        = '20px';       // 工具栏行高，例如 '20px', '36px'
@@ -66,8 +66,8 @@ live2d_settings['waifuDraggableRevert'] = true;         // 松开鼠标还原拖
 // 其他杂项设置
 live2d_settings['l2dVersion']           = '1.4.2';        // 当前版本
 live2d_settings['l2dVerDate']           = '2018.11.12'; // 版本更新日期
-live2d_settings['homePageUrl']          = 'auto';       // 主页地址，可选 'auto'(自动), '{URL 网址}'
-live2d_settings['aboutPageUrl']         = 'https://www.fghrsh.net/post/123.html';   // 关于页地址, '{URL 网址}'
+live2d_settings['homePageUrl']          = 'https://removeif.github.io';       // 主页地址，可选 'auto'(自动), '{URL 网址}'
+live2d_settings['aboutPageUrl']         = 'https://removeif.github.io/about/';   // 关于页地址, '{URL 网址}'
 live2d_settings['screenshotCaptureName']= 'live2d.png'; // 看板娘截图文件名，例如 'live2d.png'
 
 /****************************************************************************************************/
