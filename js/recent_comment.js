@@ -95,7 +95,6 @@ $(document).ready(function () { // 加载页面时同步加载
         resultMap["date"] = new Date().getTime();
         resultMap["data"] = resultArr;
         COMMENT_ARR = resultArr;
-        console.log(document.cookie);
         document.cookie = "comment=" + JSON.stringify(resultMap) + ";path=/";
     }
 
