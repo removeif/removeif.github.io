@@ -65,18 +65,30 @@ $(document).ready(function () { // 加载页面时同步加载
                 }
             });
         });
+
         if (timesSet.length > 0) {
             timesSet.sort();
         }
+        // 临时去重
+        var tempSet = "";
         if (timesSet.length > 10) {
-            for (var i = timesSet.length - 1; i > timesSet.length - 11; i--) {
+            for (var i = timesSet.length - 1; i >= 0 && resultArr.length <= 10; i--) {
                 // resultMap[timesSetMap[timesSet[i]]] = timesBodyMap[timesSetMap[timesSet[i]]];
-                resultArr.push(timesBodyMap[timesSetMap[timesSet[i]]]);
+                var timesBodyMapElement = timesBodyMap[timesSetMap[timesSet[i]]];
+                if (tempSet.indexOf(timesBodyMapElement.title) < 0) {
+                    resultArr.push(timesBodyMapElement);
+                    tempSet += timesBodyMapElement.title;
+                }
+
             }
         } else {
             for (var i = timesSet.length - 1; i >= 0; i--) {
                 // resultMap[timesSetMap[timesSet[i]]] = timesBodyMap[timesSetMap[timesSet[i]]];
-                resultArr.push(timesBodyMap[timesSetMap[timesSet[i]]]);
+                var timesBodyMapElement = timesBodyMap[timesSetMap[timesSet[i]]];
+                if (tempSet.indexOf(timesBodyMapElement.title) < 0) {
+                    resultArr.push(timesBodyMapElement);
+                    tempSet += timesBodyMapElement.title;
+                }
             }
         }
         resultMap["date"] = new Date().getTime();
@@ -86,6 +98,9 @@ $(document).ready(function () { // 加载页面时同步加载
     }
 
     var htmlContent = "";
+    var hotDiv = $("#index_hot_div");
+    var hotContent = "";
+    var classDiv = "";
     for (var i = 0; i < COMMENT_ARR.length; i++) {
         var item = COMMENT_ARR[i];
         var timeStr = new Date(item.date);
@@ -98,6 +113,21 @@ $(document).ready(function () { // 加载页面时同步加载
         htmlContent += "<div class=\"tag is-warning\" style='background-color: #f5f9fe;color:rgb(164, 164, 164);'>" + timeStr.Format("yyyy-MM-dd hh:mm:ss") + "</div>  " +
             "<a href =\"" + item.url + "\"target=\"_blank\">" + item.title + "&nbsp;&nbsp;✉️" + item.commentCount + "</a>" +
             "<br>&nbsp;&nbsp;&nbsp;<div class=\"tag is-success\" style='margin-top: 5px;background-color:#f9f9f9;color:#3d3d3d;'>" + contentStr + "</div><br><hr>";
+
+        // 标签配色
+        if (i % 4 == 0) {
+            classDiv = "class=\"tag is-danger\"";
+        } else if (i % 4 == 2) {
+            classDiv = "class=\"tag is-warning\"";
+        }else if (i % 4 == 1) {
+            classDiv = "class=\"tag is-success\"";
+        } else {
+            classDiv = "class=\"tag is-white\"";
+        }
+        hotContent += "<a href =\"" + item.url + "\"target=\"_blank\"" + classDiv + ">" + item.title + "&nbsp;&nbsp;✉️" + item.commentCount + "</a>&nbsp;&nbsp;"
+    }
+    if (hotDiv != undefined) {
+        hotDiv.append(hotContent);
     }
     $("#myContent").html("");
     $("#myContent").append(htmlContent);

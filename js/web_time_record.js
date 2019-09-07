@@ -37,10 +37,23 @@ Date.prototype.Format = function (fmt) { //author: meizz
     return fmt;
 }
 
-$(document).ready(function () { // 加载页面时同步加载
-    $.ajaxSettings.async = false;
+$(function () {// 加载页面时同步加载
     $.post("https://api.gushi.ci/all.json", {}, function (data, status) {
         var htmlC = "<blockquote>" + data.origin + "<br>\"" + data.content + "\"<br>–" + data.author + "</blockquote>";
-        $("#poetry-container-time").append("<p>" + new Date().Format("hh:mm:ss/MM/dd/yyyy") + "-[ps:刷新网页随机获取一句]</p>" + htmlC);
+        $("#poetry-container-time").append("<p>" + new Date().Format("hh:mm:ss/MM/dd/yyyy") + "</p>" + htmlC);
     })
-})
+});
+
+$(function () {
+    $.getJSON("../json_data/record.json", function (data) {
+        $.each(data, function (i, e) {
+            var html = '<li class="time-axis-item">' +
+                '<div class="time-axis-date">' + e.date + '<span></span></div>' +
+                '<div class="time-axis-title">' + e.title + '</div>' +
+                '<p class="time-axis-achievement">' + e.achievement + '</p>' +
+                '</li>';
+            $('.time-axis').append(html);
+        });
+    })
+});
+
