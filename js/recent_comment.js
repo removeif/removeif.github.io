@@ -94,7 +94,10 @@ $(document).ready(function () { // 加载页面时同步加载
         resultMap["date"] = new Date().getTime();
         resultMap["data"] = resultArr;
         COMMENT_ARR = resultArr;
-        document.cookie = "comment=" + JSON.stringify(resultMap);
+        console.log(document.cookie);
+        if (document.cookie == '') {
+            document.cookie = "comment=" + JSON.stringify(resultMap)+";path=/";
+        }
     }
 
     var htmlContent = "";
@@ -119,7 +122,7 @@ $(document).ready(function () { // 加载页面时同步加载
             classDiv = "class=\"tag is-danger\"";
         } else if (i % 4 == 2) {
             classDiv = "class=\"tag is-warning\"";
-        }else if (i % 4 == 1) {
+        } else if (i % 4 == 1) {
             classDiv = "class=\"tag is-success\"";
         } else {
             classDiv = "class=\"tag is-white\"";
