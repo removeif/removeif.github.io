@@ -32,16 +32,17 @@ $(document).ready(function () { // 加载页面时同步加载
 
     if (COMMENT_COOKIE == '' || new Date().getTime() - COMMENT["date"] > 60 * 1000 * 10) { // request per 10 minutes
         console.log("load data...");
-        $.ajaxSettings.async = false;
         var timesSet = [];
         var timesBodyMap = {};
         var timesSetMap = {};
         var resultMap = {};
         var resultArr = [];
+        $.ajaxSettings.async = false;
         $.getJSON("https://api.github.com/repos/removeif/blog_comment/issues?per_page=1000", function (result) {
             $.each(result, function (i, item) {
                 var commentsCount = item.comments;
                 if (commentsCount > 0) {
+                    $.ajaxSettings.async = false;
                     $.getJSON(item.comments_url, function (commentResult) {
                         $.each(commentResult, function (k, item1) {
                             timesSet.push(new Date(item1.created_at).getTime());
