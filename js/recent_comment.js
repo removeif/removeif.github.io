@@ -95,9 +95,7 @@ $(document).ready(function () { // 加载页面时同步加载
         resultMap["data"] = resultArr;
         COMMENT_ARR = resultArr;
         console.log(document.cookie);
-        if (document.cookie == '') {
-            document.cookie = "comment=" + JSON.stringify(resultMap)+";path=/";
-        }
+        document.cookie = "comment=" + JSON.stringify(resultMap) + ";path=/";
     }
 
     var htmlContent = "";
