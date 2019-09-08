@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://removeif.github.io/comment/index.html</loc>
+    
+    <lastmod>2019-09-08T08:56:47.483Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://removeif.github.io/message/index.html</loc>
     
     <lastmod>2019-09-08T08:53:10.762Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>https://removeif.github.io/about/index.html</loc>
     
     <lastmod>2019-09-08T08:53:10.756Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://removeif.github.io/comment/index.html</loc>
-    
-    <lastmod>2019-09-08T08:53:10.750Z</lastmod>
     
   </url>
   
