@@ -53,7 +53,7 @@ live2d_settings['showWelcomeMessage']   = true;         // 显示进入面页欢
 
 //看板娘样式设置
 live2d_settings['waifuSize']            = '240x200';    // 看板娘大小，例如 '280x250', '600x535'
-live2d_settings['waifuTipsSize']        = '180x60';     // 提示框大小，例如 '250x70', '570x150'
+live2d_settings['waifuTipsSize']        = '180xauto';     // 提示框大小，例如 '250x70', '570x150'
 live2d_settings['waifuFontSize']        = '12px';       // 提示框字体，例如 '12px', '30px'
 live2d_settings['waifuToolFont']        = '14px';       // 工具栏字体，例如 '14px', '36px'
 live2d_settings['waifuToolLine']        = '20px';       // 工具栏行高，例如 '20px', '36px'
