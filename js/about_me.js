@@ -40,7 +40,7 @@ Date.prototype.Format = function (fmt) { //author: meizz
 $(function () {// 加载页面时同步加载
     $.post("https://api.gushi.ci/all.json", {}, function (data, status) {
         var htmlC = "<blockquote>" + data.origin + "<br>\"" + data.content + "\"<br>–" + data.author + "</blockquote>";
-        $("#poetry-container-time").append("<p>" + new Date().Format("hh:mm:ss/MM/dd/yyyy") + "</p>" + htmlC);
+        $("#poetry-container-time").append("<p>" + new Date().Format("yyyy.MM.dd/hh:mm:ss") + "</p>" + htmlC);
     })
 });
 
