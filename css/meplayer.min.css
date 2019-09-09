@@ -622,6 +622,10 @@
     content: '\e800'
 }
 
+.music-container {
+    overflow: auto;
+}
+
 .music-container #musicarea button {
     margin: 0 auto;
     border-radius: 4px;
@@ -646,6 +650,7 @@
     padding: 20px;
     border-radius: 6px;
 }
+
 .social-share {
     display: none;
 }
