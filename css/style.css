@@ -631,3 +631,30 @@ figure.highlight:hover .copy {
   background-color: #48beb2;
   border-color: #48beb2;
 }
+.cardm {
+  border-left: 3px solid #6190e8;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 3px rgba(10,10,10,0.1), 0 0 0 1px rgba(10,10,10,0.1);
+  color: #4a4a4a;
+  display: block;
+  padding: 0.5rem;
+  margin-top: 15px;
+}
+.cardm .ava {
+  width: 3rem !important;
+  height: 3rem !important;
+  margin: 0 !important;
+  margin-right: 1em !important;
+  border-radius: 4px;
+}
+.cardm .card-header .info {
+  font-style: normal;
+  color: #a3a3a3;
+  font-size: 14px;
+  min-width: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
