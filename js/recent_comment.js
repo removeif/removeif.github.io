@@ -1,4 +1,4 @@
-$(document).ready(function () { // 加载页面时同步加载
+$(document).ready(setTimeout(function () { // 加载页面时同步加载
     $("#myContent").html("loading...please wait a moment!");
 
     Date.prototype.Format = function (fmt) { //author: meizz
@@ -95,7 +95,10 @@ $(document).ready(function () { // 加载页面时同步加载
         resultMap["date"] = new Date().getTime();
         resultMap["data"] = resultArr;
         COMMENT_ARR = resultArr;
-        document.cookie = "comment=" + JSON.stringify(resultMap) + ";path=/";
+        console.log("q="+resultArr.length);
+        if (COMMENT_ARR.length > 0) {
+            document.cookie = "comment=" + JSON.stringify(resultMap) + ";path=/";
+        }
     }
 
     var htmlContent = "";
@@ -129,7 +132,8 @@ $(document).ready(function () { // 加载页面时同步加载
     }
     if (hotDiv != undefined) {
         hotDiv.append(hotContent);
+        console.log(COMMENT_ARR.length);
     }
     $("#myContent").html("");
     $("#myContent").append(htmlContent);
-});
+},1000));
