@@ -661,3 +661,23 @@ figure.highlight:hover .copy {
   transform: scale(0.995);
   box-shadow: 0 2px 6px 0 rgba(0,0,0,0.12), 0 0 6px 0 rgba(0,0,0,0.04);
 }
+.video-player .fa-video-camera:before {
+  content: "\f03d";
+}
+.video-player .fa-music:before {
+  content: "\f001";
+}
+.video-player.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.video-player .d-title {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+}

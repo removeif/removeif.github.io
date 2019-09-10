@@ -108,5 +108,41 @@ function playMusic(data, playendcallback) {
     //window.setTimeout(mePlayerMethod.play, 500);
 }
 
+var lastVideoIndex;
+$.getJSON("../json_data/video.json", function (data) {
+    $('#video-list').append("<p style=\"text-align:center;font-size:13px;color: #cd0411\">->点击以下条目开始播放视频<-</p>")
+    for (var i = 0; i < data.length; i++) {
+        var $li = $("<blockquote style=\"font-size:13px;text-align: center;border-right: 3px solid #6190e8;\">" + data[i].desc + "</blockquote>");
+        $li.attr('id', i);
+        $li.click(function (event) {
+            var id = Number(this.id);
+            playVideo(data[id],id);
+            $('#video-list #' + lastVideoIndex).css('color', '#888888');
+            lastVideoIndex = id;
+        });
+        $('#video-list').append($li);
+    }
 
+})
 
+function playVideo(data,id) {
+    // document.title = data.title + '--' + data.author;
+    // $("#music_story_message").text(data.message);
+    // $("#p_message").hide();
+    new DPlayer({
+        container: document.getElementById('dplayer'),
+        autoplay: true,
+        theme: '#42b983',
+        loop: 'false' === 'true',
+        lang: 'zh-CN' === 'zh-CN' ? 'zh-cn' : 'en',
+        preload: 'none',
+        volume: Number('0.7'),
+        video: {
+            url: data['url'],
+            pic: '',
+            thumbnails: ''
+        }
+    });
+    $('#video-list #' + lastIndex).css('color', '#888888');
+    $('#video-list #' + id).css('color', '#3273dc');
+}
