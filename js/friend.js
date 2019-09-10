@@ -16,7 +16,7 @@ Date.prototype.Format = function (fmt) { //author: meizz
     return fmt;
 }
 
-$(function () {
+$(function () { //获取处理友链数据
     $.getJSON("../json_data/friend.json", function (data) {
         $.each(data, function (i, e) {
             var html = "<div class=\"cardm\">";

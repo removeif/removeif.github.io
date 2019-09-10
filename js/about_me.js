@@ -37,14 +37,14 @@ Date.prototype.Format = function (fmt) { //author: meizz
     return fmt;
 }
 
-$(function () {// 加载页面时同步加载
+$(function () { // 获取一句诗
     $.post("https://api.gushi.ci/all.json", {}, function (data, status) {
         var htmlC = "<blockquote>" + data.origin + "<br>\"" + data.content + "\"<br>–" + data.author + "</blockquote>";
         $("#poetry-container-time").append("<p>" + new Date().Format("yyyy.MM.dd/hh:mm:ss") + "</p>" + htmlC);
     })
 });
 
-$(function () {
+$(function () { // 获取记录数据
     $.getJSON("../json_data/record.json", function (data) {
         $.each(data, function (i, e) {
             var html = '<li class="time-axis-item">' +

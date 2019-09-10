@@ -4,13 +4,6 @@ $(document).ready(function () { // 加载页面时同步加载
         var htmlC = "<blockquote>《" + data.origin + "》<br>-" + data.author + "<br>\"" + data.content + "\"</blockquote>";
         $("#poetry-container").html(htmlC);
     })
-
-    console.log("haha");
-
-
-
-
-
     // $.ajax({
     //     crossDomain: true,
     //     url:"http://dict-co.iciba.com/api/dictionary.php?w=go&type=json&key=52519173ADEE894E8934A115E883CBF7",

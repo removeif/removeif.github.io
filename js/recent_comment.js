@@ -1,4 +1,4 @@
-$(document).ready(setTimeout(function () { // 加载页面时同步加载
+$(document).ready(setTimeout(function () { // 延迟1s执行，保证其余的先加载
     $("#myContent").html("loading...please wait a moment!");
 
     Date.prototype.Format = function (fmt) { //author: meizz
@@ -74,7 +74,6 @@ $(document).ready(setTimeout(function () { // 加载页面时同步加载
         var tempSet = "";
         if (timesSet.length > 10) {
             for (var i = timesSet.length - 1; i >= 0 && resultArr.length <= 10; i--) {
-                // resultMap[timesSetMap[timesSet[i]]] = timesBodyMap[timesSetMap[timesSet[i]]];
                 var timesBodyMapElement = timesBodyMap[timesSetMap[timesSet[i]]];
                 if (tempSet.indexOf(timesBodyMapElement.title) < 0) {
                     resultArr.push(timesBodyMapElement);
@@ -84,7 +83,6 @@ $(document).ready(setTimeout(function () { // 加载页面时同步加载
             }
         } else {
             for (var i = timesSet.length - 1; i >= 0; i--) {
-                // resultMap[timesSetMap[timesSet[i]]] = timesBodyMap[timesSetMap[timesSet[i]]];
                 var timesBodyMapElement = timesBodyMap[timesSetMap[timesSet[i]]];
                 if (tempSet.indexOf(timesBodyMapElement.title) < 0) {
                     resultArr.push(timesBodyMapElement);
@@ -95,7 +93,6 @@ $(document).ready(setTimeout(function () { // 加载页面时同步加载
         resultMap["date"] = new Date().getTime();
         resultMap["data"] = resultArr;
         COMMENT_ARR = resultArr;
-        console.log("q="+resultArr.length);
         if (COMMENT_ARR.length > 0) {
             document.cookie = "comment=" + JSON.stringify(resultMap) + ";path=/";
         }
@@ -132,7 +129,6 @@ $(document).ready(setTimeout(function () { // 加载页面时同步加载
     }
     if (hotDiv != undefined) {
         hotDiv.append(hotContent);
-        console.log(COMMENT_ARR.length);
     }
     $("#myContent").html("");
     $("#myContent").append(htmlContent);
