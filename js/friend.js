@@ -24,9 +24,9 @@ $(function () {
                 html += "    <img class=\"ava\" src=\"" + e.src + "\">";
             }
             html +=
-                "    <div>网址：<a href=\"" + e.url + "\" target=\"_blank\">" + e.name + "</a></div>" +
-                "<div class=\"info\">简介：" + e.desc + "</div>" +
-                "    <div>时间：" + e.date + "</div>" +
+                "<div class='text-desc'>    网址：<a href=\"" + e.url + "\" target=\"_blank\">" + e.name + "</a>" +
+                "    <br>时间：" + e.date +
+                "<br>简介：" + e.desc + "</div>" +
                 "    </div>"
 
             $('.link-navigation').append(html);
