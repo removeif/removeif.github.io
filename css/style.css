@@ -681,3 +681,7 @@ figure.highlight:hover .copy {
   font-weight: 700;
   text-align: center;
 }
+#video-list {
+  overflow-y: auto;
+  height: 300px;
+}

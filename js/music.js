@@ -57,7 +57,7 @@ function playMusic(data, playendcallback) {
 // 视频处理
 var lastVideoIndex;
 $.getJSON("../json_data/video.json", function (data) {
-    $('#video-list').append("<p style=\"text-align:center;font-size:13px;color: #cd0411\">->点击以下条目开始播放视频<-</p>")
+    $('#video-list').append("")
     for (var i = 0; i < data.length; i++) {
         var $li = $("<blockquote style=\"font-size:13px;text-align: center;border-right: 3px solid #6190e8;\">" + data[i].desc + "</blockquote>");
         $li.attr('id', i);
