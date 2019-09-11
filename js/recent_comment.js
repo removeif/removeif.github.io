@@ -73,7 +73,7 @@ $(document).ready(setTimeout(function () { // 延迟1s执行，保证其余的�
         // 临时去重
         var tempSet = "";
         if (timesSet.length > 10) {
-            for (var i = timesSet.length - 1; i >= 0 && resultArr.length <= 10; i--) {
+            for (var i = timesSet.length - 1; i >= 0 && resultArr.length < 10; i--) {
                 var timesBodyMapElement = timesBodyMap[timesSetMap[timesSet[i]]];
                 if (tempSet.indexOf(timesBodyMapElement.title) < 0) {
                     resultArr.push(timesBodyMapElement);
