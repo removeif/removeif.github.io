@@ -649,6 +649,8 @@
     margin: 0;
     padding: 20px;
     border-radius: 6px;
+    overflow-y: auto;
+    height: 160px;
 }
 
 .social-share {

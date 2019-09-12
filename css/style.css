@@ -642,10 +642,9 @@ figure.highlight:hover .copy {
   display: block;
   padding: 0.5rem;
   margin-top: 15px;
-  overflow: hidden;
 }
 .card .text-desc {
-  float: left;
+  overflow-x: auto;
 }
 .cardm .ava {
   width: 5rem !important;
