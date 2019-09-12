@@ -46,7 +46,13 @@ $(document).ready(setTimeout(function () { // 延迟1s执行，保证其余的�
                     if (commentsCount > 0) {
                         $.ajaxSettings.async = false;
                         // 此处保证是最后一条，api没有排序参数，只能分页取最后一条，保证最少的数据量传输，快速处理
-                        $.getJSON(item.comments_url + "?page=2&per_page=" + (commentsCount - 1), function (commentResult) {
+                        var page = 2;
+                        var pageSize = commentsCount - 1;
+                        if (commentsCount == 1) {
+                            page = 1;
+                            pageSize = 1;
+                        }
+                        $.getJSON(item.comments_url + "?page=" + page + "&per_page=" + pageSize, function (commentResult) {
                             var item1 = commentResult[0];
                             var contentStr = item1.body.trim();
                             if (contentStr.length > 50) {
