@@ -38,16 +38,16 @@ $(document).ready(setTimeout(function () { // 延迟1s执行，保证其余的�
             var resultMap = {};
             var resultArr = [];
             $.ajaxSettings.async = false;
+            // sort=comments可以按评论数排序，此处更适合按更新时间排序,可以根据updated排序，但是0条评论的也会出来，所以此处还是全部查出来，内存排序
+            // per_page 每页数量，根据需求配置
             $.getJSON("https://api.github.com/repos/removeif/blog_comment/issues?per_page=100&sort=comments", function (result) {
                 $.each(result, function (i, item) {
                     var commentsCount = item.comments;
                     if (commentsCount > 0) {
                         $.ajaxSettings.async = false;
-                        $.getJSON(item.comments_url + "?per_page=" + commentsCount, function (commentResult) {
-                            var item1 = commentResult[commentsCount - 1];
-                            //     console.log(item1);
-                            //     $.each(commentResult, function (k, item1) {
-                            //     timesSet.push(new Date(item1.created_at).getTime());
+                        // 此处保证是最后一条，api没有排序参数，只能分页取最后一条，保证最少的数据量传输，快速处理
+                        $.getJSON(item.comments_url + "?page=2&per_page=" + (commentsCount - 1), function (commentResult) {
+                            var item1 = commentResult[0];
                             var contentStr = item1.body.trim();
                             if (contentStr.length > 50) {
                                 contentStr = contentStr.substr(0, 60);
@@ -65,7 +65,6 @@ $(document).ready(setTimeout(function () { // 延迟1s执行，保证其余的�
                                 "commentCount": commentsCount
                             };
                             timesSetMap[new Date(item1.created_at).getTime()] = item1.created_at;
-                            // });
                         });
                     }
                 });
@@ -81,6 +80,7 @@ $(document).ready(setTimeout(function () { // 延迟1s执行，保证其余的�
                 }
             }
             else {
+                // 只需要取10条
                 for (var i = timesSet.length - 1; i >= 0; i--) {
                     resultArr.push(timesBodyMap[timesSetMap[timesSet[i]]]);
                 }
