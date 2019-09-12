@@ -128,6 +128,7 @@ $(document).ready(setTimeout(function () { // 延迟1s执行，保证其余的�
         hotContent += "<a href =\"" + item.url + "\"target=\"_blank\"" + classDiv + ">" + item.title + "&nbsp;&nbsp;✉️" + item.commentCount + "</a>&nbsp;&nbsp;"
     }
     if (hotDiv != undefined) {
+        hotDiv.html("");
         hotDiv.append(hotContent);
     }
     $("#myContent").html("");
