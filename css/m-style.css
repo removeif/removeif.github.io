@@ -1,0 +1,21 @@
+.night .g-ads-x {
+  filter: brightness(0.6) !important;
+}
+.night .g-ads-y {
+  filter: brightness(0.6) !important;
+}
+.night .cardm {
+  color: unset;
+}
+.night .google-auto-placed {
+  filter: brightness(0.6) !important;
+}
+@media screen and (max-width: 1087px) {
+  .g-ads-x {
+    display: none;
+  }
+}
+.hljs-comment,
+.hljs-quote {
+  color: #23d160 ad !important;
+}
