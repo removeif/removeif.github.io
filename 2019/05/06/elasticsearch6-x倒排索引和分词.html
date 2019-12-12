@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.8.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>elasticsearch6.x倒排索引和分词 - 辣椒の酱</title>
+<meta name="google-site-verification" content="67z1CXZ8AOhImIglgTwqAlneRCHTO6xRJo5NeafDAqw" />
+<!-- 百度抓取 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- google adSense -->
+<script data-ad-client="ca-pub-6343805421927634" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 百度统计 -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?90a0e914cd2c9e93e206cc9131b19416";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <meta name="description" content="摘要倒排索引（Inverted Index）也叫反向索引，有反向索引必有正向索引。通俗地来讲，正向索引是通过key找value，反向索引则是通过value找key。">
+<meta name="keywords" content="java,elasticsearch6,索引分词">
+<meta property="og:type" content="article">
+<meta property="og:title" content="elasticsearch6.x倒排索引和分词">
+<meta property="og:url" content="https://removeif.github.io/2019/05/06/elasticsearch6-x倒排索引和分词.html">
+<meta property="og:site_name" content="辣椒の酱">
+<meta property="og:description" content="摘要倒排索引（Inverted Index）也叫反向索引，有反向索引必有正向索引。通俗地来讲，正向索引是通过key找value，反向索引则是通过value找key。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620155922.png">
+<meta property="og:updated_time" content="2019-09-25T08:32:55.535Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="elasticsearch6.x倒排索引和分词">
+<meta name="twitter:description" content="摘要倒排索引（Inverted Index）也叫反向索引，有反向索引必有正向索引。通俗地来讲，正向索引是通过key找value，反向索引则是通过value找key。">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620155922.png">
+
+
+
+
+
+<link rel="alternative" href="/atom.xml" title="elasticsearch6.x倒排索引和分词" type="application/atom+xml">
+
+
+
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/images/wico.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;subset=latin,latin-ext">
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/globalUtils.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/css/style1.min.css">
+<link rel="stylesheet" href="/css/m-style.css">
+<!-- 暂时关闭伪娘 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/live2d/waifu.css"> -->
+    <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="elasticsearch6.x倒排索引和分词" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives/">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories/">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags/">标签</a>
+                
+                <a class="navbar-item"
+                href="/tags/法律/">律法</a>
+                
+                <a class="navbar-item"
+                href="/categories/algorithm">算法</a>
+                
+                <a class="navbar-item"
+                href="/message/">留言</a>
+                
+                <a class="navbar-item"
+                href="/friend/">友链</a>
+                
+                <a class="navbar-item"
+                href="/album/">美图</a>
+                
+                <a class="navbar-item"
+                href="/music/">影音</a>
+                
+                <a class="navbar-item"
+                href="/self-talking/">碎碎念</a>
+                
+                <a class="navbar-item"
+                href="/about/">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+                <a class="navbar-item" id="night-nav" title="深色主题" href="javascript:;">
+                    <i class="fas fa-moon" id="night-icon"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/theme-setting.js"></script>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620155922.png" alt="elasticsearch6.x倒排索引和分词">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                
+                <time class="level-item has-text-grey" datetime="2019-05-06T07:36:55.000Z">2019-05-06</time>
+                
+                    <span class="display-none-class">55ce4b0597a94bf4241300e5a22182a0</span>
+                    <img class="not-gallery-item" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/images/chat.svg">&nbsp;<a href="/2019/05/06/elasticsearch6-x倒排索引和分词.html#comment-container"><span id=55ce4b0597a94bf4241300e5a22182a0>99+</span></a>&nbsp;&nbsp;&nbsp;&nbsp;</img>
+                
+                
+                <div class="level-item">
+                <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/elasticsearch6/">elasticsearch6</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    19 分钟 读完 (大约 2848 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    1<span id="busuanzi_value_page_pv">99+</span> 次查看
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                elasticsearch6.x倒排索引和分词
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>摘要<br>倒排索引（Inverted Index）也叫反向索引，有反向索引必有正向索引。通俗地来讲，正向索引是通过key找value，反向索引则是通过value找key。<br><a id="more"></a></p>
+</blockquote>
+<p>倒排索引（Inverted Index）也叫反向索引，有反向索引必有正向索引。通俗地来讲，正向索引是通过key找value，反向索引则是通过value找key。</p>
+<h3 id="倒排索引"><a href="#倒排索引" class="headerlink" title="倒排索引"></a>倒排索引</h3><ul>
+<li>正排索引：文档id到单词的关联关系</li>
+<li>倒排索引：单词到文档id的关联关系</li>
+</ul>
+<p>示例：<br>对以下三个文档去除停用词后构造倒排索引</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620155952.png" alt=""></p>
+<h4 id="倒排索引-查询过程"><a href="#倒排索引-查询过程" class="headerlink" title="倒排索引-查询过程"></a>倒排索引-查询过程</h4><p>查询包含“<strong>搜索引擎</strong>”的文档</p>
+<ol>
+<li>通过倒排索引获得“搜索引擎”对应的文档id列表，有1，3</li>
+<li>通过正排索引查询1和3的完整内容</li>
+<li>返回最终结果</li>
+</ol>
+<h4 id="倒排索引-组成"><a href="#倒排索引-组成" class="headerlink" title="倒排索引-组成"></a>倒排索引-组成</h4><ul>
+<li>单词词典（Term Dictionary）</li>
+<li>倒排列表（Posting List）</li>
+</ul>
+<h4 id="单词词典（Term-Dictionary）"><a href="#单词词典（Term-Dictionary）" class="headerlink" title="单词词典（Term Dictionary）"></a>单词词典（Term Dictionary）</h4><p>单词词典的实现一般用B+树，B+树构造的可视化过程网址: <a href="https://www.cs.usfca.edu/~galles/visualization/BPlusTree.html" target="_blank" rel="noopener">B+ Tree Visualization</a></p>
+<blockquote>
+<p>关于B树和B+树</p>
+<ol>
+<li><a href="https://zh.wikipedia.org/wiki/B树" target="_blank" rel="noopener">维基百科-B树</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/B%2B树" target="_blank" rel="noopener">维基百科-B+树</a></li>
+<li><a href="https://www.cnblogs.com/nullzx/p/8729425.html" target="_blank" rel="noopener">B树和B+树的插入、删除图文详解</a></li>
+</ol>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620160007.png" alt=""></p>
+<h4 id="倒排列表（Posting-List）"><a href="#倒排列表（Posting-List）" class="headerlink" title="倒排列表（Posting List）"></a>倒排列表（Posting List）</h4><ul>
+<li><p>倒排列表记录了单词对应的文档集合，有倒排索引项（Posting）组成</p>
+</li>
+<li><p>倒排索引项主要包含如下信息：</p>
+<ol>
+<li>文档id用于获取原始信息</li>
+<li>单词频率（TF，Term Frequency），记录该单词在该文档中出现的次数，用于后续相关性算分</li>
+<li>位置（Posting），记录单词在文档中的分词位置（多个），用于做词语搜索（Phrase Query）</li>
+<li>偏移（Offset），记录单词在文档的开始和结束位置，用于高亮显示</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620160026.png" alt=""></p>
+</li>
+</ul>
+<p>B+树<strong>内部结点存索引，叶子结点存数据</strong>，这里的 单词词典就是B+树索引，倒排列表就是数据，整合在一起后如下所示</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620160044.png" alt=""></p>
+<p>ES存储的是一个JSON格式的文档，其中包含多个字段，每个字段会有自己的倒排索引</p>
+<h3 id="分词"><a href="#分词" class="headerlink" title="分词"></a>分词</h3><p>分词是将文本转换成一系列单词（Term or Token）的过程，也可以叫文本分析，在ES里面称为Analysis</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620160102.png" alt=""></p>
+<h4 id="分词器"><a href="#分词器" class="headerlink" title="分词器"></a>分词器</h4><p>分词器是ES中专门处理分词的组件，英文为Analyzer，它的组成如下：</p>
+<ul>
+<li>Character Filters：针对原始文本进行处理，比如去除html标签</li>
+<li>Tokenizer：将原始文本按照一定规则切分为单词</li>
+<li>Token Filters：针对Tokenizer处理的单词进行再加工，比如转小写、删除或增新等处理</li>
+</ul>
+<p>分词器调用顺序</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620160121.png" alt=""></p>
+<h3 id="Analyze-API"><a href="#Analyze-API" class="headerlink" title="Analyze API"></a><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis.html" target="_blank" rel="noopener">Analyze API</a></h3><p>ES提供了一个可以测试分词的API接口，方便验证分词效果，endpoint是_analyze</p>
+<ul>
+<li>可以直接指定analyzer进行测试</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620160140.png" alt=""></p>
+<ul>
+<li>可以直接指定索引中的字段进行测试</li>
+</ul>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">POST test_index/doc</span><br><span class="line">&#123;</span><br><span class="line">  <span class="hljs-string">"username"</span>: <span class="hljs-string">"whirly"</span>,</span><br><span class="line">  <span class="hljs-string">"age"</span>:<span class="hljs-number">22</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">POST test_index/_analyze</span><br><span class="line">&#123;</span><br><span class="line">  <span class="hljs-string">"field"</span>: <span class="hljs-string">"username"</span>,</span><br><span class="line">  <span class="hljs-string">"text"</span>: [<span class="hljs-string">"hello world"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以自定义分词器进行测试</li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST _analyze</span><br><span class="line">&#123;</span><br><span class="line">  &quot;tokenizer&quot;: &quot;standard&quot;,</span><br><span class="line">  &quot;filter&quot;: [&quot;lowercase&quot;],</span><br><span class="line">  &quot;text&quot;: [&quot;Hello World&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="预定义的分词器"><a href="#预定义的分词器" class="headerlink" title="预定义的分词器"></a><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-analyzers.html" target="_blank" rel="noopener">预定义的分词器</a></h3><p>ES自带的分词器有如下：</p>
+<ul>
+<li>Standard Analyzer<ul>
+<li>默认分词器</li>
+<li>按词切分，支持多语言</li>
+<li>小写处理</li>
+</ul>
+</li>
+<li>Simple Analyzer<ul>
+<li>按照非字母切分</li>
+<li>小写处理</li>
+</ul>
+</li>
+<li>Whitespace Analyzer<ul>
+<li>空白字符作为分隔符</li>
+</ul>
+</li>
+<li>Stop Analyzer<ul>
+<li>相比Simple Analyzer多了去除请用词处理</li>
+<li>停用词指语气助词等修饰性词语，如the, an, 的， 这等</li>
+</ul>
+</li>
+<li>Keyword Analyzer<ul>
+<li>不分词，直接将输入作为一个单词输出</li>
+</ul>
+</li>
+<li>Pattern Analyzer<ul>
+<li>通过正则表达式自定义分隔符</li>
+<li>默认是\W+，即非字词的符号作为分隔符</li>
+</ul>
+</li>
+<li>Language Analyzer<ul>
+<li>提供了30+种常见语言的分词器</li>
+</ul>
+</li>
+</ul>
+<p>示例：停用词分词器</p>
+<figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST _analyze</span><br><span class="line">&#123;</span><br><span class="line">  <span class="hljs-attr">"analyzer"</span>: <span class="hljs-string">"stop"</span>,</span><br><span class="line">  <span class="hljs-attr">"text"</span>: [<span class="hljs-string">"The 2 QUICK Brown Foxes jumped over the lazy dog's bone."</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果</p>
+<figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="hljs-attr">"tokens"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"quick"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">6</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">11</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"word"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"brown"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">12</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">17</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"word"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">2</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"foxes"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">18</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">23</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"word"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">3</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"jumped"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">24</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">30</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"word"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">4</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"over"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">31</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">35</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"word"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">5</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"lazy"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">40</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">44</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"word"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">7</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"dog"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">45</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">48</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"word"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">8</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"s"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">49</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">50</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"word"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">9</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"bone"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">51</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">55</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"word"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">10</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="中文分词"><a href="#中文分词" class="headerlink" title="中文分词"></a>中文分词</h3><ul>
+<li>难点<ul>
+<li>中文分词指的是将一个汉字序列切分为一个一个的单独的词。在英文中，单词之间以空格作为自然分界词，汉语中词没有一个形式上的分界符</li>
+<li>上下文不同，分词结果迥异，比如交叉歧义问题</li>
+</ul>
+</li>
+<li>常见分词系统<ul>
+<li><a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="noopener">IK</a>：实现中英文单词的切分，可自定义词库，支持热更新分词词典</li>
+<li><a href="https://github.com/sing1ee/elasticsearch-jieba-plugin" target="_blank" rel="noopener">jieba</a>：支持分词和词性标注，支持繁体分词，自定义词典，并行分词等</li>
+<li><a href="https://github.com/hankcs/HanLP" target="_blank" rel="noopener">Hanlp</a>：由一系列模型与算法组成的Java工具包，目标是普及自然语言处理在生产环境中的应用</li>
+<li><a href="https://github.com/microbun/elasticsearch-thulac-plugin" target="_blank" rel="noopener">THUAC</a>：中文分词和词性标注</li>
+</ul>
+</li>
+</ul>
+<h4 id="安装ik中文分词插件"><a href="#安装ik中文分词插件" class="headerlink" title="安装ik中文分词插件"></a>安装ik中文分词插件</h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 在Elasticsearch安装目录下执行命令，然后重启es</span><br><span class="line">bin/elasticsearch-plugin install https:<span class="hljs-comment">//github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.3.0/elasticsearch-analysis-ik-6.3.0.zip</span></span><br><span class="line"></span><br><span class="line"># 如果由于网络慢，安装失败，可以先下载好zip压缩包，将下面命令改为实际的路径，执行，然后重启es</span><br><span class="line">bin/elasticsearch-plugin install file:<span class="hljs-comment">///path/to/elasticsearch-analysis-ik-6.3.0.zip</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>ik测试 - ik_smart</li>
+</ul>
+<figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">POST _analyze</span><br><span class="line">&#123;</span><br><span class="line">  <span class="hljs-attr">"analyzer"</span>: <span class="hljs-string">"ik_smart"</span>,</span><br><span class="line">  <span class="hljs-attr">"text"</span>: [<span class="hljs-string">"公安部：各地校车将享最高路权"</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 结果</span><br><span class="line">&#123;</span><br><span class="line">  <span class="hljs-attr">"tokens"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"公安部"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">0</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">3</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_WORD"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"各地"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">4</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">6</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_WORD"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"校车"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">6</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">8</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_WORD"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">2</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"将"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">8</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">9</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_CHAR"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">3</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"享"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">9</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">10</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_CHAR"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">4</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"最高"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">10</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">12</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_WORD"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">5</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"路"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">12</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">13</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_CHAR"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">6</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"权"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">13</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">14</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_CHAR"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">7</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>ik测试 - ik_max_word</li>
+</ul>
+<figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">POST _analyze</span><br><span class="line">&#123;</span><br><span class="line">  <span class="hljs-attr">"analyzer"</span>: <span class="hljs-string">"ik_max_word"</span>,</span><br><span class="line">  <span class="hljs-attr">"text"</span>: [<span class="hljs-string">"公安部：各地校车将享最高路权"</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 结果</span><br><span class="line">&#123;</span><br><span class="line">  <span class="hljs-attr">"tokens"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"公安部"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">0</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">3</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_WORD"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"公安"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">0</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">2</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_WORD"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"部"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">2</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">3</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_CHAR"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">2</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"各地"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">4</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">6</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_WORD"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">3</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"校车"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">6</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">8</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_WORD"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">4</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"将"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">8</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">9</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_CHAR"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">5</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"享"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">9</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">10</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_CHAR"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">6</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"最高"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">10</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">12</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_WORD"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">7</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"路"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">12</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">13</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_CHAR"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">8</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"权"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">13</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">14</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CN_CHAR"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">9</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>ik两种分词模式ik_max_word 和 ik_smart 什么区别?<ul>
+<li>ik_max_word: 会将文本做最细粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,中华人民,中华,华人,人民共和国,人民,人,民,共和国,共和,和,国国,国歌”，会穷尽各种可能的组合；</li>
+<li>ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”。</li>
+</ul>
+</li>
+</ul>
+<h3 id="自定义分词"><a href="#自定义分词" class="headerlink" title="自定义分词"></a>自定义分词</h3><p>当自带的分词无法满足需求时，可以自定义分词，通过定义Character Filters、Tokenizer和Token Filters实现</p>
+<h4 id="Character-Filters"><a href="#Character-Filters" class="headerlink" title="Character Filters"></a><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-charfilters.html" target="_blank" rel="noopener">Character Filters</a></h4><ul>
+<li>在Tokenizer之前对原始文本进行处理，比如增加、删除或替换字符等</li>
+<li>自带的如下:<ul>
+<li>HTML Strip Character Filter：去除HTML标签和转换HTML实体</li>
+<li>Mapping Character Filter：进行字符替换操作</li>
+<li>Pattern Replace Character Filter：进行正则匹配替换</li>
+</ul>
+</li>
+<li>会影响后续tokenizer解析的position和offset信息</li>
+</ul>
+<h4 id="Character-Filters测试"><a href="#Character-Filters测试" class="headerlink" title="Character Filters测试"></a>Character Filters测试</h4><figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">POST _analyze</span><br><span class="line">&#123;</span><br><span class="line">  <span class="hljs-attr">"tokenizer"</span>: <span class="hljs-string">"keyword"</span>,</span><br><span class="line">  <span class="hljs-attr">"char_filter"</span>: [<span class="hljs-string">"html_strip"</span>],</span><br><span class="line">  <span class="hljs-attr">"text"</span>: [<span class="hljs-string">"&lt;p&gt;I&amp;apos;m so &lt;b&gt;happy&lt;/b&gt;!&lt;/p&gt;"</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 结果</span><br><span class="line">&#123;</span><br><span class="line">  <span class="hljs-attr">"tokens"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">""</span><span class="hljs-string">"</span></span><br><span class="line"><span class="hljs-string"></span></span><br><span class="line"><span class="hljs-string">I'm so happy!</span></span><br><span class="line"><span class="hljs-string"></span></span><br><span class="line"><span class="hljs-string">"</span><span class="hljs-string">""</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">0</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">32</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"word"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Tokenizers"><a href="#Tokenizers" class="headerlink" title="Tokenizers"></a><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-tokenizers.html" target="_blank" rel="noopener">Tokenizers</a></h4><ul>
+<li>将原始文本按照一定规则切分为单词（term or token）</li>
+<li>自带的如下：<ul>
+<li>standard 按照单词进行分割</li>
+<li>letter 按照非字符类进行分割</li>
+<li>whitespace 按照空格进行分割</li>
+<li>UAX URL Email 按照standard进行分割，但不会分割邮箱和URL</li>
+<li>Ngram 和 Edge NGram 连词分割</li>
+<li>Path Hierarchy 按照文件路径进行分割</li>
+</ul>
+</li>
+</ul>
+<h4 id="Tokenizers-测试"><a href="#Tokenizers-测试" class="headerlink" title="Tokenizers 测试"></a>Tokenizers 测试</h4><figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">POST _analyze</span><br><span class="line">&#123;</span><br><span class="line">  <span class="hljs-attr">"tokenizer"</span>: <span class="hljs-string">"path_hierarchy"</span>,</span><br><span class="line">  <span class="hljs-attr">"text"</span>: [<span class="hljs-string">"/path/to/file"</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 结果</span><br><span class="line">&#123;</span><br><span class="line">  <span class="hljs-attr">"tokens"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"/path"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">0</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">5</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"word"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"/path/to"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">0</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">8</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"word"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"/path/to/file"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">0</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">13</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"word"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Token-Filters"><a href="#Token-Filters" class="headerlink" title="Token Filters"></a><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-tokenfilters.html" target="_blank" rel="noopener">Token Filters</a></h4><ul>
+<li>对于tokenizer输出的单词（term）进行增加、删除、修改等操作</li>
+<li>自带的如下：<ul>
+<li>lowercase 将所有term转为小写</li>
+<li>stop 删除停用词</li>
+<li>Ngram 和 Edge NGram 连词分割</li>
+<li>Synonym 添加近义词的term</li>
+</ul>
+</li>
+</ul>
+<h4 id="Token-Filters测试"><a href="#Token-Filters测试" class="headerlink" title="Token Filters测试"></a>Token Filters测试</h4><figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">POST _analyze</span><br><span class="line">&#123;</span><br><span class="line">  <span class="hljs-attr">"text"</span>: [</span><br><span class="line">    <span class="hljs-string">"a Hello World!"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="hljs-attr">"tokenizer"</span>: <span class="hljs-string">"standard"</span>,</span><br><span class="line">  <span class="hljs-attr">"filter"</span>: [</span><br><span class="line">    <span class="hljs-string">"stop"</span>,</span><br><span class="line">    <span class="hljs-string">"lowercase"</span>,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"ngram"</span>,</span><br><span class="line">      <span class="hljs-attr">"min_gram"</span>: <span class="hljs-number">4</span>,</span><br><span class="line">      <span class="hljs-attr">"max_gram"</span>: <span class="hljs-number">4</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 结果</span><br><span class="line">&#123;</span><br><span class="line">  <span class="hljs-attr">"tokens"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"hell"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">2</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">7</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"&lt;ALPHANUM&gt;"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"ello"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">2</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">7</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"&lt;ALPHANUM&gt;"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"worl"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">8</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">13</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"&lt;ALPHANUM&gt;"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">2</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"orld"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">8</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">13</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"&lt;ALPHANUM&gt;"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="自定义分词-1"><a href="#自定义分词-1" class="headerlink" title="自定义分词"></a>自定义分词</h4><p>自定义分词需要在索引配置中设定 char_filter、tokenizer、filter、analyzer等</p>
+<p>自定义分词示例:</p>
+<ul>
+<li>分词器名称：my_custom\</li>
+<li>过滤器将token转为大写</li>
+</ul>
+<figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">PUT test_index_1</span><br><span class="line">&#123;</span><br><span class="line">  <span class="hljs-attr">"settings"</span>: &#123;</span><br><span class="line">    <span class="hljs-attr">"analysis"</span>: &#123;</span><br><span class="line">      <span class="hljs-attr">"analyzer"</span>: &#123;</span><br><span class="line">        <span class="hljs-attr">"my_custom_analyzer"</span>: &#123;</span><br><span class="line">          <span class="hljs-attr">"type"</span>:      <span class="hljs-string">"custom"</span>,</span><br><span class="line">          <span class="hljs-attr">"tokenizer"</span>: <span class="hljs-string">"standard"</span>,</span><br><span class="line">          <span class="hljs-attr">"char_filter"</span>: [</span><br><span class="line">            <span class="hljs-string">"html_strip"</span></span><br><span class="line">          ],</span><br><span class="line">          <span class="hljs-attr">"filter"</span>: [</span><br><span class="line">            <span class="hljs-string">"uppercase"</span>,</span><br><span class="line">            <span class="hljs-string">"asciifolding"</span></span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// java</span></span><br><span class="line">XContentFactory.jsonBuilder()</span><br><span class="line">                .startObject().startObject(<span class="hljs-string">"analysis"</span>)</span><br><span class="line">                .startObject(<span class="hljs-string">"normalizer"</span>).startObject(Normalizers.CASE_INSENSITIVE)</span><br><span class="line">                .field(<span class="hljs-string">"type"</span>, <span class="hljs-string">"custom"</span>)</span><br><span class="line">                .field(<span class="hljs-string">"filter"</span>, <span class="hljs-string">"lowercase"</span>)</span><br><span class="line">                .endObject().endObject()</span><br><span class="line">   							</span><br><span class="line">  							<span class="hljs-comment">// 动态同义词</span></span><br><span class="line">                .startObject(<span class="hljs-string">"filter"</span>)</span><br><span class="line">                .startObject(<span class="hljs-string">"dynamic_synonym"</span>).field(<span class="hljs-string">"type"</span>,    <span class="hljs-string">"dynamic_synonym"</span>).field(<span class="hljs-string">"tokenizer"</span>, <span class="hljs-string">"ik_smart"</span>).endObject().endObject()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                .startObject(<span class="hljs-string">"analyzer"</span>)</span><br><span class="line">                <span class="hljs-comment">// 自定义分词器</span></span><br><span class="line">                .startObject(<span class="hljs-string">"ik"</span>)</span><br><span class="line">                .field(<span class="hljs-string">"filter"</span>, <span class="hljs-string">""</span>)</span><br><span class="line">                .field(<span class="hljs-string">"char_filter"</span>, Arrays.asList(<span class="hljs-string">"char_mapper"</span>))</span><br><span class="line">                .field(<span class="hljs-string">"type"</span>, <span class="hljs-string">"custom"</span>)</span><br><span class="line">                .field(<span class="hljs-string">"tokenizer"</span>, <span class="hljs-string">"ik_max_word"</span>)</span><br><span class="line">                .endObject()</span><br><span class="line">  </span><br><span class="line">               <span class="hljs-comment">// 搜索时处理同义词</span></span><br><span class="line">                .startObject(<span class="hljs-string">"ikt"</span>)</span><br><span class="line">                .field(<span class="hljs-string">"filter"</span>, Arrays.asList(<span class="hljs-string">"dynamic_synonym"</span>))</span><br><span class="line">                .field(<span class="hljs-string">"char_filter"</span>, Arrays.asList(<span class="hljs-string">"char_mapper"</span>))</span><br><span class="line">                .field(<span class="hljs-string">"type"</span>, <span class="hljs-string">"custom"</span>)</span><br><span class="line">                .field(<span class="hljs-string">"tokenizer"</span>, <span class="hljs-string">"ik_smart"</span>)</span><br><span class="line">                .endObject()</span><br><span class="line"></span><br><span class="line">                .endObject()</span><br><span class="line">                <span class="hljs-comment">// 自定义字符过滤</span></span><br><span class="line">                .startObject(<span class="hljs-string">"char_filter"</span>)</span><br><span class="line">                .startObject(<span class="hljs-string">"char_mapper"</span>)</span><br><span class="line">                .field(<span class="hljs-string">"type"</span>, <span class="hljs-string">"mapping"</span>)</span><br><span class="line">                .field(<span class="hljs-string">"mappings_path"</span>, <span class="hljs-string">"analysis/mapping.txt"</span>)</span><br><span class="line">                .endObject()</span><br><span class="line">                .endObject()</span><br><span class="line"></span><br><span class="line">                .endObject().endObject();</span><br></pre></td></tr></table></figure>
+<h4 id="自定义分词器测试"><a href="#自定义分词器测试" class="headerlink" title="自定义分词器测试"></a>自定义分词器测试</h4><figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">POST test_index_1/_analyze</span><br><span class="line">&#123;</span><br><span class="line">  <span class="hljs-attr">"analyzer"</span>: <span class="hljs-string">"my_custom_analyzer"</span>,</span><br><span class="line">  <span class="hljs-attr">"text"</span>: [<span class="hljs-string">"&lt;p&gt;I&amp;apos;m so &lt;b&gt;happy&lt;/b&gt;!&lt;/p&gt;"</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 结果</span><br><span class="line">&#123;</span><br><span class="line">  <span class="hljs-attr">"tokens"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"I'M"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">3</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">11</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"&lt;ALPHANUM&gt;"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"SO"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">12</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">14</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"&lt;ALPHANUM&gt;"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="hljs-attr">"token"</span>: <span class="hljs-string">"HAPPY"</span>,</span><br><span class="line">      <span class="hljs-attr">"start_offset"</span>: <span class="hljs-number">18</span>,</span><br><span class="line">      <span class="hljs-attr">"end_offset"</span>: <span class="hljs-number">27</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"&lt;ALPHANUM&gt;"</span>,</span><br><span class="line">      <span class="hljs-attr">"position"</span>: <span class="hljs-number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="分词使用说明"><a href="#分词使用说明" class="headerlink" title="分词使用说明"></a>分词使用说明</h4><p>分词会在如下两个时机使用：</p>
+<ul>
+<li>创建或更新文档时(Index Time)，会对相应的文档进行分词处理</li>
+<li>查询时（Search Time），会对查询语句进行分词<ul>
+<li>查询时通过analyzer指定分词器</li>
+<li>通过index mapping设置search_analyzer实现</li>
+<li>一般不需要特别指定查询时分词器，直接使用索引分词器即可，否则会出现无法匹配的情况</li>
+</ul>
+</li>
+</ul>
+<h4 id="分词使用建议"><a href="#分词使用建议" class="headerlink" title="分词使用建议"></a>分词使用建议</h4><ul>
+<li>明确字段是否需要分词，不需要分词的字段就将type设置为keyword，可以节省空间和提高写性能</li>
+<li>善用_analyze API，查看文档的分词结果</li>
+</ul>
+<p><a href="http://laijianfeng.org/2018/08/倒排索引与分词/" target="_blank" rel="noopener">参考自</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <i class="fas fa-tags has-text-grey"></i>&nbsp;&nbsp;
+                    <a class="has-link-grey -link" href="/tags/索引分词/">索引分词</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- 部分参考自https://www.alphalxy.com/2019/03/customize-icarus/ -->
+        
+            <ul class="post-copyright">
+            <li><strong>本文标题：</strong><a href="https://removeif.github.io/2019/05/06/elasticsearch6-x倒排索引和分词.html">elasticsearch6.x倒排索引和分词</a></li>
+            <li><strong>本文作者：</strong><a href="https://removeif.github.io">辣椒の酱</a></li>
+            <li><strong>本文链接：</strong><a href="https://removeif.github.io/2019/05/06/elasticsearch6-x倒排索引和分词.html">https://removeif.github.io/2019/05/06/elasticsearch6-x倒排索引和分词.html</a></li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+            </li>
+            </ul>
+            <br>
+            <span class="is-size-6 has-text-grey has-mr-7">#&nbsp;本站推荐文章</span>
+<br>
+
+    &nbsp;1.<a href="/2019/09/19/博客源码分享.html" class="is-size-6" target="_blank">博客源码分享</a><br>
+
+    &nbsp;2.<a href="/2019/10/13/2019年国庆70周年阅兵完整图文解说.html" class="is-size-6" target="_blank">2019年国庆70周年阅兵完整图文解说(收藏!)</a><br>
+
+    &nbsp;3.<a href="/2019/09/13/博客中gitalk最新评论的获取.html" class="is-size-6" target="_blank">博客中gitalk最新评论的获取</a><br>
+
+    &nbsp;4.<a href="/2019/08/21/中华人民共和国刑事诉讼法.html" class="is-size-6" target="_blank">中华人民共和国刑事诉讼法</a><br>
+
+    &nbsp;5.<a href="/2019/12/10/algorithm/算法成长之路leetcode7-8.html" class="is-size-6" target="_blank">算法成长之路leetcode7-8</a><br>
+
+            <br>
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<br>
+<div class="card widget">
+    <div class="card-content">
+    <span class="is-size-6 has-text-grey has-mr-7">#&nbsp;温馨提示：以下是广告，如果博客对您有帮助，帮忙点下广告，谢谢！</span>
+    <div class="g-ads-x">
+        <br>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-6343805421927634"
+             data-ad-slot="8274750079"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190802135456.png" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190802135550.png" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/05/31/java注解Annotation说明实例.html">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">java注解Annotation说明实例</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/04/28/Java版常用正则表达式说明.html">
+                <span class="level-item">Java版常用正则表达式说明</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+    <div class="card">
+        <div class="card-content">
+            
+                <h3 class="title is-5 has-text-weight-normal">评论</h3>
+                
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '46a9f3481b46ea0129d8',
+        clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+        id: '55ce4b0597a94bf4241300e5a22182a0',
+        repo: 'blog_comment',
+        owner: 'removeif',
+        admin: "removeif",
+        createIssueManually: true,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+            
+        </div>
+    </div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/images/tuzi.jpg" alt="辣椒の酱">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        辣椒の酱
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        尚未执佩剑，转眼即江湖
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>阿尔及利亚</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal ios-alert">
+                            70
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal ios-alert">
+                            31
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                   <a href="/tags">
+                       <p class="title has-text-weight-normal ios-alert">
+                            46
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://weibo.com/u/3050419984" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/removeif">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Weibo" href="https://weibo.com/u/3050419984">
+                
+                <i class="fab fa-weibo"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Qq" href="https://github.com/removeif">
+                
+                <i class="fab fa-qq"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Email" href="mailto:removeif@163.com">
+                
+                <i class="fa fa-envelope"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="RSS" href="/atom.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+        <hr>
+        <p id="hitokoto">:D 一言句子获取中...</p>
+        <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+    </div>
+</div>
+    
+        
+
+    <div class="card widget toc-scroll" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#倒排索引">
+        <span class="has-mr-6">1</span>
+        <span>倒排索引</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#倒排索引-查询过程">
+        <span class="has-mr-6">1.1</span>
+        <span>倒排索引-查询过程</span>
+        </a></li><li>
+        <a class="is-flex" href="#倒排索引-组成">
+        <span class="has-mr-6">1.2</span>
+        <span>倒排索引-组成</span>
+        </a></li><li>
+        <a class="is-flex" href="#单词词典（Term-Dictionary）">
+        <span class="has-mr-6">1.3</span>
+        <span>单词词典（Term Dictionary）</span>
+        </a></li><li>
+        <a class="is-flex" href="#倒排列表（Posting-List）">
+        <span class="has-mr-6">1.4</span>
+        <span>倒排列表（Posting List）</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#分词">
+        <span class="has-mr-6">2</span>
+        <span>分词</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#分词器">
+        <span class="has-mr-6">2.1</span>
+        <span>分词器</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Analyze-API">
+        <span class="has-mr-6">3</span>
+        <span>Analyze API</span>
+        </a></li><li>
+        <a class="is-flex" href="#预定义的分词器">
+        <span class="has-mr-6">4</span>
+        <span>预定义的分词器</span>
+        </a></li><li>
+        <a class="is-flex" href="#中文分词">
+        <span class="has-mr-6">5</span>
+        <span>中文分词</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#安装ik中文分词插件">
+        <span class="has-mr-6">5.1</span>
+        <span>安装ik中文分词插件</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#自定义分词">
+        <span class="has-mr-6">6</span>
+        <span>自定义分词</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Character-Filters">
+        <span class="has-mr-6">6.1</span>
+        <span>Character Filters</span>
+        </a></li><li>
+        <a class="is-flex" href="#Character-Filters测试">
+        <span class="has-mr-6">6.2</span>
+        <span>Character Filters测试</span>
+        </a></li><li>
+        <a class="is-flex" href="#Tokenizers">
+        <span class="has-mr-6">6.3</span>
+        <span>Tokenizers</span>
+        </a></li><li>
+        <a class="is-flex" href="#Tokenizers-测试">
+        <span class="has-mr-6">6.4</span>
+        <span>Tokenizers 测试</span>
+        </a></li><li>
+        <a class="is-flex" href="#Token-Filters">
+        <span class="has-mr-6">6.5</span>
+        <span>Token Filters</span>
+        </a></li><li>
+        <a class="is-flex" href="#Token-Filters测试">
+        <span class="has-mr-6">6.6</span>
+        <span>Token Filters测试</span>
+        </a></li><li>
+        <a class="is-flex" href="#自定义分词-1">
+        <span class="has-mr-6">6.7</span>
+        <span>自定义分词</span>
+        </a></li><li>
+        <a class="is-flex" href="#自定义分词器测试">
+        <span class="has-mr-6">6.8</span>
+        <span>自定义分词器测试</span>
+        </a></li><li>
+        <a class="is-flex" href="#分词使用说明">
+        <span class="has-mr-6">6.9</span>
+        <span>分词使用说明</span>
+        </a></li><li>
+        <a class="is-flex" href="#分词使用建议">
+        <span class="has-mr-6">6.10</span>
+        <span>分词使用建议</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu text-desc">
+        <h3 class="menu-label">
+            公告
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.11.17：深色主题开关</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.10.30：去图、精简</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.10.22：改版、优化</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.10.13：改版评论</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.09.25：接入免费cdn</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.09.19：开源博客代码</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.09.14：增加评论、推荐</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.09.01：加入伪娘看板</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.08.11：网站升级</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.02.01：采用Icarus主题</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2018.11.11：建站</span>
+                    </span>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+    
+    
+        <div class="column-right-shadow  ">
+        
+            
+    <div class="card widget">
+        <div class="card-content">
+        <h3 class="menu-label">最新评论</h3><span class="menu-label1" id="body_hot_comment">加载中，最新评论有1分钟延迟...<span>
+        </div>
+    </div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-10T15:36:42.000Z">2019-12-10</time></div>
+                    <a href="/2019/12/10/algorithm/算法成长之路leetcode7-8.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">算法成长之路leetcode7-8</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-10T10:36:42.000Z">2019-12-10</time></div>
+                    <a href="/2019/12/10/database/mysql/mysql-b-Tree索引.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">mysql-b+Tree索引</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/数据库/">数据库</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/数据库/mysql/">mysql</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-05T13:14:49.026Z">2019-12-05</time></div>
+                    <a href="/2019/12/05/algorithm/算法成长之路leetcode5-6.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">算法成长之路leetcode5-6</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-03T10:38:01.100Z">2019-12-03</time></div>
+                    <a href="/2019/12/03/algorithm/二分查找法模板的基本思想-leetcode35.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">二分查找法模板的基本思想-leetcode35</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-28T14:02:05.000Z">2019-11-28</time></div>
+                    <a href="/2019/11/28/tools/Github-Issue-作为博客微型数据库的应用.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">Github Issue 作为博客微型数据库的应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/工具教程/">工具教程</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/工具教程/主题工具/">主题工具</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java/">
+                        <span class="tag">java</span>
+                        <span class="tag is-grey">17</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/法律/">
+                        <span class="tag">法律</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mysql/">
+                        <span class="tag">mysql</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/工具教程/">
+                        <span class="tag">工具教程</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/think/">
+                        <span class="tag">think</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/elasticsearch6/">
+                        <span class="tag">elasticsearch6</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo主题/">
+                        <span class="tag">hexo主题</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/icarus主题配置/">
+                        <span class="tag">icarus主题配置</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/redis/">
+                        <span class="tag">redis</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Effective-Java/" style="font-size: 10px;">Effective-Java</a> <a href="/tags/Z字变换/" style="font-size: 10px;">Z字变换</a> <a href="/tags/b-tree/" style="font-size: 10px;">b+tree</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/elasticsearch6/" style="font-size: 12px;">elasticsearch6</a> <a href="/tags/feign/" style="font-size: 10px;">feign</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/hexo主题/" style="font-size: 12px;">hexo主题</a> <a href="/tags/icarus主题配置/" style="font-size: 12px;">icarus主题配置</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/java-并发-多线程/" style="font-size: 10px;">java,并发,多线程</a> <a href="/tags/marathon/" style="font-size: 10px;">marathon</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 16px;">mysql</a> <a href="/tags/nfc/" style="font-size: 10px;">nfc</a> <a href="/tags/query/" style="font-size: 10px;">query</a> <a href="/tags/redis/" style="font-size: 12px;">redis</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/spring-cloud/" style="font-size: 10px;">spring cloud</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/think/" style="font-size: 14px;">think</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/二分查找/" style="font-size: 12px;">二分查找</a> <a href="/tags/分治算法/" style="font-size: 10px;">分治算法</a> <a href="/tags/前端技术/" style="font-size: 10px;">前端技术</a> <a href="/tags/反转整数/" style="font-size: 10px;">反转整数</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/字符串转整数/" style="font-size: 10px;">字符串转整数</a> <a href="/tags/工具教程/" style="font-size: 16px;">工具教程</a> <a href="/tags/幂等性-restful-api/" style="font-size: 10px;">幂等性,restful-api</a> <a href="/tags/支付架构/" style="font-size: 12px;">支付架构</a> <a href="/tags/支付系统/" style="font-size: 12px;">支付系统</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/最长回文/" style="font-size: 10px;">最长回文</a> <a href="/tags/正则表达式/" style="font-size: 10px;">正则表达式</a> <a href="/tags/法律/" style="font-size: 18px;">法律</a> <a href="/tags/滑动窗口/" style="font-size: 10px;">滑动窗口</a> <a href="/tags/科普/" style="font-size: 12px;">科普</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/索引分词/" style="font-size: 10px;">索引分词</a> <a href="/tags/经验成长/" style="font-size: 10px;">经验成长</a> <a href="/tags/聚簇索引/" style="font-size: 10px;">聚簇索引</a> <a href="/tags/设计模式/" style="font-size: 18px;">设计模式</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/集合/" style="font-size: 10px;">集合</a>
+    </div>
+</div>
+        
+            <div class="card widget">
+  <div class="card-content">
+    <div class="menu">
+      <h3 class="menu-label">
+        订阅邮件
+      </h3>
+      <div>
+        <form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow"
+          onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri=removeifFeedsId', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+          <input type="hidden" value="removeifFeedsId" name="uri" />
+          <input type="hidden" name="loc" value="en_US" />
+          <div class="field">
+            <div class="control has-icons-left">
+              <input class="input" name="email" type="email" placeholder="请输入邮箱地址" />
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+            </div>
+            <p class="help">输入邮箱点立即订阅跳转后点人机认证，点完成按钮，邮箱收到确认邮件点确认！</p>
+          </div>
+          <div class="field is-grouped is-grouped-right">
+            <div class="control">
+              <input class="button is-link is-rounded" type="submit" value="立即订阅" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+    <div class="g-ads-y">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- ads-y -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6343805421927634"
+             data-ad-slot="9708919542"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    </div>
+</div>
+
+
+
+        
+        </div>
+    
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="elasticsearch6.x倒排索引和分词" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 辣椒の酱&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>,Modify by <a href="https://github.com/removeif">removeif</a>&nbsp;
+                
+                <br>
+                &copy; 版权说明：[本网站所有内容均收集于互联网或自己创作,<br>&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="https://removeif.github.io/message/" target="_blank">留言</a>，立即处理]
+                <br>
+                <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/statistics.js"></script>
+                <span id="statistic-times"></span>
+                <br>
+                <span id="busuanzi_container_site_uv">
+                ❤️感谢 <strong><span id="busuanzi_value_site_uv">99+</span></strong> 小伙伴的 
+                </span>
+                 <strong><span id="busuanzi_value_site_pv">99+</span></strong> 次光临，贡献💐<a href="https://github.com/removeif/hexo-theme-icarus-removeif">本站源码</a>！❤️
+                 
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/removeif">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/insight.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/css/search.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/css/insight.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    
+    <script type="text/javascript" defer src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/comment-issue-data.js"></script>
+    
+    <!-- 暂时关闭伪娘 <script type="text/javascript" async="" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/live2d/autoload.js"></script> -->
+</body>
+</html>

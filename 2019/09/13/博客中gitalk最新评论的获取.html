@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.8.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>博客中gitalk最新评论的获取 - 辣椒の酱</title>
+<meta name="google-site-verification" content="67z1CXZ8AOhImIglgTwqAlneRCHTO6xRJo5NeafDAqw" />
+<!-- 百度抓取 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- google adSense -->
+<script data-ad-client="ca-pub-6343805421927634" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 百度统计 -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?90a0e914cd2c9e93e206cc9131b19416";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <meta name="description" content="博客中，对于网友的评论以及每篇文章的评论数还是很重要的。但是基于静态的页面想要存储动态的评论数据是比较难的，一般博客主题中都内置了评论插件，但是博客主题中对于最新评论的支持显示还是很少的，至少目前我是没怎么发现。博客 Powered by Hexo &amp;amp; Icarus，采用Gitalk评论，再次感谢此三位作者的辛勤码代码，才有了以下的内容。基于此背景基础上，聊聊最新评论的实现。">
+<meta name="keywords" content="categories-comment">
+<meta property="og:type" content="article">
+<meta property="og:title" content="博客中gitalk最新评论的获取">
+<meta property="og:url" content="https://removeif.github.io/2019/09/13/博客中gitalk最新评论的获取.html">
+<meta property="og:site_name" content="辣椒の酱">
+<meta property="og:description" content="博客中，对于网友的评论以及每篇文章的评论数还是很重要的。但是基于静态的页面想要存储动态的评论数据是比较难的，一般博客主题中都内置了评论插件，但是博客主题中对于最新评论的支持显示还是很少的，至少目前我是没怎么发现。博客 Powered by Hexo &amp;amp; Icarus，采用Gitalk评论，再次感谢此三位作者的辛勤码代码，才有了以下的内容。基于此背景基础上，聊聊最新评论的实现。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190913010935.png">
+<meta property="og:updated_time" content="2019-11-07T05:31:41.154Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="博客中gitalk最新评论的获取">
+<meta name="twitter:description" content="博客中，对于网友的评论以及每篇文章的评论数还是很重要的。但是基于静态的页面想要存储动态的评论数据是比较难的，一般博客主题中都内置了评论插件，但是博客主题中对于最新评论的支持显示还是很少的，至少目前我是没怎么发现。博客 Powered by Hexo &amp;amp; Icarus，采用Gitalk评论，再次感谢此三位作者的辛勤码代码，才有了以下的内容。基于此背景基础上，聊聊最新评论的实现。">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190913010935.png">
+
+
+
+
+
+<link rel="alternative" href="/atom.xml" title="博客中gitalk最新评论的获取" type="application/atom+xml">
+
+
+
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/images/wico.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;subset=latin,latin-ext">
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/globalUtils.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/css/style1.min.css">
+<link rel="stylesheet" href="/css/m-style.css">
+<!-- 暂时关闭伪娘 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/live2d/waifu.css"> -->
+    <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="博客中gitalk最新评论的获取" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives/">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories/">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags/">标签</a>
+                
+                <a class="navbar-item"
+                href="/tags/法律/">律法</a>
+                
+                <a class="navbar-item"
+                href="/categories/algorithm">算法</a>
+                
+                <a class="navbar-item"
+                href="/message/">留言</a>
+                
+                <a class="navbar-item"
+                href="/friend/">友链</a>
+                
+                <a class="navbar-item"
+                href="/album/">美图</a>
+                
+                <a class="navbar-item"
+                href="/music/">影音</a>
+                
+                <a class="navbar-item"
+                href="/self-talking/">碎碎念</a>
+                
+                <a class="navbar-item"
+                href="/about/">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+                <a class="navbar-item" id="night-nav" title="深色主题" href="javascript:;">
+                    <i class="fas fa-moon" id="night-icon"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/theme-setting.js"></script>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190913010935.png" alt="博客中gitalk最新评论的获取">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                
+                <time class="level-item has-text-grey" datetime="2019-09-12T17:03:06.000Z">2019-09-13</time>
+                
+                    <span class="display-none-class">e426276122737fb83067750a761865f1</span>
+                    <img class="not-gallery-item" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/images/chat.svg">&nbsp;<a href="/2019/09/13/博客中gitalk最新评论的获取.html#comment-container"><span id=e426276122737fb83067750a761865f1>99+</span></a>&nbsp;&nbsp;&nbsp;&nbsp;</img>
+                
+                
+                <div class="level-item">
+                <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/工具教程/">工具教程</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/工具教程/主题工具/">主题工具</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    19 分钟 读完 (大约 2787 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    1<span id="busuanzi_value_page_pv">99+</span> 次查看
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                博客中gitalk最新评论的获取
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>博客中，对于网友的评论以及每篇文章的评论数还是很重要的。但是基于静态的页面想要存储动态的评论数据是比较难的，一般博客主题中都内置了评论插件，但是博客主题中对于最新评论的支持显示还是很少的，至少目前我是没怎么发现。博客 Powered by <a href="http://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>，采用<a href="https://github.com/gitalk/gitalk" target="_blank" rel="noopener">Gitalk</a>评论，再次感谢此三位作者的辛勤码代码，才有了以下的内容。基于此背景基础上，聊聊最新评论的实现。<br><a id="more"></a></p>
+</blockquote>
+<p>博客的使用， <a href="http://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>，采用<a href="https://github.com/gitalk/gitalk" target="_blank" rel="noopener">Gitalk</a>评论 的使用自行百度了。</p>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>最新评论列表</li>
+<li>最热文章列表（基于评论数判断是否最热，也比较片面，但是侧面也能反映，问题不大）</li>
+</ul>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>主要参考自<a href="https://developer.github.com/v3/issues/" target="_blank" rel="noopener">官方文档</a></p>
+<p>目前主要用到<code>两个方法</code>，一个是获取仓库下所有的issue，每个issue节点下有相关的评论数，以及对应issue下的评论的url;还有一个是根据issue下评论的URL获取相应的所有的评论</p>
+<h4 id="方法1：List-issues-for-a-repository"><a href="#方法1：List-issues-for-a-repository" class="headerlink" title="方法1：List issues for a repository"></a>方法1：<a href="https://developer.github.com/v3/issues/" target="_blank" rel="noopener">List issues for a repository</a></h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /orgs/:org/issues</span><br></pre></td></tr></table></figure>
+<p>参数列表</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Name</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>milestone</code></td>
+<td style="text-align:center"><code>integer</code> or <code>string</code></td>
+<td style="text-align:center">If an <code>integer</code> is passed, it should refer to a milestone by its <code>number</code> field. If the string <code>*</code> is passed, issues with any milestone are accepted. If the string <code>none</code> is passed, issues without milestones are returned.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>state</code></td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">Indicates the state of the issues to return. Can be either <code>open</code>, <code>closed</code>, or <code>all</code>. Default: <code>open</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>assignee</code></td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">Can be the name of a user. Pass in <code>none</code> for issues with no assigned user, and <code>*</code> for issues assigned to any user.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>creator</code></td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">The user that created the issue.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>mentioned</code></td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">A user that’s mentioned in the issue.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>labels</code></td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">A list of comma separated label names. Example: <code>bug,ui,@high</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>sort</code></td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">What to sort results by. Can be either <code>created</code>, <code>updated</code>, <code>comments</code>. Default: <code>created</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>direction</code></td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">The direction of the sort. Can be either <code>asc</code> or <code>desc</code>. Default: <code>desc</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>since</code></td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">Only issues updated at or after this time are returned. This is a timestamp in <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank" rel="noopener">ISO 8601</a> format: <code>YYYY-MM-DDTHH:MM:SSZ</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>以上参数，主要用到 <code>sort 排序，page页数，per_page每页数量</code>，其余的参数看个人需要使用。<strong>注意文档中的说明，排序的字段和返回的稍许不太一样。</strong></p>
+<h4 id="方法2：List-comments-on-an-issue"><a href="#方法2：List-comments-on-an-issue" class="headerlink" title="方法2：List comments on an issue"></a>方法2：<a href="https://developer.github.com/v3/issues/comments/" target="_blank" rel="noopener">List comments on an issue</a></h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /repos/:owner/:repo/issues/:issue_number/comments</span><br></pre></td></tr></table></figure>
+<p>Issue Comments are ordered by ascending ID. 排序根据 ascending (上升的，增长的；升（序）的)ID.也就是说，从老到新。这个比较坑，对于我们获取最新评论来说。</p>
+<p>参数如下</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Name</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>since</code></td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">Only comments updated at or after this time are returned. This is a timestamp in <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank" rel="noopener">ISO 8601</a> format: <code>YYYY-MM-DDTHH:MM:SSZ</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>根据尝试以及以上参数，试出<code>不支持排序，但是支持分页，page,per_page参数</code>，对于我们获取最新的评论来说可以根据评论数，算出分页数，拿到最后一条，即最新一条</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//如果只有一页</span></span><br><span class="line"><span class="hljs-keyword">int</span> page = <span class="hljs-number">1</span>;</span><br><span class="line"><span class="hljs-keyword">int</span> per_page = <span class="hljs-number">1</span>;</span><br><span class="line"><span class="hljs-comment">// 如果超出一页的话</span></span><br><span class="line"><span class="hljs-keyword">int</span> page = <span class="hljs-number">2</span>;</span><br><span class="line"><span class="hljs-keyword">int</span> per_page = commentsNumber-<span class="hljs-number">1</span>;<span class="hljs-comment">//commentsNumber:评论数</span></span><br></pre></td></tr></table></figure>
+<h4 id="js代码中使用实例核心代码"><a href="#js代码中使用实例核心代码" class="headerlink" title="js代码中使用实例核心代码"></a>js代码中使用实例核心代码</h4><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> timesSet = [];</span><br><span class="line"><span class="hljs-keyword">var</span> timesBodyMap = &#123;&#125;;</span><br><span class="line"><span class="hljs-keyword">var</span> timesSetMap = &#123;&#125;;</span><br><span class="line"><span class="hljs-keyword">var</span> resultArr = [];</span><br><span class="line"><span class="hljs-comment">// 方法1：sort=comments可以按评论数排序，此处更适合按更新时间排序,可以根据updated排序，但是0条评论的也会出来，所以此处还是根据评论数排序全部查出来，过滤掉0条评论的，拿到每个issue下最新的一条评论详情和时间，根据时间内存排序</span></span><br><span class="line"><span class="hljs-comment">// per_page 每页数量，根据需求配置</span></span><br><span class="line">$.getJSON(<span class="hljs-string">"https://api.github.com/repos/&#123;用户名&#125;/&#123;仓库&#125;/issues?per_page=100&amp;sort=comments"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">result</span>) </span>&#123;</span><br><span class="line">    $.each(result, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">i, item</span>) </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">var</span> commentsCount = item.comments;</span><br><span class="line">        <span class="hljs-keyword">if</span> (commentsCount &gt; <span class="hljs-number">0</span>) &#123;</span><br><span class="line">            $.ajaxSettings.async = <span class="hljs-literal">false</span>;</span><br><span class="line">            <span class="hljs-comment">// 此处保证是最后一条，api没有排序参数，只能分页取最后一条，保证最少的数据量传输，快速处理</span></span><br><span class="line">            <span class="hljs-keyword">var</span> page = <span class="hljs-number">2</span>;</span><br><span class="line">            <span class="hljs-keyword">var</span> pageSize = commentsCount - <span class="hljs-number">1</span>;</span><br><span class="line">            <span class="hljs-keyword">if</span> (commentsCount == <span class="hljs-number">1</span>) &#123;</span><br><span class="line">                page = <span class="hljs-number">1</span>;</span><br><span class="line">                pageSize = <span class="hljs-number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-comment">// 方法2：的使用</span></span><br><span class="line">            $.getJSON(item.comments_url + <span class="hljs-string">"?page="</span> + page + <span class="hljs-string">"&amp;per_page="</span> + pageSize, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">commentResult</span>) </span>&#123;</span><br><span class="line">                <span class="hljs-keyword">var</span> item1 = commentResult[<span class="hljs-number">0</span>];</span><br><span class="line">                <span class="hljs-keyword">var</span> contentStr = item1.body.trim();</span><br><span class="line">                <span class="hljs-keyword">if</span> (contentStr.length &gt; <span class="hljs-number">50</span>) &#123;</span><br><span class="line">                    contentStr = contentStr.substr(<span class="hljs-number">0</span>, <span class="hljs-number">60</span>);</span><br><span class="line">                    contentStr += <span class="hljs-string">"..."</span>;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">                timesSet.push(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(item1.created_at).getTime());</span><br><span class="line">                timesBodyMap[item1.created_at] = &#123;</span><br><span class="line">                    <span class="hljs-string">"title"</span>: item.title.substr(<span class="hljs-number">0</span>, item.title.indexOf(<span class="hljs-string">"-"</span>) - <span class="hljs-number">1</span>),</span><br><span class="line">                    <span class="hljs-string">"url"</span>: item.body.substr(<span class="hljs-number">0</span>, item.body.indexOf(<span class="hljs-string">"\n"</span>) - <span class="hljs-number">1</span>),</span><br><span class="line">                    <span class="hljs-string">"content"</span>: contentStr,</span><br><span class="line">                    <span class="hljs-string">"date"</span>: item1.created_at,</span><br><span class="line">                    <span class="hljs-string">"userName"</span>: item1[<span class="hljs-string">"user"</span>].login,</span><br><span class="line">                    <span class="hljs-string">"userUrl"</span>: item1[<span class="hljs-string">"user"</span>].html_url,</span><br><span class="line">                    <span class="hljs-string">"commentCount"</span>: commentsCount</span><br><span class="line">                &#125;;</span><br><span class="line">                timesSetMap[<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(item1.created_at).getTime()] = item1.created_at;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 排序</span></span><br><span class="line"><span class="hljs-keyword">if</span> (timesSet.length &gt; <span class="hljs-number">0</span>) &#123;</span><br><span class="line">    timesSet.sort();</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">// 根据需要取10条</span></span><br><span class="line"><span class="hljs-keyword">if</span> (timesSet.length &gt; <span class="hljs-number">10</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = timesSet.length - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span> &amp;&amp; resultArr.length &lt; <span class="hljs-number">10</span>; i--) &#123;</span><br><span class="line">        resultArr.push(timesBodyMap[timesSetMap[timesSet[i]]]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">else</span> &#123;</span><br><span class="line">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = timesSet.length - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;</span><br><span class="line">        resultArr.push(timesBodyMap[timesSetMap[timesSet[i]]]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="方法1：请求接口地址示例"><a href="#方法1：请求接口地址示例" class="headerlink" title="方法1：请求接口地址示例"></a>方法1：请求接口地址示例</h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="hljs-comment">//api.github.com/repos/removeif/blog_comment/issues?per_page=100&amp;sort=comments</span></span><br></pre></td></tr></table></figure>
+<p><strong>返回结果</strong><br><figure class="highlight hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://api.github.com/repos/removeif/blog_comment/issues/3"</span>,</span><br><span class="line">    <span class="hljs-attr">"repository_url"</span>: <span class="hljs-string">"https://api.github.com/repos/removeif/blog_comment"</span>,</span><br><span class="line">    <span class="hljs-attr">"labels_url"</span>: <span class="hljs-string">"https://api.github.com/repos/removeif/blog_comment/issues/3/labels&#123;/name&#125;"</span>,</span><br><span class="line">    <span class="hljs-attr">"comments_url"</span>: <span class="hljs-string">"https://api.github.com/repos/removeif/blog_comment/issues/3/comments"</span>,</span><br><span class="line">    <span class="hljs-attr">"events_url"</span>: <span class="hljs-string">"https://api.github.com/repos/removeif/blog_comment/issues/3/events"</span>,</span><br><span class="line">    <span class="hljs-attr">"html_url"</span>: <span class="hljs-string">"https://github.com/removeif/blog_comment/issues/3"</span>,</span><br><span class="line">    <span class="hljs-attr">"id"</span>: <span class="hljs-number">458985510</span>,</span><br><span class="line">    <span class="hljs-attr">"node_id"</span>: <span class="hljs-string">"MDU6SXNzdWU0NTg5ODU1MTA="</span>,</span><br><span class="line">    <span class="hljs-attr">"number"</span>: <span class="hljs-number">3</span>,</span><br><span class="line">    <span class="hljs-attr">"title"</span>: <span class="hljs-string">"留言板 - 辣椒の酱"</span>,</span><br><span class="line">    <span class="hljs-attr">"user"</span>: &#123;</span><br><span class="line">      <span class="hljs-attr">"login"</span>: <span class="hljs-string">"removeif"</span>,</span><br><span class="line">      <span class="hljs-attr">"id"</span>: <span class="hljs-number">10427139</span>,</span><br><span class="line">      <span class="hljs-attr">"node_id"</span>: <span class="hljs-string">"MDQ6VXNlcjEwNDI3MTM5"</span>,</span><br><span class="line">      <span class="hljs-attr">"avatar_url"</span>: <span class="hljs-string">"https://avatars1.githubusercontent.com/u/10427139?v=4"</span>,</span><br><span class="line">      <span class="hljs-attr">"gravatar_id"</span>: <span class="hljs-string">""</span>,</span><br><span class="line">      <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif"</span>,</span><br><span class="line">      <span class="hljs-attr">"html_url"</span>: <span class="hljs-string">"https://github.com/removeif"</span>,</span><br><span class="line">      <span class="hljs-attr">"followers_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/followers"</span>,</span><br><span class="line">      <span class="hljs-attr">"following_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/following&#123;/other_user&#125;"</span>,</span><br><span class="line">      <span class="hljs-attr">"gists_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/gists&#123;/gist_id&#125;"</span>,</span><br><span class="line">      <span class="hljs-attr">"starred_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/starred&#123;/owner&#125;&#123;/repo&#125;"</span>,</span><br><span class="line">      <span class="hljs-attr">"subscriptions_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/subscriptions"</span>,</span><br><span class="line">      <span class="hljs-attr">"organizations_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/orgs"</span>,</span><br><span class="line">      <span class="hljs-attr">"repos_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/repos"</span>,</span><br><span class="line">      <span class="hljs-attr">"events_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/events&#123;/privacy&#125;"</span>,</span><br><span class="line">      <span class="hljs-attr">"received_events_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/received_events"</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"User"</span>,</span><br><span class="line">      <span class="hljs-attr">"site_admin"</span>: <span class="hljs-literal">false</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-attr">"labels"</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="hljs-attr">"id"</span>: <span class="hljs-number">1416043904</span>,</span><br><span class="line">        <span class="hljs-attr">"node_id"</span>: <span class="hljs-string">"MDU6TGFiZWwxNDE2MDQzOTA0"</span>,</span><br><span class="line">        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://api.github.com/repos/removeif/blog_comment/labels/3306ea6632b94cc388b40cef9dda4a8f"</span>,</span><br><span class="line">        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"3306ea6632b94cc388b40cef9dda4a8f"</span>,</span><br><span class="line">        <span class="hljs-attr">"color"</span>: <span class="hljs-string">"0e8a16"</span>,</span><br><span class="line">        <span class="hljs-attr">"default"</span>: <span class="hljs-literal">false</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="hljs-attr">"id"</span>: <span class="hljs-number">1415994590</span>,</span><br><span class="line">        <span class="hljs-attr">"node_id"</span>: <span class="hljs-string">"MDU6TGFiZWwxNDE1OTk0NTkw"</span>,</span><br><span class="line">        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://api.github.com/repos/removeif/blog_comment/labels/Gitalk"</span>,</span><br><span class="line">        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Gitalk"</span>,</span><br><span class="line">        <span class="hljs-attr">"color"</span>: <span class="hljs-string">"5319e7"</span>,</span><br><span class="line">        <span class="hljs-attr">"default"</span>: <span class="hljs-literal">false</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="hljs-attr">"state"</span>: <span class="hljs-string">"open"</span>,</span><br><span class="line">    <span class="hljs-attr">"locked"</span>: <span class="hljs-literal">false</span>,</span><br><span class="line">    <span class="hljs-attr">"assignee"</span>: <span class="hljs-literal">null</span>,</span><br><span class="line">    <span class="hljs-attr">"assignees"</span>: [</span><br><span class="line"></span><br><span class="line">    ],</span><br><span class="line">    <span class="hljs-attr">"milestone"</span>: <span class="hljs-literal">null</span>,</span><br><span class="line">    <span class="hljs-attr">"comments"</span>: <span class="hljs-number">33</span>,</span><br><span class="line">    <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2019-06-21T03:06:53Z"</span>,</span><br><span class="line">    <span class="hljs-attr">"updated_at"</span>: <span class="hljs-string">"2019-09-12T10:37:34Z"</span>,</span><br><span class="line">    <span class="hljs-attr">"closed_at"</span>: <span class="hljs-literal">null</span>,</span><br><span class="line">    <span class="hljs-attr">"author_association"</span>: <span class="hljs-string">"OWNER"</span>,</span><br><span class="line">    <span class="hljs-attr">"body"</span>: <span class="hljs-string">"https://removeif.github.io/message/\r\n\r\n留言板信息。"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;...&#125;</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure></p>
+<h4 id="方法2：请求接口地址示例"><a href="#方法2：请求接口地址示例" class="headerlink" title="方法2：请求接口地址示例"></a>方法2：请求接口地址示例</h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="hljs-comment">//api.github.com/repos/removeif/blog_comment/issues/3/comments?per_page=32&amp;page=2</span></span><br></pre></td></tr></table></figure>
+<p><strong>返回结果</strong><br><figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://api.github.com/repos/removeif/blog_comment/issues/comments/530767913"</span>,</span><br><span class="line">    <span class="hljs-attr">"html_url"</span>: <span class="hljs-string">"https://github.com/removeif/blog_comment/issues/3#issuecomment-530767913"</span>,</span><br><span class="line">    <span class="hljs-attr">"issue_url"</span>: <span class="hljs-string">"https://api.github.com/repos/removeif/blog_comment/issues/3"</span>,</span><br><span class="line">    <span class="hljs-attr">"id"</span>: <span class="hljs-number">530767913</span>,</span><br><span class="line">    <span class="hljs-attr">"node_id"</span>: <span class="hljs-string">"MDEyOklzc3VlQ29tbWVudDUzMDc2NzkxMw=="</span>,</span><br><span class="line">    <span class="hljs-attr">"user"</span>: &#123;</span><br><span class="line">      <span class="hljs-attr">"login"</span>: <span class="hljs-string">"removeif"</span>,</span><br><span class="line">      <span class="hljs-attr">"id"</span>: <span class="hljs-number">10427139</span>,</span><br><span class="line">      <span class="hljs-attr">"node_id"</span>: <span class="hljs-string">"MDQ6VXNlcjEwNDI3MTM5"</span>,</span><br><span class="line">      <span class="hljs-attr">"avatar_url"</span>: <span class="hljs-string">"https://avatars1.githubusercontent.com/u/10427139?v=4"</span>,</span><br><span class="line">      <span class="hljs-attr">"gravatar_id"</span>: <span class="hljs-string">""</span>,</span><br><span class="line">      <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif"</span>,</span><br><span class="line">      <span class="hljs-attr">"html_url"</span>: <span class="hljs-string">"https://github.com/removeif"</span>,</span><br><span class="line">      <span class="hljs-attr">"followers_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/followers"</span>,</span><br><span class="line">      <span class="hljs-attr">"following_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/following&#123;/other_user&#125;"</span>,</span><br><span class="line">      <span class="hljs-attr">"gists_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/gists&#123;/gist_id&#125;"</span>,</span><br><span class="line">      <span class="hljs-attr">"starred_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/starred&#123;/owner&#125;&#123;/repo&#125;"</span>,</span><br><span class="line">      <span class="hljs-attr">"subscriptions_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/subscriptions"</span>,</span><br><span class="line">      <span class="hljs-attr">"organizations_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/orgs"</span>,</span><br><span class="line">      <span class="hljs-attr">"repos_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/repos"</span>,</span><br><span class="line">      <span class="hljs-attr">"events_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/events&#123;/privacy&#125;"</span>,</span><br><span class="line">      <span class="hljs-attr">"received_events_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/received_events"</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"User"</span>,</span><br><span class="line">      <span class="hljs-attr">"site_admin"</span>: <span class="hljs-literal">false</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2019-09-12T10:37:34Z"</span>,</span><br><span class="line">    <span class="hljs-attr">"updated_at"</span>: <span class="hljs-string">"2019-09-12T10:37:34Z"</span>,</span><br><span class="line">    <span class="hljs-attr">"author_association"</span>: <span class="hljs-string">"OWNER"</span>,</span><br><span class="line">    <span class="hljs-attr">"body"</span>: <span class="hljs-string">"&gt; 哇 大佬你博客弄的好厉害啊  可以指点指点吗\n&gt;&gt; @xuelangjing 还好吧😂，简简单单的，可以多看下网页上的源码，有什么问题可以讨论讨论哦"</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>博客中目前有两个页面使用,根据个人的需要放到各自的位置吧。</p>
+<p><strong><a href="https://removeif.github.io/">首页热门推荐</a></strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190913005314.png" alt=""></p>
+<p><strong><a href="https://removeif.github.io/comment/">还有个最新评论页：</a></strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190913005510.png" alt=""></p>
+<h3 id="扩展一个方法"><a href="#扩展一个方法" class="headerlink" title="扩展一个方法"></a>扩展一个方法</h3><p>上面的实例程序，<code>每个issue（因为我的每个issue关联一个文章链接）</code>只取了一条最新的评论，假如每个issue下有两个都是最新的评论，而我也不管是不是同一个issue下的评论，获取所有的最新评论，还有一个方法比较好用。</p>
+<h4 id="List-comments-in-a-repository"><a href="#List-comments-in-a-repository" class="headerlink" title="List comments in a repository"></a><a href="https://developer.github.com/v3/issues/comments/#list-comments-in-a-repository" target="_blank" rel="noopener">List comments in a repository</a></h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /repos/:owner/:repo/issues/comments</span><br></pre></td></tr></table></figure>
+<p>By default, Issue Comments are ordered by ascending ID. 和上面一样，但是以下参数就不一样了</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Name</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>sort</code></td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">Either <code>created</code> or <code>updated</code>. Default: <code>created</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>direction</code></td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">Either <code>asc</code> or <code>desc</code>. Ignored without the <code>sort</code> parameter.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>since</code></td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">Only comments updated at or after this time are returned. This is a timestamp in <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank" rel="noopener">ISO 8601</a> format: <code>YYYY-MM-DDTHH:MM:SSZ</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>多了<code>排序字段和排序方式，也有per和per_page</code>，这是相当的有用啊</p>
+<h4 id="扩展方法：请求接口地址示例"><a href="#扩展方法：请求接口地址示例" class="headerlink" title="扩展方法：请求接口地址示例"></a>扩展方法：请求接口地址示例</h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="hljs-comment">//api.github.com/repos/removeif/blog_comment/issues/comments?sort=updated&amp;direction=desc&amp;per_page=10&amp;page=1</span></span><br></pre></td></tr></table></figure>
+<p>返回结果<br><figure class="highlight hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://api.github.com/repos/removeif/blog_comment/issues/comments/530767913"</span>,</span><br><span class="line">    <span class="hljs-attr">"html_url"</span>: <span class="hljs-string">"https://github.com/removeif/blog_comment/issues/3#issuecomment-530767913"</span>,</span><br><span class="line">    <span class="hljs-attr">"issue_url"</span>: <span class="hljs-string">"https://api.github.com/repos/removeif/blog_comment/issues/3"</span>,</span><br><span class="line">    <span class="hljs-attr">"id"</span>: <span class="hljs-number">530767913</span>,</span><br><span class="line">    <span class="hljs-attr">"node_id"</span>: <span class="hljs-string">"MDEyOklzc3VlQ29tbWVudDUzMDc2NzkxMw=="</span>,</span><br><span class="line">    <span class="hljs-attr">"user"</span>: &#123;</span><br><span class="line">      <span class="hljs-attr">"login"</span>: <span class="hljs-string">"removeif"</span>,</span><br><span class="line">      <span class="hljs-attr">"id"</span>: <span class="hljs-number">10427139</span>,</span><br><span class="line">      <span class="hljs-attr">"node_id"</span>: <span class="hljs-string">"MDQ6VXNlcjEwNDI3MTM5"</span>,</span><br><span class="line">      <span class="hljs-attr">"avatar_url"</span>: <span class="hljs-string">"https://avatars1.githubusercontent.com/u/10427139?v=4"</span>,</span><br><span class="line">      <span class="hljs-attr">"gravatar_id"</span>: <span class="hljs-string">""</span>,</span><br><span class="line">      <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif"</span>,</span><br><span class="line">      <span class="hljs-attr">"html_url"</span>: <span class="hljs-string">"https://github.com/removeif"</span>,</span><br><span class="line">      <span class="hljs-attr">"followers_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/followers"</span>,</span><br><span class="line">      <span class="hljs-attr">"following_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/following&#123;/other_user&#125;"</span>,</span><br><span class="line">      <span class="hljs-attr">"gists_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/gists&#123;/gist_id&#125;"</span>,</span><br><span class="line">      <span class="hljs-attr">"starred_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/starred&#123;/owner&#125;&#123;/repo&#125;"</span>,</span><br><span class="line">      <span class="hljs-attr">"subscriptions_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/subscriptions"</span>,</span><br><span class="line">      <span class="hljs-attr">"organizations_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/orgs"</span>,</span><br><span class="line">      <span class="hljs-attr">"repos_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/repos"</span>,</span><br><span class="line">      <span class="hljs-attr">"events_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/events&#123;/privacy&#125;"</span>,</span><br><span class="line">      <span class="hljs-attr">"received_events_url"</span>: <span class="hljs-string">"https://api.github.com/users/removeif/received_events"</span>,</span><br><span class="line">      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"User"</span>,</span><br><span class="line">      <span class="hljs-attr">"site_admin"</span>: <span class="hljs-literal">false</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2019-09-12T10:37:34Z"</span>,</span><br><span class="line">    <span class="hljs-attr">"updated_at"</span>: <span class="hljs-string">"2019-09-12T10:37:34Z"</span>,</span><br><span class="line">    <span class="hljs-attr">"author_association"</span>: <span class="hljs-string">"OWNER"</span>,</span><br><span class="line">    <span class="hljs-attr">"body"</span>: <span class="hljs-string">"&gt; 哇 大佬你博客弄的好厉害啊  可以指点指点吗\n&gt;&gt; @xuelangjing 还好吧😂，简简单单的，可以多看下网页上的源码，有什么问题可以讨论讨论哦"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure></p>
+<h4 id="总结此扩展方法"><a href="#总结此扩展方法" class="headerlink" title="总结此扩展方法"></a>总结此扩展方法</h4><p><strong>优点：</strong>对于不在乎issue数量，只在乎最新评论的就比较适用，能够精准拿出前10条，很赞<br><strong>不足：</strong>一个issue下多个最新评论，如果想要显示的最新评论列表还包括文章标题，看起来可能不太好看，很多重复，但是看个人需要吧</p>
+<h4 id="注意事项，采坑环节"><a href="#注意事项，采坑环节" class="headerlink" title="注意事项，采坑环节"></a>注意事项，采坑环节</h4><ul>
+<li>对应接口的请求限制，目前接口有请求的限制，所以使用中不能频繁请求，调试的时候一会儿又限制，一会儿又限制比较麻烦，限制十几分钟之后就解除了。</li>
+<li>对于页面中，一般很多个地方可能都需要展示这个列表，所以不能每次都去请求，必须缓存起来，一般缓存到本地，我的是存的cookie中，十分钟去请求一次，所以调好后一般不会出现限制情况。但是马上评论了的就看不到，有10分钟的延迟，不过也还好。</li>
+<li>对于如果issue以及评论太多的情况，尽量的少请求，比如上面的分页优化，取最后一条。以及页面中请求时做出异步请求的方式，不要阻止其他元素的渲染。</li>
+</ul>
+<p>本人主要做后端，对前端的<code>set/排序</code>不太熟悉，上面实现排序代码比较繁琐😂，如果有什么更好的方法，麻烦也告知一下，互相学习共同进步。</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <i class="fas fa-tags has-text-grey"></i>&nbsp;&nbsp;
+                    <a class="has-link-grey -link" href="/tags/hexo主题/">hexo主题</a>,&nbsp;<a class="has-link-grey -link" href="/tags/icarus主题配置/">icarus主题配置</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- 部分参考自https://www.alphalxy.com/2019/03/customize-icarus/ -->
+        
+            <ul class="post-copyright">
+            <li><strong>本文标题：</strong><a href="https://removeif.github.io/2019/09/13/博客中gitalk最新评论的获取.html">博客中gitalk最新评论的获取</a></li>
+            <li><strong>本文作者：</strong><a href="https://removeif.github.io">辣椒の酱</a></li>
+            <li><strong>本文链接：</strong><a href="https://removeif.github.io/2019/09/13/博客中gitalk最新评论的获取.html">https://removeif.github.io/2019/09/13/博客中gitalk最新评论的获取.html</a></li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+            </li>
+            </ul>
+            <br>
+            <span class="is-size-6 has-text-grey has-mr-7">#&nbsp;本站推荐文章</span>
+<br>
+
+    &nbsp;1.<a href="/2019/09/19/博客源码分享.html" class="is-size-6" target="_blank">博客源码分享</a><br>
+
+    &nbsp;2.<a href="/2019/10/13/2019年国庆70周年阅兵完整图文解说.html" class="is-size-6" target="_blank">2019年国庆70周年阅兵完整图文解说(收藏!)</a><br>
+
+    &nbsp;3.<a href="/2019/09/13/博客中gitalk最新评论的获取.html" class="is-size-6" target="_blank">博客中gitalk最新评论的获取</a><br>
+
+    &nbsp;4.<a href="/2019/08/21/中华人民共和国刑事诉讼法.html" class="is-size-6" target="_blank">中华人民共和国刑事诉讼法</a><br>
+
+    &nbsp;5.<a href="/2019/12/10/algorithm/算法成长之路leetcode7-8.html" class="is-size-6" target="_blank">算法成长之路leetcode7-8</a><br>
+
+            <br>
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<br>
+<div class="card widget">
+    <div class="card-content">
+    <span class="is-size-6 has-text-grey has-mr-7">#&nbsp;温馨提示：以下是广告，如果博客对您有帮助，帮忙点下广告，谢谢！</span>
+    <div class="g-ads-x">
+        <br>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-6343805421927634"
+             data-ad-slot="8274750079"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190802135456.png" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190802135550.png" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/09/17/博客换肤的一种实现方式思路.html">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">博客换肤的一种实现方式思路</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/09/11/Java日志的正确使用方法.html">
+                <span class="level-item">Java日志的正确使用方法</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+    <div class="card">
+        <div class="card-content">
+            
+                <h3 class="title is-5 has-text-weight-normal">评论</h3>
+                
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '46a9f3481b46ea0129d8',
+        clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+        id: 'e426276122737fb83067750a761865f1',
+        repo: 'blog_comment',
+        owner: 'removeif',
+        admin: "removeif",
+        createIssueManually: true,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+            
+        </div>
+    </div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/images/tuzi.jpg" alt="辣椒の酱">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        辣椒の酱
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        尚未执佩剑，转眼即江湖
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>阿尔及利亚</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal ios-alert">
+                            70
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal ios-alert">
+                            31
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                   <a href="/tags">
+                       <p class="title has-text-weight-normal ios-alert">
+                            46
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://weibo.com/u/3050419984" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/removeif">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Weibo" href="https://weibo.com/u/3050419984">
+                
+                <i class="fab fa-weibo"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Qq" href="https://github.com/removeif">
+                
+                <i class="fab fa-qq"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Email" href="mailto:removeif@163.com">
+                
+                <i class="fa fa-envelope"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="RSS" href="/atom.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+        <hr>
+        <p id="hitokoto">:D 一言句子获取中...</p>
+        <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+    </div>
+</div>
+    
+        
+
+    <div class="card widget toc-scroll" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#使用场景">
+        <span class="has-mr-6">1</span>
+        <span>使用场景</span>
+        </a></li><li>
+        <a class="is-flex" href="#使用方法">
+        <span class="has-mr-6">2</span>
+        <span>使用方法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#方法1：List-issues-for-a-repository">
+        <span class="has-mr-6">2.1</span>
+        <span>方法1：List issues for a repository</span>
+        </a></li><li>
+        <a class="is-flex" href="#方法2：List-comments-on-an-issue">
+        <span class="has-mr-6">2.2</span>
+        <span>方法2：List comments on an issue</span>
+        </a></li><li>
+        <a class="is-flex" href="#js代码中使用实例核心代码">
+        <span class="has-mr-6">2.3</span>
+        <span>js代码中使用实例核心代码</span>
+        </a></li><li>
+        <a class="is-flex" href="#方法1：请求接口地址示例">
+        <span class="has-mr-6">2.4</span>
+        <span>方法1：请求接口地址示例</span>
+        </a></li><li>
+        <a class="is-flex" href="#方法2：请求接口地址示例">
+        <span class="has-mr-6">2.5</span>
+        <span>方法2：请求接口地址示例</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#扩展一个方法">
+        <span class="has-mr-6">3</span>
+        <span>扩展一个方法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#List-comments-in-a-repository">
+        <span class="has-mr-6">3.1</span>
+        <span>List comments in a repository</span>
+        </a></li><li>
+        <a class="is-flex" href="#扩展方法：请求接口地址示例">
+        <span class="has-mr-6">3.2</span>
+        <span>扩展方法：请求接口地址示例</span>
+        </a></li><li>
+        <a class="is-flex" href="#总结此扩展方法">
+        <span class="has-mr-6">3.3</span>
+        <span>总结此扩展方法</span>
+        </a></li><li>
+        <a class="is-flex" href="#注意事项，采坑环节">
+        <span class="has-mr-6">3.4</span>
+        <span>注意事项，采坑环节</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu text-desc">
+        <h3 class="menu-label">
+            公告
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.11.17：深色主题开关</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.10.30：去图、精简</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.10.22：改版、优化</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.10.13：改版评论</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.09.25：接入免费cdn</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.09.19：开源博客代码</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.09.14：增加评论、推荐</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.09.01：加入伪娘看板</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.08.11：网站升级</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.02.01：采用Icarus主题</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2018.11.11：建站</span>
+                    </span>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+    
+    
+        <div class="column-right-shadow  ">
+        
+            
+    <div class="card widget">
+        <div class="card-content">
+        <h3 class="menu-label">最新评论</h3><span class="menu-label1" id="body_hot_comment">加载中，最新评论有1分钟延迟...<span>
+        </div>
+    </div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-10T15:36:42.000Z">2019-12-10</time></div>
+                    <a href="/2019/12/10/algorithm/算法成长之路leetcode7-8.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">算法成长之路leetcode7-8</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-10T10:36:42.000Z">2019-12-10</time></div>
+                    <a href="/2019/12/10/database/mysql/mysql-b-Tree索引.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">mysql-b+Tree索引</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/数据库/">数据库</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/数据库/mysql/">mysql</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-05T13:14:49.026Z">2019-12-05</time></div>
+                    <a href="/2019/12/05/algorithm/算法成长之路leetcode5-6.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">算法成长之路leetcode5-6</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-03T10:38:01.100Z">2019-12-03</time></div>
+                    <a href="/2019/12/03/algorithm/二分查找法模板的基本思想-leetcode35.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">二分查找法模板的基本思想-leetcode35</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-28T14:02:05.000Z">2019-11-28</time></div>
+                    <a href="/2019/11/28/tools/Github-Issue-作为博客微型数据库的应用.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">Github Issue 作为博客微型数据库的应用</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/工具教程/">工具教程</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/工具教程/主题工具/">主题工具</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java/">
+                        <span class="tag">java</span>
+                        <span class="tag is-grey">17</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/法律/">
+                        <span class="tag">法律</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mysql/">
+                        <span class="tag">mysql</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/工具教程/">
+                        <span class="tag">工具教程</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/think/">
+                        <span class="tag">think</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/elasticsearch6/">
+                        <span class="tag">elasticsearch6</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo主题/">
+                        <span class="tag">hexo主题</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/icarus主题配置/">
+                        <span class="tag">icarus主题配置</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/redis/">
+                        <span class="tag">redis</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Effective-Java/" style="font-size: 10px;">Effective-Java</a> <a href="/tags/Z字变换/" style="font-size: 10px;">Z字变换</a> <a href="/tags/b-tree/" style="font-size: 10px;">b+tree</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/elasticsearch6/" style="font-size: 12px;">elasticsearch6</a> <a href="/tags/feign/" style="font-size: 10px;">feign</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/hexo主题/" style="font-size: 12px;">hexo主题</a> <a href="/tags/icarus主题配置/" style="font-size: 12px;">icarus主题配置</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/java-并发-多线程/" style="font-size: 10px;">java,并发,多线程</a> <a href="/tags/marathon/" style="font-size: 10px;">marathon</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 16px;">mysql</a> <a href="/tags/nfc/" style="font-size: 10px;">nfc</a> <a href="/tags/query/" style="font-size: 10px;">query</a> <a href="/tags/redis/" style="font-size: 12px;">redis</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/spring-cloud/" style="font-size: 10px;">spring cloud</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/think/" style="font-size: 14px;">think</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/二分查找/" style="font-size: 12px;">二分查找</a> <a href="/tags/分治算法/" style="font-size: 10px;">分治算法</a> <a href="/tags/前端技术/" style="font-size: 10px;">前端技术</a> <a href="/tags/反转整数/" style="font-size: 10px;">反转整数</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/字符串转整数/" style="font-size: 10px;">字符串转整数</a> <a href="/tags/工具教程/" style="font-size: 16px;">工具教程</a> <a href="/tags/幂等性-restful-api/" style="font-size: 10px;">幂等性,restful-api</a> <a href="/tags/支付架构/" style="font-size: 12px;">支付架构</a> <a href="/tags/支付系统/" style="font-size: 12px;">支付系统</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/最长回文/" style="font-size: 10px;">最长回文</a> <a href="/tags/正则表达式/" style="font-size: 10px;">正则表达式</a> <a href="/tags/法律/" style="font-size: 18px;">法律</a> <a href="/tags/滑动窗口/" style="font-size: 10px;">滑动窗口</a> <a href="/tags/科普/" style="font-size: 12px;">科普</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/索引分词/" style="font-size: 10px;">索引分词</a> <a href="/tags/经验成长/" style="font-size: 10px;">经验成长</a> <a href="/tags/聚簇索引/" style="font-size: 10px;">聚簇索引</a> <a href="/tags/设计模式/" style="font-size: 18px;">设计模式</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/集合/" style="font-size: 10px;">集合</a>
+    </div>
+</div>
+        
+            <div class="card widget">
+  <div class="card-content">
+    <div class="menu">
+      <h3 class="menu-label">
+        订阅邮件
+      </h3>
+      <div>
+        <form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow"
+          onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri=removeifFeedsId', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+          <input type="hidden" value="removeifFeedsId" name="uri" />
+          <input type="hidden" name="loc" value="en_US" />
+          <div class="field">
+            <div class="control has-icons-left">
+              <input class="input" name="email" type="email" placeholder="请输入邮箱地址" />
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+            </div>
+            <p class="help">输入邮箱点立即订阅跳转后点人机认证，点完成按钮，邮箱收到确认邮件点确认！</p>
+          </div>
+          <div class="field is-grouped is-grouped-right">
+            <div class="control">
+              <input class="button is-link is-rounded" type="submit" value="立即订阅" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+    <div class="g-ads-y">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- ads-y -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6343805421927634"
+             data-ad-slot="9708919542"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    </div>
+</div>
+
+
+
+        
+        </div>
+    
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="博客中gitalk最新评论的获取" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 辣椒の酱&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>,Modify by <a href="https://github.com/removeif">removeif</a>&nbsp;
+                
+                <br>
+                &copy; 版权说明：[本网站所有内容均收集于互联网或自己创作,<br>&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="https://removeif.github.io/message/" target="_blank">留言</a>，立即处理]
+                <br>
+                <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/statistics.js"></script>
+                <span id="statistic-times"></span>
+                <br>
+                <span id="busuanzi_container_site_uv">
+                ❤️感谢 <strong><span id="busuanzi_value_site_uv">99+</span></strong> 小伙伴的 
+                </span>
+                 <strong><span id="busuanzi_value_site_pv">99+</span></strong> 次光临，贡献💐<a href="https://github.com/removeif/hexo-theme-icarus-removeif">本站源码</a>！❤️
+                 
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/removeif">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/insight.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/css/search.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/css/insight.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    
+    <script type="text/javascript" defer src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/js/comment-issue-data.js"></script>
+    
+    <!-- 暂时关闭伪娘 <script type="text/javascript" async="" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v0.06/live2d/autoload.js"></script> -->
+</body>
+</html>
