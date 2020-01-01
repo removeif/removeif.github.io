@@ -1,799 +1,21 @@
 <!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
 
+<meta name="generator" content="Hexo 3.8.0" />
 
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/remove.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/remove.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/remove.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@master/images/wico.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@master/images/wico.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@master/images/wico.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@master/images/wico.png?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="categories-java, 算法成长之路leetcode11-12,11. Container With Most Water, 12. Integer to Roman">
-
-
-
-
-
-  <link rel="alternate" href="/remove.io/atom.xml" title="辣椒の酱" type="application/atom+xml">
-
-
-
-
-
-
-<meta name="description" content="11. Container With Most WaterGiven n non-negative integers a1, a2, …, an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (">
-<meta name="keywords" content="categories-java, 算法成长之路leetcode11-12,11. Container With Most Water, 12. Integer to Roman">
-<meta property="og:type" content="article">
-<meta property="og:title" content="算法成长之路leetcode11-12">
-<meta property="og:url" content="https://removeif.github.io/algorithm/算法成长之路leetcode11-12.html">
-<meta property="og:site_name" content="辣椒の酱">
-<meta property="og:description" content="11. Container With Most WaterGiven n non-negative integers a1, a2, …, an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191217182702.png">
-<meta property="og:updated_time" content="2019-12-17T10:36:11.202Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="算法成长之路leetcode11-12">
-<meta name="twitter:description" content="11. Container With Most WaterGiven n non-negative integers a1, a2, …, an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191217182702.png">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/remove.io/',
-    scheme: 'Pisces',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="https://removeif.github.io/algorithm/算法成长之路leetcode11-12.html">
-
-
-
-
-
-  <title>算法成长之路leetcode11-12 | 辣椒の酱</title>
-  
-
-
-
-
-
-
-
-
-</head>
-
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/remove.io/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">辣椒の酱</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <h1 class="site-subtitle" itemprop="description">尚未执佩剑，转眼即江湖</h1>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/remove.io/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/remove.io/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/remove.io/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/remove.io/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-留言">
-          <a href="https://removeif.github.io/message/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            留言
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-主站">
-          <a href="https://removeif.github.io/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            主站
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://removeif.github.io/remove.io/algorithm/算法成长之路leetcode11-12.html">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="辣椒の酱">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@master/images/tuzi.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="辣椒の酱">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">算法成长之路leetcode11-12</h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-17T18:25:03+08:00">
-                2019-12-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/remove.io/categories/algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h3 id="11-Container-With-Most-Water"><a href="#11-Container-With-Most-Water" class="headerlink" title="11. Container With Most Water"></a><a href="https://leetcode-cn.com/problems/container-with-most-water/" target="_blank" rel="noopener">11. Container With Most Water</a></h3><p>Given n non-negative integers a1, a2, …, an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.<br><a id="more"></a><br>Note: You may not slant the container and n is at least 2.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191217182702.png" alt=""></p>
-<p>The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.</p>
-<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br><span class="line"></span><br><span class="line">Input: [1,8,6,2,5,4,8,3,7]</span><br><span class="line">Output: 49</span><br></pre></td></tr></table></figure>
-<h4 id="JAVA题解"><a href="#JAVA题解" class="headerlink" title="JAVA题解"></a>JAVA题解</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> algorithm;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 给定 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。</span></span><br><span class="line"><span class="comment"> * 在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。</span></span><br><span class="line"><span class="comment"> * 找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 说明：你不能倾斜容器，且 n 的值至少为 2。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 示例:</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 输入: [1,8,6,2,5,4,8,3,7]</span></span><br><span class="line"><span class="comment"> * 输出: 49</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 来源：力扣（LeetCode）</span></span><br><span class="line"><span class="comment"> * 链接：https://leetcode-cn.com/problems/container-with-most-water</span></span><br><span class="line"><span class="comment"> * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Leetcode11</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 暴力解法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; height.length; j++) &#123;</span><br><span class="line">                max = Math.max(max, Math.min(height[i], height[j]) * (j-i));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 官方 双指针法</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 算法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 这种方法背后的思路在于，两线段之间形成的区域总是会受到其中较短那条长度的限制。此外，两线段距离越远，得到的面积就越大。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 我们在由线段长度构成的数组中使用两个指针，一个放在开始，一个置于末尾。</span></span><br><span class="line"><span class="comment">     * 此外，我们会使用变量 maxareamaxarea 来持续存储到目前为止所获得的最大面积。</span></span><br><span class="line"><span class="comment">     * 在每一步中，我们会找出指针所指向的两条线段形成的区域，更新 maxareamaxarea，并将指向较短线段的指针向较长线段那端移动一步。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 作者：LeetCode</span></span><br><span class="line"><span class="comment">     * 链接：https://leetcode-cn.com/problems/container-with-most-water/solution/sheng-zui-duo-shui-de-rong-qi-by-leetcode/</span></span><br><span class="line"><span class="comment">     * 来源：力扣（LeetCode）</span></span><br><span class="line"><span class="comment">     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 算法流程： 设置双指针 ii,jj 分别位于容器壁两端，根据规则移动指针（后续说明），并且更新面积最大值 res，直到 i == j 时返回 res。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 指针移动规则与证明： 每次选定围成水槽两板高度 h[i]h[i],h[j]h[j] 中的短板，向中间收窄 11 格。以下证明：</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 设每一状态下水槽面积为 S(i, j)S(i,j),(0 &lt;= i &lt; j &lt; n)(0&lt;=i&lt;j&lt;n)，由于水槽的实际高度由两板中的短板决定，</span></span><br><span class="line"><span class="comment">     * 则可得面积公式 S(i, j) = min(h[i], h[j]) × (j - i)S(i,j)=min(h[i],h[j])×(j−i)。</span></span><br><span class="line"><span class="comment">     * 在每一个状态下，无论长板或短板收窄 11 格，都会导致水槽 底边宽度 -1−1：</span></span><br><span class="line"><span class="comment">     * 若向内移动短板，水槽的短板 min(h[i], h[j])min(h[i],h[j]) 可能变大，因此水槽面积 S(i, j)S(i,j) 可能增大。</span></span><br><span class="line"><span class="comment">     * 若向内移动长板，水槽的短板 min(h[i], h[j])min(h[i],h[j]) 不变或变小，下个水槽的面积一定小于当前水槽面积。</span></span><br><span class="line"><span class="comment">     * 因此，向内收窄短板可以获取面积最大值。换个角度理解：</span></span><br><span class="line"><span class="comment">     * 若不指定移动规则，所有移动出现的 S(i, j)S(i,j) 的状态数为 C(n, 2)C(n,2)，即暴力枚举出所有状态。</span></span><br><span class="line"><span class="comment">     * 在状态 S(i, j)S(i,j) 下向内移动短板至 S(i + 1, j)S(i+1,j)（假设 h[i] &lt; h[j]h[i]&lt;h[j] ），</span></span><br><span class="line"><span class="comment">     * 则相当于消去了 &#123;S(i, j - 1), S(i, j - 2), ... , S(i, i + 1)&#125;S(i,j−1),S(i,j−2),...,S(i,i+1) 状态集合。</span></span><br><span class="line"><span class="comment">     * 而所有消去状态的面积一定 &lt;= S(i, j)&lt;=S(i,j)：</span></span><br><span class="line"><span class="comment">     * 短板高度：相比 S(i, j)S(i,j) 相同或更短（&lt;= h[i]&lt;=h[i]）；</span></span><br><span class="line"><span class="comment">     * 底边宽度：相比 S(i, j)S(i,j) 更短。</span></span><br><span class="line"><span class="comment">     * 因此所有消去的状态的面积都 &lt; S(i, j)&lt;S(i,j)。通俗的讲，我们每次向内移动短板，所有的消去状态都不会导致丢失面积最大值 。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 作者：jyd</span></span><br><span class="line"><span class="comment">     * 链接：https://leetcode-cn.com/problems/container-with-most-water/solution/container-with-most-water-shuang-zhi-zhen-fa-yi-do/</span></span><br><span class="line"><span class="comment">     * 来源：力扣（LeetCode）</span></span><br><span class="line"><span class="comment">     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> height</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">maxArea1</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> maxarea = <span class="number">0</span>, l = <span class="number">0</span>, r = height.length - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="comment">// 计算面积，取最大值</span></span><br><span class="line">            maxarea = Math.max(maxarea, Math.min(height[l], height[r]) * (r - l));</span><br><span class="line">            <span class="comment">// 小的向大的一方移动，如果左边小于右边，左边向右边移动一位，即左++,l++，否则右移</span></span><br><span class="line">            <span class="keyword">if</span> (height[l] &lt; height[r])</span><br><span class="line">                l++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                r--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxarea;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">maxArea2</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = height.length - <span class="number">1</span>, res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; j)&#123;</span><br><span class="line">            res = height[i] &lt; height[j] ?</span><br><span class="line">                    Math.max(res, (j - i) * height[i++]):</span><br><span class="line">                    Math.max(res, (j - i) * height[j--]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// best one</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">maxArea3</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> lastIndex = height.length - <span class="number">1</span>, max = <span class="number">0</span>, temp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lastIndex;) &#123;</span><br><span class="line">            <span class="comment">// 取左右边上的最小的数</span></span><br><span class="line">            temp = Math.min(height[i], height[lastIndex]);</span><br><span class="line">            <span class="comment">// 计算 距离最大面积</span></span><br><span class="line">            <span class="keyword">if</span> (temp * (lastIndex - i) &gt; max) &#123;</span><br><span class="line">                max = temp * (lastIndex - i);</span><br><span class="line">                System.out.println(<span class="string">""</span> + i + <span class="string">","</span> + lastIndex);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 最小值在右边的话 右边往左边移动</span></span><br><span class="line">            <span class="keyword">while</span> (temp &gt;= height[lastIndex] &amp;&amp; i &lt; lastIndex)</span><br><span class="line">                lastIndex--;</span><br><span class="line">            <span class="comment">// 最小值在左边的话 左边往右移动 直到重合</span></span><br><span class="line">            <span class="keyword">while</span> (temp &gt;= height[i] &amp;&amp; i &lt; lastIndex)</span><br><span class="line">                i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(maxArea3(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">10</span>, <span class="number">8</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">3</span>, <span class="number">7</span>&#125;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="12-Integer-to-Roman"><a href="#12-Integer-to-Roman" class="headerlink" title="12. Integer to Roman"></a><a href="https://leetcode-cn.com/problems/integer-to-roman/" target="_blank" rel="noopener">12. Integer to Roman</a></h3><p>Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.</p>
-<p>Symbol       Value<br>I             1<br>V             5<br>X             10<br>L             50<br>C             100<br>D             500<br>M             1000<br>For example, two is written as II in Roman numeral, just two one’s added together. Twelve is written as, XII, which is simply X + II. The number twenty seven is written as XXVII, which is XX + V + II.</p>
-<p>Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:</p>
-<p>I can be placed before V (5) and X (10) to make 4 and 9.<br>X can be placed before L (50) and C (100) to make 40 and 90.<br>C can be placed before D (500) and M (1000) to make 400 and 900.<br>Given an integer, convert it to a roman numeral. Input is guaranteed to be within the range from 1 to 3999.</p>
-<h4 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: 3</span><br><span class="line">Output: &quot;III&quot;</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: 4</span><br><span class="line">Output: &quot;IV&quot;</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: 9</span><br><span class="line">Output: &quot;IX&quot;</span><br><span class="line">Example 4:</span><br><span class="line"></span><br><span class="line">Input: 58</span><br><span class="line">Output: &quot;LVIII&quot;</span><br><span class="line">Explanation: L = 50, V = 5, III = 3.</span><br><span class="line">Example 5:</span><br><span class="line"></span><br><span class="line">Input: 1994</span><br><span class="line">Output: &quot;MCMXCIV&quot;</span><br><span class="line">Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.</span><br></pre></td></tr></table></figure>
-<h4 id="JAVA题解-1"><a href="#JAVA题解-1" class="headerlink" title="JAVA题解"></a>JAVA题解</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> algorithm;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 字符          数值</span></span><br><span class="line"><span class="comment"> * I             1</span></span><br><span class="line"><span class="comment"> * V             5</span></span><br><span class="line"><span class="comment"> * X             10</span></span><br><span class="line"><span class="comment"> * L             50</span></span><br><span class="line"><span class="comment"> * C             100</span></span><br><span class="line"><span class="comment"> * D             500</span></span><br><span class="line"><span class="comment"> * M             1000</span></span><br><span class="line"><span class="comment"> * 例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，</span></span><br><span class="line"><span class="comment"> * 即为 X + II 。 27 写做  XXVII, 即为 XX + V + II 。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 通常情况下，罗马数字中小的数字在大的数字的右边。</span></span><br><span class="line"><span class="comment"> * 但也存在特例，例如 4 不写做 IIII，而是 IV。数字 1 在数字 5 的左边，</span></span><br><span class="line"><span class="comment"> * 所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，</span></span><br><span class="line"><span class="comment"> * 数字 9 表示为 IX。这个特殊的规则只适用于以下六种情况：</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。</span></span><br><span class="line"><span class="comment"> * X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 </span></span><br><span class="line"><span class="comment"> * C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。</span></span><br><span class="line"><span class="comment"> * 给定一个整数，将其转为罗马数字。输入确保在 1 到 3999 的范围内。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 示例 1:</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 输入: 3</span></span><br><span class="line"><span class="comment"> * 输出: "III"</span></span><br><span class="line"><span class="comment"> * 示例 2:</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 输入: 4</span></span><br><span class="line"><span class="comment"> * 输出: "IV"</span></span><br><span class="line"><span class="comment"> * 示例 3:</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 输入: 9</span></span><br><span class="line"><span class="comment"> * 输出: "IX"</span></span><br><span class="line"><span class="comment"> * 示例 4:</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 输入: 58</span></span><br><span class="line"><span class="comment"> * 输出: "LVIII"</span></span><br><span class="line"><span class="comment"> * 解释: L = 50, V = 5, III = 3.</span></span><br><span class="line"><span class="comment"> * 示例 5:</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 输入: 1994</span></span><br><span class="line"><span class="comment"> * 输出: "MCMXCIV"</span></span><br><span class="line"><span class="comment"> * 解释: M = 1000, CM = 900, XC = 90, IV = 4.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 来源：力扣（LeetCode）</span></span><br><span class="line"><span class="comment"> * 链接：https://leetcode-cn.com/problems/integer-to-roman</span></span><br><span class="line"><span class="comment"> * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Leetcode12</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 执行用时 :6 ms, 在所有 java 提交中击败了的用户</span></span><br><span class="line"><span class="comment">     * 内存消耗 :36.1 MB, 在所有 java 提交中击败了100.00%的用户</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> num</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">intToRoman</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 个位数</span></span><br><span class="line">        String[] map = <span class="keyword">new</span> String[]&#123;<span class="string">""</span>, <span class="string">"I"</span>, <span class="string">"II"</span>, <span class="string">"III"</span>, <span class="string">"IV"</span>, <span class="string">"V"</span>, <span class="string">"VI"</span>, <span class="string">"VII"</span>, <span class="string">"VIII"</span>, <span class="string">"IX"</span>&#125;;</span><br><span class="line">        <span class="comment">// 十位数</span></span><br><span class="line">        String[] map1 = <span class="keyword">new</span> String[]&#123;<span class="string">""</span>, <span class="string">"X"</span>, <span class="string">"XX"</span>, <span class="string">"XXX"</span>, <span class="string">"XL"</span>, <span class="string">"L"</span>, <span class="string">"LX"</span>, <span class="string">"LXX"</span>, <span class="string">"LXXX"</span>, <span class="string">"XC"</span>&#125;;</span><br><span class="line">        <span class="comment">// 百位</span></span><br><span class="line">        String[] map2 = <span class="keyword">new</span> String[]&#123;<span class="string">""</span>, <span class="string">"C"</span>, <span class="string">"CC"</span>, <span class="string">"CCC"</span>, <span class="string">"CD"</span>, <span class="string">"D"</span>, <span class="string">"DC"</span>, <span class="string">"DCC"</span>, <span class="string">"DCCC"</span>, <span class="string">"CM"</span>&#125;;</span><br><span class="line">        <span class="comment">// 千位</span></span><br><span class="line">        String[] map3 = <span class="keyword">new</span> String[]&#123;<span class="string">""</span>, <span class="string">"M"</span>, <span class="string">"MM"</span>, <span class="string">"MMM"</span>&#125;;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        String[] res = <span class="keyword">new</span> String[<span class="number">4</span>];</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> temp = num % i;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">10</span>) &#123;</span><br><span class="line">                temp = temp / (i / <span class="number">10</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">switch</span> (j) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                    res[j++] = map[temp];</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                    res[j++] = map1[temp];</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                    res[j++] = map2[temp];</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                    res[j++] = map3[temp];</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            i = <span class="number">10</span>*i;</span><br><span class="line">            <span class="keyword">if</span> (j &gt; <span class="number">3</span>) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = res.length - <span class="number">1</span>; k &gt;= <span class="number">0</span>; k--) &#123;</span><br><span class="line">            sb.append(res[k]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 贪心算法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 解题思路</span></span><br><span class="line"><span class="comment">     * 参考大佬们的思路 吃透之后 写出来</span></span><br><span class="line"><span class="comment">     * 贪心算法 我永远用最接近的去做比较</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 如果我去小卖部买55元的东西</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 你可以选择一张面值50的 和一张5块的</span></span><br><span class="line"><span class="comment">     * 也可以给一张100的让老板找零</span></span><br><span class="line"><span class="comment">     * 贪心算法就是前者</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 假定我买3块的东西 我先用5块去比较 太多了 老板问 你还有小点的纸币没 我找不开</span></span><br><span class="line"><span class="comment">     * 这时候 你给个两块 还差一块 又给了一块</span></span><br><span class="line"><span class="comment">     * 看着很蠢 但是这确实有效</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 作者：guo-tang-feng</span></span><br><span class="line"><span class="comment">     * 链接：https://leetcode-cn.com/problems/integer-to-roman/solution/tan-xin-suan-fa-by-guo-tang-feng/</span></span><br><span class="line"><span class="comment">     * 来源：力扣（LeetCode）</span></span><br><span class="line"><span class="comment">     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> num</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">intToRoman1</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">int</span>[] moneys = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1000</span>, <span class="number">900</span>, <span class="number">500</span>, <span class="number">400</span>, <span class="number">100</span>, <span class="number">90</span>, <span class="number">50</span>, <span class="number">40</span>, <span class="number">10</span>, <span class="number">9</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">1</span>&#125;;</span><br><span class="line">        String[] moneyToStr = <span class="keyword">new</span> String[]&#123;<span class="string">"M"</span>, <span class="string">"CM"</span>, <span class="string">"D"</span>, <span class="string">"CD"</span>, <span class="string">"C"</span>, <span class="string">"XC"</span>, <span class="string">"L"</span>, <span class="string">"XL"</span>, <span class="string">"X"</span>, <span class="string">"IX"</span>, <span class="string">"V"</span>, <span class="string">"IV"</span>, <span class="string">"I"</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 如果大于最大的数</span></span><br><span class="line">            <span class="keyword">if</span> (num &gt;= moneys[index]) &#123;</span><br><span class="line">                <span class="comment">// 加进去</span></span><br><span class="line">                stringBuilder.append(moneyToStr[index]);</span><br><span class="line">                <span class="comment">// 把加进去的减掉</span></span><br><span class="line">                num -= moneys[index];</span><br><span class="line">                <span class="comment">// 索引前移，num -= moneys[index] 还可能满足 num &gt;= moneys[index]</span></span><br><span class="line">                <span class="comment">// ，此时如果只index++，那么就漏掉一部分了，所以要index--，如2000减掉1000还有1000 还是应该和moneys[0]比较</span></span><br><span class="line">                index--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 索引后移</span></span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stringBuilder.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 第一次超过100%用户的内存，有点小小激动 😂</span></span><br><span class="line">        System.out.println(intToRoman(<span class="number">400</span>));</span><br><span class="line">        System.out.println(intToRoman1(<span class="number">1994</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-      <div>
-        <ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者：</strong>
-    辣椒の酱
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://removeif.github.io/algorithm/算法成长之路leetcode11-12.html" title="算法成长之路leetcode11-12">https://removeif.github.io/algorithm/算法成长之路leetcode11-12.html</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>
-    本博客文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
-  </li>
-  <li class="post-copyright-license">
-      <strong>文章评论：</strong>
-      <a href="https://removeif.github.io/algorithm/算法成长之路leetcode11-12.html#comment-container">点击评论</a>
-  </li>
-</ul>
-
-      </div>
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/remove.io/tags/贪心算法/" rel="tag"># 贪心算法</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/remove.io/develop/intellj-idea-详细调试代码debug.html" rel="next" title="intellj idea 详细调试代码debug">
-                <i class="fa fa-chevron-left"></i> intellj idea 详细调试代码debug
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/remove.io/theme/不蒜子统计常见问题.html" rel="prev" title="不蒜子统计常见问题">
-                不蒜子统计常见问题 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@master/images/tuzi.jpg" alt="辣椒の酱">
-            
-              <p class="site-author-name" itemprop="name">辣椒の酱</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/remove.io/archives/">
-              
-                  <span class="site-state-item-count">81</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/remove.io/categories/index.html">
-                  <span class="site-state-item-count">35</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/remove.io/tags/index.html">
-                  <span class="site-state-item-count">61</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-            <div class="feed-link motion-element">
-              <a href="/remove.io/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-
-                <!-- <div>
-                此处是广告
-                </div>
-                -->
-              </a>
-            </div>
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-Container-With-Most-Water"><span class="nav-number">1.</span> <span class="nav-text">11. Container With Most Water</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Example"><span class="nav-number">1.1.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JAVA题解"><span class="nav-number">1.2.</span> <span class="nav-text">JAVA题解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-Integer-to-Roman"><span class="nav-number">2.</span> <span class="nav-text">12. Integer to Roman</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-1"><span class="nav-number">2.1.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JAVA题解-1"><span class="nav-number">2.2.</span> <span class="nav-text">JAVA题解</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">辣椒の酱</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/remove.io/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/remove.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/remove.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/remove.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/remove.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/remove.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/remove.io/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/remove.io/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/remove.io/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/remove.io/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/remove.io/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/remove.io/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/remove.io/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
+<title>算法成长之路leetcode11-12 - 辣椒の酱</title>
+<meta name="google-site-verification" content="67z1CXZ8AOhImIglgTwqAlneRCHTO6xRJo5NeafDAqw" />
+<!-- 百度抓取 -->
 <script>
 (function(){
     var bp = document.createElement('script');
     var curProtocol = window.location.protocol.split(':')[0];
     if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
     }
     else {
         bp.src = 'http://push.zhanzhang.baidu.com/push.js';
@@ -802,16 +24,1142 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
+<!-- google adSense -->
+<script data-ad-client="ca-pub-6343805421927634" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 百度统计 -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?90a0e914cd2c9e93e206cc9131b19416";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <meta name="description" content="11. Container With Most WaterGiven n non-negative integers a1, a2, …, an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (">
+<meta name="keywords" content="categories-java, 算法成长之路leetcode11-12,11. Container With Most Water, 12. Integer to Roman">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法成长之路leetcode11-12">
+<meta property="og:url" content="https://removeif.github.io/algorithm/算法成长之路leetcode11-12.html">
+<meta property="og:site_name" content="辣椒の酱">
+<meta property="og:description" content="11. Container With Most WaterGiven n non-negative integers a1, a2, …, an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191217183204.png">
+<meta property="og:updated_time" content="2019-12-17T10:36:11.202Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法成长之路leetcode11-12">
+<meta name="twitter:description" content="11. Container With Most WaterGiven n non-negative integers a1, a2, …, an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191217183204.png">
 
 
-  
-  
 
-  
 
-  
 
-  
+<link rel="alternative" href="/atom.xml" title="算法成长之路leetcode11-12" type="application/atom+xml">
 
+
+
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/images/wico.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;subset=latin,latin-ext">
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/css/back-to-top.css">
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154601528-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-154601528-1');
+</script>
+
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/js/globalUtils.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/css/style1.min.css">
+<link rel="stylesheet" href="/css/m-style.css">
+<!-- 暂时关闭伪娘 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/live2d/waifu.css"> -->
+    <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="算法成长之路leetcode11-12" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives/">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories/">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags/">标签</a>
+                
+                <a class="navbar-item"
+                href="/tags/法律/">律法</a>
+                
+                <a class="navbar-item"
+                href="/categories/algorithm">算法</a>
+                
+                <a class="navbar-item"
+                href="/message/">留言</a>
+                
+                <a class="navbar-item"
+                href="/friend/">友链</a>
+                
+                <a class="navbar-item"
+                href="/album/">美图</a>
+                
+                <a class="navbar-item"
+                href="/music/">影音</a>
+                
+                <a class="navbar-item"
+                href="/self-talking/">碎碎念</a>
+                
+                <a class="navbar-item"
+                href="/about/">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+                <a class="navbar-item" id="night-nav" title="深色主题" href="javascript:;">
+                    <i class="fas fa-moon" id="night-icon"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/js/theme-setting.js"></script>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191217183204.png" alt="算法成长之路leetcode11-12">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                
+                <time class="level-item has-text-grey" datetime="2019-12-17T10:25:03.000Z">2019-12-17</time>
+                
+                    <span class="display-none-class">ee52392a8f786020755fe23179af3f57</span>
+                    <img class="not-gallery-item" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/images/chat.svg">&nbsp;<a href="/algorithm/算法成长之路leetcode11-12.html#comment-container"><span id=ee52392a8f786020755fe23179af3f57>99+</span></a>&nbsp;&nbsp;&nbsp;&nbsp;</img>
+                
+                
+                <div class="level-item">
+                <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                     <!-- 13 分钟 读完 (大约 1953 个字) -->
+                     (大约 1953 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    1<span id="busuanzi_value_page_pv">99+</span> 次查看
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                算法成长之路leetcode11-12
+            
+        </h1>
+        <div class="content">
+            <h3 id="11-Container-With-Most-Water"><a href="#11-Container-With-Most-Water" class="headerlink" title="11. Container With Most Water"></a><a href="https://leetcode-cn.com/problems/container-with-most-water/" target="_blank" rel="noopener">11. Container With Most Water</a></h3><p>Given n non-negative integers a1, a2, …, an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.<br><a id="more"></a><br>Note: You may not slant the container and n is at least 2.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191217182702.png" alt=""></p>
+<p>The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.</p>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br><span class="line"></span><br><span class="line">Input: [1,8,6,2,5,4,8,3,7]</span><br><span class="line">Output: 49</span><br></pre></td></tr></table></figure>
+<h4 id="JAVA题解"><a href="#JAVA题解" class="headerlink" title="JAVA题解"></a>JAVA题解</h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">package</span> algorithm;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * 给定 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。</span></span><br><span class="line"><span class="hljs-comment"> * 在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。</span></span><br><span class="line"><span class="hljs-comment"> * 找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 说明：你不能倾斜容器，且 n 的值至少为 2。</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 示例:</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 输入: [1,8,6,2,5,4,8,3,7]</span></span><br><span class="line"><span class="hljs-comment"> * 输出: 49</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 来源：力扣（LeetCode）</span></span><br><span class="line"><span class="hljs-comment"> * 链接：https://leetcode-cn.com/problems/container-with-most-water</span></span><br><span class="line"><span class="hljs-comment"> * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Leetcode11</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 暴力解法</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxArea</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; height.length - <span class="hljs-number">1</span>; i++) &#123;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i + <span class="hljs-number">1</span>; j &lt; height.length; j++) &#123;</span><br><span class="line">                max = Math.max(max, Math.min(height[i], height[j]) * (j-i));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 官方 双指针法</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 算法</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * 这种方法背后的思路在于，两线段之间形成的区域总是会受到其中较短那条长度的限制。此外，两线段距离越远，得到的面积就越大。</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * 我们在由线段长度构成的数组中使用两个指针，一个放在开始，一个置于末尾。</span></span><br><span class="line"><span class="hljs-comment">     * 此外，我们会使用变量 maxareamaxarea 来持续存储到目前为止所获得的最大面积。</span></span><br><span class="line"><span class="hljs-comment">     * 在每一步中，我们会找出指针所指向的两条线段形成的区域，更新 maxareamaxarea，并将指向较短线段的指针向较长线段那端移动一步。</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * 作者：LeetCode</span></span><br><span class="line"><span class="hljs-comment">     * 链接：https://leetcode-cn.com/problems/container-with-most-water/solution/sheng-zui-duo-shui-de-rong-qi-by-leetcode/</span></span><br><span class="line"><span class="hljs-comment">     * 来源：力扣（LeetCode）</span></span><br><span class="line"><span class="hljs-comment">     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * 算法流程： 设置双指针 ii,jj 分别位于容器壁两端，根据规则移动指针（后续说明），并且更新面积最大值 res，直到 i == j 时返回 res。</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * 指针移动规则与证明： 每次选定围成水槽两板高度 h[i]h[i],h[j]h[j] 中的短板，向中间收窄 11 格。以下证明：</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * 设每一状态下水槽面积为 S(i, j)S(i,j),(0 &lt;= i &lt; j &lt; n)(0&lt;=i&lt;j&lt;n)，由于水槽的实际高度由两板中的短板决定，</span></span><br><span class="line"><span class="hljs-comment">     * 则可得面积公式 S(i, j) = min(h[i], h[j]) × (j - i)S(i,j)=min(h[i],h[j])×(j−i)。</span></span><br><span class="line"><span class="hljs-comment">     * 在每一个状态下，无论长板或短板收窄 11 格，都会导致水槽 底边宽度 -1−1：</span></span><br><span class="line"><span class="hljs-comment">     * 若向内移动短板，水槽的短板 min(h[i], h[j])min(h[i],h[j]) 可能变大，因此水槽面积 S(i, j)S(i,j) 可能增大。</span></span><br><span class="line"><span class="hljs-comment">     * 若向内移动长板，水槽的短板 min(h[i], h[j])min(h[i],h[j]) 不变或变小，下个水槽的面积一定小于当前水槽面积。</span></span><br><span class="line"><span class="hljs-comment">     * 因此，向内收窄短板可以获取面积最大值。换个角度理解：</span></span><br><span class="line"><span class="hljs-comment">     * 若不指定移动规则，所有移动出现的 S(i, j)S(i,j) 的状态数为 C(n, 2)C(n,2)，即暴力枚举出所有状态。</span></span><br><span class="line"><span class="hljs-comment">     * 在状态 S(i, j)S(i,j) 下向内移动短板至 S(i + 1, j)S(i+1,j)（假设 h[i] &lt; h[j]h[i]&lt;h[j] ），</span></span><br><span class="line"><span class="hljs-comment">     * 则相当于消去了 &#123;S(i, j - 1), S(i, j - 2), ... , S(i, i + 1)&#125;S(i,j−1),S(i,j−2),...,S(i,i+1) 状态集合。</span></span><br><span class="line"><span class="hljs-comment">     * 而所有消去状态的面积一定 &lt;= S(i, j)&lt;=S(i,j)：</span></span><br><span class="line"><span class="hljs-comment">     * 短板高度：相比 S(i, j)S(i,j) 相同或更短（&lt;= h[i]&lt;=h[i]）；</span></span><br><span class="line"><span class="hljs-comment">     * 底边宽度：相比 S(i, j)S(i,j) 更短。</span></span><br><span class="line"><span class="hljs-comment">     * 因此所有消去的状态的面积都 &lt; S(i, j)&lt;S(i,j)。通俗的讲，我们每次向内移动短板，所有的消去状态都不会导致丢失面积最大值 。</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * 作者：jyd</span></span><br><span class="line"><span class="hljs-comment">     * 链接：https://leetcode-cn.com/problems/container-with-most-water/solution/container-with-most-water-shuang-zhi-zhen-fa-yi-do/</span></span><br><span class="line"><span class="hljs-comment">     * 来源：力扣（LeetCode）</span></span><br><span class="line"><span class="hljs-comment">     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> height</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxArea1</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">int</span> maxarea = <span class="hljs-number">0</span>, l = <span class="hljs-number">0</span>, r = height.length - <span class="hljs-number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="hljs-comment">// 计算面积，取最大值</span></span><br><span class="line">            maxarea = Math.max(maxarea, Math.min(height[l], height[r]) * (r - l));</span><br><span class="line">            <span class="hljs-comment">// 小的向大的一方移动，如果左边小于右边，左边向右边移动一位，即左++,l++，否则右移</span></span><br><span class="line">            <span class="hljs-keyword">if</span> (height[l] &lt; height[r])</span><br><span class="line">                l++;</span><br><span class="line">            <span class="hljs-keyword">else</span></span><br><span class="line">                r--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> maxarea;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxArea2</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = height.length - <span class="hljs-number">1</span>, res = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">while</span>(i &lt; j)&#123;</span><br><span class="line">            res = height[i] &lt; height[j] ?</span><br><span class="line">                    Math.max(res, (j - i) * height[i++]):</span><br><span class="line">                    Math.max(res, (j - i) * height[j--]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// best one</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxArea3</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> lastIndex = height.length - <span class="hljs-number">1</span>, max = <span class="hljs-number">0</span>, temp = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; lastIndex;) &#123;</span><br><span class="line">            <span class="hljs-comment">// 取左右边上的最小的数</span></span><br><span class="line">            temp = Math.min(height[i], height[lastIndex]);</span><br><span class="line">            <span class="hljs-comment">// 计算 距离最大面积</span></span><br><span class="line">            <span class="hljs-keyword">if</span> (temp * (lastIndex - i) &gt; max) &#123;</span><br><span class="line">                max = temp * (lastIndex - i);</span><br><span class="line">                System.out.println(<span class="hljs-string">""</span> + i + <span class="hljs-string">","</span> + lastIndex);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="hljs-comment">// 最小值在右边的话 右边往左边移动</span></span><br><span class="line">            <span class="hljs-keyword">while</span> (temp &gt;= height[lastIndex] &amp;&amp; i &lt; lastIndex)</span><br><span class="line">                lastIndex--;</span><br><span class="line">            <span class="hljs-comment">// 最小值在左边的话 左边往右移动 直到重合</span></span><br><span class="line">            <span class="hljs-keyword">while</span> (temp &gt;= height[i] &amp;&amp; i &lt; lastIndex)</span><br><span class="line">                i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(maxArea3(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">10</span>, <span class="hljs-number">8</span>, <span class="hljs-number">6</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>, <span class="hljs-number">3</span>, <span class="hljs-number">7</span>&#125;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="12-Integer-to-Roman"><a href="#12-Integer-to-Roman" class="headerlink" title="12. Integer to Roman"></a><a href="https://leetcode-cn.com/problems/integer-to-roman/" target="_blank" rel="noopener">12. Integer to Roman</a></h3><p>Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.</p>
+<p>Symbol       Value<br>I             1<br>V             5<br>X             10<br>L             50<br>C             100<br>D             500<br>M             1000<br>For example, two is written as II in Roman numeral, just two one’s added together. Twelve is written as, XII, which is simply X + II. The number twenty seven is written as XXVII, which is XX + V + II.</p>
+<p>Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:</p>
+<p>I can be placed before V (5) and X (10) to make 4 and 9.<br>X can be placed before L (50) and C (100) to make 40 and 90.<br>C can be placed before D (500) and M (1000) to make 400 and 900.<br>Given an integer, convert it to a roman numeral. Input is guaranteed to be within the range from 1 to 3999.</p>
+<h4 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: 3</span><br><span class="line">Output: &quot;III&quot;</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: 4</span><br><span class="line">Output: &quot;IV&quot;</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: 9</span><br><span class="line">Output: &quot;IX&quot;</span><br><span class="line">Example 4:</span><br><span class="line"></span><br><span class="line">Input: 58</span><br><span class="line">Output: &quot;LVIII&quot;</span><br><span class="line">Explanation: L = 50, V = 5, III = 3.</span><br><span class="line">Example 5:</span><br><span class="line"></span><br><span class="line">Input: 1994</span><br><span class="line">Output: &quot;MCMXCIV&quot;</span><br><span class="line">Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.</span><br></pre></td></tr></table></figure>
+<h4 id="JAVA题解-1"><a href="#JAVA题解-1" class="headerlink" title="JAVA题解"></a>JAVA题解</h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">package</span> algorithm;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * 罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 字符          数值</span></span><br><span class="line"><span class="hljs-comment"> * I             1</span></span><br><span class="line"><span class="hljs-comment"> * V             5</span></span><br><span class="line"><span class="hljs-comment"> * X             10</span></span><br><span class="line"><span class="hljs-comment"> * L             50</span></span><br><span class="line"><span class="hljs-comment"> * C             100</span></span><br><span class="line"><span class="hljs-comment"> * D             500</span></span><br><span class="line"><span class="hljs-comment"> * M             1000</span></span><br><span class="line"><span class="hljs-comment"> * 例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，</span></span><br><span class="line"><span class="hljs-comment"> * 即为 X + II 。 27 写做  XXVII, 即为 XX + V + II 。</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 通常情况下，罗马数字中小的数字在大的数字的右边。</span></span><br><span class="line"><span class="hljs-comment"> * 但也存在特例，例如 4 不写做 IIII，而是 IV。数字 1 在数字 5 的左边，</span></span><br><span class="line"><span class="hljs-comment"> * 所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，</span></span><br><span class="line"><span class="hljs-comment"> * 数字 9 表示为 IX。这个特殊的规则只适用于以下六种情况：</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。</span></span><br><span class="line"><span class="hljs-comment"> * X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 </span></span><br><span class="line"><span class="hljs-comment"> * C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。</span></span><br><span class="line"><span class="hljs-comment"> * 给定一个整数，将其转为罗马数字。输入确保在 1 到 3999 的范围内。</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 示例 1:</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 输入: 3</span></span><br><span class="line"><span class="hljs-comment"> * 输出: "III"</span></span><br><span class="line"><span class="hljs-comment"> * 示例 2:</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 输入: 4</span></span><br><span class="line"><span class="hljs-comment"> * 输出: "IV"</span></span><br><span class="line"><span class="hljs-comment"> * 示例 3:</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 输入: 9</span></span><br><span class="line"><span class="hljs-comment"> * 输出: "IX"</span></span><br><span class="line"><span class="hljs-comment"> * 示例 4:</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 输入: 58</span></span><br><span class="line"><span class="hljs-comment"> * 输出: "LVIII"</span></span><br><span class="line"><span class="hljs-comment"> * 解释: L = 50, V = 5, III = 3.</span></span><br><span class="line"><span class="hljs-comment"> * 示例 5:</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 输入: 1994</span></span><br><span class="line"><span class="hljs-comment"> * 输出: "MCMXCIV"</span></span><br><span class="line"><span class="hljs-comment"> * 解释: M = 1000, CM = 900, XC = 90, IV = 4.</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 来源：力扣（LeetCode）</span></span><br><span class="line"><span class="hljs-comment"> * 链接：https://leetcode-cn.com/problems/integer-to-roman</span></span><br><span class="line"><span class="hljs-comment"> * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Leetcode12</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 执行用时 :6 ms, 在所有 java 提交中击败了的用户</span></span><br><span class="line"><span class="hljs-comment">     * 内存消耗 :36.1 MB, 在所有 java 提交中击败了100.00%的用户</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> num</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">intToRoman</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">// 个位数</span></span><br><span class="line">        String[] map = <span class="hljs-keyword">new</span> String[]&#123;<span class="hljs-string">""</span>, <span class="hljs-string">"I"</span>, <span class="hljs-string">"II"</span>, <span class="hljs-string">"III"</span>, <span class="hljs-string">"IV"</span>, <span class="hljs-string">"V"</span>, <span class="hljs-string">"VI"</span>, <span class="hljs-string">"VII"</span>, <span class="hljs-string">"VIII"</span>, <span class="hljs-string">"IX"</span>&#125;;</span><br><span class="line">        <span class="hljs-comment">// 十位数</span></span><br><span class="line">        String[] map1 = <span class="hljs-keyword">new</span> String[]&#123;<span class="hljs-string">""</span>, <span class="hljs-string">"X"</span>, <span class="hljs-string">"XX"</span>, <span class="hljs-string">"XXX"</span>, <span class="hljs-string">"XL"</span>, <span class="hljs-string">"L"</span>, <span class="hljs-string">"LX"</span>, <span class="hljs-string">"LXX"</span>, <span class="hljs-string">"LXXX"</span>, <span class="hljs-string">"XC"</span>&#125;;</span><br><span class="line">        <span class="hljs-comment">// 百位</span></span><br><span class="line">        String[] map2 = <span class="hljs-keyword">new</span> String[]&#123;<span class="hljs-string">""</span>, <span class="hljs-string">"C"</span>, <span class="hljs-string">"CC"</span>, <span class="hljs-string">"CCC"</span>, <span class="hljs-string">"CD"</span>, <span class="hljs-string">"D"</span>, <span class="hljs-string">"DC"</span>, <span class="hljs-string">"DCC"</span>, <span class="hljs-string">"DCCC"</span>, <span class="hljs-string">"CM"</span>&#125;;</span><br><span class="line">        <span class="hljs-comment">// 千位</span></span><br><span class="line">        String[] map3 = <span class="hljs-keyword">new</span> String[]&#123;<span class="hljs-string">""</span>, <span class="hljs-string">"M"</span>, <span class="hljs-string">"MM"</span>, <span class="hljs-string">"MMM"</span>&#125;;</span><br><span class="line">        StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();</span><br><span class="line">        String[] res = <span class="hljs-keyword">new</span> String[<span class="hljs-number">4</span>];</span><br><span class="line">        <span class="hljs-keyword">int</span> i = <span class="hljs-number">10</span>;</span><br><span class="line">        <span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">while</span> (num &gt; <span class="hljs-number">0</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">int</span> temp = num % i;</span><br><span class="line">            <span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">10</span>) &#123;</span><br><span class="line">                temp = temp / (i / <span class="hljs-number">10</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-keyword">switch</span> (j) &#123;</span><br><span class="line">                <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:</span><br><span class="line">                    res[j++] = map[temp];</span><br><span class="line">                    <span class="hljs-keyword">break</span>;</span><br><span class="line">                <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:</span><br><span class="line">                    res[j++] = map1[temp];</span><br><span class="line">                    <span class="hljs-keyword">break</span>;</span><br><span class="line">                <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:</span><br><span class="line">                    res[j++] = map2[temp];</span><br><span class="line">                    <span class="hljs-keyword">break</span>;</span><br><span class="line">                <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:</span><br><span class="line">                    res[j++] = map3[temp];</span><br><span class="line">                    <span class="hljs-keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            i = <span class="hljs-number">10</span>*i;</span><br><span class="line">            <span class="hljs-keyword">if</span> (j &gt; <span class="hljs-number">3</span>) &#123;</span><br><span class="line">                <span class="hljs-keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = res.length - <span class="hljs-number">1</span>; k &gt;= <span class="hljs-number">0</span>; k--) &#123;</span><br><span class="line">            sb.append(res[k]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 贪心算法</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * 解题思路</span></span><br><span class="line"><span class="hljs-comment">     * 参考大佬们的思路 吃透之后 写出来</span></span><br><span class="line"><span class="hljs-comment">     * 贪心算法 我永远用最接近的去做比较</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * 如果我去小卖部买55元的东西</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * 你可以选择一张面值50的 和一张5块的</span></span><br><span class="line"><span class="hljs-comment">     * 也可以给一张100的让老板找零</span></span><br><span class="line"><span class="hljs-comment">     * 贪心算法就是前者</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * 假定我买3块的东西 我先用5块去比较 太多了 老板问 你还有小点的纸币没 我找不开</span></span><br><span class="line"><span class="hljs-comment">     * 这时候 你给个两块 还差一块 又给了一块</span></span><br><span class="line"><span class="hljs-comment">     * 看着很蠢 但是这确实有效</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * 作者：guo-tang-feng</span></span><br><span class="line"><span class="hljs-comment">     * 链接：https://leetcode-cn.com/problems/integer-to-roman/solution/tan-xin-suan-fa-by-guo-tang-feng/</span></span><br><span class="line"><span class="hljs-comment">     * 来源：力扣（LeetCode）</span></span><br><span class="line"><span class="hljs-comment">     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> num</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">intToRoman1</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        StringBuilder stringBuilder = <span class="hljs-keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="hljs-keyword">int</span>[] moneys = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">1000</span>, <span class="hljs-number">900</span>, <span class="hljs-number">500</span>, <span class="hljs-number">400</span>, <span class="hljs-number">100</span>, <span class="hljs-number">90</span>, <span class="hljs-number">50</span>, <span class="hljs-number">40</span>, <span class="hljs-number">10</span>, <span class="hljs-number">9</span>, <span class="hljs-number">5</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>&#125;;</span><br><span class="line">        String[] moneyToStr = <span class="hljs-keyword">new</span> String[]&#123;<span class="hljs-string">"M"</span>, <span class="hljs-string">"CM"</span>, <span class="hljs-string">"D"</span>, <span class="hljs-string">"CD"</span>, <span class="hljs-string">"C"</span>, <span class="hljs-string">"XC"</span>, <span class="hljs-string">"L"</span>, <span class="hljs-string">"XL"</span>, <span class="hljs-string">"X"</span>, <span class="hljs-string">"IX"</span>, <span class="hljs-string">"V"</span>, <span class="hljs-string">"IV"</span>, <span class="hljs-string">"I"</span>&#125;;</span><br><span class="line">        <span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">while</span> (num &gt; <span class="hljs-number">0</span>) &#123;</span><br><span class="line">            <span class="hljs-comment">// 如果大于最大的数</span></span><br><span class="line">            <span class="hljs-keyword">if</span> (num &gt;= moneys[index]) &#123;</span><br><span class="line">                <span class="hljs-comment">// 加进去</span></span><br><span class="line">                stringBuilder.append(moneyToStr[index]);</span><br><span class="line">                <span class="hljs-comment">// 把加进去的减掉</span></span><br><span class="line">                num -= moneys[index];</span><br><span class="line">                <span class="hljs-comment">// 索引前移，num -= moneys[index] 还可能满足 num &gt;= moneys[index]</span></span><br><span class="line">                <span class="hljs-comment">// ，此时如果只index++，那么就漏掉一部分了，所以要index--，如2000减掉1000还有1000 还是应该和moneys[0]比较</span></span><br><span class="line">                index--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-comment">// 索引后移</span></span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> stringBuilder.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">// 第一次超过100%用户的内存，有点小小激动 😂</span></span><br><span class="line">        System.out.println(intToRoman(<span class="hljs-number">400</span>));</span><br><span class="line">        System.out.println(intToRoman1(<span class="hljs-number">1994</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <i class="fas fa-tags has-text-grey"></i>&nbsp;&nbsp;
+                    <a class="has-link-grey -link" href="/tags/贪心算法/">贪心算法</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- 部分参考自https://www.alphalxy.com/2019/03/customize-icarus/ -->
+        
+            <ul class="post-copyright">
+            <li><strong>本文标题：</strong><a href="https://removeif.github.io/algorithm/算法成长之路leetcode11-12.html">算法成长之路leetcode11-12</a></li>
+            <li><strong>本文作者：</strong><a href="https://removeif.github.io">辣椒の酱</a></li>
+            <li><strong>本文链接：</strong><a href="https://removeif.github.io/algorithm/算法成长之路leetcode11-12.html">https://removeif.github.io/algorithm/算法成长之路leetcode11-12.html</a></li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+            </li>
+            </ul>
+            <br>
+            <span class="is-size-6 has-text-grey has-mr-7">#&nbsp;本站推荐文章</span>
+<br>
+
+    &nbsp;1.<a href="/theme/博客源码分享.html" class="is-size-6" target="_blank">博客源码分享</a><br>
+
+    &nbsp;2.<a href="/breaking-news/2019年国庆70周年阅兵完整图文解说.html" class="is-size-6" target="_blank">2019年国庆70周年阅兵完整图文解说(收藏!)</a><br>
+
+    &nbsp;3.<a href="/theme/博客中gitalk最新评论的获取.html" class="is-size-6" target="_blank">博客中gitalk最新评论的获取</a><br>
+
+    &nbsp;4.<a href="/law/中华人民共和国刑事诉讼法.html" class="is-size-6" target="_blank">中华人民共和国刑事诉讼法</a><br>
+
+    &nbsp;5.<a href="/think/2019年终总结.html" class="is-size-6" target="_blank">2019年终总结</a><br>
+
+            <br>
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190802135456.png" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190802135550.png" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/theme/不蒜子统计常见问题.html">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">不蒜子统计常见问题</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/develop/intellj-idea-详细调试代码debug.html">
+                <span class="level-item">intellj idea 详细调试代码debug</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+    <br>
+<div class="card widget">
+    <div class="card-content">
+    <div class="g-ads-x">
+         <div class="menu">
+            <h3 class="menu-label">
+               温馨提示！此处可能会出现广告！
+            </h3>
+         </div>
+        <br>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-6343805421927634"
+             data-ad-slot="8274750079"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    </div>
+</div>
+
+    <div class="card">
+        <div class="card-content">
+            
+                <h3 class="title is-5 has-text-weight-normal">评论</h3>
+                
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '46a9f3481b46ea0129d8',
+        clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+        id: 'ee52392a8f786020755fe23179af3f57',
+        repo: 'blog_comment',
+        owner: 'removeif',
+        admin: "removeif",
+        createIssueManually: true,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+            
+        </div>
+    </div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/images/tuzi.jpg" alt="辣椒の酱">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        辣椒の酱
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        尚未执佩剑，转眼即江湖
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>阿尔及利亚</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal ios-alert">
+                            81
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal ios-alert">
+                            35
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                   <a href="/tags">
+                       <p class="title has-text-weight-normal ios-alert">
+                            61
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://weibo.com/u/3050419984" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/removeif">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Weibo" href="https://weibo.com/u/3050419984">
+                
+                <i class="fab fa-weibo"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Email" href="mailto:removeif@163.com">
+                
+                <i class="fa fa-envelope"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Next" href="https://removeif.github.io/remove.io">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="RSS" href="/atom.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+        <hr>
+        <p id="hitokoto">:D 一言句子获取中...</p>
+        <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+    </div>
+</div>
+    
+        
+
+    <div class="card widget toc-scroll" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#11-Container-With-Most-Water">
+        <span class="has-mr-6">1</span>
+        <span>11. Container With Most Water</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Example">
+        <span class="has-mr-6">1.1</span>
+        <span>Example</span>
+        </a></li><li>
+        <a class="is-flex" href="#JAVA题解">
+        <span class="has-mr-6">1.2</span>
+        <span>JAVA题解</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#12-Integer-to-Roman">
+        <span class="has-mr-6">2</span>
+        <span>12. Integer to Roman</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Example-1">
+        <span class="has-mr-6">2.1</span>
+        <span>Example</span>
+        </a></li><li>
+        <a class="is-flex" href="#JAVA题解-1">
+        <span class="has-mr-6">2.2</span>
+        <span>JAVA题解</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu text-desc">
+        <h3 class="menu-label">
+            公告
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.11.17：深色主题开关</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.10.30：去图、精简</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.10.22：改版、优化</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.10.13：改版评论</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.09.25：接入免费cdn</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.09.19：开源博客代码</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.09.14：增加评论、推荐</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.09.01：加入伪娘看板</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.08.11：网站升级</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2019.02.01：采用Icarus主题</span>
+                    </span>
+            </li>
+        
+            <li>
+                    <span class="level-left">
+                        <span class="level-item notice-item">2018.11.11：建站</span>
+                    </span>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+    
+    
+        <div class="column-right-shadow  ">
+        
+            
+    <div class="card widget">
+        <div class="card-content">
+        <h3 class="menu-label">最新评论</h3><span class="menu-label1" id="body_hot_comment">加载中，最新评论有1分钟延迟...<span>
+        </div>
+    </div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-31T13:05:49.000Z">2019-12-31</time></div>
+                    <a href="/think/2019年终总结.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">2019年终总结</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/think/">think</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-31T10:50:31.000Z">2019-12-31</time></div>
+                    <a href="/travel/西安旅游攻略3日游.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">西安旅游攻略3日游</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/travel/">travel</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-26T15:20:21.000Z">2019-12-26</time></div>
+                    <a href="/python/一张图学会python3.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">一张图学会python3</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/python3/">python3</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-26T15:16:04.000Z">2019-12-26</time></div>
+                    <a href="/java/basic/hash冲突开放地址法rehash.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">hash冲突开放地址法rehash</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/java基础/">java基础</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-24T14:47:34.000Z">2019-12-24</time></div>
+                    <a href="/algorithm/算法成长之路leetcode13-14.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">算法成长之路leetcode13-14</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">15</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java/">
+                        <span class="tag">java</span>
+                        <span class="tag is-grey">17</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/法律/">
+                        <span class="tag">法律</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mysql/">
+                        <span class="tag">mysql</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/工具教程/">
+                        <span class="tag">工具教程</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/think/">
+                        <span class="tag">think</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/二分查找/">
+                        <span class="tag">二分查找</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/dp/">
+                        <span class="tag">dp</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/elasticsearch6/">
+                        <span class="tag">elasticsearch6</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo主题/">
+                        <span class="tag">hexo主题</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Effective-Java/" style="font-size: 10px;">Effective-Java</a> <a href="/tags/Z字变换/" style="font-size: 10px;">Z字变换</a> <a href="/tags/b-tree/" style="font-size: 10px;">b+tree</a> <a href="/tags/debug/" style="font-size: 10px;">debug</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/dp/" style="font-size: 11.67px;">dp</a> <a href="/tags/elasticsearch6/" style="font-size: 11.67px;">elasticsearch6</a> <a href="/tags/feign/" style="font-size: 10px;">feign</a> <a href="/tags/hash冲突/" style="font-size: 10px;">hash冲突</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/hexo主题/" style="font-size: 11.67px;">hexo主题</a> <a href="/tags/icarus主题配置/" style="font-size: 11.67px;">icarus主题配置</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/java-并发-多线程/" style="font-size: 10px;">java,并发,多线程</a> <a href="/tags/marathon/" style="font-size: 10px;">marathon</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 16.67px;">mysql</a> <a href="/tags/nfc/" style="font-size: 10px;">nfc</a> <a href="/tags/python3基础/" style="font-size: 10px;">python3基础</a> <a href="/tags/query/" style="font-size: 10px;">query</a> <a href="/tags/redis/" style="font-size: 11.67px;">redis</a> <a href="/tags/rehash/" style="font-size: 10px;">rehash</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/spring-cloud/" style="font-size: 10px;">spring cloud</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/think/" style="font-size: 15px;">think</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/中心扩展/" style="font-size: 10px;">中心扩展</a> <a href="/tags/二分查找/" style="font-size: 13.33px;">二分查找</a> <a href="/tags/分治/" style="font-size: 10px;">分治</a> <a href="/tags/分治算法/" style="font-size: 10px;">分治算法</a> <a href="/tags/前端技术/" style="font-size: 10px;">前端技术</a> <a href="/tags/动态规划/" style="font-size: 11.67px;">动态规划</a> <a href="/tags/博客统计插件/" style="font-size: 10px;">博客统计插件</a> <a href="/tags/反转整数/" style="font-size: 10px;">反转整数</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/字符串转整数/" style="font-size: 10px;">字符串转整数</a> <a href="/tags/工具教程/" style="font-size: 16.67px;">工具教程</a> <a href="/tags/幂等性-restful-api/" style="font-size: 10px;">幂等性,restful-api</a> <a href="/tags/支付架构/" style="font-size: 11.67px;">支付架构</a> <a href="/tags/支付系统/" style="font-size: 11.67px;">支付系统</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/旅行/" style="font-size: 10px;">旅行</a> <a href="/tags/最优解/" style="font-size: 10px;">最优解</a> <a href="/tags/最长回文/" style="font-size: 10px;">最长回文</a> <a href="/tags/正则表达式/" style="font-size: 10px;">正则表达式</a> <a href="/tags/法律/" style="font-size: 18.33px;">法律</a> <a href="/tags/滑动窗口/" style="font-size: 10px;">滑动窗口</a> <a href="/tags/科普/" style="font-size: 11.67px;">科普</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/索引分词/" style="font-size: 10px;">索引分词</a> <a href="/tags/经验成长/" style="font-size: 10px;">经验成长</a> <a href="/tags/聚簇索引/" style="font-size: 10px;">聚簇索引</a> <a href="/tags/西安/" style="font-size: 10px;">西安</a> <a href="/tags/设计模式/" style="font-size: 18.33px;">设计模式</a> <a href="/tags/读书笔记/" style="font-size: 10px;">读书笔记</a> <a href="/tags/调试代码/" style="font-size: 10px;">调试代码</a> <a href="/tags/贪心算法/" style="font-size: 11.67px;">贪心算法</a> <a href="/tags/长安/" style="font-size: 10px;">长安</a> <a href="/tags/集合/" style="font-size: 10px;">集合</a>
+    </div>
+</div>
+        
+            <div class="card widget">
+  <div class="card-content">
+    <div class="menu">
+      <h3 class="menu-label">
+        订阅邮件
+      </h3>
+      <div>
+        <form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow"
+          onsubmit="window.open('https://feedburner.google.com/fb/a/mailverify?uri=removeifFeedsId', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+          <input type="hidden" value="removeifFeedsId" name="uri" />
+          <input type="hidden" name="loc" value="en_US" />
+          <div class="field">
+            <div class="control has-icons-left">
+              <input class="input" name="email" type="email" placeholder="请输入邮箱地址" />
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+            </div>
+            <p class="help">输入邮箱点立即订阅跳转后点人机认证，点完成按钮，邮箱收到确认邮件点确认！</p>
+          </div>
+          <div class="field is-grouped is-grouped-right">
+            <div class="control">
+              <input class="button is-link is-rounded" type="submit" value="立即订阅" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+    <div class="g-ads-y">
+        <div class="menu">
+            <h3 class="menu-label">
+               广告位
+            </h3>
+        </div>
+        <br>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- ads-y -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6343805421927634"
+             data-ad-slot="9708919542"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    </div>
+</div>
+
+
+
+        
+        </div>
+    
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="算法成长之路leetcode11-12" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 辣椒の酱&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>,Modify by <a href="https://github.com/removeif">removeif</a>&nbsp;
+                
+                <br>
+                &copy; 版权说明：[本网站所有内容均收集于互联网或自己创作,<br>&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="https://removeif.github.io/message/" target="_blank">留言</a>，立即处理]
+                <br>
+                <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/js/statistics.js"></script>
+                <span id="statistic-times"></span>
+                <br>
+                <span id="busuanzi_container_site_uv">
+                ❤️感谢 <strong><span id="busuanzi_value_site_uv">99+</span></strong> 小伙伴的 
+                </span>
+                 <strong><span id="busuanzi_value_site_pv">99+</span></strong> 次光临，贡献💐<a href="https://github.com/removeif/hexo-theme-icarus-removeif">本站源码</a>！❤️
+                 
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/removeif">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/js/insight.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/css/search.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/css/insight.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    
+    <script type="text/javascript" defer src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/js/comment-issue-data.js"></script>
+    
+    <!-- 暂时关闭伪娘 <script type="text/javascript" async="" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.4/live2d/autoload.js"></script> -->
 </body>
 </html>

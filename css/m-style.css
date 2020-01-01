@@ -1,0 +1,44 @@
+.night .g-ads-x {
+  filter: brightness(0.6) !important;
+}
+.night .g-ads-y {
+  filter: brightness(0.6) !important;
+}
+.night .cardm {
+  color: unset;
+}
+.night .google-auto-placed {
+  filter: brightness(0.6) !important;
+}
+@media screen and (max-width: 1087px) {
+  .g-ads-x {
+    display: none;
+  }
+}
+.hljs-comment,
+.hljs-quote {
+  color: rgba(35,209,96,0.678) !important;
+}
+.pagination {
+  padding: 10px;
+}
+.post-navigation {
+  padding: 15px;
+}
+body:not(.night) .is-9-desktop .card-content.article:hover {
+  background-color: unset;
+  box-shadow: unset;
+}
+.content .gt-container .gt-avatar {
+  display: none !important;
+}
+.content .gt-container .gt-comments {
+  text-align: center;
+}
+.content .gt-container .gt-comment-like {
+  right: unset !important;
+  margin-left: 1% !important;
+}
+.social-share {
+  text-align: center !important;
+}
