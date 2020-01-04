@@ -33,7 +33,7 @@ body:not(.night) .is-9-desktop .card-content.article:hover {
   display: none !important;
 }
 .content .gt-container .gt-comments {
-  text-align: center;
+  text-align: left;
 }
 .content .gt-container .gt-comment-like {
   right: unset !important;
@@ -41,4 +41,26 @@ body:not(.night) .is-9-desktop .card-content.article:hover {
 }
 .social-share {
   text-align: center !important;
+}
+.content .gt-container .gt-comment-header {
+  font-size: 0.875em;
+  position: relative;
+  display: inline-block;
+  left: -6%;
+  margin-bottom: 10px;
+  padding: 0 10% 0 32px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 0 3px 3px 0;
+  background-color: #deeafb;
+}
+.content .gt-container .gt-comment-content:hover {
+  -webkit-box-shadow: unset;
+  box-shadow: unset;
+}
+.content .gt-container .gt-comment-body {
+  padding-left: 2%;
+}
+.night .content .gt-container .gt-comment-header {
+  background-color: #151313;
 }
