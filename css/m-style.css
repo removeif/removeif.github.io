@@ -37,7 +37,7 @@ body:not(.night) .is-9-desktop .card-content.article:hover {
 }
 .content .gt-container .gt-comment-like {
   right: unset !important;
-  margin-left: 1% !important;
+  margin-left: 4% !important;
 }
 .social-share {
   text-align: center !important;
