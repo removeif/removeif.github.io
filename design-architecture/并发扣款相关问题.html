@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.8.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>并发扣款相关问题 - 辣椒の酱</title>
+<meta name="google-site-verification" content="67z1CXZ8AOhImIglgTwqAlneRCHTO6xRJo5NeafDAqw" />
+<!-- 百度抓取 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- google adSense -->
+<script data-ad-client="ca-pub-6343805421927634" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 百度统计 -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?90a0e914cd2c9e93e206cc9131b19416";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <meta name="description" content="继续解答星球水友提问。沈老师，我们有个业务，同一个用户在并发“查询，逻辑计算，扣款”的情况下，余额可能出现不一致，请问有什么优化方法么？">
+<meta name="keywords" content="categories-java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发扣款相关问题">
+<meta property="og:url" content="https://removeif.github.io/design-architecture/并发扣款相关问题.html">
+<meta property="og:site_name" content="辣椒の酱">
+<meta property="og:description" content="继续解答星球水友提问。沈老师，我们有个业务，同一个用户在并发“查询，逻辑计算，扣款”的情况下，余额可能出现不一致，请问有什么优化方法么？">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190905214320.png">
+<meta property="og:updated_time" content="2019-09-25T08:32:54.515Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="并发扣款相关问题">
+<meta name="twitter:description" content="继续解答星球水友提问。沈老师，我们有个业务，同一个用户在并发“查询，逻辑计算，扣款”的情况下，余额可能出现不一致，请问有什么优化方法么？">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190905214320.png">
+
+
+
+
+
+<link rel="alternative" href="/atom.xml" title="并发扣款相关问题" type="application/atom+xml">
+
+
+
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/images/wico.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;subset=latin,latin-ext">
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/back-to-top.css">
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154601528-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-154601528-1');
+</script>
+
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/globalUtils.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/style1.min.css">
+<link rel="stylesheet" href="/css/m-style.css">
+<!-- 暂时关闭伪娘 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/live2d/waifu.css"> -->
+    <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="并发扣款相关问题" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives/">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories/">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags/">标签</a>
+                
+                <a class="navbar-item"
+                href="/tags/法律/">律法</a>
+                
+                <a class="navbar-item"
+                href="/categories/algorithm">算法</a>
+                
+                <a class="navbar-item"
+                href="/message/">留言</a>
+                
+                <a class="navbar-item"
+                href="/friend/">友链</a>
+                
+                <a class="navbar-item"
+                href="/album/">美图</a>
+                
+                <a class="navbar-item"
+                href="/music/">影音</a>
+                
+                <a class="navbar-item"
+                href="/self-talking/">碎碎念</a>
+                
+                <a class="navbar-item"
+                href="/about/">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+                <a class="navbar-item" id="night-nav" title="深色主题" href="javascript:;">
+                    <i class="fas fa-moon" id="night-icon"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/theme-setting.js"></script>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190905214320.png" alt="并发扣款相关问题">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                
+                <time class="level-item has-text-grey" datetime="2019-09-05T13:40:53.000Z">2019-09-05</time>
+                
+                    <span class="display-none-class">e348f0bbf7cb89628dc09d57990b6c3b</span>
+                    <img class="not-gallery-item" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/images/chat.svg">&nbsp;<a href="/design-architecture/并发扣款相关问题.html#comment-container"><span id=e348f0bbf7cb89628dc09d57990b6c3b>99+</span></a>&nbsp;&nbsp;&nbsp;&nbsp;</img>
+                
+                
+                <div class="level-item">
+                <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/架构/">架构</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/架构/设计/">设计</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                     <!-- 27 分钟 读完 (大约 3993 个字) -->
+                     (大约 3993 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    1<span id="busuanzi_value_page_pv">99+</span> 次查看
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                并发扣款相关问题
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>继续解答星球水友提问。<br>沈老师，我们有个业务，同一个用户在并发“查询，逻辑计算，扣款”的情况下，余额可能出现不一致，请问有什么优化方法么？<br><a id="more"></a></p>
+</blockquote>
+<h2 id="并发扣款，如何保证数据的一致性？"><a href="#并发扣款，如何保证数据的一致性？" class="headerlink" title="并发扣款，如何保证数据的一致性？"></a>并发扣款，如何保证数据的一致性？</h2><p><strong>扣款的业务场景是怎样的？</strong></p>
+<p>用户购买商品的过程中，要对余额进行查询与修改，大致的业务流程如下：</p>
+<p><strong>第一步</strong>，从数据库查询用户现有余额：<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">SELECT</span> money <span class="hljs-keyword">FROM</span> t_yue <span class="hljs-keyword">WHERE</span> uid=$uid</span><br></pre></td></tr></table></figure></p>
+<p>不妨设查询出来的$old_money=100元。</p>
+<p><strong>第二步</strong>，业务层实施业务逻辑计算，比如：<br>（1）先查询购买商品的价格，例如是80元；<br>（2）再查询产品是否有活动，以及活动折扣，例如是9折；<br>（3）比对余额是否足够，足够时才往下走；</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span>($old_money&gt; <span class="hljs-number">80</span>\*<span class="hljs-number">0.9</span>)&#123;    </span><br><span class="line">    $new_money=$old_money-<span class="hljs-number">80</span>\*<span class="hljs-number">0.9</span>=<span class="hljs-number">28</span>;</span><br><span class="line">   &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-string">"Not enough minerals"</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>第三步</strong>，将数据库中的余额进行修改。</p>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">UPDATE</span> t_yue <span class="hljs-keyword">SET</span> money=new_money <span class="hljs-keyword">WHERE</span> uid=uid;</span><br></pre></td></tr></table></figure>
+<p>在并发量低的情况下，这个流程没有任何问题，原有金额100元，购买了80元的九折商品（72元），剩余28元。</p>
+<p><strong>同一个用户，并发扣款可能出现什么问题？</strong></p>
+<p>在分布式环境中，如果并发量很大，这种“查询+修改”的业务有一定概率出现数据不一致。</p>
+<p>极限情况下，可能出现这样的异常流程：</p>
+<p><strong>步骤一</strong>，业务1和业务2并发查询余额，是100元。</p>
+<p><em>画外音：这些并发查询，是在不同的站点实例/服务实例上完成的，进程内互斥锁肯定解决不了。</em><br><strong>步骤二</strong>，业务1和业务2并发进行逻辑计算，算出各自业务的余额，假设业务1算出的余额是28元，业务2算出的余额是38元。</p>
+<p><strong>步骤三</strong>，业务1对数据库中的余额先进行修改，设置成28元。</p>
+<p>业务2对数据库中的余额后进行修改，设置成38元。</p>
+<p>此时异常出现了，原有金额100元，业务1扣除了72元，业务2扣除了62元，最后剩余38元。<br><em>画外音：假设业务1先写回余额，业务2再写回余额。</em></p>
+<p><strong>常见的解决方案？</strong></p>
+<p>对于此案例，同一个用户，并发扣款时，有小概率会出现异常，可以对每一个用户进行分布式锁互斥，例如：在redis/zk里抢到一个key才能继续操作，否则禁止操作。</p>
+<p>这种<strong>悲观锁</strong>方案确实可行，但要引入额外的组件(redis/zk)，并且会降低吞吐量。</p>
+<p><strong>对于小概率的不一致，有没有乐观锁的方案呢？</strong></p>
+<p>对并发扣款进行进一步的分析发现：</p>
+<p>（1）业务1写回时，旧余额100，这是一个初始状态；新余额28，这是一个结束状态。理论上只有在旧余额为100时，新余额才应该写回成功。</p>
+<p>而业务1并发写回时，旧余额确实是100，理应写回成功。</p>
+<p>（2）业务2写回时，旧余额100，这是一个初始状态；新余额28，这是一个结束状态。理论上只有在旧余额为100时，新余额才应该写回成功。</p>
+<p>可实际上，这个时候数据库中的金额已经变为28了，所以业务2的并发写回，不应该成功。</p>
+<p><strong>如何低成本实施乐观锁？</strong></p>
+<p>在set写回的时候，加上初始状态的条件compare，只有初始状态不变时，才允许set写回成功，Compare And Set（CAS），是一种常见的降低读写锁冲突，保证数据一致性的方法。</p>
+<p><strong>此时业务要怎么改？</strong></p>
+<p>使用CAS解决高并发时数据一致性问题，只需要在进行set操作时，compare初始值，如果初始值变换，不允许set成功。</p>
+<p>具体到这个case，只需要将：<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">UPDATE</span> t_yue <span class="hljs-keyword">SET</span> money=$new_money <span class="hljs-keyword">WHERE</span> uid=$uid;</span><br></pre></td></tr></table></figure></p>
+<p>升级为：<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">UPDATE</span> t_yue <span class="hljs-keyword">SET</span> money=$new_money <span class="hljs-keyword">WHERE</span> uid=$uid <span class="hljs-keyword">AND</span> money=$old_money</span><br></pre></td></tr></table></figure></p>
+<p>并发操作发生时：</p>
+<p>业务1执行：<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">UPDATE</span> t_yue <span class="hljs-keyword">SET</span> money=<span class="hljs-number">28</span> <span class="hljs-keyword">WHERE</span> uid=$uid <span class="hljs-keyword">AND</span> money=<span class="hljs-number">100</span>;</span><br></pre></td></tr></table></figure></p>
+<p>业务2执行：<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">UPDATE</span> t_yue <span class="hljs-keyword">SET</span> money=<span class="hljs-number">38</span> <span class="hljs-keyword">WHERE</span> uid=$uid <span class="hljs-keyword">AND</span> money=<span class="hljs-number">100</span>;</span><br></pre></td></tr></table></figure></p>
+<p>这两个操作同时进行时，只可能有一个执行成功。</p>
+<p><strong>怎么判断哪个并发执行成功，哪个并发执行失败呢？</strong></p>
+<p>set操作，其实无所谓成功或者失败，业务能通过affect rows来判断：</p>
+<ul>
+<li>写回成功的，affect rows为1</li>
+<li>写回失败的，affect rows为0</li>
+</ul>
+<p><strong>总结</strong></p>
+<p>高并发“查询并修改”的场景，可以用CAS（Compare and Set）的方式解决数据一致性问题。对应到业务，即在set的时候，加上初始条件的比对即可。</p>
+<p>优化不难，只改了半行SQL，但确实能解决问题。<br>但希望大家有收获<strong>，思路比结论重要</strong>。</p>
+<h2 id="并发扣款一致性优化，CAS下ABA问题"><a href="#并发扣款一致性优化，CAS下ABA问题" class="headerlink" title="并发扣款一致性优化，CAS下ABA问题"></a>并发扣款一致性优化，CAS下ABA问题</h2><p>上文中提到：用CAS乐观锁，可以在尽量不影响吞吐量的情况下，保证数据的一致性。</p>
+<p>大家有非常多的留言，大概有这么几类：</p>
+<p>（1）<strong>是否存在ABA问题？</strong></p>
+<p>（2）<strong>为什么不能用</strong>：<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">UPDATE</span> t_yue <span class="hljs-keyword">SET</span> money=money-$diff <span class="hljs-keyword">AND</span> money&gt;=$diff;</span><br></pre></td></tr></table></figure></p>
+<p>（3）能否借助<strong>redis事务</strong>来扣减余额； 能，上文有讲。</p>
+<p>问题比较多，今天先聊第一个问题，ABA。 </p>
+<p><strong>什么是ABA问题？</strong></p>
+<p>CAS乐观锁机制确实能够提升吞吐，并保证一致性，但在极端情况下可能会出现ABA问题。</p>
+<p>考虑如下操作：</p>
+<ul>
+<li>并发1（上）：获取出数据的初始值是A，后续计划实施CAS乐观锁，期望数据仍是A的时候，修改才能成功</li>
+<li>并发2：将数据修改成B</li>
+<li>并发3：将数据修改回A</li>
+<li>并发1（下）：CAS乐观锁，检测发现初始值还是A，进行数据修改</li>
+</ul>
+<p>上述并发环境下，并发1在修改数据时，虽然还是A，但已经不是初始条件的A了，中间发生了A变B，B又变A的变化，此A已经非彼A，数据却成功修改，可能导致错误，这就是CAS引发的所谓的ABA问题。</p>
+<p><strong>余额操作，出现ABA问题并不会对业务产生影响</strong>，因为对于“余额”属性来说，前一个A为100余额，与后一个A为100余额，本质是相同的。</p>
+<p>但其他场景未必是这样，举一个堆栈操作的例子： A1 B C A1 F</p>
+<p>并发1（上）：读取栈顶的元素为“A1”</p>
+<p>并发2：进行了2次出栈</p>
+<p>并发3：又进行了1次出栈</p>
+<p>并发1（下）：实施CAS乐观锁，发现栈顶还是“A1”，于是修改为A2</p>
+<p>此时会出现系统错误，因为此“A1”非彼“A1”</p>
+<p><strong>ABA问题可以怎么优化？</strong></p>
+<p>ABA问题导致的原因，是CAS过程中只简单进行了“值”的校验，再有些情况下，“值”相同不会引入错误的业务逻辑（例如余额），有些情况下，“值”虽然相同，却已经不是原来的数据了（例如堆栈）。</p>
+<p>因此，CAS不能只比对“值”，还必须确保是原来的数据，才能修改成功。</p>
+<p><strong>常见的实践</strong>是，将“值”比对，升级为“版本号”的比对，一个数据一个版本，<strong>版本变化，即使值相同，也不应该修改成功</strong>。</p>
+<p>余额并发读写例子，引入版本号的具体实践如下：</p>
+<p>（1）<strong>余额表要升级</strong>。<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t_yue(uid, money)</span><br></pre></td></tr></table></figure></p>
+<p>升级为：<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t_yue(uid, money, version)</span><br></pre></td></tr></table></figure></p>
+<p>（2）<strong>查询余额时，同时查询版本号</strong>。<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">SELECT</span> money <span class="hljs-keyword">FROM</span> t_yue <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">sid</span>=$<span class="hljs-keyword">sid</span></span><br></pre></td></tr></table></figure></p>
+<p>升级为：<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">SELECT</span> money,<span class="hljs-keyword">version</span> <span class="hljs-keyword">FROM</span> t_yue <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">sid</span>=$<span class="hljs-keyword">sid</span></span><br></pre></td></tr></table></figure></p>
+<p>假设有并发操作，都会将版本号查询出来。</p>
+<p>（3）设置余额时，必须版本号相同，并且版本号要修改。</p>
+<p>旧版本“值”比对：<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">UPDATE</span> t_yue <span class="hljs-keyword">SET</span> money=<span class="hljs-number">38</span> <span class="hljs-keyword">WHERE</span> uid=$uid <span class="hljs-keyword">AND</span> money=<span class="hljs-number">100</span>;</span><br></pre></td></tr></table></figure></p>
+<p>升级为“版本号”比对：<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">UPDATE</span> t_yue <span class="hljs-keyword">SET</span> money=<span class="hljs-number">38</span>,<span class="hljs-keyword">version</span>=$version_new <span class="hljs-keyword">WHERE</span> uid=$uid <span class="hljs-keyword">AND</span> <span class="hljs-keyword">version</span>=$version_old;</span><br></pre></td></tr></table></figure></p>
+<p>此时假设有并发操作，首先操作的请求会修改版本号，并发操作会执行失败。</p>
+<p><em>画外音：<strong>version</strong>通用，本例是强行用version举例而已，实际上本例可以用余额“值”比对。</em></p>
+<p>总结</p>
+<ul>
+<li><code>select&amp;set</code>业务场景，在并发时会出现一致性问题</li>
+<li>基于“值”的CAS乐观锁，可能导致ABA问题</li>
+<li>CAS乐观锁，必须保证修改时的“此数据”就是“彼数据”，应该由“值”比对，优化为“版本号”比对</li>
+</ul>
+<h2 id="并发扣款一致性，幂等性问题"><a href="#并发扣款一致性，幂等性问题" class="headerlink" title="并发扣款一致性，幂等性问题"></a>并发扣款一致性，幂等性问题</h2><p>分享了同一个用户并发扣款时，有一定概率出现数据不一致，可以使用CAS乐观锁的方式，在不降低吞吐量，并且只有少量修改的情况下，保证数据的一致性。</p>
+<p>文章发布不到24小时，就有近200的评论。</p>
+<p>其中，问的比较多的是<strong>ABA问题</strong>，这个问题已经在《<a href="http://mp.weixin.qq.com/s?__biz=MjM5ODYxMDA5OQ==&amp;mid=2651962761&amp;idx=1&amp;sn=11513a9e34bf77b4545ecdc289f4c8fd&amp;chksm=bd2d08558a5a8143ce15fbd9722fbcc42593b55480ca5eba7b19b2911763bb15bde65e9a2c4b&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">并发扣款一致性优化，CAS下ABA问题，这个话题还没聊完！！！</a>》中扩展。</p>
+<p>其次，问的比较多的是作业题，为什么一定要用<code>select&amp;set</code>的方式进行<strong>余额写回</strong>：<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">UPDATE</span> t_yue <span class="hljs-keyword">SET</span> money=$new_money <span class="hljs-keyword">WHERE</span> uid=$uid <span class="hljs-keyword">AND</span> money=$old_money;</span><br></pre></td></tr></table></figure></p>
+<p>为什么<strong>不能采用</strong>直接扣减的方法：<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">UPDATE</span> t_yue <span class="hljs-keyword">SET</span> money=money-$diff <span class="hljs-keyword">WHERE</span> uid=$uid;</span><br></pre></td></tr></table></figure></p>
+<p>很人说，在并发情况下，会将money扣成负数。</p>
+<p>为了保证余额<strong>不被扣成负数</strong>，再加一个where条件：<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">UPDATE</span> t_yue <span class="hljs-keyword">SET</span> money=money-$diff <span class="hljs-keyword">WHERE</span> uid=$uid* <span class="hljs-keyword">AND</span> money-$diff&gt;<span class="hljs-number">0</span>;</span><br></pre></td></tr></table></figure></p>
+<p><strong>这样是否可行？</strong></p>
+<p><em>画外音：额，撇开业务不谈，这个SQL用列做运算，其实是不好的，建议使用：</em><br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">UPDATE</span> t_yue <span class="hljs-keyword">SET</span> money=money-$diff <span class="hljs-keyword">WHERE</span> uid=$uid <span class="hljs-keyword">AND</span> money&gt;$diff;</span><br></pre></td></tr></table></figure></p>
+<p>很遗憾，仍然不行。原因在《<a href="http://mp.weixin.qq.com/s?__biz=MjM5ODYxMDA5OQ==&amp;mid=2651962738&amp;idx=1&amp;sn=d2d91a380bad06af9f7b9f7a80db26b3&amp;chksm=bd2d08ae8a5a81b8a7f044af52c5e6e77ec3df2bb4a9c91cd450c3fd932e8dade56afb09f784&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">并发扣款，如何保证数据的一致性？</a>》一文里点赞最多的评论，<strong>不幂等</strong>。</p>
+<p><em>画外音：说明绝大部分同学，能够回答正确作业。</em></p>
+<p>聊幂等性之前，先看另一个测试用例的case。</p>
+<p>假设有一个服务接口，<strong>注册新用户</strong>：<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function">bool <span class="hljs-title">RegisterUser</span><span class="hljs-params">($uid, $name)</span></span>&#123;</span><br><span class="line">​         <span class="hljs-comment">//**查看uid是否已经存在***</span></span><br><span class="line">​         select uid from t_user where uid=$uid;</span><br><span class="line">​         <span class="hljs-comment">//**不是新用户，返回失败***</span></span><br><span class="line">​         <span class="hljs-keyword">if</span>(rows&gt;<span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">​         <span class="hljs-keyword">else</span>&#123;</span><br><span class="line">​              <span class="hljs-comment">//**把新用户插入用户表***</span></span><br><span class="line">​              <span class="hljs-function">insert into t_user <span class="hljs-title">values</span><span class="hljs-params">($uid, $name)</span></span>;</span><br><span class="line">​              <span class="hljs-comment">//**返回成功***</span></span><br><span class="line">​              <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">​         &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>有一个测试工程师，对该接口写了一个<strong>测试用例</strong>：<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function">bool <span class="hljs-title">TestCase_RegisterUser</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">​         <span class="hljs-comment">//**造一些假数据***</span></span><br><span class="line">​         <span class="hljs-keyword">long</span> uid=<span class="hljs-number">123</span>;</span><br><span class="line">​         String name=<span class="hljs-string">'shenjian'</span>;</span><br><span class="line">​         <span class="hljs-comment">//**调用被测试的接口***</span></span><br><span class="line">​         bool result= RegisterUser(uid,name);</span><br><span class="line">​         <span class="hljs-comment">//预期注册成功，**对结果进行断言判断***</span></span><br><span class="line">​         Assert(result,<span class="hljs-keyword">true</span>);</span><br><span class="line">​         <span class="hljs-comment">//**返回测试结果***</span></span><br><span class="line">​         <span class="hljs-keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>这是不是一个好的测试用例？这个用例存在什么问题？</strong></p>
+<p>你会发现，相同条件下，这个测试用例执行两次，得到的结果不一样：</p>
+<p>（1）第一次执行，第一次造数据，调用接口，注册成功；</p>
+<p>（2）第二次执行，又造了一次相同的数据，调用接口，注册会失败；</p>
+<p>这不是一个好的测试用例，多次执行结果不同。</p>
+<p><strong>什么是幂等性？</strong></p>
+<p>相同条件下，执行同一请求，得到的结果相同，才符合幂等性。</p>
+<p><em>画外音：Google一下，比我解释得更好，但意思应该说清楚了。</em> </p>
+<p><strong>如何将上面的测试用例改为符合“幂等性”的测试用例呢？</strong></p>
+<p>只需要加一行代码：<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function">bool <span class="hljs-title">TestCase_RegisterUser</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">​        <span class="hljs-comment">//造一些假数据*</span></span><br><span class="line">​        <span class="hljs-keyword">long</span> uid=<span class="hljs-number">123</span>;</span><br><span class="line">​        String name=’shenjian’;</span><br><span class="line">​        <span class="hljs-comment">//**先删除这个伪造的用户***</span></span><br><span class="line">​        DeleteUser(uid);</span><br><span class="line">​        <span class="hljs-comment">//调用被测试的接口*</span></span><br><span class="line">​        bool result= RegisterUser(uid,name);</span><br><span class="line">​        <span class="hljs-comment">//预期注册成功，对结果进行断言判断*</span></span><br><span class="line">​        Assert(result,<span class="hljs-keyword">true</span>);</span><br><span class="line">​        <span class="hljs-comment">//返回测试结果*</span></span><br><span class="line">​        <span class="hljs-keyword">return</span> result;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样，<strong>在相同条件下</strong>，不管这个用例执行多少次，得到的测试结果都是相同的。</p>
+<p>是不是对幂等性有点感觉了。</p>
+<p>读请求，一般是幂等的。</p>
+<p>写请求，视情况而定：</p>
+<ul>
+<li><code>insert x</code>，一般来说不是幂等的，重复插入得到的结果不一定一样</li>
+<li><code>delete x</code>，一般来说是幂等的，删除多次得到的结果仍相同</li>
+<li><code>set a=x</code>，是幂等的</li>
+<li><code>set a=a-x</code>，不是幂等的</li>
+<li>…</li>
+</ul>
+<p>因此，这么扣减余额：<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">UPDATE</span> t_yue <span class="hljs-keyword">SET</span> money=$new_money <span class="hljs-keyword">WHERE</span> uid=$uid <span class="hljs-keyword">AND</span> money=$old_money;</span><br></pre></td></tr></table></figure></p>
+<p><strong>是幂等操作</strong>。</p>
+<p>要是这么扣减余额：<br><figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">UPDATE</span> t_yue <span class="hljs-keyword">SET</span> money=money-$diff <span class="hljs-keyword">WHERE</span> uid=$uid <span class="hljs-keyword">AND</span> money-$diff&gt;<span class="hljs-number">0</span>;</span><br></pre></td></tr></table></figure></p>
+<p><strong>不是幂等操作</strong>。</p>
+<p>聊到这里，或许有朋友要抬杠了，<strong>测试用例会重复执行，扣款怎么会重复执行呢？</strong></p>
+<p><code>重试。</code></p>
+<p>重试，是异常处理里很常见的手段。</p>
+<p>你在写业务的时候有没有写过这样的代码：<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">result = DoSomething();</span><br><span class="line"><span class="hljs-keyword">if</span>(<span class="hljs-keyword">false</span>==result || TIMEOUT)&#123;</span><br><span class="line">​         <span class="hljs-comment">//**错误，或者超时，重试一次***</span></span><br><span class="line">​         result= DoSomething();</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">return</span> result;</span><br></pre></td></tr></table></figure></p>
+<p>当然，又会有朋友抬杠了，我从来不重试！！！</p>
+<p><em>画外音：额，这是合格，还是不合格呢？</em></p>
+<p>你可以决定业务代码怎么写，你<strong>不能决定底层框架代码怎么写</strong>：</p>
+<p>（1）站点框架有没有自动重试？</p>
+<p>（2）服务框架有没有自动重试？</p>
+<p>（3）服务连接池，数据库连接池有没有自动重试？</p>
+<p><em>画外音：</em></p>
+<p><em>（1）服务化分层的架构中，建议只入口层重试，服务层不要重试，防止雪崩；</em></p>
+<p><em>（2）dubbo底层，调用超时是默认重试的，这个设计不好；</em></p>
+<p>因此，<strong>在有重试的架构体系里，幂等性是需要考虑的一个问题</strong>。</p>
+<p>现在该懂了，为啥扣款和充值业务，一般使用：</p>
+<ul>
+<li><code>select&amp;set，配合CAS方案</code></li>
+</ul>
+<p>而不使用：</p>
+<ul>
+<li><code>set money-=X</code>方案</li>
+</ul>
+<p><em>画外音：充了100电话费，怎么多了200块？</em></p>
+<p><a href="https://mp.weixin.qq.com/s/xXju0y64KKUiD06QE0LoeA" target="_blank" rel="noopener">参考自文章</a>.</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <i class="fas fa-tags has-text-grey"></i>&nbsp;&nbsp;
+                    <a class="has-link-grey -link" href="/tags/支付架构/">支付架构</a>,&nbsp;<a class="has-link-grey -link" href="/tags/支付系统/">支付系统</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- 部分参考自https://www.alphalxy.com/2019/03/customize-icarus/ -->
+        
+            <ul class="post-copyright">
+            <li><strong>本文标题：</strong><a href="https://removeif.github.io/design-architecture/并发扣款相关问题.html">并发扣款相关问题</a></li>
+            <li><strong>本文作者：</strong><a href="https://removeif.github.io">辣椒の酱</a></li>
+            <li><strong>本文链接：</strong><a href="https://removeif.github.io/design-architecture/并发扣款相关问题.html">https://removeif.github.io/design-architecture/并发扣款相关问题.html</a></li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+            </li>
+            </ul>
+            <br>
+            <span class="is-size-6 has-text-grey has-mr-7">#&nbsp;本站推荐文章</span>
+<br>
+
+    &nbsp;1.<a href="/theme/博客源码分享.html" class="is-size-6" target="_blank">博客源码分享</a><br>
+
+    &nbsp;2.<a href="/breaking-news/2019年国庆70周年阅兵完整图文解说.html" class="is-size-6" target="_blank">2019年国庆70周年阅兵完整图文解说(收藏!)</a><br>
+
+    &nbsp;3.<a href="/theme/博客中gitalk最新评论的获取.html" class="is-size-6" target="_blank">博客中gitalk最新评论的获取</a><br>
+
+    &nbsp;4.<a href="/law/中华人民共和国刑事诉讼法.html" class="is-size-6" target="_blank">中华人民共和国刑事诉讼法</a><br>
+
+    &nbsp;5.<a href="/java/frame/springboot-restful-swagger实战.html" class="is-size-6" target="_blank">springboot-restful-swagger实战</a><br>
+
+            <br>
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190802135456.png" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190802135550.png" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/java/basic/Java日志的正确使用方法.html">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Java日志的正确使用方法</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/database/mysql/MyBatis二级缓存.html">
+                <span class="level-item">MyBatis二级缓存</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+    <br>
+<div class="card widget">
+    <div class="card-content">
+    <div class="g-ads-x">
+         <div class="menu">
+            <h3 class="menu-label">
+               温馨提示！此处可能会出现广告！
+            </h3>
+         </div>
+        <br>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-6343805421927634"
+             data-ad-slot="8274750079"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    </div>
+</div>
+
+    <div class="card">
+        <div class="card-content">
+            
+                <h3 class="title is-5 has-text-weight-normal">评论</h3>
+                
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '46a9f3481b46ea0129d8',
+        clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+        id: 'e348f0bbf7cb89628dc09d57990b6c3b',
+        repo: 'blog_comment',
+        owner: 'removeif',
+        admin: "removeif",
+        createIssueManually: true,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+            
+        </div>
+    </div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/images/tuzi.jpg" alt="辣椒の酱">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        辣椒の酱
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        尚未执佩剑，转眼即江湖
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>阿尔及利亚</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal ios-alert">
+                            83
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal ios-alert">
+                            36
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                   <a href="/tags">
+                       <p class="title has-text-weight-normal ios-alert">
+                            66
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://weibo.com/u/3050419984" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/removeif">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Weibo" href="https://weibo.com/u/3050419984">
+                
+                <i class="fab fa-weibo"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Email" href="mailto:removeif@163.com">
+                
+                <i class="fa fa-envelope"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Next" href="https://removeif.github.io/remove.io">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="RSS" href="/atom.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+        <hr>
+        <p id="hitokoto">:D 一言句子获取中...</p>
+        <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+    </div>
+</div>
+    
+        
+
+    <div class="card widget toc-scroll" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#并发扣款，如何保证数据的一致性？">
+        <span class="has-mr-6">1</span>
+        <span>并发扣款，如何保证数据的一致性？</span>
+        </a></li><li>
+        <a class="is-flex" href="#并发扣款一致性优化，CAS下ABA问题">
+        <span class="has-mr-6">2</span>
+        <span>并发扣款一致性优化，CAS下ABA问题</span>
+        </a></li><li>
+        <a class="is-flex" href="#并发扣款一致性，幂等性问题">
+        <span class="has-mr-6">3</span>
+        <span>并发扣款一致性，幂等性问题</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    
+        <div class="column-right-shadow  ">
+        
+            
+    <div class="card widget">
+        <div class="card-content">
+        <h3 class="menu-label">最新评论</h3><span class="menu-label1" id="body_hot_comment">加载中，最新评论有1分钟延迟...<span>
+        </div>
+    </div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-04T10:11:19.000Z">2020-01-04</time></div>
+                    <a href="/java/frame/springboot-restful-swagger实战.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">springboot-restful-swagger实战</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/springboot/">springboot</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-01T13:14:27.000Z">2020-01-01</time></div>
+                    <a href="/algorithm/算法成长之路leetcode15-16.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">算法成长之路leetcode15-16</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-31T13:05:49.000Z">2019-12-31</time></div>
+                    <a href="/think/2019年终总结.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">2019年终总结</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/think/">think</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-31T10:50:31.000Z">2019-12-31</time></div>
+                    <a href="/travel/西安旅游攻略3日游.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">西安旅游攻略3日游</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/travel/">travel</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-26T15:20:21.000Z">2019-12-26</time></div>
+                    <a href="/python/一张图学会python3.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">一张图学会python3</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/python3/">python3</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">15</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java/">
+                        <span class="tag">java</span>
+                        <span class="tag is-grey">18</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/法律/">
+                        <span class="tag">法律</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mysql/">
+                        <span class="tag">mysql</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/工具教程/">
+                        <span class="tag">工具教程</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/think/">
+                        <span class="tag">think</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/二分查找/">
+                        <span class="tag">二分查找</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/dp/">
+                        <span class="tag">dp</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/elasticsearch6/">
+                        <span class="tag">elasticsearch6</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo主题/">
+                        <span class="tag">hexo主题</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/icarus主题配置/">
+                        <span class="tag">icarus主题配置</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/redis/">
+                        <span class="tag">redis</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/动态规划/">
+                        <span class="tag">动态规划</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/支付架构/">
+                        <span class="tag">支付架构</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/支付系统/">
+                        <span class="tag">支付系统</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/科普/">
+                        <span class="tag">科普</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/贪心算法/">
+                        <span class="tag">贪心算法</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Effective-Java/">
+                        <span class="tag">Effective-Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Z字变换/">
+                        <span class="tag">Z字变换</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/b-tree/">
+                        <span class="tag">b+tree</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/双指针/" style="font-size: 11.67px;">双指针</a>&nbsp; <a href="/tags/最长回文/" style="font-size: 11.67px;">最长回文</a>&nbsp; <a href="/tags/Z字变换/" style="font-size: 11.67px;">Z字变换</a>&nbsp; <a href="/tags/数据结构/" style="font-size: 11.67px;">数据结构</a>&nbsp; <a href="/tags/health/" style="font-size: 11.67px;">health</a>&nbsp; <a href="/tags/ios/" style="font-size: 11.67px;">ios</a>&nbsp; <a href="/tags/nfc/" style="font-size: 11.67px;">nfc</a>&nbsp; <a href="/tags/marathon/" style="font-size: 11.67px;">marathon</a>&nbsp; <a href="/tags/python3基础/" style="font-size: 11.67px;">python3基础</a>&nbsp; <a href="/tags/Effective-Java/" style="font-size: 11.67px;">Effective-Java</a>&nbsp; <a href="/tags/读书笔记/" style="font-size: 11.67px;">读书笔记</a>&nbsp; <a href="/tags/博客统计插件/" style="font-size: 11.67px;">博客统计插件</a>&nbsp; <a href="/tags/分治算法/" style="font-size: 11.67px;">分治算法</a>&nbsp; <a href="/tags/字符串/" style="font-size: 11.67px;">字符串</a>&nbsp; <a href="/tags/滑动窗口/" style="font-size: 11.67px;">滑动窗口</a>&nbsp; <a href="/tags/分治/" style="font-size: 11.67px;">分治</a>&nbsp; <a href="/tags/反转整数/" style="font-size: 11.67px;">反转整数</a>&nbsp; <a href="/tags/字符串转整数/" style="font-size: 11.67px;">字符串转整数</a>&nbsp; <a href="/tags/最优解/" style="font-size: 11.67px;">最优解</a>&nbsp; <a href="/tags/debug/" style="font-size: 11.67px;">debug</a>&nbsp; <a href="/tags/调试代码/" style="font-size: 11.67px;">调试代码</a>&nbsp; <a href="/tags/经验成长/" style="font-size: 11.67px;">经验成长</a>&nbsp; <a href="/tags/西安/" style="font-size: 11.67px;">西安</a>&nbsp; <a href="/tags/长安/" style="font-size: 11.67px;">长安</a>&nbsp; <a href="/tags/旅行/" style="font-size: 11.67px;">旅行</a>&nbsp; <a href="/tags/sql/" style="font-size: 11.67px;">sql</a>&nbsp; <a href="/tags/幂等性/" style="font-size: 11.67px;">幂等性</a>&nbsp; <a href="/tags/restful-api/" style="font-size: 11.67px;">restful-api</a>&nbsp; <a href="/tags/前端技术/" style="font-size: 11.67px;">前端技术</a>&nbsp; <a href="/tags/docker/" style="font-size: 11.67px;">docker</a>&nbsp; <a href="/tags/query/" style="font-size: 11.67px;">query</a>&nbsp; <a href="/tags/feign/" style="font-size: 11.67px;">feign</a>&nbsp; <a href="/tags/spring-cloud/" style="font-size: 11.67px;">spring cloud</a>&nbsp; <a href="/tags/中心扩展/" style="font-size: 11.67px;">中心扩展</a>&nbsp; <a href="/tags/vim/" style="font-size: 11.67px;">vim</a>&nbsp; <a href="/tags/b-tree/" style="font-size: 11.67px;">b+tree</a>&nbsp; <a href="/tags/聚簇索引/" style="font-size: 11.67px;">聚簇索引</a>&nbsp; <a href="/tags/索引/" style="font-size: 11.67px;">索引</a>&nbsp; <a href="/tags/hash冲突/" style="font-size: 11.67px;">hash冲突</a>&nbsp; <a href="/tags/rehash/" style="font-size: 11.67px;">rehash</a>&nbsp;
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+    <div class="g-ads-y">
+        <div class="menu">
+            <h3 class="menu-label">
+               广告位
+            </h3>
+        </div>
+        <br>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- ads-y -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6343805421927634"
+             data-ad-slot="9708919542"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    </div>
+</div>
+
+
+
+        
+        </div>
+    
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="并发扣款相关问题" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 辣椒の酱&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>,Modify by <a href="https://github.com/removeif">removeif</a>&nbsp;
+                
+                <br>
+                &copy; 版权说明：[本网站所有内容均收集于互联网或自己创作,<br>&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="https://removeif.github.io/message/" target="_blank">留言</a>，立即处理]
+                <br>
+                <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/statistics.js"></script>
+                <span id="statistic-times"></span>
+                <br>
+                <span id="busuanzi_container_site_uv">
+                ❤️感谢 <strong><span id="busuanzi_value_site_uv">99+</span></strong> 小伙伴的 
+                </span>
+                 <strong><span id="busuanzi_value_site_pv">99+</span></strong> 次光临，贡献💐<a href="https://github.com/removeif/hexo-theme-icarus-removeif">本站源码</a>！❤️
+                 
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/removeif">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/insight.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/search.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/insight.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    
+    <script type="text/javascript" defer src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/comment-issue-data.js"></script>
+    
+    <!-- 暂时关闭伪娘 <script type="text/javascript" async="" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/live2d/autoload.js"></script> -->
+</body>
+</html>

@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.8.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>原码补码异或与位运算移位知识点 - 辣椒の酱</title>
+<meta name="google-site-verification" content="67z1CXZ8AOhImIglgTwqAlneRCHTO6xRJo5NeafDAqw" />
+<!-- 百度抓取 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- google adSense -->
+<script data-ad-client="ca-pub-6343805421927634" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 百度统计 -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?90a0e914cd2c9e93e206cc9131b19416";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <meta name="description" content="异或，英文为exclusive OR，缩写成xor异或（xor）是一个数学运算符。它应用于逻辑运算。异或的数学符号为“⊕”，计算机符号为“xor”。其运算法则为：a⊕b = (¬a ∧ b) ∨ (a ∧¬b)如果a、b两个值不相同，则异或结果为1。如果a、b两个值相同，异或结果为0。异或也叫半加运算，其运算法则相当于不带进位的二进制加法：二进制下用1表示真，0表示假，则异或的运算法则为：0⊕0=">
+<meta name="keywords" content="categories-java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原码补码异或与位运算移位知识点">
+<meta property="og:url" content="https://removeif.github.io/java/basic/原码补码异或与位运算移位知识点.html">
+<meta property="og:site_name" content="辣椒の酱">
+<meta property="og:description" content="异或，英文为exclusive OR，缩写成xor异或（xor）是一个数学运算符。它应用于逻辑运算。异或的数学符号为“⊕”，计算机符号为“xor”。其运算法则为：a⊕b = (¬a ∧ b) ∨ (a ∧¬b)如果a、b两个值不相同，则异或结果为1。如果a、b两个值相同，异或结果为0。异或也叫半加运算，其运算法则相当于不带进位的二进制加法：二进制下用1表示真，0表示假，则异或的运算法则为：0⊕0=">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191017182914.png">
+<meta property="og:updated_time" content="2019-10-21T03:23:49.100Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="原码补码异或与位运算移位知识点">
+<meta name="twitter:description" content="异或，英文为exclusive OR，缩写成xor异或（xor）是一个数学运算符。它应用于逻辑运算。异或的数学符号为“⊕”，计算机符号为“xor”。其运算法则为：a⊕b = (¬a ∧ b) ∨ (a ∧¬b)如果a、b两个值不相同，则异或结果为1。如果a、b两个值相同，异或结果为0。异或也叫半加运算，其运算法则相当于不带进位的二进制加法：二进制下用1表示真，0表示假，则异或的运算法则为：0⊕0=">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191017182914.png">
+
+
+
+
+
+<link rel="alternative" href="/atom.xml" title="原码补码异或与位运算移位知识点" type="application/atom+xml">
+
+
+
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/images/wico.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;subset=latin,latin-ext">
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/back-to-top.css">
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154601528-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-154601528-1');
+</script>
+
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/globalUtils.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/style1.min.css">
+<link rel="stylesheet" href="/css/m-style.css">
+<!-- 暂时关闭伪娘 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/live2d/waifu.css"> -->
+    <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="原码补码异或与位运算移位知识点" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives/">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories/">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags/">标签</a>
+                
+                <a class="navbar-item"
+                href="/tags/法律/">律法</a>
+                
+                <a class="navbar-item"
+                href="/categories/algorithm">算法</a>
+                
+                <a class="navbar-item"
+                href="/message/">留言</a>
+                
+                <a class="navbar-item"
+                href="/friend/">友链</a>
+                
+                <a class="navbar-item"
+                href="/album/">美图</a>
+                
+                <a class="navbar-item"
+                href="/music/">影音</a>
+                
+                <a class="navbar-item"
+                href="/self-talking/">碎碎念</a>
+                
+                <a class="navbar-item"
+                href="/about/">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+                <a class="navbar-item" id="night-nav" title="深色主题" href="javascript:;">
+                    <i class="fas fa-moon" id="night-icon"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/theme-setting.js"></script>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191017182914.png" alt="原码补码异或与位运算移位知识点">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                
+                <time class="level-item has-text-grey" datetime="2019-10-17T10:20:09.000Z">2019-10-17</time>
+                
+                    <span class="display-none-class">4fca7a77313ace7fb6d50a69d6d62972</span>
+                    <img class="not-gallery-item" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/images/chat.svg">&nbsp;<a href="/java/basic/原码补码异或与位运算移位知识点.html#comment-container"><span id=4fca7a77313ace7fb6d50a69d6d62972>99+</span></a>&nbsp;&nbsp;&nbsp;&nbsp;</img>
+                
+                
+                <div class="level-item">
+                <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/java基础/">java基础</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                     <!-- 14 分钟 读完 (大约 2086 个字) -->
+                     (大约 2086 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    1<span id="busuanzi_value_page_pv">99+</span> 次查看
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                原码补码异或与位运算移位知识点
+            
+        </h1>
+        <div class="content">
+            <p>异或，英文为exclusive OR，缩写成xor<br>异或（xor）是一个数学运算符。它应用于逻辑运算。异或的数学符号为“⊕”，计算机符号为“xor”。其运算法则为：<br>a⊕b = (¬a ∧ b) ∨ (a ∧¬b)<br>如果a、b两个值不相同，则异或结果为1。如果a、b两个值相同，异或结果为0。<br>异或也叫半加运算，其运算法则相当于不带进位的二进制加法：二进制下用1表示真，0表示假，则异或的运算法则为：0⊕0=0，1⊕0=1，0⊕1=1，1⊕1=0（同为0，异为1），这些法则与加法是相同的，只是不带进位，所以异或常被认作不进位加法。<br><a id="more"></a></p>
+<h3 id="byte、bit"><a href="#byte、bit" class="headerlink" title="byte、bit"></a>byte、bit</h3><p>字节（Byte）/比特位（bit）<br><figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">B是Byte的缩写，B就是Byte，也就是字节（Byte）；b是bit的缩写，b就是bit，也就是比特位（bit）。</span><br><span class="line">B与b不同，注意区分，KB是千字节，Kb是千比特位。</span><br><span class="line"></span><br><span class="line"><span class="hljs-number">1</span>MB（兆字节） = <span class="hljs-number">1024</span>KB（千字节）= <span class="hljs-number">1024</span>*<span class="hljs-number">1024B</span>(字节) = <span class="hljs-number">1048576B</span>(字节)；</span><br><span class="line"><span class="hljs-number">8b</span>it（比特位）= <span class="hljs-number">1B</span>yte（字节）；</span><br><span class="line"><span class="hljs-number">1024B</span>yte（字节）= <span class="hljs-number">1</span>KB(千字节)；</span><br><span class="line"><span class="hljs-number">1024</span>KB（千字节）= <span class="hljs-number">1</span>MB（兆字节）;</span><br><span class="line"><span class="hljs-number">1024</span>MB = <span class="hljs-number">1</span>GB;</span><br><span class="line"><span class="hljs-number">1024</span>GB = <span class="hljs-number">1</span>TB;</span><br></pre></td></tr></table></figure></p>
+<h3 id="原码、反码、补码"><a href="#原码、反码、补码" class="headerlink" title="原码、反码、补码"></a>原码、反码、补码</h3><p>其实数据存储在内存中都是存储的二进制，二进制又可分为原码、反码、补码。最终存储在内存中的是“补码”。</p>
+<p>一个正数的原码、反码、补码都是它的二进制表现形式。(无符号数没有原码、反码和补码一说。只有带符号数才存在不同的编码方式。)</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">例如：<span class="hljs-number">9</span> == <span class="hljs-keyword">int</span> == <span class="hljs-number">4</span>个字节 == <span class="hljs-number">1</span>个字节等于<span class="hljs-number">8</span>位 == 整形有<span class="hljs-number">32</span>位</span><br><span class="line">正数的原码：</span><br><span class="line"><span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">1001</span></span><br><span class="line">正数的反码就是正数的原码：</span><br><span class="line"><span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">1001</span></span><br><span class="line">正数的补码也是整数的原码：</span><br><span class="line"><span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">1001</span></span><br></pre></td></tr></table></figure>
+<p>二进制的第一位是符号位，0代表整数，1代表负数。</p>
+<p>一个负数的原码是首位为1的二进制数。反码是符号位不变，其他位取反。补码是反码加1。</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">例如：<span class="hljs-number">-9</span></span><br><span class="line">原码为首位为<span class="hljs-number">1</span>的二进制数：</span><br><span class="line"><span class="hljs-number">1000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> <span class="hljs-number">1001</span></span><br><span class="line">反码为符号位不变，其他位取反：</span><br><span class="line"><span class="hljs-number">1111</span> <span class="hljs-number">1111</span> <span class="hljs-number">1111</span> <span class="hljs-number">1111</span> <span class="hljs-number">1111</span> <span class="hljs-number">1111</span> <span class="hljs-number">1111</span> <span class="hljs-number">0110</span></span><br><span class="line">补码是反码加<span class="hljs-number">1</span>：</span><br><span class="line"><span class="hljs-number">1111</span> <span class="hljs-number">1111</span> <span class="hljs-number">1111</span> <span class="hljs-number">1111</span> <span class="hljs-number">1111</span> <span class="hljs-number">1111</span> <span class="hljs-number">1111</span> <span class="hljs-number">0111</span></span><br></pre></td></tr></table></figure>
+<h4 id="为什么会有原码反码补码？"><a href="#为什么会有原码反码补码？" class="headerlink" title="为什么会有原码反码补码？"></a>为什么会有原码反码补码？</h4><ol>
+<li>由于最高位是符号位，如果是0就代表正数，1就代表是负数。</li>
+<li>那么直接存储原码，计算机在计算的时候还需要先判断最高位才能计算，效率比较低</li>
+<li>为了方便计算机计算，所以有了反码和补码，然后计算机就不需要判断符号位了，只做加法运算就可以了。</li>
+</ol>
+<p>计算十进制的表达式：1 - 1 = 0</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-number">1</span> - <span class="hljs-number">1</span> == <span class="hljs-number">1</span> + (<span class="hljs-number">-1</span>)</span><br><span class="line"> <span class="hljs-number">0000</span> <span class="hljs-number">0001</span>(原码)</span><br><span class="line">+<span class="hljs-number">1000</span> <span class="hljs-number">0001</span>(原码)</span><br><span class="line">----------------</span><br><span class="line"> <span class="hljs-number">1000</span> <span class="hljs-number">0010</span>(原码) == <span class="hljs-number">-2</span></span><br></pre></td></tr></table></figure>
+<p>如果用原码表示，让符号位参与计算，显然对于减法来说是不正确的。这也是计算机内部不以原码表示的原因。</p>
+<ul>
+<li>为了解决原码做减法的问题，出现了反码：</li>
+</ul>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-number">1</span> - <span class="hljs-number">1</span> == <span class="hljs-number">1</span> + (<span class="hljs-number">-1</span>)</span><br><span class="line"> <span class="hljs-number">0000</span> <span class="hljs-number">0001</span>(反码)</span><br><span class="line">+<span class="hljs-number">1111</span> <span class="hljs-number">1110</span>(反码)</span><br><span class="line">----------------</span><br><span class="line"> <span class="hljs-number">1111</span> <span class="hljs-number">1111</span>(反码) 转成原码 -&gt; <span class="hljs-number">1000</span> <span class="hljs-number">0000</span> == <span class="hljs-number">-0</span></span><br></pre></td></tr></table></figure>
+<p>通常我们用最高的有效位来表示数的符号（当用8位来表示一个整数时，第8位即为最高有效位，当用16位来表示一个整数时，第16位即为最高有效位。）0表示正号、1表示负号，这种正负号数字化的机内表示形式就称为“机器数”，而相应的机器外部用正负号表示的数称为“真值”。将一个真值表示成二进制字串的机器数的过程就称为编码。</p>
+<ul>
+<li>于是补码出现了，解决了0的符号问题以及两个编码的问题，0的编码就只有+0，-0已经等于-128了。</li>
+</ul>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-number">1</span> - <span class="hljs-number">1</span> == <span class="hljs-number">1</span> + (<span class="hljs-number">-1</span>)</span><br><span class="line"> <span class="hljs-number">0000</span> <span class="hljs-number">0001</span>(补码)</span><br><span class="line">+<span class="hljs-number">1111</span> <span class="hljs-number">1111</span>(补码)</span><br><span class="line">----------------</span><br><span class="line"><span class="hljs-number">10000</span> <span class="hljs-number">0000</span>(补码) </span><br><span class="line">第一位溢出后转成原码 -&gt; <span class="hljs-number">0000</span> <span class="hljs-number">0000</span> == <span class="hljs-number">0</span></span><br></pre></td></tr></table></figure>
+<h3 id="与、或、异或运算"><a href="#与、或、异或运算" class="headerlink" title="与、或、异或运算"></a>与、或、异或运算</h3><h4 id="1-与运算（-amp-）"><a href="#1-与运算（-amp-）" class="headerlink" title="1.与运算（&amp;）"></a>1.与运算（&amp;）</h4><p>参加运算的两个数据，按二进制位进行“与”运算。</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">运算规则：<span class="hljs-number">0</span>&amp;<span class="hljs-number">0</span>=<span class="hljs-number">0</span>;   <span class="hljs-number">0</span>&amp;<span class="hljs-number">1</span>=<span class="hljs-number">0</span>;    <span class="hljs-number">1</span>&amp;<span class="hljs-number">0</span>=<span class="hljs-number">0</span>;     <span class="hljs-number">1</span>&amp;<span class="hljs-number">1</span>=<span class="hljs-number">1</span>;</span><br><span class="line"></span><br><span class="line">  	 即：两位同时为“<span class="hljs-number">1</span>”，结果才为“<span class="hljs-number">1</span>”，否则为<span class="hljs-number">0</span></span><br><span class="line"></span><br><span class="line">例如：<span class="hljs-number">3</span>&amp;<span class="hljs-number">5</span>  即 <span class="hljs-number">0000</span> <span class="hljs-number">0011</span> &amp; <span class="hljs-number">0000</span> <span class="hljs-number">0101</span> = <span class="hljs-number">0000</span> <span class="hljs-number">0001</span>   因此，<span class="hljs-number">3</span>&amp;<span class="hljs-number">5</span>的值得<span class="hljs-number">1</span>。</span><br><span class="line"></span><br><span class="line">例如：<span class="hljs-number">9</span>&amp;<span class="hljs-number">5</span>  即 <span class="hljs-number">0000</span> <span class="hljs-number">1001</span> (<span class="hljs-number">9</span>的二进制补码)&amp;<span class="hljs-number">00000101</span> (<span class="hljs-number">5</span>的二进制补码) =<span class="hljs-number">00000001</span> (<span class="hljs-number">1</span>的二进制补码)可见<span class="hljs-number">9</span>&amp;<span class="hljs-number">5</span>=<span class="hljs-number">1</span>。</span><br></pre></td></tr></table></figure>
+<h4 id="2-或运算（-）"><a href="#2-或运算（-）" class="headerlink" title="2.或运算（|）"></a>2.或运算（|）</h4><p>参加运算的两个对象，按二进制位进行“或”运算。</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">	运算规则：<span class="hljs-number">0</span>|<span class="hljs-number">0</span>=<span class="hljs-number">0</span>；   <span class="hljs-number">0</span>|<span class="hljs-number">1</span>=<span class="hljs-number">1</span>；   <span class="hljs-number">1</span>|<span class="hljs-number">0</span>=<span class="hljs-number">1</span>；    <span class="hljs-number">1</span>|<span class="hljs-number">1</span>=<span class="hljs-number">1</span>；</span><br><span class="line">	即 ：参加运算的两个对象只要有一个为<span class="hljs-number">1</span>，其值为<span class="hljs-number">1</span>。</span><br><span class="line">例如:<span class="hljs-number">3</span>|<span class="hljs-number">5</span>　即 <span class="hljs-number">0000</span> <span class="hljs-number">0011</span> | <span class="hljs-number">0000</span> <span class="hljs-number">0101</span> = <span class="hljs-number">0000</span> <span class="hljs-number">0111</span>   因此，<span class="hljs-number">3</span>|<span class="hljs-number">5</span>的值得<span class="hljs-number">7</span>。　</span><br><span class="line"></span><br><span class="line">例如：<span class="hljs-number">9</span>|<span class="hljs-number">5</span>可写算式如下： <span class="hljs-number">00001001</span>|<span class="hljs-number">00000101</span> =<span class="hljs-number">00001101</span> (十进制为<span class="hljs-number">13</span>)可见<span class="hljs-number">9</span>|<span class="hljs-number">5</span>=<span class="hljs-number">13</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-异或运算（-）"><a href="#3-异或运算（-）" class="headerlink" title="3.异或运算（^）"></a>3.异或运算（^）</h4><p>参加运算的两个数据，按二进制位进行“异或”运算。</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">运算规则：<span class="hljs-number">0</span>^<span class="hljs-number">0</span>=<span class="hljs-number">0</span>；   <span class="hljs-number">0</span>^<span class="hljs-number">1</span>=<span class="hljs-number">1</span>；   <span class="hljs-number">1</span>^<span class="hljs-number">0</span>=<span class="hljs-number">1</span>；   <span class="hljs-number">1</span>^<span class="hljs-number">1</span>=<span class="hljs-number">0</span>；</span><br></pre></td></tr></table></figure>
+<p>即：参加运算的两个对象，如果两个相应位为“异”（值不同），则该位结果为1，否则为0。</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">例如：<span class="hljs-number">9</span>^<span class="hljs-number">5</span>可写成算式如下： <span class="hljs-number">00001001</span>^<span class="hljs-number">00000101</span>=<span class="hljs-number">00001100</span> (十进制为<span class="hljs-number">12</span>)可见<span class="hljs-number">9</span>^<span class="hljs-number">5</span>=<span class="hljs-number">12</span></span><br></pre></td></tr></table></figure>
+<h3 id="位、移位运算"><a href="#位、移位运算" class="headerlink" title="位、移位运算"></a>位、移位运算</h3><p>一个字节数占 <code>8</code> 位，将 <code>a</code>，<code>b</code> 转换为二进制：</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="hljs-number">0000</span> <span class="hljs-number">1111</span></span><br><span class="line">b = <span class="hljs-number">1111</span> <span class="hljs-number">0001</span></span><br></pre></td></tr></table></figure>
+<p><strong>Note</strong>：计算机使用补码表示</p>
+<p>位与运算符：仅当两个操作数同一下标的值均为 1 时，结果才为 1</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a &amp; b = <span class="hljs-number">0000</span> <span class="hljs-number">1111</span> &amp; <span class="hljs-number">1111</span> <span class="hljs-number">0001</span> = <span class="hljs-number">0000</span> <span class="hljs-number">0001</span>(补) = <span class="hljs-number">0000</span> <span class="hljs-number">0001</span>(原) = <span class="hljs-number">1</span></span><br></pre></td></tr></table></figure>
+<p>位或运算符：只要两个操作数同一下标的值有一个为 1 时，结果就为 1</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a | b = <span class="hljs-number">0000</span> <span class="hljs-number">1111</span> &amp; <span class="hljs-number">1111</span> <span class="hljs-number">0001</span> = <span class="hljs-number">1111</span> <span class="hljs-number">1111</span>(补) = <span class="hljs-number">1000</span> <span class="hljs-number">0001</span>(原) = <span class="hljs-number">-1</span></span><br></pre></td></tr></table></figure>
+<p>位异或运算符：只有两个操作数同意下标的值不相等时，结果才为 1</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a ^ b = <span class="hljs-number">0000</span> <span class="hljs-number">1111</span> ^ <span class="hljs-number">1111</span> <span class="hljs-number">0001</span> = <span class="hljs-number">1111</span> <span class="hljs-number">1110</span>(补) = <span class="hljs-number">1000</span> <span class="hljs-number">0010</span>(原) = <span class="hljs-number">-2</span></span><br></pre></td></tr></table></figure>
+<p>位取反运算符：按位取反每一位</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~a = ~<span class="hljs-number">0000</span> <span class="hljs-number">1111</span> = <span class="hljs-number">1111</span> <span class="hljs-number">0000</span>(补) = <span class="hljs-number">1001</span> <span class="hljs-number">0000</span>(原) = <span class="hljs-number">-16</span></span><br><span class="line">~b = ~<span class="hljs-number">1111</span> <span class="hljs-number">0001</span> = <span class="hljs-number">0000</span> <span class="hljs-number">1110</span>(补) = <span class="hljs-number">0000</span> <span class="hljs-number">1110</span>(原) = <span class="hljs-number">14</span></span><br></pre></td></tr></table></figure>
+<p><strong>Note 1</strong>：byte 或者 short 类型数值进行位运算后，返回的是 int 类型数值（没有找到资料说明在位运算之前是否已经进行了转换，不过先将 a，b 转换为 int 类型二进制再进行计算的结果和上面一致）</p>
+<p><strong>Note 2</strong>：位运算符的操作不排除符号位</p>
+<h4 id="移位运算符"><a href="#移位运算符" class="headerlink" title="移位运算符"></a>移位运算符</h4><p>Java 提供了 3 种移位运算符</p>
+<ul>
+<li>左移运算符（left shift operator）：&lt;&lt;</li>
+<li>右移运算符（right shift operator）：&gt;&gt;</li>
+<li>无符号右移运算符（unsigned right shift operator）：&gt;&gt;&gt;</li>
+</ul>
+<p>对于移位运算符而言，左侧操作数表示要移动的二进制数，右侧操作数表示要移动的位数</p>
+<p>进行移位操作时，需要注意以下几点：</p>
+<p>对于 byte 或者 short 类型数值，进行移位操作时，会先转换为 int 类型，然后进行移位（如果是 long 类型，则不变）</p>
+<p>对于右侧操作数而言，在进行移位之前，先转换为二进制数（补码）。如果左侧数是 int 类型，则取右侧操作数最右端 5 位数值进行移动；如果是 long 类型数值，则取右侧操作数最右端 6 位数值进行移动</p>
+<h4 id="左移运算符：数值位向左移动指定位数"><a href="#左移运算符：数值位向左移动指定位数" class="headerlink" title="左移运算符：数值位向左移动指定位数"></a>左移运算符：数值位向左移动指定位数</h4><figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-number">15</span> &lt;&lt; <span class="hljs-number">3</span> = <span class="hljs-number">0x0000000f</span> &lt;&lt; <span class="hljs-number">3</span> = <span class="hljs-number">0x00000078</span>(补，原) = <span class="hljs-number">120</span></span><br><span class="line"><span class="hljs-number">15</span> &lt;&lt; <span class="hljs-number">-61</span> = <span class="hljs-number">0x0000000f</span> &lt;&lt; <span class="hljs-number">0xffffffc3</span>(左侧是 <span class="hljs-keyword">int</span> 类型，取右侧 <span class="hljs-number">5</span> 位) = <span class="hljs-number">0x0000000f</span> &lt;&lt; <span class="hljs-number">3</span> = <span class="hljs-number">0x00000078</span>(补，原) = <span class="hljs-number">120</span></span><br><span class="line"><span class="hljs-number">15</span> &lt;&lt; <span class="hljs-number">35</span> = <span class="hljs-number">0x0000000f</span> &lt;&lt; <span class="hljs-number">0x00000023</span>(左侧是 <span class="hljs-keyword">int</span> 类型，取右侧 <span class="hljs-number">5</span> 位) = <span class="hljs-number">0x0000000f</span> &lt;&lt; <span class="hljs-number">3</span> = <span class="hljs-number">0x00000078</span>(补，原) = <span class="hljs-number">120</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-number">-15</span> &lt;&lt; <span class="hljs-number">3</span> = <span class="hljs-number">0xfffffff1</span> &lt;&lt; <span class="hljs-number">3</span> = <span class="hljs-number">0xffffff88</span>(补) = <span class="hljs-number">0x80000078</span>(原） = <span class="hljs-number">-120</span></span><br><span class="line"><span class="hljs-number">-15</span> &lt;&lt; <span class="hljs-number">-61</span> = <span class="hljs-number">0xfffffff1</span> &lt;&lt; <span class="hljs-number">0xffffffc3</span>(左侧是 <span class="hljs-keyword">int</span> 类型，取右侧 <span class="hljs-number">5</span> 位) = <span class="hljs-number">0xfffffff1</span> &lt;&lt; <span class="hljs-number">3</span> = <span class="hljs-number">0xffffff88</span>(补) = <span class="hljs-number">0x80000078</span>(原） = <span class="hljs-number">-120</span></span><br><span class="line"><span class="hljs-number">-15</span> &lt;&lt; <span class="hljs-number">35</span> = <span class="hljs-number">0xfffffff1</span> &lt;&lt; <span class="hljs-number">0x00000023</span>(左侧是 <span class="hljs-keyword">int</span> 类型，取右侧 <span class="hljs-number">5</span> 位) = <span class="hljs-number">0xfffffff1</span> &lt;&lt; <span class="hljs-number">3</span> = <span class="hljs-number">0xffffff88</span>(补) = <span class="hljs-number">0x80000078</span>(原） = <span class="hljs-number">-120</span></span><br></pre></td></tr></table></figure>
+<h4 id="右移运算符：数字位向右移动指定位数（如果左操作数是正数，高位补-0-；如果是负数，高位补-1）"><a href="#右移运算符：数字位向右移动指定位数（如果左操作数是正数，高位补-0-；如果是负数，高位补-1）" class="headerlink" title="右移运算符：数字位向右移动指定位数（如果左操作数是正数，高位补 0 ；如果是负数，高位补 1）"></a>右移运算符：数字位向右移动指定位数（如果左操作数是正数，高位补 0 ；如果是负数，高位补 1）</h4><figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-number">15</span> &gt;&gt; <span class="hljs-number">3</span> = <span class="hljs-number">0x0000000f</span> &gt;&gt; <span class="hljs-number">3</span> = <span class="hljs-number">0x00000001</span> = <span class="hljs-number">1</span></span><br><span class="line"><span class="hljs-number">-15</span> &gt;&gt; <span class="hljs-number">3</span> = <span class="hljs-number">0xfffffff1</span> &gt;&gt; <span class="hljs-number">3</span> = <span class="hljs-number">0xfffffffe</span>(补) = <span class="hljs-number">0x80000002</span>(原) = <span class="hljs-number">-2</span></span><br></pre></td></tr></table></figure>
+<h4 id="无符号右移运算符：功能和右移运算符一样，不过无论正负，高位均补-0"><a href="#无符号右移运算符：功能和右移运算符一样，不过无论正负，高位均补-0" class="headerlink" title="无符号右移运算符：功能和右移运算符一样，不过无论正负，高位均补 0"></a>无符号右移运算符：功能和右移运算符一样，不过无论正负，高位均补 0</h4><figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-number">15</span> &gt;&gt;&gt; <span class="hljs-number">3</span> = <span class="hljs-number">0x0000000f</span> &gt;&gt;&gt; <span class="hljs-number">3</span> = <span class="hljs-number">0x00000001</span> = <span class="hljs-number">1</span></span><br><span class="line"><span class="hljs-number">-15</span> &gt;&gt; <span class="hljs-number">3</span> = <span class="hljs-number">0xfffffff1</span> &gt;&gt;&gt; <span class="hljs-number">3</span> = <span class="hljs-number">0x1ffffffe</span>(补，原) = <span class="hljs-number">2</span>^<span class="hljs-number">29</span> - <span class="hljs-number">2</span> = <span class="hljs-number">536870910</span></span><br></pre></td></tr></table></figure>
+<p><strong>Note 1</strong>：移位运算时，从符号位开始操作</p>
+<p><strong>Note 2</strong>：由结果可知，左移一位相当于乘以2，右移一位相当于除以 2</p>
+<p>参考文章:<br><a href="https://blog.csdn.net/u012005313/article/details/78543809" target="_blank" rel="noopener">参考链接1</a><br><a href="https://www.jianshu.com/p/3fc8fde344dd" target="_blank" rel="noopener">参考链接2</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <i class="fas fa-tags has-text-grey"></i>&nbsp;&nbsp;
+                    <a class="has-link-grey -link" href="/tags/java/">java</a>,&nbsp;<a class="has-link-grey -link" href="/tags/科普/">科普</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- 部分参考自https://www.alphalxy.com/2019/03/customize-icarus/ -->
+        
+            <ul class="post-copyright">
+            <li><strong>本文标题：</strong><a href="https://removeif.github.io/java/basic/原码补码异或与位运算移位知识点.html">原码补码异或与位运算移位知识点</a></li>
+            <li><strong>本文作者：</strong><a href="https://removeif.github.io">辣椒の酱</a></li>
+            <li><strong>本文链接：</strong><a href="https://removeif.github.io/java/basic/原码补码异或与位运算移位知识点.html">https://removeif.github.io/java/basic/原码补码异或与位运算移位知识点.html</a></li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+            </li>
+            </ul>
+            <br>
+            <span class="is-size-6 has-text-grey has-mr-7">#&nbsp;本站推荐文章</span>
+<br>
+
+    &nbsp;1.<a href="/theme/博客源码分享.html" class="is-size-6" target="_blank">博客源码分享</a><br>
+
+    &nbsp;2.<a href="/breaking-news/2019年国庆70周年阅兵完整图文解说.html" class="is-size-6" target="_blank">2019年国庆70周年阅兵完整图文解说(收藏!)</a><br>
+
+    &nbsp;3.<a href="/theme/博客中gitalk最新评论的获取.html" class="is-size-6" target="_blank">博客中gitalk最新评论的获取</a><br>
+
+    &nbsp;4.<a href="/law/中华人民共和国刑事诉讼法.html" class="is-size-6" target="_blank">中华人民共和国刑事诉讼法</a><br>
+
+    &nbsp;5.<a href="/java/frame/springboot-restful-swagger实战.html" class="is-size-6" target="_blank">springboot-restful-swagger实战</a><br>
+
+            <br>
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190802135456.png" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190802135550.png" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/database/redis/Redis的内存淘汰策略问题.html">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Redis的内存淘汰策略问题</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/breaking-news/2019年国庆70周年阅兵完整图文解说.html">
+                <span class="level-item">2019年国庆70周年阅兵完整图文解说(收藏!)</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+    <br>
+<div class="card widget">
+    <div class="card-content">
+    <div class="g-ads-x">
+         <div class="menu">
+            <h3 class="menu-label">
+               温馨提示！此处可能会出现广告！
+            </h3>
+         </div>
+        <br>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-6343805421927634"
+             data-ad-slot="8274750079"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    </div>
+</div>
+
+    <div class="card">
+        <div class="card-content">
+            
+                <h3 class="title is-5 has-text-weight-normal">评论</h3>
+                
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '46a9f3481b46ea0129d8',
+        clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+        id: '4fca7a77313ace7fb6d50a69d6d62972',
+        repo: 'blog_comment',
+        owner: 'removeif',
+        admin: "removeif",
+        createIssueManually: true,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+            
+        </div>
+    </div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/images/tuzi.jpg" alt="辣椒の酱">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        辣椒の酱
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        尚未执佩剑，转眼即江湖
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>阿尔及利亚</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal ios-alert">
+                            83
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal ios-alert">
+                            36
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                   <a href="/tags">
+                       <p class="title has-text-weight-normal ios-alert">
+                            66
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://weibo.com/u/3050419984" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/removeif">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Weibo" href="https://weibo.com/u/3050419984">
+                
+                <i class="fab fa-weibo"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Email" href="mailto:removeif@163.com">
+                
+                <i class="fa fa-envelope"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Next" href="https://removeif.github.io/remove.io">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="RSS" href="/atom.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+        <hr>
+        <p id="hitokoto">:D 一言句子获取中...</p>
+        <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+    </div>
+</div>
+    
+        
+
+    <div class="card widget toc-scroll" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#byte、bit">
+        <span class="has-mr-6">1</span>
+        <span>byte、bit</span>
+        </a></li><li>
+        <a class="is-flex" href="#原码、反码、补码">
+        <span class="has-mr-6">2</span>
+        <span>原码、反码、补码</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#为什么会有原码反码补码？">
+        <span class="has-mr-6">2.1</span>
+        <span>为什么会有原码反码补码？</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#与、或、异或运算">
+        <span class="has-mr-6">3</span>
+        <span>与、或、异或运算</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-与运算（-amp-）">
+        <span class="has-mr-6">3.1</span>
+        <span>1.与运算（&amp;）</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-或运算（-）">
+        <span class="has-mr-6">3.2</span>
+        <span>2.或运算（|）</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-异或运算（-）">
+        <span class="has-mr-6">3.3</span>
+        <span>3.异或运算（^）</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#位、移位运算">
+        <span class="has-mr-6">4</span>
+        <span>位、移位运算</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#移位运算符">
+        <span class="has-mr-6">4.1</span>
+        <span>移位运算符</span>
+        </a></li><li>
+        <a class="is-flex" href="#左移运算符：数值位向左移动指定位数">
+        <span class="has-mr-6">4.2</span>
+        <span>左移运算符：数值位向左移动指定位数</span>
+        </a></li><li>
+        <a class="is-flex" href="#右移运算符：数字位向右移动指定位数（如果左操作数是正数，高位补-0-；如果是负数，高位补-1）">
+        <span class="has-mr-6">4.3</span>
+        <span>右移运算符：数字位向右移动指定位数（如果左操作数是正数，高位补 0 ；如果是负数，高位补 1）</span>
+        </a></li><li>
+        <a class="is-flex" href="#无符号右移运算符：功能和右移运算符一样，不过无论正负，高位均补-0">
+        <span class="has-mr-6">4.4</span>
+        <span>无符号右移运算符：功能和右移运算符一样，不过无论正负，高位均补 0</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    
+        <div class="column-right-shadow  ">
+        
+            
+    <div class="card widget">
+        <div class="card-content">
+        <h3 class="menu-label">最新评论</h3><span class="menu-label1" id="body_hot_comment">加载中，最新评论有1分钟延迟...<span>
+        </div>
+    </div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-04T10:11:19.000Z">2020-01-04</time></div>
+                    <a href="/java/frame/springboot-restful-swagger实战.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">springboot-restful-swagger实战</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/springboot/">springboot</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-01T13:14:27.000Z">2020-01-01</time></div>
+                    <a href="/algorithm/算法成长之路leetcode15-16.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">算法成长之路leetcode15-16</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-31T13:05:49.000Z">2019-12-31</time></div>
+                    <a href="/think/2019年终总结.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">2019年终总结</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/think/">think</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-31T10:50:31.000Z">2019-12-31</time></div>
+                    <a href="/travel/西安旅游攻略3日游.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">西安旅游攻略3日游</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/travel/">travel</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-26T15:20:21.000Z">2019-12-26</time></div>
+                    <a href="/python/一张图学会python3.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">一张图学会python3</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/python3/">python3</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">15</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java/">
+                        <span class="tag">java</span>
+                        <span class="tag is-grey">18</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/法律/">
+                        <span class="tag">法律</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mysql/">
+                        <span class="tag">mysql</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/工具教程/">
+                        <span class="tag">工具教程</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/think/">
+                        <span class="tag">think</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/二分查找/">
+                        <span class="tag">二分查找</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/dp/">
+                        <span class="tag">dp</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/elasticsearch6/">
+                        <span class="tag">elasticsearch6</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo主题/">
+                        <span class="tag">hexo主题</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/icarus主题配置/">
+                        <span class="tag">icarus主题配置</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/redis/">
+                        <span class="tag">redis</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/动态规划/">
+                        <span class="tag">动态规划</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/支付架构/">
+                        <span class="tag">支付架构</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/支付系统/">
+                        <span class="tag">支付系统</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/科普/">
+                        <span class="tag">科普</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/贪心算法/">
+                        <span class="tag">贪心算法</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Effective-Java/">
+                        <span class="tag">Effective-Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Z字变换/">
+                        <span class="tag">Z字变换</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/b-tree/">
+                        <span class="tag">b+tree</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/双指针/" style="font-size: 11.67px;">双指针</a>&nbsp; <a href="/tags/最长回文/" style="font-size: 11.67px;">最长回文</a>&nbsp; <a href="/tags/Z字变换/" style="font-size: 11.67px;">Z字变换</a>&nbsp; <a href="/tags/数据结构/" style="font-size: 11.67px;">数据结构</a>&nbsp; <a href="/tags/health/" style="font-size: 11.67px;">health</a>&nbsp; <a href="/tags/ios/" style="font-size: 11.67px;">ios</a>&nbsp; <a href="/tags/nfc/" style="font-size: 11.67px;">nfc</a>&nbsp; <a href="/tags/marathon/" style="font-size: 11.67px;">marathon</a>&nbsp; <a href="/tags/python3基础/" style="font-size: 11.67px;">python3基础</a>&nbsp; <a href="/tags/Effective-Java/" style="font-size: 11.67px;">Effective-Java</a>&nbsp; <a href="/tags/读书笔记/" style="font-size: 11.67px;">读书笔记</a>&nbsp; <a href="/tags/博客统计插件/" style="font-size: 11.67px;">博客统计插件</a>&nbsp; <a href="/tags/分治算法/" style="font-size: 11.67px;">分治算法</a>&nbsp; <a href="/tags/字符串/" style="font-size: 11.67px;">字符串</a>&nbsp; <a href="/tags/滑动窗口/" style="font-size: 11.67px;">滑动窗口</a>&nbsp; <a href="/tags/分治/" style="font-size: 11.67px;">分治</a>&nbsp; <a href="/tags/反转整数/" style="font-size: 11.67px;">反转整数</a>&nbsp; <a href="/tags/字符串转整数/" style="font-size: 11.67px;">字符串转整数</a>&nbsp; <a href="/tags/最优解/" style="font-size: 11.67px;">最优解</a>&nbsp; <a href="/tags/debug/" style="font-size: 11.67px;">debug</a>&nbsp; <a href="/tags/调试代码/" style="font-size: 11.67px;">调试代码</a>&nbsp; <a href="/tags/经验成长/" style="font-size: 11.67px;">经验成长</a>&nbsp; <a href="/tags/西安/" style="font-size: 11.67px;">西安</a>&nbsp; <a href="/tags/长安/" style="font-size: 11.67px;">长安</a>&nbsp; <a href="/tags/旅行/" style="font-size: 11.67px;">旅行</a>&nbsp; <a href="/tags/sql/" style="font-size: 11.67px;">sql</a>&nbsp; <a href="/tags/幂等性/" style="font-size: 11.67px;">幂等性</a>&nbsp; <a href="/tags/restful-api/" style="font-size: 11.67px;">restful-api</a>&nbsp; <a href="/tags/前端技术/" style="font-size: 11.67px;">前端技术</a>&nbsp; <a href="/tags/docker/" style="font-size: 11.67px;">docker</a>&nbsp; <a href="/tags/query/" style="font-size: 11.67px;">query</a>&nbsp; <a href="/tags/feign/" style="font-size: 11.67px;">feign</a>&nbsp; <a href="/tags/spring-cloud/" style="font-size: 11.67px;">spring cloud</a>&nbsp; <a href="/tags/中心扩展/" style="font-size: 11.67px;">中心扩展</a>&nbsp; <a href="/tags/vim/" style="font-size: 11.67px;">vim</a>&nbsp; <a href="/tags/b-tree/" style="font-size: 11.67px;">b+tree</a>&nbsp; <a href="/tags/聚簇索引/" style="font-size: 11.67px;">聚簇索引</a>&nbsp; <a href="/tags/索引/" style="font-size: 11.67px;">索引</a>&nbsp; <a href="/tags/hash冲突/" style="font-size: 11.67px;">hash冲突</a>&nbsp; <a href="/tags/rehash/" style="font-size: 11.67px;">rehash</a>&nbsp;
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+    <div class="g-ads-y">
+        <div class="menu">
+            <h3 class="menu-label">
+               广告位
+            </h3>
+        </div>
+        <br>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- ads-y -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6343805421927634"
+             data-ad-slot="9708919542"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    </div>
+</div>
+
+
+
+        
+        </div>
+    
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="原码补码异或与位运算移位知识点" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 辣椒の酱&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>,Modify by <a href="https://github.com/removeif">removeif</a>&nbsp;
+                
+                <br>
+                &copy; 版权说明：[本网站所有内容均收集于互联网或自己创作,<br>&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="https://removeif.github.io/message/" target="_blank">留言</a>，立即处理]
+                <br>
+                <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/statistics.js"></script>
+                <span id="statistic-times"></span>
+                <br>
+                <span id="busuanzi_container_site_uv">
+                ❤️感谢 <strong><span id="busuanzi_value_site_uv">99+</span></strong> 小伙伴的 
+                </span>
+                 <strong><span id="busuanzi_value_site_pv">99+</span></strong> 次光临，贡献💐<a href="https://github.com/removeif/hexo-theme-icarus-removeif">本站源码</a>！❤️
+                 
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/removeif">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/insight.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/search.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/insight.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    
+    <script type="text/javascript" defer src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/comment-issue-data.js"></script>
+    
+    <!-- 暂时关闭伪娘 <script type="text/javascript" async="" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/live2d/autoload.js"></script> -->
+</body>
+</html>

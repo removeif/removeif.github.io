@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.8.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>springboot-restful-swagger实战 - 辣椒の酱</title>
+<meta name="google-site-verification" content="67z1CXZ8AOhImIglgTwqAlneRCHTO6xRJo5NeafDAqw" />
+<!-- 百度抓取 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- google adSense -->
+<script data-ad-client="ca-pub-6343805421927634" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 百度统计 -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?90a0e914cd2c9e93e206cc9131b19416";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <meta name="description" content="一、目标 了解 Restful 是什么，基本概念及风格； 能使用SpringBoot 实现一套基础的 Restful 风格接口； 利用Swagger 生成清晰的接口文档。">
+<meta name="keywords" content="categories-java,springboot,swagger,Restful 实战，示例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot-restful-swagger实战">
+<meta property="og:url" content="https://removeif.github.io/java/frame/springboot-restful-swagger实战.html">
+<meta property="og:site_name" content="辣椒の酱">
+<meta property="og:description" content="一、目标 了解 Restful 是什么，基本概念及风格； 能使用SpringBoot 实现一套基础的 Restful 风格接口； 利用Swagger 生成清晰的接口文档。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200104181336.png">
+<meta property="og:updated_time" content="2020-01-04T10:23:25.819Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="springboot-restful-swagger实战">
+<meta name="twitter:description" content="一、目标 了解 Restful 是什么，基本概念及风格； 能使用SpringBoot 实现一套基础的 Restful 风格接口； 利用Swagger 生成清晰的接口文档。">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200104181336.png">
+
+
+
+
+
+<link rel="alternative" href="/atom.xml" title="springboot-restful-swagger实战" type="application/atom+xml">
+
+
+
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/images/wico.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;subset=latin,latin-ext">
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/back-to-top.css">
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154601528-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-154601528-1');
+</script>
+
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/globalUtils.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/style1.min.css">
+<link rel="stylesheet" href="/css/m-style.css">
+<!-- 暂时关闭伪娘 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/live2d/waifu.css"> -->
+    <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="springboot-restful-swagger实战" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives/">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories/">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags/">标签</a>
+                
+                <a class="navbar-item"
+                href="/tags/法律/">律法</a>
+                
+                <a class="navbar-item"
+                href="/categories/algorithm">算法</a>
+                
+                <a class="navbar-item"
+                href="/message/">留言</a>
+                
+                <a class="navbar-item"
+                href="/friend/">友链</a>
+                
+                <a class="navbar-item"
+                href="/album/">美图</a>
+                
+                <a class="navbar-item"
+                href="/music/">影音</a>
+                
+                <a class="navbar-item"
+                href="/self-talking/">碎碎念</a>
+                
+                <a class="navbar-item"
+                href="/about/">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+                <a class="navbar-item" id="night-nav" title="深色主题" href="javascript:;">
+                    <i class="fas fa-moon" id="night-icon"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/theme-setting.js"></script>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200104181336.png" alt="springboot-restful-swagger实战">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                
+                <time class="level-item has-text-grey" datetime="2020-01-04T10:11:19.000Z">2020-01-04</time>
+                
+                    <span class="display-none-class">781fefa52b7f037d0328204390e8b81a</span>
+                    <img class="not-gallery-item" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/images/chat.svg">&nbsp;<a href="/java/frame/springboot-restful-swagger实战.html#comment-container"><span id=781fefa52b7f037d0328204390e8b81a>99+</span></a>&nbsp;&nbsp;&nbsp;&nbsp;</img>
+                
+                
+                <div class="level-item">
+                <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/springboot/">springboot</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                     <!-- 18 分钟 读完 (大约 2673 个字) -->
+                     (大约 2673 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    1<span id="busuanzi_value_page_pv">99+</span> 次查看
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                springboot-restful-swagger实战
+            
+        </h1>
+        <div class="content">
+            <h3 id="一、目标"><a href="#一、目标" class="headerlink" title="一、目标"></a>一、目标</h3><ol>
+<li>了解 Restful 是什么，基本概念及风格；</li>
+<li>能使用SpringBoot 实现一套基础的 Restful 风格接口；</li>
+<li>利用Swagger 生成清晰的接口文档。</li>
+</ol>
+<a id="more"></a>
+<h3 id="二、Restful-入门"><a href="#二、Restful-入门" class="headerlink" title="二、Restful 入门"></a>二、Restful 入门</h3><p><strong>什么是REST</strong> </p>
+<p>摘自百科的定义：REST即表述性状态转移(英文：Representational State Transfer，简称REST) 是Roy Fielding博士(HTTP规范主要贡献者)在2000年的论文中提出来的一种软件架构风格。 是一种针对网络应用的设计和开发方式，可以降低开发的复杂性，提高系统的可伸缩性。</p>
+<p>通俗点说，REST就是一组架构约束准则；在这些准则中，有不少是利用了现有的WEB标准能力。 而最终的目的则是简化当前业务层的设计及开发工作。</p>
+<p>Restful API 则是指符合REST架构约束的API，关于这个词在早年前其实已经非常流行，但大多数开发者对其仍然 处于观望状态，并不一定会立即采用。这个相信与当时技术社区的成熟度及氛围是密切相关。 无论如何，在微服务架构如此流行的今天，Restful API已经成为了一种必备的的<strong>标准设计风格</strong>。</p>
+<p><strong>关键要点</strong></p>
+<p>理解 Restful 风格需要理解以下几点：</p>
+<ul>
+<li>资源</li>
+</ul>
+<p>资源指的就是一个抽象的信息实体，可以是一个用户、一首歌曲、一篇文章，只要是可作为引用的对象就是资源。 每个资源通常会被映射到一个URI，通过访问这个URI可以获取到信息。</p>
+<ul>
+<li>资源的表述</li>
+</ul>
+<p>资源表述(Representation)指的则是资源的外在表现形式 比如一个帖子，可以通过HTML格式展现，也可以通过XML、JSON等格式输出到客户端。</p>
+<p>在前面的文章(SpringBoot-Scope详解)中提到，HTTP协议通过MIME来统一定义数据信息的格式标准。 通常，<strong>Accept</strong>、<strong>Content-Type</strong>可以用来指定客户端及服务端可接受的信息格式，而这个就是资源的表述</p>
+<ul>
+<li>状态转移</li>
+</ul>
+<p>在HTTP访问过程中，资源的状态发生变化。这里会涉及到以下的几个动词：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">语义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">GET</td>
+<td style="text-align:left">获取资源</td>
+</tr>
+<tr>
+<td style="text-align:left">POST</td>
+<td style="text-align:left">新建资源</td>
+</tr>
+<tr>
+<td style="text-align:left">PUT</td>
+<td style="text-align:left">更新资源</td>
+</tr>
+<tr>
+<td style="text-align:left">DELETE</td>
+<td style="text-align:left">删除资源</td>
+</tr>
+</tbody>
+</table>
+<p>对于不同的访问方法，服务器会产生对应的行为并促使资源状态产生转换。</p>
+<p><strong>关于无状态</strong></p>
+<p>Restful 是无状态的设计，这点意味着交互过程中的请求应该能包含所有需要的信息，而不需要依赖于已有的上下文。 然而 JavaEE中存在一些违背的做法，比如Cookie中设置JSESSIONID， 在多次请求间传递该值作为会话唯一标识，这标识着服务端必须保存着这些会话状态数据。</p>
+<p>PlayFramework框架实现了<strong>无状态的Session，其将会话数据经过加密编码并置入Cookie中， 这样客户端的请求将直接携带上全部的信息，是无状态的请求</strong>，这点非常有利于服务端的可扩展性。</p>
+<h3 id="三、SpringBoot-实现-Restful"><a href="#三、SpringBoot-实现-Restful" class="headerlink" title="三、SpringBoot 实现 Restful"></a>三、SpringBoot 实现 Restful</h3><p>接下来，我们利用 SpringBoot 来实现一个Restful 风格的样例。</p>
+<p><strong>说明</strong>基于 PetStore(宠物店) 的案例，实现对某顾客(Customer)名下的宠物(Pet)的增删改查。</p>
+<h4 id="1-实体定义"><a href="#1-实体定义" class="headerlink" title="1. 实体定义"></a>1. 实体定义</h4><p><strong>Customer</strong></p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Data</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Customer</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">private</span> String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Customer 只包含一个name属性，我们假定这是唯一的标志。</p>
+<p><strong>Pet</strong></p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Data</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pet</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">private</span> String petId;</span><br><span class="line">    <span class="hljs-keyword">private</span> String name;</span><br><span class="line">    <span class="hljs-keyword">private</span> String type;</span><br><span class="line">    <span class="hljs-keyword">private</span> String description;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Pet 包含了以下几个属性</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性名</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">petId</td>
+<td style="text-align:left">宠物ID编号</td>
+</tr>
+<tr>
+<td style="text-align:left">name</td>
+<td style="text-align:left">宠物名称</td>
+</tr>
+<tr>
+<td style="text-align:left">type</td>
+<td style="text-align:left">宠物类型</td>
+</tr>
+<tr>
+<td style="text-align:left">description</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-URL资源"><a href="#2-URL资源" class="headerlink" title="2. URL资源"></a>2. URL资源</h4><p>基于Restful 的原则，我们定义了以下的一组URL：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">接口</th>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">添加宠物</td>
+<td style="text-align:left">POST</td>
+<td style="text-align:left">/rest/pets/{customer}</td>
+</tr>
+<tr>
+<td style="text-align:left">获取宠物列表</td>
+<td style="text-align:left">GET</td>
+<td style="text-align:left">/rest/pets/{customer}</td>
+</tr>
+<tr>
+<td style="text-align:left">获取宠物信息</td>
+<td style="text-align:left">GET</td>
+<td style="text-align:left">/rest/pets/{customer}/{petId}</td>
+</tr>
+<tr>
+<td style="text-align:left">更新宠物信息</td>
+<td style="text-align:left">PUT</td>
+<td style="text-align:left">/rest/pets/{customer}/{petId}</td>
+</tr>
+<tr>
+<td style="text-align:left">删除宠物</td>
+<td style="text-align:left">DELETE</td>
+<td style="text-align:left">/rest/pets/{customer}/{petId}</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-数据管理"><a href="#3-数据管理" class="headerlink" title="3. 数据管理"></a>3. 数据管理</h4><p>接下来实现一个PetManager 类，用于模拟在内存中对Pet数据进行增删改查 代码如下：</p>
+<figure class="highlight java hljs"><figcaption><span>PetManager.java >folded</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Component</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PetManager</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Map&lt;String, Customer&gt; customers = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;String, Customer&gt;();</span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Map&lt;String, Map&lt;String, Pet&gt;&gt; pets = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;String, Map&lt;String, Pet&gt;&gt;();</span><br><span class="line"></span><br><span class="line">  	<span class="hljs-comment">// 启动时初始化，执行一次</span></span><br><span class="line">    <span class="hljs-meta">@PostConstruct</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        String[] customerNames = <span class="hljs-keyword">new</span> String[]&#123;<span class="hljs-string">"Lilei"</span>, <span class="hljs-string">"Hanmeimei"</span>, <span class="hljs-string">"Jim Green"</span>&#125;;</span><br><span class="line">        <span class="hljs-keyword">for</span> (String customerName : customerNames) &#123;</span><br><span class="line">            customers.put(customerName, <span class="hljs-keyword">new</span> Customer(customerName));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 获取customer</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> customer</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Customer <span class="hljs-title">getCustomer</span><span class="hljs-params">(String customer)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (StringUtils.isEmpty(customer)) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> customers.get(customer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 获取customer名下的 pet 列表</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> customer</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Pet&gt; <span class="hljs-title">getPets</span><span class="hljs-params">(String customer)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (StringUtils.isEmpty(customer)) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> Collections.emptyList();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">if</span> (!pets.containsKey(customer)) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> Collections.emptyList();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> pets.get(customer).values().stream().collect(Collectors.toList());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 获取某个pet</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> customer</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> petId</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Pet <span class="hljs-title">getPet</span><span class="hljs-params">(String customer, String petId)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (StringUtils.isEmpty(customer) || StringUtils.isEmpty(petId)) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">if</span> (!pets.containsKey(customer)) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> pets.get(customer).get(petId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 删除pet</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> customer</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> petId</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">removePet</span><span class="hljs-params">(String customer, String petId)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (StringUtils.isEmpty(customer) || StringUtils.isEmpty(petId)) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">if</span> (!pets.containsKey(customer)) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> pets.get(customer).remove(petId) != <span class="hljs-keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 添加pet</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> customer</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> pet</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Pet <span class="hljs-title">addPet</span><span class="hljs-params">(String customer, Pet pet)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (StringUtils.isEmpty(customer) || pet == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Map&lt;String, Pet&gt; customerPets = <span class="hljs-keyword">null</span>;</span><br><span class="line">        <span class="hljs-keyword">if</span> (!pets.containsKey(customer)) &#123;</span><br><span class="line">            customerPets = <span class="hljs-keyword">new</span> LinkedHashMap&lt;String, Pet&gt;();</span><br><span class="line">            Map&lt;String, Pet&gt; previous = pets.putIfAbsent(customer, customerPets);</span><br><span class="line">            <span class="hljs-comment">// 已经存在</span></span><br><span class="line">            <span class="hljs-keyword">if</span> (previous != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">                customerPets = previous;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            customerPets = pets.get(customer);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">if</span> (pet.getPetId() == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            pet.setPetId(UUID.randomUUID().toString());</span><br><span class="line">        &#125;</span><br><span class="line">        customerPets.put(pet.getPetId(), pet);</span><br><span class="line">        <span class="hljs-keyword">return</span> pet;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 更新某个pet</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> customer</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> petPojo</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Pet <span class="hljs-title">updatePet</span><span class="hljs-params">(String customer, Pet petPojo)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (StringUtils.isEmpty(customer) || petPojo == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">if</span> (petPojo.getPetId() == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Pet pet = getPet(customer, petPojo.getPetId());</span><br><span class="line">        pet.setType(petPojo.getType());</span><br><span class="line">        pet.setName(petPojo.getName());</span><br><span class="line">        pet.setDescription(petPojo.getDescription());</span><br><span class="line">        <span class="hljs-keyword">return</span> pet;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-控制层实现"><a href="#4-控制层实现" class="headerlink" title="4. 控制层实现"></a>4. 控制层实现</h4><p>SpringBoot 提供了 <strong>@RestController</strong>，用于快速定义一个Restful 风格的Controller类<strong>@RestController=@ResponseBody + @Controller</strong></p>
+<figure class="highlight java hljs"><figcaption><span>RestApiController.java >folded</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@RestController</span></span><br><span class="line"><span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">"/rest/pets/&#123;customer&#125;"</span>)</span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RestApiController</span> </span>&#123;</span><br><span class="line">    <span class="hljs-meta">@Autowired</span></span><br><span class="line">    <span class="hljs-keyword">private</span> PetManager dataManager;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 添加宠物</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> customer</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> pet</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-meta">@PostMapping</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> ResponseEntity&lt;Object&gt; <span class="hljs-title">addPet</span><span class="hljs-params">(@PathVariable String customer, @RequestBody Pet pet)</span> </span>&#123;</span><br><span class="line">        validateCustomer(customer);</span><br><span class="line">        Pet newPet = dataManager.addPet(customer, pet);</span><br><span class="line"><span class="hljs-comment">// 返回 201.created</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (newPet != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(<span class="hljs-string">"/&#123;petId&#125;"</span>)</span><br><span class="line">                    .buildAndExpand(newPet.getPetId()).toUri();</span><br><span class="line">            <span class="hljs-keyword">return</span> ResponseEntity.created(location).build();</span><br><span class="line">        &#125;</span><br><span class="line"><span class="hljs-comment">// 返回 204.noContent</span></span><br><span class="line">        <span class="hljs-keyword">return</span> ResponseEntity.noContent().build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 获取宠物列表</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> customer</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-meta">@GetMapping</span></span><br><span class="line">    <span class="hljs-meta">@ResponseBody</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Pet&gt; <span class="hljs-title">listPets</span><span class="hljs-params">(@PathVariable String customer)</span> </span>&#123;</span><br><span class="line">        validateCustomer(customer);</span><br><span class="line">        List&lt;Pet&gt; pets = dataManager.getPets(customer);</span><br><span class="line">        <span class="hljs-keyword">return</span> pets;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 获取某个宠物</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> customer</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> petId</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-meta">@GetMapping</span>(<span class="hljs-string">"/&#123;petId&#125;"</span>)</span><br><span class="line">    <span class="hljs-meta">@ResponseBody</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Pet <span class="hljs-title">getPet</span><span class="hljs-params">(@PathVariable String customer, @PathVariable String petId)</span> </span>&#123;</span><br><span class="line">        validateCustomer(customer);</span><br><span class="line">        validatePet(customer, petId);</span><br><span class="line">        Pet pet = dataManager.getPet(customer, petId);</span><br><span class="line">        <span class="hljs-keyword">return</span> pet;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 更新宠物信息</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> customer</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> petId</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> pet</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-meta">@PutMapping</span>(<span class="hljs-string">"/&#123;petId&#125;"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> ResponseEntity&lt;Object&gt; <span class="hljs-title">updatePet</span><span class="hljs-params">(@PathVariable String customer, @PathVariable String petId, @RequestBody Pet pet)</span> </span>&#123;</span><br><span class="line">        validateCustomer(customer);</span><br><span class="line">        validatePet(customer, petId);</span><br><span class="line">        pet.setPetId(petId);</span><br><span class="line">        Pet petObject = dataManager.updatePet(customer, pet);</span><br><span class="line">        <span class="hljs-keyword">if</span> (petObject != <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> ResponseEntity.ok(petObject);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> ResponseEntity.noContent().build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 删除某个宠物</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> customer</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> petId</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-meta">@DeleteMapping</span>(<span class="hljs-string">"/&#123;petId&#125;"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> ResponseEntity&lt;Object&gt; <span class="hljs-title">removePet</span><span class="hljs-params">(@PathVariable String customer, @PathVariable String petId)</span> </span>&#123;</span><br><span class="line">        validateCustomer(customer);</span><br><span class="line">        validatePet(customer, petId);</span><br><span class="line">        dataManager.removePet(customer, petId);</span><br><span class="line">        <span class="hljs-keyword">return</span> ResponseEntity.ok().build();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码中已经实现了完整的增删改查语义。 在Restful 风格的API 接口定义中，往往会引用 HTTP 状态码用于表示不同的结果，比如一些错误的状态类型。</p>
+<p>这里我们对Customer、Pet 进行存在性校验，若资源不存在返回404_NotFound。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 校验customer是否存在</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> customer</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">validateCustomer</span><span class="hljs-params">(String customer)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (dataManager.getCustomer(customer) == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ObjectNotFoundException(String.format(<span class="hljs-string">"the customer['%s'] is not found"</span>, customer));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 校验pet是否存在</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> customer</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">validatePet</span><span class="hljs-params">(String customer, String petId)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (dataManager.getPet(customer, petId) == <span class="hljs-keyword">null</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ObjectNotFoundException(String.format(<span class="hljs-string">"the pet['%s/%s'] is not found"</span>, customer, petId));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>自定义异常拦截</strong></p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * ⾃定义异常，及拦截逻辑</span></span><br><span class="line"><span class="hljs-comment">     *</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@author</span> atp</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    <span class="hljs-meta">@SuppressWarnings</span>(<span class="hljs-string">"serial"</span>)</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ObjectNotFoundException</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RuntimeException</span> </span>&#123;</span><br><span class="line">        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ObjectNotFoundException</span><span class="hljs-params">(String msg)</span> </span>&#123;</span><br><span class="line">            <span class="hljs-keyword">super</span>(msg);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@ResponseBody</span></span><br><span class="line">    <span class="hljs-meta">@ExceptionHandler</span>(ObjectNotFoundException.class)</span><br><span class="line">    <span class="hljs-meta">@ResponseStatus</span>(HttpStatus.NOT_FOUND)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">objectNotFoundExceptionHandler</span><span class="hljs-params">(ObjectNotFoundException ex)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> ex.getMessage();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-接口请求示例"><a href="#5-接口请求示例" class="headerlink" title="5.接口请求示例"></a>5.接口请求示例</h4><h5 id="1-添加宠物"><a href="#1-添加宠物" class="headerlink" title="1. 添加宠物"></a>1. 添加宠物</h5><p><strong>URL</strong> POST http:///rest/pets/LiLei</p>
+<p><strong>请求内容</strong></p>
+<figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="hljs-attr">"name"</span>: <span class="hljs-string">"Smart Baby"</span>,</span><br><span class="line">	<span class="hljs-attr">"description"</span>: <span class="hljs-string">"very small and smart also."</span>,</span><br><span class="line">	<span class="hljs-attr">"type"</span>: <span class="hljs-string">"Dog"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-获取宠物列表"><a href="#2-获取宠物列表" class="headerlink" title="2. 获取宠物列表"></a>2. 获取宠物列表</h5><p><strong>URL </strong>GET http:///rest/pets/LiLei</p>
+<p><strong>返回</strong></p>
+<figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[&#123;</span><br><span class="line">	<span class="hljs-attr">"petId"</span>: <span class="hljs-string">"b5400334-e7b3-42f1-b192-f5e7c3193543"</span>,</span><br><span class="line">	<span class="hljs-attr">"name"</span>: <span class="hljs-string">"Smart Baby"</span>,</span><br><span class="line">	<span class="hljs-attr">"type"</span>: <span class="hljs-string">"Dog"</span>,</span><br><span class="line">	<span class="hljs-attr">"description"</span>: <span class="hljs-string">"very small and smart also."</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">	<span class="hljs-attr">"petId"</span>: <span class="hljs-string">"610780af-94f1-4011-a175-7a0f3895163d"</span>,</span><br><span class="line">	<span class="hljs-attr">"name"</span>: <span class="hljs-string">"Big Cat"</span>,</span><br><span class="line">	<span class="hljs-attr">"type"</span>: <span class="hljs-string">"Cat"</span>,</span><br><span class="line">	<span class="hljs-attr">"description"</span>: <span class="hljs-string">"very old but I like it."</span></span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+<h5 id="3-查询宠物信息"><a href="#3-查询宠物信息" class="headerlink" title="3. 查询宠物信息"></a>3. 查询宠物信息</h5><p><strong>URL</strong> GET http:///rest/pets/LiLei/b5400334-e7b3-42f1-b192-f5e7c3193543</p>
+<p><strong>返回</strong></p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="hljs-string">"petId"</span>: <span class="hljs-string">"b5400334-e7b3-42f1-b192-f5e7c3193543"</span>,</span><br><span class="line">	<span class="hljs-string">"name"</span>: <span class="hljs-string">"Smart Baby"</span>,</span><br><span class="line">	<span class="hljs-string">"type"</span>: <span class="hljs-string">"Dog"</span>,</span><br><span class="line">	<span class="hljs-string">"description"</span>: <span class="hljs-string">"very small and smart also."</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="4-更新宠物信息"><a href="#4-更新宠物信息" class="headerlink" title="4. 更新宠物信息"></a>4. 更新宠物信息</h5><p><strong>URL </strong> PUT http:///rest/pets/LiLei/b5400334-e7b3-42f1-b192-f5e7c3193543 <strong>请求内容</strong></p>
+<figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> &#123;</span><br><span class="line">	<span class="hljs-attr">"name"</span>: <span class="hljs-string">"Big Cat V2"</span>,</span><br><span class="line">	<span class="hljs-attr">"description"</span>: <span class="hljs-string">"I don't like it any more"</span>,</span><br><span class="line">	<span class="hljs-attr">"type"</span>: <span class="hljs-string">"Cat"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>返回</strong></p>
+<figure class="highlight json hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="hljs-attr">"petId"</span>: <span class="hljs-string">"a98e4478-e754-4969-851b-bcaccd67263e"</span>,</span><br><span class="line">	<span class="hljs-attr">"name"</span>: <span class="hljs-string">"Big Cat V2"</span>,</span><br><span class="line">	<span class="hljs-attr">"type"</span>: <span class="hljs-string">"Cat"</span>,</span><br><span class="line">	<span class="hljs-attr">"description"</span>: <span class="hljs-string">"I don't like it any more"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="5-删除宠物"><a href="#5-删除宠物" class="headerlink" title="5. 删除宠物"></a>5. 删除宠物</h5><p><strong>URL </strong>DELETE http:///rest/pets/LiLei/b5400334-e7b3-42f1-b192-f5e7c3193543 </p>
+<p>相关出错</p>
+<ul>
+<li>客户不存在：404 the customer[‘test’] is not found</li>
+<li>宠物不存在：404 the pet[‘LiLei/b5400334-e7b3-42f1-b192-f5e7c31935431’] is not found</li>
+</ul>
+<h3 id="四、Swagger-的使用"><a href="#四、Swagger-的使用" class="headerlink" title="四、Swagger 的使用"></a>四、Swagger 的使用</h3><p><strong>关于Swagger</strong></p>
+<p>Swagger是目前非常流行的一个API设计开发框架(基于OpenApi)， 可用于API的设计、管理、代码生成以及Mock测试等。</p>
+<p>目前Swagger的应用非常广，其涵盖的开源模块也比较多，这里将使用<strong>swagger-ui</strong>实现API在线DOC的生成。</p>
+<p><strong>引入依赖</strong></p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.springfox<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>springfox-swagger2<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.7.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.springfox<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>springfox-swagger-ui<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.7.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>定义API配置</strong></p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@EnableSwagger</span>2</span><br><span class="line"><span class="hljs-meta">@Configuration</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SwaggerConfig</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String VERSION = <span class="hljs-string">"1.0.0"</span>;</span><br><span class="line">    <span class="hljs-meta">@Value</span>(<span class="hljs-string">"$&#123;swagger.enable&#125;"</span>)</span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> enabled;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function">ApiInfo <span class="hljs-title">apiInfo</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ApiInfoBuilder().</span><br><span class="line">                title(<span class="hljs-string">"Pet Api Definition"</span>)</span><br><span class="line">                .description(<span class="hljs-string">"The Petstore CRUD Example"</span>)</span><br><span class="line">                .license(<span class="hljs-string">"Apache 2.0"</span>)</span><br><span class="line">                .licenseUrl(<span class="hljs-string">"http://www.apache.org/licenses/LICENSE-2.0.html"</span>)</span><br><span class="line">                .termsOfServiceUrl(<span class="hljs-string">""</span>)</span><br><span class="line">                .version(VERSION)</span><br><span class="line">                .contact(<span class="hljs-keyword">new</span> Contact(<span class="hljs-string">""</span>, <span class="hljs-string">""</span>, <span class="hljs-string">"zalesfoo@163.com"</span>))</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Bean</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> Docket <span class="hljs-title">customImplementation</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Docket(DocumentationType.SWAGGER_2).select()</span><br><span class="line">                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))</span><br><span class="line">                .build()</span><br><span class="line">                .enable(enabled)</span><br><span class="line">                .apiInfo(apiInfo());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>@EnableSwagger2</code>声明了Swagger的启用，Docket的Bean定义是API配置的入口， 可以设置API名称、版本号，扫描范围等。</p>
+<p><strong>声明API描述</strong></p>
+<p>在原有的Controller 方法上添加关于API的声明，如下：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Api</span>(value = <span class="hljs-string">"Pet Restful api"</span>)</span><br><span class="line"><span class="hljs-meta">@RestController</span></span><br><span class="line"><span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">"/rest/pets/&#123;customer&#125;"</span>)</span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RestApiController</span> </span>&#123;</span><br><span class="line">    <span class="hljs-meta">@ApiOperation</span>(<span class="hljs-string">"添加宠物"</span>)</span><br><span class="line">    <span class="hljs-meta">@ApiImplicitParams</span>(&#123;</span><br><span class="line">            <span class="hljs-meta">@ApiImplicitParam</span>(paramType = <span class="hljs-string">"path"</span>, name = <span class="hljs-string">"customer"</span>, dataType = <span class="hljs-string">"String"</span>, required = <span class="hljs-keyword">true</span>, value = <span class="hljs-string">"客户名"</span>, defa</span><br><span class="line">            <span class="hljs-meta">@ApiImplicitParam</span>(paramType = <span class="hljs-string">"body"</span>, name = <span class="hljs-string">"pet"</span>, dataType = <span class="hljs-string">"Pet"</span>, required = <span class="hljs-keyword">true</span>, value = <span class="hljs-string">"pet 请求"</span>, defaultVal</span><br><span class="line">            <span class="hljs-meta">@ApiResponses</span>(&#123;</span><br><span class="line">                    <span class="hljs-meta">@ApiResponse</span>(code = <span class="hljs-number">201</span>, message = <span class="hljs-string">"添加成功"</span>),</span><br><span class="line">                    <span class="hljs-meta">@ApiResponse</span>(code = <span class="hljs-number">404</span>, message = <span class="hljs-string">"资源不存在"</span>)&#125;)</span><br><span class="line">                    <span class="hljs-meta">@PostMapping</span></span><br><span class="line">                    <span class="hljs-keyword">public</span> ResponseEntity&lt;Object&gt;addPet(<span class="hljs-meta">@PathVariable</span> String customer, <span class="hljs-meta">@RequestBody</span> Pet pet)&#123;</span><br><span class="line"></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了能描述返回对象的文档说明，为Pet类做API声明：</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@ApiModel</span>(<span class="hljs-string">"宠物信息"</span>)</span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pet</span> </span>&#123;</span><br><span class="line">    <span class="hljs-meta">@ApiModelProperty</span>(name = <span class="hljs-string">"petId"</span>, value = <span class="hljs-string">"宠物ID"</span>)</span><br><span class="line">    <span class="hljs-keyword">private</span> String petId;</span><br><span class="line">    <span class="hljs-meta">@ApiModelProperty</span>(name = <span class="hljs-string">"name"</span>, value = <span class="hljs-string">"宠物名称"</span>)</span><br><span class="line">    <span class="hljs-keyword">private</span> String name;</span><br><span class="line">    <span class="hljs-meta">@ApiModelProperty</span>(name = <span class="hljs-string">"type"</span>, value = <span class="hljs-string">"宠物类型"</span>)</span><br><span class="line">    <span class="hljs-keyword">private</span> String type;</span><br><span class="line">    <span class="hljs-meta">@ApiModelProperty</span>(name = <span class="hljs-string">"description"</span>, value = <span class="hljs-string">"宠物描述"</span>)</span><br><span class="line">    <span class="hljs-keyword">private</span> String description;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>相关的注解</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">注解</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">@ApiModelProperty</td>
+<td style="text-align:left">用在出入参数对象的字段上</td>
+</tr>
+<tr>
+<td style="text-align:left">@Api</td>
+<td style="text-align:left">用于controller类</td>
+</tr>
+<tr>
+<td style="text-align:left">@ApiOperation</td>
+<td style="text-align:left">用于controller方法，描述操作</td>
+</tr>
+<tr>
+<td style="text-align:left">@ApiResponses</td>
+<td style="text-align:left">用于controller方法，描述响应</td>
+</tr>
+<tr>
+<td style="text-align:left">@ApiResponse</td>
+<td style="text-align:left">用于@ApiResponses内，描述单个响应结果</td>
+</tr>
+<tr>
+<td style="text-align:left">@ApiImplicitParams</td>
+<td style="text-align:left">用于controller的方法，描述入参</td>
+</tr>
+<tr>
+<td style="text-align:left">@ApiImplicitParam</td>
+<td style="text-align:left">用于@ApiImplicitParams内，描述单个入参</td>
+</tr>
+<tr>
+<td style="text-align:left">@ApiModel</td>
+<td style="text-align:left">用于返回对象类</td>
+</tr>
+</tbody>
+</table>
+<p><strong>访问文档</strong></p>
+<p>最后，访问 <a href="http://localhost:8000/swagger_ui.html" target="_blank" rel="noopener">http://localhost:8000/swagger_ui.html</a> ,可看到生成的文档界面：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200104180649.png" alt=""></p>
+<p>参考文章:<br><a href="https://mp.weixin.qq.com/s/eNsdU-w0zOWYTTUD8RDkJQ" target="_blank" rel="noopener">参考链接</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <i class="fas fa-tags has-text-grey"></i>&nbsp;&nbsp;
+                    <a class="has-link-grey -link" href="/tags/springboot/">springboot</a>,&nbsp;<a class="has-link-grey -link" href="/tags/swagger/">swagger</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- 部分参考自https://www.alphalxy.com/2019/03/customize-icarus/ -->
+        
+            <ul class="post-copyright">
+            <li><strong>本文标题：</strong><a href="https://removeif.github.io/java/frame/springboot-restful-swagger实战.html">springboot-restful-swagger实战</a></li>
+            <li><strong>本文作者：</strong><a href="https://removeif.github.io">辣椒の酱</a></li>
+            <li><strong>本文链接：</strong><a href="https://removeif.github.io/java/frame/springboot-restful-swagger实战.html">https://removeif.github.io/java/frame/springboot-restful-swagger实战.html</a></li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+            </li>
+            </ul>
+            <br>
+            <span class="is-size-6 has-text-grey has-mr-7">#&nbsp;本站推荐文章</span>
+<br>
+
+    &nbsp;1.<a href="/theme/博客源码分享.html" class="is-size-6" target="_blank">博客源码分享</a><br>
+
+    &nbsp;2.<a href="/breaking-news/2019年国庆70周年阅兵完整图文解说.html" class="is-size-6" target="_blank">2019年国庆70周年阅兵完整图文解说(收藏!)</a><br>
+
+    &nbsp;3.<a href="/theme/博客中gitalk最新评论的获取.html" class="is-size-6" target="_blank">博客中gitalk最新评论的获取</a><br>
+
+    &nbsp;4.<a href="/law/中华人民共和国刑事诉讼法.html" class="is-size-6" target="_blank">中华人民共和国刑事诉讼法</a><br>
+
+    &nbsp;5.<a href="/java/frame/springboot-restful-swagger实战.html" class="is-size-6" target="_blank">springboot-restful-swagger实战</a><br>
+
+            <br>
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190802135456.png" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190802135550.png" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/algorithm/算法成长之路leetcode15-16.html">
+                <span class="level-item">算法成长之路leetcode15-16</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+    <br>
+<div class="card widget">
+    <div class="card-content">
+    <div class="g-ads-x">
+         <div class="menu">
+            <h3 class="menu-label">
+               温馨提示！此处可能会出现广告！
+            </h3>
+         </div>
+        <br>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-6343805421927634"
+             data-ad-slot="8274750079"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    </div>
+</div>
+
+    <div class="card">
+        <div class="card-content">
+            
+                <h3 class="title is-5 has-text-weight-normal">评论</h3>
+                
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '46a9f3481b46ea0129d8',
+        clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+        id: '781fefa52b7f037d0328204390e8b81a',
+        repo: 'blog_comment',
+        owner: 'removeif',
+        admin: "removeif",
+        createIssueManually: true,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+            
+        </div>
+    </div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/images/tuzi.jpg" alt="辣椒の酱">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        辣椒の酱
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        尚未执佩剑，转眼即江湖
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>阿尔及利亚</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal ios-alert">
+                            83
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal ios-alert">
+                            36
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                   <a href="/tags">
+                       <p class="title has-text-weight-normal ios-alert">
+                            66
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://weibo.com/u/3050419984" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/removeif">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Weibo" href="https://weibo.com/u/3050419984">
+                
+                <i class="fab fa-weibo"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Email" href="mailto:removeif@163.com">
+                
+                <i class="fa fa-envelope"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Next" href="https://removeif.github.io/remove.io">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="RSS" href="/atom.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+        <hr>
+        <p id="hitokoto">:D 一言句子获取中...</p>
+        <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+    </div>
+</div>
+    
+        
+
+    <div class="card widget toc-scroll" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#一、目标">
+        <span class="has-mr-6">1</span>
+        <span>一、目标</span>
+        </a></li><li>
+        <a class="is-flex" href="#二、Restful-入门">
+        <span class="has-mr-6">2</span>
+        <span>二、Restful 入门</span>
+        </a></li><li>
+        <a class="is-flex" href="#三、SpringBoot-实现-Restful">
+        <span class="has-mr-6">3</span>
+        <span>三、SpringBoot 实现 Restful</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-实体定义">
+        <span class="has-mr-6">3.1</span>
+        <span>1. 实体定义</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-URL资源">
+        <span class="has-mr-6">3.2</span>
+        <span>2. URL资源</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-数据管理">
+        <span class="has-mr-6">3.3</span>
+        <span>3. 数据管理</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-控制层实现">
+        <span class="has-mr-6">3.4</span>
+        <span>4. 控制层实现</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-接口请求示例">
+        <span class="has-mr-6">3.5</span>
+        <span>5.接口请求示例</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1-添加宠物">
+        <span class="has-mr-6">3.5.1</span>
+        <span>1. 添加宠物</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-获取宠物列表">
+        <span class="has-mr-6">3.5.2</span>
+        <span>2. 获取宠物列表</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-查询宠物信息">
+        <span class="has-mr-6">3.5.3</span>
+        <span>3. 查询宠物信息</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-更新宠物信息">
+        <span class="has-mr-6">3.5.4</span>
+        <span>4. 更新宠物信息</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-删除宠物">
+        <span class="has-mr-6">3.5.5</span>
+        <span>5. 删除宠物</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#四、Swagger-的使用">
+        <span class="has-mr-6">4</span>
+        <span>四、Swagger 的使用</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    
+        <div class="column-right-shadow  ">
+        
+            
+    <div class="card widget">
+        <div class="card-content">
+        <h3 class="menu-label">最新评论</h3><span class="menu-label1" id="body_hot_comment">加载中，最新评论有1分钟延迟...<span>
+        </div>
+    </div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-04T10:11:19.000Z">2020-01-04</time></div>
+                    <a href="/java/frame/springboot-restful-swagger实战.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">springboot-restful-swagger实战</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/springboot/">springboot</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-01T13:14:27.000Z">2020-01-01</time></div>
+                    <a href="/algorithm/算法成长之路leetcode15-16.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">算法成长之路leetcode15-16</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-31T13:05:49.000Z">2019-12-31</time></div>
+                    <a href="/think/2019年终总结.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">2019年终总结</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/think/">think</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-31T10:50:31.000Z">2019-12-31</time></div>
+                    <a href="/travel/西安旅游攻略3日游.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">西安旅游攻略3日游</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/travel/">travel</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-26T15:20:21.000Z">2019-12-26</time></div>
+                    <a href="/python/一张图学会python3.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">一张图学会python3</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/python3/">python3</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">15</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java/">
+                        <span class="tag">java</span>
+                        <span class="tag is-grey">18</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/法律/">
+                        <span class="tag">法律</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mysql/">
+                        <span class="tag">mysql</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/工具教程/">
+                        <span class="tag">工具教程</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/think/">
+                        <span class="tag">think</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/二分查找/">
+                        <span class="tag">二分查找</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/dp/">
+                        <span class="tag">dp</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/elasticsearch6/">
+                        <span class="tag">elasticsearch6</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo主题/">
+                        <span class="tag">hexo主题</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/icarus主题配置/">
+                        <span class="tag">icarus主题配置</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/redis/">
+                        <span class="tag">redis</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/动态规划/">
+                        <span class="tag">动态规划</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/支付架构/">
+                        <span class="tag">支付架构</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/支付系统/">
+                        <span class="tag">支付系统</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/科普/">
+                        <span class="tag">科普</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/贪心算法/">
+                        <span class="tag">贪心算法</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Effective-Java/">
+                        <span class="tag">Effective-Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Z字变换/">
+                        <span class="tag">Z字变换</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/b-tree/">
+                        <span class="tag">b+tree</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/双指针/" style="font-size: 11.67px;">双指针</a>&nbsp; <a href="/tags/最长回文/" style="font-size: 11.67px;">最长回文</a>&nbsp; <a href="/tags/Z字变换/" style="font-size: 11.67px;">Z字变换</a>&nbsp; <a href="/tags/数据结构/" style="font-size: 11.67px;">数据结构</a>&nbsp; <a href="/tags/health/" style="font-size: 11.67px;">health</a>&nbsp; <a href="/tags/ios/" style="font-size: 11.67px;">ios</a>&nbsp; <a href="/tags/nfc/" style="font-size: 11.67px;">nfc</a>&nbsp; <a href="/tags/marathon/" style="font-size: 11.67px;">marathon</a>&nbsp; <a href="/tags/python3基础/" style="font-size: 11.67px;">python3基础</a>&nbsp; <a href="/tags/Effective-Java/" style="font-size: 11.67px;">Effective-Java</a>&nbsp; <a href="/tags/读书笔记/" style="font-size: 11.67px;">读书笔记</a>&nbsp; <a href="/tags/博客统计插件/" style="font-size: 11.67px;">博客统计插件</a>&nbsp; <a href="/tags/分治算法/" style="font-size: 11.67px;">分治算法</a>&nbsp; <a href="/tags/字符串/" style="font-size: 11.67px;">字符串</a>&nbsp; <a href="/tags/滑动窗口/" style="font-size: 11.67px;">滑动窗口</a>&nbsp; <a href="/tags/分治/" style="font-size: 11.67px;">分治</a>&nbsp; <a href="/tags/反转整数/" style="font-size: 11.67px;">反转整数</a>&nbsp; <a href="/tags/字符串转整数/" style="font-size: 11.67px;">字符串转整数</a>&nbsp; <a href="/tags/最优解/" style="font-size: 11.67px;">最优解</a>&nbsp; <a href="/tags/debug/" style="font-size: 11.67px;">debug</a>&nbsp; <a href="/tags/调试代码/" style="font-size: 11.67px;">调试代码</a>&nbsp; <a href="/tags/经验成长/" style="font-size: 11.67px;">经验成长</a>&nbsp; <a href="/tags/西安/" style="font-size: 11.67px;">西安</a>&nbsp; <a href="/tags/长安/" style="font-size: 11.67px;">长安</a>&nbsp; <a href="/tags/旅行/" style="font-size: 11.67px;">旅行</a>&nbsp; <a href="/tags/sql/" style="font-size: 11.67px;">sql</a>&nbsp; <a href="/tags/幂等性/" style="font-size: 11.67px;">幂等性</a>&nbsp; <a href="/tags/restful-api/" style="font-size: 11.67px;">restful-api</a>&nbsp; <a href="/tags/前端技术/" style="font-size: 11.67px;">前端技术</a>&nbsp; <a href="/tags/docker/" style="font-size: 11.67px;">docker</a>&nbsp; <a href="/tags/query/" style="font-size: 11.67px;">query</a>&nbsp; <a href="/tags/feign/" style="font-size: 11.67px;">feign</a>&nbsp; <a href="/tags/spring-cloud/" style="font-size: 11.67px;">spring cloud</a>&nbsp; <a href="/tags/中心扩展/" style="font-size: 11.67px;">中心扩展</a>&nbsp; <a href="/tags/vim/" style="font-size: 11.67px;">vim</a>&nbsp; <a href="/tags/b-tree/" style="font-size: 11.67px;">b+tree</a>&nbsp; <a href="/tags/聚簇索引/" style="font-size: 11.67px;">聚簇索引</a>&nbsp; <a href="/tags/索引/" style="font-size: 11.67px;">索引</a>&nbsp; <a href="/tags/hash冲突/" style="font-size: 11.67px;">hash冲突</a>&nbsp; <a href="/tags/rehash/" style="font-size: 11.67px;">rehash</a>&nbsp;
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+    <div class="g-ads-y">
+        <div class="menu">
+            <h3 class="menu-label">
+               广告位
+            </h3>
+        </div>
+        <br>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- ads-y -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6343805421927634"
+             data-ad-slot="9708919542"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    </div>
+</div>
+
+
+
+        
+        </div>
+    
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="springboot-restful-swagger实战" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 辣椒の酱&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>,Modify by <a href="https://github.com/removeif">removeif</a>&nbsp;
+                
+                <br>
+                &copy; 版权说明：[本网站所有内容均收集于互联网或自己创作,<br>&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="https://removeif.github.io/message/" target="_blank">留言</a>，立即处理]
+                <br>
+                <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/statistics.js"></script>
+                <span id="statistic-times"></span>
+                <br>
+                <span id="busuanzi_container_site_uv">
+                ❤️感谢 <strong><span id="busuanzi_value_site_uv">99+</span></strong> 小伙伴的 
+                </span>
+                 <strong><span id="busuanzi_value_site_pv">99+</span></strong> 次光临，贡献💐<a href="https://github.com/removeif/hexo-theme-icarus-removeif">本站源码</a>！❤️
+                 
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/removeif">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/insight.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/search.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/insight.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    
+    <script type="text/javascript" defer src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/comment-issue-data.js"></script>
+    
+    <!-- 暂时关闭伪娘 <script type="text/javascript" async="" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/live2d/autoload.js"></script> -->
+</body>
+</html>

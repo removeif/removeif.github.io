@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.8.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>算法成长之路leetcode13-14 - 辣椒の酱</title>
+<meta name="google-site-verification" content="67z1CXZ8AOhImIglgTwqAlneRCHTO6xRJo5NeafDAqw" />
+<!-- 百度抓取 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- google adSense -->
+<script data-ad-client="ca-pub-6343805421927634" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 百度统计 -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?90a0e914cd2c9e93e206cc9131b19416";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <meta name="description" content="13. Roman to IntegerRoman numerals are represented by seven different symbols: I, V, X, L, C, D and M.">
+<meta name="keywords" content="categories-java,13. Roman to Integer,14. Longest Common Prefix,分治,二分查找,字典树查找最长公共前缀,水平扫描法找最长公共前缀">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法成长之路leetcode13-14">
+<meta property="og:url" content="https://removeif.github.io/algorithm/算法成长之路leetcode13-14.html">
+<meta property="og:site_name" content="辣椒の酱">
+<meta property="og:description" content="13. Roman to IntegerRoman numerals are represented by seven different symbols: I, V, X, L, C, D and M.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191224231634.png">
+<meta property="og:updated_time" content="2019-12-24T15:20:48.038Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法成长之路leetcode13-14">
+<meta name="twitter:description" content="13. Roman to IntegerRoman numerals are represented by seven different symbols: I, V, X, L, C, D and M.">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191224231634.png">
+
+
+
+
+
+<link rel="alternative" href="/atom.xml" title="算法成长之路leetcode13-14" type="application/atom+xml">
+
+
+
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/images/wico.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;subset=latin,latin-ext">
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/back-to-top.css">
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154601528-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-154601528-1');
+</script>
+
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/globalUtils.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/style1.min.css">
+<link rel="stylesheet" href="/css/m-style.css">
+<!-- 暂时关闭伪娘 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/live2d/waifu.css"> -->
+    <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="算法成长之路leetcode13-14" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives/">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories/">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags/">标签</a>
+                
+                <a class="navbar-item"
+                href="/tags/法律/">律法</a>
+                
+                <a class="navbar-item"
+                href="/categories/algorithm">算法</a>
+                
+                <a class="navbar-item"
+                href="/message/">留言</a>
+                
+                <a class="navbar-item"
+                href="/friend/">友链</a>
+                
+                <a class="navbar-item"
+                href="/album/">美图</a>
+                
+                <a class="navbar-item"
+                href="/music/">影音</a>
+                
+                <a class="navbar-item"
+                href="/self-talking/">碎碎念</a>
+                
+                <a class="navbar-item"
+                href="/about/">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+                <a class="navbar-item" id="night-nav" title="深色主题" href="javascript:;">
+                    <i class="fas fa-moon" id="night-icon"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/theme-setting.js"></script>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191224231634.png" alt="算法成长之路leetcode13-14">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                
+                <time class="level-item has-text-grey" datetime="2019-12-24T14:47:34.000Z">2019-12-24</time>
+                
+                    <span class="display-none-class">0447c54d55b0f89bdd557f435bd40546</span>
+                    <img class="not-gallery-item" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/images/chat.svg">&nbsp;<a href="/algorithm/算法成长之路leetcode13-14.html#comment-container"><span id=0447c54d55b0f89bdd557f435bd40546>99+</span></a>&nbsp;&nbsp;&nbsp;&nbsp;</img>
+                
+                
+                <div class="level-item">
+                <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                     <!-- 16 分钟 读完 (大约 2371 个字) -->
+                     (大约 2371 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    1<span id="busuanzi_value_page_pv">99+</span> 次查看
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                算法成长之路leetcode13-14
+            
+        </h1>
+        <div class="content">
+            <h3 id="13-Roman-to-Integer"><a href="#13-Roman-to-Integer" class="headerlink" title="13. Roman to Integer"></a><a href="https://leetcode-cn.com/problems/roman-to-integer/" target="_blank" rel="noopener">13. Roman to Integer</a></h3><p>Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.<br><a id="more"></a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Symbol</th>
+<th style="text-align:left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">I</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">V</td>
+<td style="text-align:left">5</td>
+</tr>
+<tr>
+<td style="text-align:left">X</td>
+<td style="text-align:left">10</td>
+</tr>
+<tr>
+<td style="text-align:left">L</td>
+<td style="text-align:left">50</td>
+</tr>
+<tr>
+<td style="text-align:left">C</td>
+<td style="text-align:left">100</td>
+</tr>
+<tr>
+<td style="text-align:left">D</td>
+<td style="text-align:left">500</td>
+</tr>
+<tr>
+<td style="text-align:left">M</td>
+<td style="text-align:left">1000</td>
+</tr>
+</tbody>
+</table>
+<p>For example, two is written as II in Roman numeral, just two one’s added together. Twelve is written as, XII, which is simply X + II. The number twenty seven is written as XXVII, which is XX + V + II.</p>
+<p>Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:</p>
+<p>I can be placed before V (5) and X (10) to make 4 and 9.<br>X can be placed before L (50) and C (100) to make 40 and 90.<br>C can be placed before D (500) and M (1000) to make 400 and 900.<br>Given a roman numeral, convert it to an integer. Input is guaranteed to be within the range from 1 to 3999.</p>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: &quot;III&quot;</span><br><span class="line">Output: 3</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: &quot;IV&quot;</span><br><span class="line">Output: 4</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: &quot;IX&quot;</span><br><span class="line">Output: 9</span><br><span class="line">Example 4:</span><br><span class="line"></span><br><span class="line">Input: &quot;LVIII&quot;</span><br><span class="line">Output: 58</span><br><span class="line">Explanation: L = 50, V= 5, III = 3.</span><br><span class="line">Example 5:</span><br><span class="line"></span><br><span class="line">Input: &quot;MCMXCIV&quot;</span><br><span class="line">Output: 1994</span><br><span class="line">Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.</span><br></pre></td></tr></table></figure>
+<h4 id="JAVA题解"><a href="#JAVA题解" class="headerlink" title="JAVA题解"></a>JAVA题解</h4><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">package</span> algorithm;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="hljs-keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * 罗马数字包含以下七种字符: I， V， X， L，C，D 和 M。</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 字符          数值</span></span><br><span class="line"><span class="hljs-comment"> * I             1</span></span><br><span class="line"><span class="hljs-comment"> * V             5</span></span><br><span class="line"><span class="hljs-comment"> * X             10</span></span><br><span class="line"><span class="hljs-comment"> * L             50</span></span><br><span class="line"><span class="hljs-comment"> * C             100</span></span><br><span class="line"><span class="hljs-comment"> * D             500</span></span><br><span class="line"><span class="hljs-comment"> * M             1000</span></span><br><span class="line"><span class="hljs-comment"> * 例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，即为 X + II 。 27 写做  XXVII, 即为 XX + V + II 。</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，</span></span><br><span class="line"><span class="hljs-comment"> * 例如 4 不写做 IIII，而是 IV。数字 1 在数字 5 的左边，</span></span><br><span class="line"><span class="hljs-comment"> * 所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，数字 9 表示为 IX。</span></span><br><span class="line"><span class="hljs-comment"> * 这个特殊的规则只适用于以下六种情况：</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。</span></span><br><span class="line"><span class="hljs-comment"> * X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 </span></span><br><span class="line"><span class="hljs-comment"> * C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。</span></span><br><span class="line"><span class="hljs-comment"> * 给定一个罗马数字，将其转换成整数。输入确保在 1 到 3999 的范围内。</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 示例 1:</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 输入: "III"</span></span><br><span class="line"><span class="hljs-comment"> * 输出: 3</span></span><br><span class="line"><span class="hljs-comment"> * 示例 2:</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 输入: "IV"</span></span><br><span class="line"><span class="hljs-comment"> * 输出: 4</span></span><br><span class="line"><span class="hljs-comment"> * 示例 3:</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 输入: "IX"</span></span><br><span class="line"><span class="hljs-comment"> * 输出: 9</span></span><br><span class="line"><span class="hljs-comment"> * 示例 4:</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 输入: "LVIII"</span></span><br><span class="line"><span class="hljs-comment"> * 输出: 58</span></span><br><span class="line"><span class="hljs-comment"> * 解释: L = 50, V= 5, III = 3.</span></span><br><span class="line"><span class="hljs-comment"> * 示例 5:</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 输入: "MCMXCIV"</span></span><br><span class="line"><span class="hljs-comment"> * 输出: 1994</span></span><br><span class="line"><span class="hljs-comment"> * 解释: M = 1000, CM = 900, XC = 90, IV = 4.</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 来源：力扣（LeetCode）</span></span><br><span class="line"><span class="hljs-comment"> * 链接：https://leetcode-cn.com/problems/roman-to-integer</span></span><br><span class="line"><span class="hljs-comment"> * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Leetcode13</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">romanToInt</span><span class="hljs-params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span>[] moneys = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">1000</span>, <span class="hljs-number">900</span>, <span class="hljs-number">500</span>, <span class="hljs-number">400</span>, <span class="hljs-number">100</span>, <span class="hljs-number">90</span>, <span class="hljs-number">50</span>, <span class="hljs-number">40</span>, <span class="hljs-number">10</span>, <span class="hljs-number">9</span>, <span class="hljs-number">5</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>&#125;;</span><br><span class="line">        String[] moneyToStr = <span class="hljs-keyword">new</span> String[]&#123;<span class="hljs-string">"M"</span>, <span class="hljs-string">"CM"</span>, <span class="hljs-string">"D"</span>, <span class="hljs-string">"CD"</span>, <span class="hljs-string">"C"</span>, <span class="hljs-string">"XC"</span>, <span class="hljs-string">"L"</span>, <span class="hljs-string">"XL"</span>, <span class="hljs-string">"X"</span>, <span class="hljs-string">"IX"</span>, <span class="hljs-string">"V"</span>, <span class="hljs-string">"IV"</span>, <span class="hljs-string">"I"</span>&#125;;</span><br><span class="line">        <span class="hljs-keyword">char</span>[] chars = s.toCharArray();</span><br><span class="line">        <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">int</span> tempJ = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; chars.length; ) &#123;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = tempJ; j &lt; moneyToStr.length; ) &#123;</span><br><span class="line">                <span class="hljs-comment">// 从左往右开始一个字符一个字符匹配，匹配到一个字符后开始下一个</span></span><br><span class="line">                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span> String(<span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[]&#123;chars[i]&#125;).equals(moneyToStr[j])) &#123;</span><br><span class="line">                    result += moneys[j];</span><br><span class="line">                    i++;</span><br><span class="line">                    <span class="hljs-comment">// 此时下一次可能还会出现一样的字符如VV=20</span></span><br><span class="line">                    tempJ = j;</span><br><span class="line">                    <span class="hljs-keyword">break</span>;</span><br><span class="line">                    <span class="hljs-comment">// 匹配到两个字符是开始下两个字符</span></span><br><span class="line">                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (i + <span class="hljs-number">1</span> &lt; chars.length &amp;&amp; <span class="hljs-keyword">new</span> String(<span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[]&#123;chars[i], chars[i + <span class="hljs-number">1</span>]&#125;).equals(moneyToStr[j])) &#123;</span><br><span class="line">                    result += moneys[j];</span><br><span class="line">                    i += <span class="hljs-number">2</span>;</span><br><span class="line">                    <span class="hljs-comment">// 下次出现的一定是一个字符的,如IV下次不会再出现IV 只能出现I</span></span><br><span class="line">                    tempJ = j + <span class="hljs-number">1</span>;</span><br><span class="line">                    <span class="hljs-keyword">break</span>;</span><br><span class="line">                &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">                    j++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">romanToInt1</span><span class="hljs-params">(String s)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="hljs-string">"I"</span>, <span class="hljs-number">1</span>);</span><br><span class="line">        map.put(<span class="hljs-string">"IV"</span>, <span class="hljs-number">4</span>);</span><br><span class="line">        map.put(<span class="hljs-string">"V"</span>, <span class="hljs-number">5</span>);</span><br><span class="line">        map.put(<span class="hljs-string">"IX"</span>, <span class="hljs-number">9</span>);</span><br><span class="line">        map.put(<span class="hljs-string">"X"</span>, <span class="hljs-number">10</span>);</span><br><span class="line">        map.put(<span class="hljs-string">"XL"</span>, <span class="hljs-number">40</span>);</span><br><span class="line">        map.put(<span class="hljs-string">"L"</span>, <span class="hljs-number">50</span>);</span><br><span class="line">        map.put(<span class="hljs-string">"XC"</span>, <span class="hljs-number">90</span>);</span><br><span class="line">        map.put(<span class="hljs-string">"C"</span>, <span class="hljs-number">100</span>);</span><br><span class="line">        map.put(<span class="hljs-string">"CD"</span>, <span class="hljs-number">400</span>);</span><br><span class="line">        map.put(<span class="hljs-string">"D"</span>, <span class="hljs-number">500</span>);</span><br><span class="line">        map.put(<span class="hljs-string">"CM"</span>, <span class="hljs-number">900</span>);</span><br><span class="line">        map.put(<span class="hljs-string">"M"</span>, <span class="hljs-number">1000</span>);</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-comment">// 所有的字符，要么匹配两个要么匹配一个，没有其余的情况</span></span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;i &lt; s.length();) &#123;</span><br><span class="line">            <span class="hljs-comment">// 两个匹配的</span></span><br><span class="line">            <span class="hljs-keyword">if</span>(i + <span class="hljs-number">1</span> &lt; s.length() &amp;&amp; map.containsKey(s.substring(i, i+<span class="hljs-number">2</span>))) &#123;</span><br><span class="line">                ans += map.get(s.substring(i, i+<span class="hljs-number">2</span>));</span><br><span class="line">                <span class="hljs-comment">// 匹配上后往后移两个</span></span><br><span class="line">                i += <span class="hljs-number">2</span>;</span><br><span class="line">            &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">                <span class="hljs-comment">// 一个匹配上的</span></span><br><span class="line">                ans += map.get(s.substring(i, i+<span class="hljs-number">1</span>));</span><br><span class="line">                <span class="hljs-comment">// 匹配后往后移一个</span></span><br><span class="line">                i ++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(romanToInt(<span class="hljs-string">"XIX"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="14-Longest-Common-Prefix"><a href="#14-Longest-Common-Prefix" class="headerlink" title="14. Longest Common Prefix"></a><a href="https://leetcode-cn.com/problems/longest-common-prefix/" target="_blank" rel="noopener">14. Longest Common Prefix</a></h3><p>Write a function to find the longest common prefix string amongst an array of strings.</p>
+<p>If there is no common prefix, return an empty string “”.</p>
+<h4 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]</span><br><span class="line">Output: &quot;fl&quot;</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]</span><br><span class="line">Output: &quot;&quot;</span><br><span class="line">Explanation: There is no common prefix among the input strings.</span><br><span class="line"></span><br><span class="line">Note:</span><br><span class="line">All given inputs are in lowercase letters a-z.</span><br></pre></td></tr></table></figure>
+<h4 id="JAVA题解-1"><a href="#JAVA题解-1" class="headerlink" title="JAVA题解"></a>JAVA题解</h4><h5 id="水平扫描"><a href="#水平扫描" class="headerlink" title="水平扫描"></a>水平扫描</h5><p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191224225712.png" alt=""><br><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191224225319.png" alt=""><br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">package</span> algorithm;</span><br><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * 编写一个函数来查找字符串数组中的最长公共前缀。</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 如果不存在公共前缀，返回空字符串 ""。</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 示例 1:</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 输入: ["flower","flow","flight"]</span></span><br><span class="line"><span class="hljs-comment"> * 输出: "fl"</span></span><br><span class="line"><span class="hljs-comment"> * 示例 2:</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 输入: ["dog","racecar","car"]</span></span><br><span class="line"><span class="hljs-comment"> * 输出: ""</span></span><br><span class="line"><span class="hljs-comment"> * 解释: 输入不存在公共前缀。</span></span><br><span class="line"><span class="hljs-comment"> * 说明:</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 所有输入只包含小写字母 a-z 。</span></span><br><span class="line"><span class="hljs-comment"> *</span></span><br><span class="line"><span class="hljs-comment"> * 来源：力扣（LeetCode）</span></span><br><span class="line"><span class="hljs-comment"> * 链接：https://leetcode-cn.com/problems/longest-common-prefix</span></span><br><span class="line"><span class="hljs-comment"> * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Leetcode14</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">longestCommonPrefix</span><span class="hljs-params">(String[] strs)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">if</span> (strs.length == <span class="hljs-number">0</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">if</span> (strs.length == <span class="hljs-number">1</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> strs[<span class="hljs-number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;</span><br><span class="line">        String pre = <span class="hljs-string">""</span>;</span><br><span class="line">        <span class="hljs-keyword">for</span> (; i &lt; strs[<span class="hljs-number">0</span>].length(); i++) &#123;</span><br><span class="line">            pre = strs[<span class="hljs-number">0</span>].substring(<span class="hljs-number">0</span>, i + <span class="hljs-number">1</span>);</span><br><span class="line">            <span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>;</span><br><span class="line">            <span class="hljs-keyword">boolean</span> end = <span class="hljs-keyword">false</span>;</span><br><span class="line">            <span class="hljs-keyword">for</span> (; j &lt; strs.length; j++) &#123;</span><br><span class="line">                <span class="hljs-keyword">if</span> (!strs[j].startsWith(pre)) &#123;</span><br><span class="line">                    <span class="hljs-keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="hljs-keyword">if</span> (pre.length() == strs[j].length()) &#123;</span><br><span class="line">                    end = <span class="hljs-keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="hljs-keyword">if</span> (j == strs.length &amp;&amp; !end) &#123;</span><br><span class="line">                <span class="hljs-keyword">continue</span>;</span><br><span class="line">            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (j != strs.length) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="hljs-keyword">if</span> (pre.length() &gt; <span class="hljs-number">1</span>) &#123;</span><br><span class="line">                    <span class="hljs-keyword">return</span> pre.substring(<span class="hljs-number">0</span>, pre.length() - <span class="hljs-number">1</span>);</span><br><span class="line">                &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">                    <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">                <span class="hljs-keyword">return</span> pre;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 水平扫描法</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">longestCommonPrefix1</span><span class="hljs-params">(String[] strs)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (strs.length == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;</span><br><span class="line">        String prefix = strs[<span class="hljs-number">0</span>];</span><br><span class="line">        <span class="hljs-comment">// 1,2-&gt;s1,3-&gt;s2,4;前两个中找到前缀公共最长的s1,然后和第3个一起找出s2，以此类推</span></span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; strs.length; i++)</span><br><span class="line">            <span class="hljs-comment">// 不相等时为-1</span></span><br><span class="line">            <span class="hljs-keyword">while</span> (strs[i].indexOf(prefix) != <span class="hljs-number">0</span>) &#123;</span><br><span class="line">                <span class="hljs-comment">// 从后往前缩短，直到找到最长的</span></span><br><span class="line">                prefix = prefix.substring(<span class="hljs-number">0</span>, prefix.length() - <span class="hljs-number">1</span>);</span><br><span class="line">                <span class="hljs-comment">// 找完都没找到的话返回空</span></span><br><span class="line">                <span class="hljs-keyword">if</span> (prefix.isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> prefix;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(longestCommonPrefix1(<span class="hljs-keyword">new</span> String[]&#123;<span class="hljs-string">"flower"</span>,<span class="hljs-string">"fl"</span>,<span class="hljs-string">"flight"</span>&#125;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 水平扫描，单个字符逐一进行比较</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">longestCommonPrefix2</span><span class="hljs-params">(String[] strs)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (strs == <span class="hljs-keyword">null</span> || strs.length == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; strs[<span class="hljs-number">0</span>].length() ; i++)&#123;</span><br><span class="line">            <span class="hljs-keyword">char</span> c = strs[<span class="hljs-number">0</span>].charAt(i);</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; strs.length; j ++) &#123;</span><br><span class="line">                <span class="hljs-comment">// 如果i == strs[j].length() 代表找出最短的，直接返回，或者不相等时直接返回</span></span><br><span class="line">                <span class="hljs-keyword">if</span> (i == strs[j].length() || strs[j].charAt(i) != c)</span><br><span class="line">                    <span class="hljs-keyword">return</span> strs[<span class="hljs-number">0</span>].substring(<span class="hljs-number">0</span>, i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-comment">// 到此处已经找完</span></span><br><span class="line">        <span class="hljs-keyword">return</span> strs[<span class="hljs-number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="分治算法"><a href="#分治算法" class="headerlink" title="分治算法"></a>分治算法</h5><p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191224225516.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191224225530.png" alt=""></p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">longestCommonPrefix</span><span class="hljs-params">(String[] strs)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span> (strs == <span class="hljs-keyword">null</span> || strs.length == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;    </span><br><span class="line">        <span class="hljs-keyword">return</span> longestCommonPrefix(strs, <span class="hljs-number">0</span> , strs.length - <span class="hljs-number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">longestCommonPrefix</span><span class="hljs-params">(String[] strs, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">  	<span class="hljs-comment">// 只有一个字符串的时候，返回此字符串</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (l == r) &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> strs[l];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> mid = (l + r)/<span class="hljs-number">2</span>;</span><br><span class="line">      	<span class="hljs-comment">// 找出左边最长前缀</span></span><br><span class="line">        String lcpLeft =   longestCommonPrefix(strs, l , mid);</span><br><span class="line">        <span class="hljs-comment">// 找出右边最长前缀</span></span><br><span class="line">        String lcpRight =  longestCommonPrefix(strs, mid + <span class="hljs-number">1</span>,r);</span><br><span class="line">      	<span class="hljs-comment">// 左边右边中找出最长前缀</span></span><br><span class="line">        <span class="hljs-keyword">return</span> commonPrefix(lcpLeft, lcpRight);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function">String <span class="hljs-title">commonPrefix</span><span class="hljs-params">(String left,String right)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> min = Math.min(left.length(), right.length());       </span><br><span class="line">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; min; i++) &#123;</span><br><span class="line">      	<span class="hljs-comment">// 循环最小的一边字符逐一比较,不相等时跳出</span></span><br><span class="line">        <span class="hljs-keyword">if</span> ( left.charAt(i) != right.charAt(i) )</span><br><span class="line">            <span class="hljs-keyword">return</span> left.substring(<span class="hljs-number">0</span>, i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> left.substring(<span class="hljs-number">0</span>, min);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="二分查找法"><a href="#二分查找法" class="headerlink" title="二分查找法"></a>二分查找法</h5><p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191224230413.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191224230426.png" alt=""></p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">longestCommonPrefix</span><span class="hljs-params">(String[] strs)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span> (strs == <span class="hljs-keyword">null</span> || strs.length == <span class="hljs-number">0</span>)</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;</span><br><span class="line">    <span class="hljs-keyword">int</span> minLen = Integer.MAX_VALUE;</span><br><span class="line">    <span class="hljs-keyword">for</span> (String str : strs)</span><br><span class="line">        minLen = Math.min(minLen, str.length());</span><br><span class="line">    <span class="hljs-keyword">int</span> low = <span class="hljs-number">1</span>;</span><br><span class="line">    <span class="hljs-keyword">int</span> high = minLen;</span><br><span class="line">    <span class="hljs-keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> middle = (low + high) / <span class="hljs-number">2</span>;</span><br><span class="line">        <span class="hljs-keyword">if</span> (isCommonPrefix(strs, middle))</span><br><span class="line">            low = middle + <span class="hljs-number">1</span>;</span><br><span class="line">        <span class="hljs-keyword">else</span></span><br><span class="line">            high = middle - <span class="hljs-number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> strs[<span class="hljs-number">0</span>].substring(<span class="hljs-number">0</span>, (low + high) / <span class="hljs-number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isCommonPrefix</span><span class="hljs-params">(String[] strs, <span class="hljs-keyword">int</span> len)</span></span>&#123;</span><br><span class="line">    String str1 = strs[<span class="hljs-number">0</span>].substring(<span class="hljs-number">0</span>,len);</span><br><span class="line">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; strs.length; i++)</span><br><span class="line">        <span class="hljs-keyword">if</span> (!strs[i].startsWith(str1))</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="字典树"><a href="#字典树" class="headerlink" title="字典树"></a>字典树</h5><p>给定一些键值字符串 S = [S 1 ,S 2 …S n ]，我们要找到字符串 q 与 S 的最长公共前缀。 这样的查询操作可能会非常频繁。</p>
+<p>我们可以通过将所有的键值 S 存储到一颗字典树中来优化最长公共前缀查询操作。 如果你想学习更多关于字典树的内容，可以从 <a href="https://leetcode-cn.com/problems/implement-trie-prefix-tree/solution/" target="_blank" rel="noopener">208. 实现 Trie (前缀树)</a>开始。在字典树中，从根向下的每一个节点都代表一些键值的公共前缀。 但是我们需要找到字符串q 和所有键值字符串的最长公共前缀。 这意味着我们需要从根找到一条最深的路径，满足以下条件：</p>
+<p>这是所查询的字符串 q 的一个前缀</p>
+<p>路径上的每一个节点都有且仅有一个孩子。 否则，找到的路径就不是所有字符串的公共前缀</p>
+<p>路径不包含被标记成某一个键值字符串结尾的节点。 因为最长公共前缀不可能比某个字符串本身长</p>
+<p><strong>算法</strong></p>
+<p>最后的问题就是如何找到字典树中满足上述所有要求的最深节点。 最有效的方法就是建立一颗包含字符串[S 1 …S n ] 的字典树。 然后在这颗树中匹配 q 的前缀。 我们从根节点遍历这颗字典树，直到因为不能满足某个条件而不能再遍历为止。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191224231052.png" alt=""></p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">longestCommonPrefix</span><span class="hljs-params">(String q, String[] strs)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span> (strs == <span class="hljs-keyword">null</span> || strs.length == <span class="hljs-number">0</span>)</span><br><span class="line">         <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;  </span><br><span class="line">    <span class="hljs-keyword">if</span> (strs.length == <span class="hljs-number">1</span>)</span><br><span class="line">         <span class="hljs-keyword">return</span> strs[<span class="hljs-number">0</span>];</span><br><span class="line">    Trie trie = <span class="hljs-keyword">new</span> Trie();      </span><br><span class="line">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; strs.length ; i++) &#123;</span><br><span class="line">        trie.insert(strs[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> trie.searchLongestPrefix(q);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TrieNode</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 子节点的链接数组</span></span><br><span class="line">    <span class="hljs-keyword">private</span> TrieNode[] links;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> R = <span class="hljs-number">26</span>;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> isEnd;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 非空子节点的数量</span></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> size;    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">put</span><span class="hljs-params">(<span class="hljs-keyword">char</span> ch, TrieNode node)</span> </span>&#123;</span><br><span class="line">        links[ch -<span class="hljs-string">'a'</span>] = node;</span><br><span class="line">        size++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getLinks</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> size;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-comment">// 假设方法 containsKey、isEnd、get、put 都已经实现了</span></span><br><span class="line">    <span class="hljs-comment">// 可以参考文章：https://leetcode.com/articles/implement-trie-prefix-tree/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Trie</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> TrieNode root;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Trie</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        root = <span class="hljs-keyword">new</span> TrieNode();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 假设方法 insert、search、searchPrefix 都已经实现了</span></span><br><span class="line"><span class="hljs-comment">// 可以参考文章：https://leetcode.com/articles/implement-trie-prefix-tree/</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">searchLongestPrefix</span><span class="hljs-params">(String word)</span> </span>&#123;</span><br><span class="line">        TrieNode node = root;</span><br><span class="line">        StringBuilder prefix = <span class="hljs-keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; word.length(); i++) &#123;</span><br><span class="line">            <span class="hljs-keyword">char</span> curLetter = word.charAt(i);</span><br><span class="line">            <span class="hljs-keyword">if</span> (node.containsKey(curLetter) &amp;&amp; (node.getLinks() == <span class="hljs-number">1</span>) &amp;&amp; (!node.isEnd())) &#123;</span><br><span class="line">                prefix.append(curLetter);</span><br><span class="line">                node = node.get(curLetter);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-keyword">else</span></span><br><span class="line">                <span class="hljs-keyword">return</span> prefix.toString();</span><br><span class="line"></span><br><span class="line">         &#125;</span><br><span class="line">         <span class="hljs-keyword">return</span> prefix.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <i class="fas fa-tags has-text-grey"></i>&nbsp;&nbsp;
+                    <a class="has-link-grey -link" href="/tags/二分查找/">二分查找</a>,&nbsp;<a class="has-link-grey -link" href="/tags/分治/">分治</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- 部分参考自https://www.alphalxy.com/2019/03/customize-icarus/ -->
+        
+            <ul class="post-copyright">
+            <li><strong>本文标题：</strong><a href="https://removeif.github.io/algorithm/算法成长之路leetcode13-14.html">算法成长之路leetcode13-14</a></li>
+            <li><strong>本文作者：</strong><a href="https://removeif.github.io">辣椒の酱</a></li>
+            <li><strong>本文链接：</strong><a href="https://removeif.github.io/algorithm/算法成长之路leetcode13-14.html">https://removeif.github.io/algorithm/算法成长之路leetcode13-14.html</a></li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+            </li>
+            </ul>
+            <br>
+            <span class="is-size-6 has-text-grey has-mr-7">#&nbsp;本站推荐文章</span>
+<br>
+
+    &nbsp;1.<a href="/theme/博客源码分享.html" class="is-size-6" target="_blank">博客源码分享</a><br>
+
+    &nbsp;2.<a href="/breaking-news/2019年国庆70周年阅兵完整图文解说.html" class="is-size-6" target="_blank">2019年国庆70周年阅兵完整图文解说(收藏!)</a><br>
+
+    &nbsp;3.<a href="/theme/博客中gitalk最新评论的获取.html" class="is-size-6" target="_blank">博客中gitalk最新评论的获取</a><br>
+
+    &nbsp;4.<a href="/law/中华人民共和国刑事诉讼法.html" class="is-size-6" target="_blank">中华人民共和国刑事诉讼法</a><br>
+
+    &nbsp;5.<a href="/java/frame/springboot-restful-swagger实战.html" class="is-size-6" target="_blank">springboot-restful-swagger实战</a><br>
+
+            <br>
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190802135456.png" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190802135550.png" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/java/basic/hash冲突开放地址法rehash.html">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">hash冲突开放地址法rehash</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/algorithm/贪心算法解析示例.html">
+                <span class="level-item">贪心算法解析示例</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+    <br>
+<div class="card widget">
+    <div class="card-content">
+    <div class="g-ads-x">
+         <div class="menu">
+            <h3 class="menu-label">
+               温馨提示！此处可能会出现广告！
+            </h3>
+         </div>
+        <br>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-6343805421927634"
+             data-ad-slot="8274750079"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    </div>
+</div>
+
+    <div class="card">
+        <div class="card-content">
+            
+                <h3 class="title is-5 has-text-weight-normal">评论</h3>
+                
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '46a9f3481b46ea0129d8',
+        clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+        id: '0447c54d55b0f89bdd557f435bd40546',
+        repo: 'blog_comment',
+        owner: 'removeif',
+        admin: "removeif",
+        createIssueManually: true,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+            
+        </div>
+    </div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/images/tuzi.jpg" alt="辣椒の酱">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        辣椒の酱
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        尚未执佩剑，转眼即江湖
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>阿尔及利亚</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal ios-alert">
+                            83
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal ios-alert">
+                            36
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                   <a href="/tags">
+                       <p class="title has-text-weight-normal ios-alert">
+                            66
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://weibo.com/u/3050419984" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/removeif">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Weibo" href="https://weibo.com/u/3050419984">
+                
+                <i class="fab fa-weibo"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Email" href="mailto:removeif@163.com">
+                
+                <i class="fa fa-envelope"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Next" href="https://removeif.github.io/remove.io">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="RSS" href="/atom.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+        <hr>
+        <p id="hitokoto">:D 一言句子获取中...</p>
+        <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+    </div>
+</div>
+    
+        
+
+    <div class="card widget toc-scroll" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#13-Roman-to-Integer">
+        <span class="has-mr-6">1</span>
+        <span>13. Roman to Integer</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Example">
+        <span class="has-mr-6">1.1</span>
+        <span>Example</span>
+        </a></li><li>
+        <a class="is-flex" href="#JAVA题解">
+        <span class="has-mr-6">1.2</span>
+        <span>JAVA题解</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#14-Longest-Common-Prefix">
+        <span class="has-mr-6">2</span>
+        <span>14. Longest Common Prefix</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Example-1">
+        <span class="has-mr-6">2.1</span>
+        <span>Example</span>
+        </a></li><li>
+        <a class="is-flex" href="#JAVA题解-1">
+        <span class="has-mr-6">2.2</span>
+        <span>JAVA题解</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#水平扫描">
+        <span class="has-mr-6">2.2.1</span>
+        <span>水平扫描</span>
+        </a></li><li>
+        <a class="is-flex" href="#分治算法">
+        <span class="has-mr-6">2.2.2</span>
+        <span>分治算法</span>
+        </a></li><li>
+        <a class="is-flex" href="#二分查找法">
+        <span class="has-mr-6">2.2.3</span>
+        <span>二分查找法</span>
+        </a></li><li>
+        <a class="is-flex" href="#字典树">
+        <span class="has-mr-6">2.2.4</span>
+        <span>字典树</span>
+        </a></li></ul></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    
+        <div class="column-right-shadow  ">
+        
+            
+    <div class="card widget">
+        <div class="card-content">
+        <h3 class="menu-label">最新评论</h3><span class="menu-label1" id="body_hot_comment">加载中，最新评论有1分钟延迟...<span>
+        </div>
+    </div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-04T10:11:19.000Z">2020-01-04</time></div>
+                    <a href="/java/frame/springboot-restful-swagger实战.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">springboot-restful-swagger实战</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/springboot/">springboot</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-01T13:14:27.000Z">2020-01-01</time></div>
+                    <a href="/algorithm/算法成长之路leetcode15-16.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">算法成长之路leetcode15-16</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/algorithm/">algorithm</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-31T13:05:49.000Z">2019-12-31</time></div>
+                    <a href="/think/2019年终总结.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">2019年终总结</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/think/">think</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-31T10:50:31.000Z">2019-12-31</time></div>
+                    <a href="/travel/西安旅游攻略3日游.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">西安旅游攻略3日游</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/travel/">travel</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-26T15:20:21.000Z">2019-12-26</time></div>
+                    <a href="/python/一张图学会python3.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">一张图学会python3</a>
+                    <p class="is-size-7 is-uppercase">
+                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                        <a class="has-link-grey -link" href="/categories/python3/">python3</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">15</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java/">
+                        <span class="tag">java</span>
+                        <span class="tag is-grey">18</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/法律/">
+                        <span class="tag">法律</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/设计模式/">
+                        <span class="tag">设计模式</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/mysql/">
+                        <span class="tag">mysql</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/工具教程/">
+                        <span class="tag">工具教程</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/think/">
+                        <span class="tag">think</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/二分查找/">
+                        <span class="tag">二分查找</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/dp/">
+                        <span class="tag">dp</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/elasticsearch6/">
+                        <span class="tag">elasticsearch6</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo主题/">
+                        <span class="tag">hexo主题</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/icarus主题配置/">
+                        <span class="tag">icarus主题配置</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/redis/">
+                        <span class="tag">redis</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/动态规划/">
+                        <span class="tag">动态规划</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/支付架构/">
+                        <span class="tag">支付架构</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/支付系统/">
+                        <span class="tag">支付系统</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/科普/">
+                        <span class="tag">科普</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/贪心算法/">
+                        <span class="tag">贪心算法</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Effective-Java/">
+                        <span class="tag">Effective-Java</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Z字变换/">
+                        <span class="tag">Z字变换</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/b-tree/">
+                        <span class="tag">b+tree</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/双指针/" style="font-size: 11.67px;">双指针</a>&nbsp; <a href="/tags/最长回文/" style="font-size: 11.67px;">最长回文</a>&nbsp; <a href="/tags/Z字变换/" style="font-size: 11.67px;">Z字变换</a>&nbsp; <a href="/tags/数据结构/" style="font-size: 11.67px;">数据结构</a>&nbsp; <a href="/tags/health/" style="font-size: 11.67px;">health</a>&nbsp; <a href="/tags/ios/" style="font-size: 11.67px;">ios</a>&nbsp; <a href="/tags/nfc/" style="font-size: 11.67px;">nfc</a>&nbsp; <a href="/tags/marathon/" style="font-size: 11.67px;">marathon</a>&nbsp; <a href="/tags/python3基础/" style="font-size: 11.67px;">python3基础</a>&nbsp; <a href="/tags/Effective-Java/" style="font-size: 11.67px;">Effective-Java</a>&nbsp; <a href="/tags/读书笔记/" style="font-size: 11.67px;">读书笔记</a>&nbsp; <a href="/tags/博客统计插件/" style="font-size: 11.67px;">博客统计插件</a>&nbsp; <a href="/tags/分治算法/" style="font-size: 11.67px;">分治算法</a>&nbsp; <a href="/tags/字符串/" style="font-size: 11.67px;">字符串</a>&nbsp; <a href="/tags/滑动窗口/" style="font-size: 11.67px;">滑动窗口</a>&nbsp; <a href="/tags/分治/" style="font-size: 11.67px;">分治</a>&nbsp; <a href="/tags/反转整数/" style="font-size: 11.67px;">反转整数</a>&nbsp; <a href="/tags/字符串转整数/" style="font-size: 11.67px;">字符串转整数</a>&nbsp; <a href="/tags/最优解/" style="font-size: 11.67px;">最优解</a>&nbsp; <a href="/tags/debug/" style="font-size: 11.67px;">debug</a>&nbsp; <a href="/tags/调试代码/" style="font-size: 11.67px;">调试代码</a>&nbsp; <a href="/tags/经验成长/" style="font-size: 11.67px;">经验成长</a>&nbsp; <a href="/tags/西安/" style="font-size: 11.67px;">西安</a>&nbsp; <a href="/tags/长安/" style="font-size: 11.67px;">长安</a>&nbsp; <a href="/tags/旅行/" style="font-size: 11.67px;">旅行</a>&nbsp; <a href="/tags/sql/" style="font-size: 11.67px;">sql</a>&nbsp; <a href="/tags/幂等性/" style="font-size: 11.67px;">幂等性</a>&nbsp; <a href="/tags/restful-api/" style="font-size: 11.67px;">restful-api</a>&nbsp; <a href="/tags/前端技术/" style="font-size: 11.67px;">前端技术</a>&nbsp; <a href="/tags/docker/" style="font-size: 11.67px;">docker</a>&nbsp; <a href="/tags/query/" style="font-size: 11.67px;">query</a>&nbsp; <a href="/tags/feign/" style="font-size: 11.67px;">feign</a>&nbsp; <a href="/tags/spring-cloud/" style="font-size: 11.67px;">spring cloud</a>&nbsp; <a href="/tags/中心扩展/" style="font-size: 11.67px;">中心扩展</a>&nbsp; <a href="/tags/vim/" style="font-size: 11.67px;">vim</a>&nbsp; <a href="/tags/b-tree/" style="font-size: 11.67px;">b+tree</a>&nbsp; <a href="/tags/聚簇索引/" style="font-size: 11.67px;">聚簇索引</a>&nbsp; <a href="/tags/索引/" style="font-size: 11.67px;">索引</a>&nbsp; <a href="/tags/hash冲突/" style="font-size: 11.67px;">hash冲突</a>&nbsp; <a href="/tags/rehash/" style="font-size: 11.67px;">rehash</a>&nbsp;
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+    <div class="g-ads-y">
+        <div class="menu">
+            <h3 class="menu-label">
+               广告位
+            </h3>
+        </div>
+        <br>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- ads-y -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6343805421927634"
+             data-ad-slot="9708919542"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    </div>
+</div>
+
+
+
+        
+        </div>
+    
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="算法成长之路leetcode13-14" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 辣椒の酱&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>,Modify by <a href="https://github.com/removeif">removeif</a>&nbsp;
+                
+                <br>
+                &copy; 版权说明：[本网站所有内容均收集于互联网或自己创作,<br>&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="https://removeif.github.io/message/" target="_blank">留言</a>，立即处理]
+                <br>
+                <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/statistics.js"></script>
+                <span id="statistic-times"></span>
+                <br>
+                <span id="busuanzi_container_site_uv">
+                ❤️感谢 <strong><span id="busuanzi_value_site_uv">99+</span></strong> 小伙伴的 
+                </span>
+                 <strong><span id="busuanzi_value_site_pv">99+</span></strong> 次光临，贡献💐<a href="https://github.com/removeif/hexo-theme-icarus-removeif">本站源码</a>！❤️
+                 
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://weibo.com/u/3050419984">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/removeif">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/insight.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/search.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/css/insight.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    
+    <script type="text/javascript" defer src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/js/comment-issue-data.js"></script>
+    
+    <!-- 暂时关闭伪娘 <script type="text/javascript" async="" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.5/live2d/autoload.js"></script> -->
+</body>
+</html>
