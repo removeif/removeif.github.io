@@ -73,7 +73,6 @@ body:not(.night) .is-9-desktop .card-content.article:hover {
 .night .content .gt-container .gt-comment-admin .gt-comment-content {
   border: 2px solid #151313;
 }
-.content .gt-container .gt-comment-edit,
-.gt-container .gt-comment-reply {
+.content .gt-container .gt-comment-edit {
   margin-right: 2%;
 }
