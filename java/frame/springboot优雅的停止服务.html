@@ -7,7 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>归档: 2019 - 辣椒の酱</title>
+<title>springboot优雅的停止服务 - 辣椒の酱</title>
 <meta name="google-site-verification" content="67z1CXZ8AOhImIglgTwqAlneRCHTO6xRJo5NeafDAqw" />
 <!-- 百度抓取 -->
 <script>
@@ -37,25 +37,26 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-    <meta name="description" content="生活坏到一定程度就会好起来，因为它无法更坏">
-<meta name="keywords" content="java,elasticsearch,设计模式,sql">
-<meta property="og:type" content="website">
-<meta property="og:title" content="辣椒の酱">
-<meta property="og:url" content="https://removeif.github.io/archives/2019/page/3/index.html">
+    <meta name="description" content="在使用 SpringBoot 的时候，都要涉及到服务的停止和启动，当我们停止服务的时候，很多时候大家都是kill -9 直接把程序进程杀掉，这样程序不会执行优雅的关闭。而且一些没有执行完的程序就会直接退出。">
+<meta name="keywords" content="categories-java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot优雅的停止服务">
+<meta property="og:url" content="https://removeif.github.io/java/frame/springboot优雅的停止服务.html">
 <meta property="og:site_name" content="辣椒の酱">
-<meta property="og:description" content="生活坏到一定程度就会好起来，因为它无法更坏">
+<meta property="og:description" content="在使用 SpringBoot 的时候，都要涉及到服务的停止和启动，当我们停止服务的时候，很多时候大家都是kill -9 直接把程序进程杀掉，这样程序不会执行优雅的关闭。而且一些没有执行完的程序就会直接退出。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://removeif.github.io/images/og_image.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200112211023.png">
+<meta property="og:updated_time" content="2020-01-12T13:11:50.649Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="辣椒の酱">
-<meta name="twitter:description" content="生活坏到一定程度就会好起来，因为它无法更坏">
-<meta name="twitter:image" content="https://removeif.github.io/images/og_image.png">
+<meta name="twitter:title" content="springboot优雅的停止服务">
+<meta name="twitter:description" content="在使用 SpringBoot 的时候，都要涉及到服务的停止和启动，当我们停止服务的时候，很多时候大家都是kill -9 直接把程序进程杀掉，这样程序不会执行优雅的关闭。而且一些没有执行完的程序就会直接退出。">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200112211023.png">
 
 
 
 
 
-<link rel="alternative" href="/atom.xml" title="辣椒の酱" type="application/atom+xml">
+<link rel="alternative" href="/atom.xml" title="springboot优雅的停止服务" type="application/atom+xml">
 
 
 
@@ -115,13 +116,13 @@ var _hmt = _hmt || [];
 <!-- 暂时关闭伪娘 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.6/live2d/waifu.css"> -->
     <!-- <meta name="referrer" content="no-referrer" /> 解决图片过期问题-->
 </head>
-<body class="is-3-column">
+<body class="is-2-column">
     <nav class="navbar navbar-main">
     <div class="container">
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="辣椒の酱" height="28">
+                <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="springboot优雅的停止服务" height="28">
             
             </a>
         </div>
@@ -170,6 +171,10 @@ var _hmt = _hmt || [];
             <div class="navbar-end">
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -187,256 +192,176 @@ var _hmt = _hmt || [];
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
     
-<div class="card widget">
-    <div class="card-content">
-        <!-- // author by removef // https://removeif.github.io/ 文章贡献参照主题归档元素 https://github.com/blinkfox/hexo-theme-matery -->
-        <div style="post-calendar-pre">
-             <div id="post-calendar"></div>
-        </div>
-       
-            
-            <h3 class="tag is-link">
-            2019
-            </h3>
-            <div class="timeline">
-            
-                <article class="media">
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200112211023.png" alt="springboot优雅的停止服务">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                
+                <time class="level-item has-text-grey" datetime="2020-01-12T13:08:28.000Z">2020-01-12</time>
+                
+                    <span class="display-none-class">5abf45e81e3ac85921f3be2ef4cef329</span>
+                    <img class="not-gallery-item" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.6/images/chat.svg">&nbsp;<a href="/java/frame/springboot优雅的停止服务.html#comment-container"><span id=5abf45e81e3ac85921f3be2ef4cef329>99+</span></a>&nbsp;&nbsp;&nbsp;&nbsp;</img>
+                
+                
+                <div class="level-item">
+                <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/springboot/">springboot</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
                     
-                    <div class="media-content">
-                        <div class="content">
-                            <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-10-30T09:54:02.000Z">2019-10-30</time>
-                            <a href="/private/2019成长记01.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">2019成长记01</a>
-                            <div class="level article-meta is-mobile">
-                                <div class="level-left">
-                                    
-                                    <div class="level-item is-size-7 is-uppercase">
-                                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
-                                        <a class="has-link-grey -link" href="/categories/private/">private</a>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            
-                <article class="media">
                     
-                    <div class="media-content">
-                        <div class="content">
-                            <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-10-23T10:33:34.000Z">2019-10-23</time>
-                            <a href="/front/替代web-cookie存储方案实现.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">替代web-cookie存储方案实现</a>
-                            <div class="level article-meta is-mobile">
-                                <div class="level-left">
-                                    
-                                    <div class="level-item is-size-7 is-uppercase">
-                                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
-                                        <a class="has-link-grey -link" href="/categories/前端技术/">前端技术</a>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            
-                <article class="media">
-                    
-                    <div class="media-content">
-                        <div class="content">
-                            <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-10-23T10:30:03.000Z">2019-10-23</time>
-                            <a href="/data-structure/用栈实现队列-用队列实现栈.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">用栈实现队列/用队列实现栈</a>
-                            <div class="level article-meta is-mobile">
-                                <div class="level-left">
-                                    
-                                    <div class="level-item is-size-7 is-uppercase">
-                                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
-                                        <a class="has-link-grey -link" href="/categories/数据结构/">数据结构</a>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            
-                <article class="media">
-                    
-                    <div class="media-content">
-                        <div class="content">
-                            <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-10-17T10:20:48.000Z">2019-10-17</time>
-                            <a href="/database/redis/Redis的内存淘汰策略问题.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">Redis的内存淘汰策略问题</a>
-                            <div class="level article-meta is-mobile">
-                                <div class="level-left">
-                                    
-                                    <div class="level-item is-size-7 is-uppercase">
-                                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
-                                        <a class="has-link-grey -link" href="/categories/数据库/">数据库</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/数据库/redis/">redis</a>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            
-                <article class="media">
-                    
-                    <div class="media-content">
-                        <div class="content">
-                            <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-10-17T10:20:09.000Z">2019-10-17</time>
-                            <a href="/java/basic/原码补码异或与位运算移位知识点.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">原码补码异或与位运算移位知识点</a>
-                            <div class="level article-meta is-mobile">
-                                <div class="level-left">
-                                    
-                                    <div class="level-item is-size-7 is-uppercase">
-                                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
-                                        <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/java基础/">java基础</a>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            
-                <article class="media">
-                    
-                    <div class="media-content">
-                        <div class="content">
-                            <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-10-13T11:34:24.000Z">2019-10-13</time>
-                            <a href="/breaking-news/2019年国庆70周年阅兵完整图文解说.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">2019年国庆70周年阅兵完整图文解说(收藏!)</a>
-                            <div class="level article-meta is-mobile">
-                                <div class="level-left">
-                                    
-                                    <div class="level-item is-size-7 is-uppercase">
-                                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
-                                        <a class="has-link-grey -link" href="/categories/科普/">科普</a>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            
-                <article class="media">
-                    
-                    <div class="media-content">
-                        <div class="content">
-                            <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-10-10T12:06:34.000Z">2019-10-10</time>
-                            <a href="/law/中华人民共和国国旗法.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">中华人民共和国国旗法</a>
-                            <div class="level article-meta is-mobile">
-                                <div class="level-left">
-                                    
-                                    <div class="level-item is-size-7 is-uppercase">
-                                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
-                                        <a class="has-link-grey -link" href="/categories/法律/">法律</a>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            
-                <article class="media">
-                    
-                    <div class="media-content">
-                        <div class="content">
-                            <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-10-10T10:34:50.000Z">2019-10-10</time>
-                            <a href="/law/中华人民共和国宪法.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">中华人民共和国宪法</a>
-                            <div class="level article-meta is-mobile">
-                                <div class="level-left">
-                                    
-                                    <div class="level-item is-size-7 is-uppercase">
-                                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
-                                        <a class="has-link-grey -link" href="/categories/法律/">法律</a>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            
-                <article class="media">
-                    
-                    <div class="media-content">
-                        <div class="content">
-                            <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-09-30T10:04:09.000Z">2019-09-30</time>
-                            <a href="/java/frame/Spring-如何解决循环依赖.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">Spring 如何解决循环依赖</a>
-                            <div class="level article-meta is-mobile">
-                                <div class="level-left">
-                                    
-                                    <div class="level-item is-size-7 is-uppercase">
-                                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
-                                        <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/框架/">框架</a>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            
-                <article class="media">
-                    
-                    <div class="media-content">
-                        <div class="content">
-                            <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-09-27T10:28:26.000Z">2019-09-27</time>
-                            <a href="/java/frame/Spring-cloud-feign重试问题排查.html" class="title has-link-black-ter is-size-6 has-text-weight-normal">Spring cloud feign重试问题排查</a>
-                            <div class="level article-meta is-mobile">
-                                <div class="level-left">
-                                    
-                                    <div class="level-item is-size-7 is-uppercase">
-                                        <i class="fas fa-folder-open has-text-grey"></i>&nbsp;
-                                        <a class="has-link-grey -link" href="/categories/java/">java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/java/框架/">框架</a>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            
+                     <!-- 10 分钟 读完 (大约 1544 个字) -->
+                     (大约 1544 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    1<span id="busuanzi_value_page_pv">99+</span> 次查看
+                </span>
+                
             </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                springboot优雅的停止服务
+            
+        </h1>
+        <div class="content">
+            <p>在使用 SpringBoot 的时候，都要涉及到服务的停止和启动，当我们停止服务的时候，很多时候大家都是kill -9 直接把程序进程杀掉，这样程序不会执行优雅的关闭。而且一些没有执行完的程序就会直接退出。<br><a id="more"></a><br>我们很多时候都需要安全的将服务停止，也就是把没有处理完的工作继续处理完成。比如停止一些依赖的服务，输出一些日志，发一些信号给其他的应用系统，这个在保证系统的高可用是非常有必要的。那么咱么就来看一下几种停止 SpringBoot 的方法。</p>
+<h4 id="Springboot提供的actuator"><a href="#Springboot提供的actuator" class="headerlink" title="Springboot提供的actuator"></a>Springboot提供的actuator</h4><p>第一种就是Springboot提供的actuator的功能，它可以执行shutdown, health, info等，默认情况下，actuator的shutdown是disable的，我们需要打开它。首先引入acturator的maven依赖。</p>
+<figure class="highlight xml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span></span><br><span class="line">     <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span></span><br><span class="line">     <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后将shutdown节点打开，也将/actuator/shutdown暴露web访问也设置上，除了shutdown之外还有health, info的web访问都打开的话将management.endpoints.web.exposure.include=*就可以。将如下配置设置到application.properties里边。设置一下服务的端口号为3333。</p>
+<figure class="highlight yaml hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">server.port=3333</span></span><br><span class="line"><span class="hljs-string">management.endpoint.shutdown.enabled=true</span></span><br><span class="line"><span class="hljs-string">management.endpoints.web.exposure.include=shutdown</span></span><br></pre></td></tr></table></figure>
+<p>接下来，咱们创建一个springboot工程，然后设置一个bean对象，配置上PreDestroy方法。这样在停止的时候会打印语句。bean的整个生命周期分为创建、初始化、销毁，当最后关闭的时候会执行销毁操作。在销毁的方法中执行一条输出日志。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">package</span> com.hqs.springboot.shutdowndemo.bean;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> javax.annotation.PreDestroy;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> huangqingshi</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span> 2019-08-17</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TerminateBean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@PreDestroy</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">preDestroy</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="hljs-string">"TerminalBean is destroyed"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>做一个configuration，然后提供一个获取bean的方法，这样该bean对象会被初始化。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">package</span> com.hqs.springboot.shutdowndemo.config;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> com.hqs.springboot.shutdowndemo.bean.TerminateBean;</span><br><span class="line"><span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> huangqingshi</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span> 2019-08-17</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-meta">@Configuration</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShutDownConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Bean</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> TerminateBean <span class="hljs-title">getTerminateBean</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TerminateBean();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在启动类里边输出一个启动日志，当工程启动的时候，会看到启动的输出，接下来咱们执行停止命令。</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://localhost:3333/actuator/shutdown</span><br></pre></td></tr></table></figure>
+<p>以下日志可以输出启动时的日志打印和停止时的日志打印，同时程序已经停止。是不是比较神奇。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200112205153.png" alt=""></p>
+<h4 id="context-close"><a href="#context-close" class="headerlink" title="context.close"></a>context.close</h4><p>第二种方法也比较简单，获取程序启动时候的context，然后关闭主程序启动时的context。这样程序在关闭的时候也会调用PreDestroy注解。如下方法在程序启动十秒后进行关闭。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/* method 2: use ctx.close to shutdown all application context */</span></span><br><span class="line">        ConfigurableApplicationContext ctx = SpringApplication.run(ShutdowndemoApplication.class, args);</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            TimeUnit.SECONDS.sleep(<span class="hljs-number">10</span>);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ctx.close();</span><br></pre></td></tr></table></figure>
+<h4 id="springboot启动写入app-pid"><a href="#springboot启动写入app-pid" class="headerlink" title="springboot启动写入app.pid"></a>springboot启动写入app.pid</h4><p>第三种方法，在springboot启动的时候将进程号写入一个app.pid文件，生成的路径是可以指定的，可以通过命令 cat /Users/huangqingshi/app.id | xargs kill 命令直接停止服务，这个时候bean对象的PreDestroy方法也会调用的。这种方法大家使用的比较普遍。写一个start.sh用于启动springboot程序，然后写一个停止程序将服务停止。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/* method 3 : generate a pid in a specified path, while use command to shutdown pid :</span></span><br><span class="line"><span class="hljs-comment">            'cat /Users/huangqingshi/app.pid | xargs kill' */</span></span><br><span class="line">        SpringApplication application = <span class="hljs-keyword">new</span> SpringApplication(ShutdowndemoApplication.class);</span><br><span class="line">        application.addListeners(<span class="hljs-keyword">new</span> ApplicationPidFileWriter(<span class="hljs-string">"/Users/huangqingshi/app.pid"</span>));</span><br><span class="line">        application.run();</span><br></pre></td></tr></table></figure>
+<h4 id="SpringApplication-exit"><a href="#SpringApplication-exit" class="headerlink" title="SpringApplication.exit()"></a>SpringApplication.exit()</h4><p>第四种方法，通过调用一个SpringApplication.exit(）方法也可以退出程序，同时将生成一个退出码，这个退出码可以传递给所有的context。这个就是一个JVM的钩子，通过调用这个方法的话会把所有PreDestroy的方法执行并停止，并且传递给具体的退出码给所有Context。通过调用System.exit(exitCode)可以将这个错误码也传给JVM。程序执行完后最后会输出：Process finished with exit code 0，给JVM一个SIGNAL。</p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/* method 4: exit this application using static method */</span></span><br><span class="line">        ConfigurableApplicationContext ctx = SpringApplication.run(ShutdowndemoApplication.class, args);</span><br><span class="line">        <span class="hljs-keyword">this</span>.exitApplication(ctx);</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">exitApplication</span><span class="hljs-params">(ConfigurableApplicationContext context)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> exitCode = SpringApplication.exit(context, (ExitCodeGenerator) () -&gt; <span class="hljs-number">0</span>);</span><br><span class="line"></span><br><span class="line">        System.exit(exitCode);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200112205759.png" alt=""></p>
+<h4 id="Controller获取程序的context关闭"><a href="#Controller获取程序的context关闭" class="headerlink" title="Controller获取程序的context关闭"></a>Controller获取程序的context关闭</h4><p>第五种方法，自己写一个Controller，然后将自己写好的Controller获取到程序的context，然后调用自己配置的Controller方法退出程序。通过调用自己写的/shutDownContext方法关闭程序：curl -X POST <a href="http://localhost:3333/shutDownContext。" target="_blank" rel="noopener">http://localhost:3333/shutDownContext。</a></p>
+<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">package</span> com.hqs.springboot.shutdowndemo.controller;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> org.springframework.beans.BeansException;</span><br><span class="line"><span class="hljs-keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="hljs-keyword">import</span> org.springframework.context.ApplicationContextAware;</span><br><span class="line"><span class="hljs-keyword">import</span> org.springframework.context.ConfigurableApplicationContext;</span><br><span class="line"><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.PostMapping;</span><br><span class="line"><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> huangqingshi</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span> 2019-08-17</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-meta">@RestController</span></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShutDownController</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ApplicationContextAware</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">private</span> ApplicationContext context;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@PostMapping</span>(<span class="hljs-string">"/shutDownContext"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">shutDownContext</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        ConfigurableApplicationContext ctx = (ConfigurableApplicationContext) context;</span><br><span class="line">        ctx.close();</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-string">"context is shutdown"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@GetMapping</span>(<span class="hljs-string">"/"</span>)</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getIndex</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-string">"OK"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-meta">@Override</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setApplicationContext</span><span class="hljs-params">(ApplicationContext applicationContext)</span> <span class="hljs-keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">        context = applicationContext;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好了，springboot的优雅关闭方法也都实现好了，也有同学问，如何暴力停止呢，简单，直接kill -9 相应的PID即可。</p>
+<h4 id="总结一下："><a href="#总结一下：" class="headerlink" title="总结一下："></a>总结一下：</h4><p>以上这几种方法实现的话比较简单，但是真实工作中还需要考虑的点还很多，比如需要保护暴露的点不被别人利用，一般要加一些防火墙，或者只在内网使用，保证程序安全。</p>
+<p>在真实的工作中的时候第三种比较常用，程序中一般使用内存队列或线程池的时候最好要优雅的关机，将内存队列没有处理的保存起来或线程池中没处理完的程序处理完。但是因为停机的时候比较快，所以停服务的时候最好不要处理大量的数据操作，这样会影响程序停止。</p>
+<p>参考文章:<br><a href="https://mp.weixin.qq.com/s/T7L_f4v6kWw8KwYepA4ehw" target="_blank" rel="noopener">参考链接1</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <i class="fas fa-tags has-text-grey"></i>&nbsp;&nbsp;
+                    <a class="has-link-grey -link" href="/tags/springboot/">springboot</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- 部分参考自https://www.alphalxy.com/2019/03/customize-icarus/ -->
+        
+            <ul class="post-copyright">
+            <li><strong>本文标题：</strong><a href="https://removeif.github.io/java/frame/springboot优雅的停止服务.html">springboot优雅的停止服务</a></li>
+            <li><strong>本文作者：</strong><a href="https://removeif.github.io">辣椒の酱</a></li>
+            <li><strong>本文链接：</strong><a href="https://removeif.github.io/java/frame/springboot优雅的停止服务.html">https://removeif.github.io/java/frame/springboot优雅的停止服务.html</a></li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+            </li>
+            </ul>
+            <br>
+            <span class="is-size-6 has-text-grey has-mr-7">#&nbsp;本站推荐文章</span>
+<br>
+
+    &nbsp;1.<a href="/theme/博客源码分享.html" class="is-size-6" target="_blank">博客源码分享</a><br>
+
+    &nbsp;2.<a href="/breaking-news/2019年国庆70周年阅兵完整图文解说.html" class="is-size-6" target="_blank">2019年国庆70周年阅兵完整图文解说(收藏!)</a><br>
+
+    &nbsp;3.<a href="/theme/博客中gitalk最新评论的获取.html" class="is-size-6" target="_blank">博客中gitalk最新评论的获取</a><br>
+
+    &nbsp;4.<a href="/law/中华人民共和国刑事诉讼法.html" class="is-size-6" target="_blank">中华人民共和国刑事诉讼法</a><br>
+
+    &nbsp;5.<a href="/java/frame/springboot优雅的停止服务.html" class="is-size-6" target="_blank">springboot优雅的停止服务</a><br>
+
+            <br>
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
         
     </div>
 </div>
 
 
 
-    
-<div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/archives/2019/page/2/">上一页</a>
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190802135456.png" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190802135550.png" alt="微信"></div>
+</a>
+
+                
         </div>
-        <div class="pagination-next">
-            <a class="is-flex-grow has-text-black-ter" href="/archives/2019/page/4/">下一页</a>
-        </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link has-text-black-ter" href="/archives/2019/">1</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/archives/2019/page/2/">2</a></li>
-            
-            <li><a class="pagination-link is-current" href="/archives/2019/page/3/">3</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/archives/2019/page/4/">4</a></li>
-            
-            <li><span class="pagination-ellipsis has-text-black-ter">&hellip;</span></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/archives/2019/page/7/">7</a></li>
-            
-        </ul>
-    </nav>
+    </div>
 </div>
 
-<br>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/algorithm/算法成长之路leetcode17-18.html">
+                <span class="level-item">算法成长之路leetcode17-18</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+    <br>
 <div class="card widget">
     <div class="card-content">
     <div class="g-ads-x">
@@ -460,90 +385,39 @@ var _hmt = _hmt || [];
     </div>
 </div>
 
+    <div class="card">
+        <div class="card-content">
+            
+                <h3 class="title is-5 has-text-weight-normal">评论</h3>
+                
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.6/js/gitalk.comment.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '46a9f3481b46ea0129d8',
+        clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+        id: '5abf45e81e3ac85921f3be2ef4cef329',
+        repo: 'blog_comment',
+        owner: 'removeif',
+        admin: "removeif",
+        createIssueManually: true,
+        distractionFreeMode: false,
+        isLocked:false
+    })
+    gitalk.render('comment-container')
+</script>
 
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.6/js/echarts.min.js"></script>
-    <script type="text/javascript">
-        let myChart = echarts.init(document.getElementById('post-calendar'));
-
-        
-
-        let option = {
-            title: {
-                top: 0,
-                text: '文章贡献',
-                left: '45%',
-                textStyle: {
-                    color: '#3C4858'
-                }
-            },
-            tooltip: {
-                padding: 10,
-                backgroundColor: '#555',
-                borderColor: '#777',
-                borderWidth: 1,
-                formatter: function (obj) {
-                    var value = obj.value;
-                    return '<div style="font-size: 14px;">' + value[0] + '：' + value[1] + '</div>';
-                }
-            },
-            visualMap: {
-                show: true,
-                showLabel: true,
-                categories: [0, 1, 2, 3, 4],
-                calculable: true,
-                inRange: {
-                    symbol: 'rect',
-                    color: ['#ebedf0', '#c6e48b', '#7bc96f', '#239a3b', '#196127']
-                },
-                itemWidth: 12,
-                itemHeight: 12,
-                orient: 'horizontal',
-                left: '38%',
-                bottom: 0
-            },
-            calendar: [{
-                left: 'center',
-                range: ["2019-05-12", "2020-01-12"],
-                cellSize: [13, 13],
-                splitLine: {
-                    show: false
-                },
-                itemStyle: {
-                    borderColor: '#fff',
-                    color: '#196127',
-                    borderWidth: 2
-                },
-                yearLabel: {
-                    show: false
-                },
-                monthLabel: {
-                    nameMap: 'cn',
-                    fontSize: 11
-                },
-                dayLabel: {
-                    formatter: '{start}  1st',
-                    nameMap: 'cn',
-                    fontSize: 11
-                }
-            }],
-            series: [{
-                type: 'heatmap',
-                coordinateSystem: 'calendar',
-                calendarIndex: 0,
-                data: [["2019-05-12", 0], ["2019-05-13", 0], ["2019-05-14", 0], ["2019-05-15", 0], ["2019-05-16", 0], ["2019-05-17", 0], ["2019-05-18", 0], ["2019-05-19", 0], ["2019-05-20", 0], ["2019-05-21", 0], ["2019-05-22", 0], ["2019-05-23", 0], ["2019-05-24", 0], ["2019-05-25", 0], ["2019-05-26", 0], ["2019-05-27", 0], ["2019-05-28", 0], ["2019-05-29", 0], ["2019-05-30", 0], ["2019-05-31", 1], ["2019-06-01", 0], ["2019-06-02", 0], ["2019-06-03", 0], ["2019-06-04", 1], ["2019-06-05", 0], ["2019-06-06", 0], ["2019-06-07", 0], ["2019-06-08", 0], ["2019-06-09", 0], ["2019-06-10", 0], ["2019-06-11", 0], ["2019-06-12", 0], ["2019-06-13", 1], ["2019-06-14", 0], ["2019-06-15", 0], ["2019-06-16", 0], ["2019-06-17", 0], ["2019-06-18", 0], ["2019-06-19", 0], ["2019-06-20", 1], ["2019-06-21", 0], ["2019-06-22", 0], ["2019-06-23", 0], ["2019-06-24", 0], ["2019-06-25", 1], ["2019-06-26", 0], ["2019-06-27", 0], ["2019-06-28", 0], ["2019-06-29", 0], ["2019-06-30", 0], ["2019-07-01", 0], ["2019-07-02", 0], ["2019-07-03", 1], ["2019-07-04", 0], ["2019-07-05", 1], ["2019-07-06", 0], ["2019-07-07", 0], ["2019-07-08", 0], ["2019-07-09", 0], ["2019-07-10", 0], ["2019-07-11", 0], ["2019-07-12", 0], ["2019-07-13", 0], ["2019-07-14", 0], ["2019-07-15", 0], ["2019-07-16", 0], ["2019-07-17", 0], ["2019-07-18", 0], ["2019-07-19", 1], ["2019-07-20", 0], ["2019-07-21", 0], ["2019-07-22", 0], ["2019-07-23", 0], ["2019-07-24", 1], ["2019-07-25", 0], ["2019-07-26", 0], ["2019-07-27", 0], ["2019-07-28", 0], ["2019-07-29", 0], ["2019-07-30", 0], ["2019-07-31", 0], ["2019-08-01", 0], ["2019-08-02", 0], ["2019-08-03", 0], ["2019-08-04", 0], ["2019-08-05", 0], ["2019-08-06", 0], ["2019-08-07", 1], ["2019-08-08", 1], ["2019-08-09", 0], ["2019-08-10", 0], ["2019-08-11", 0], ["2019-08-12", 0], ["2019-08-13", 0], ["2019-08-14", 0], ["2019-08-15", 0], ["2019-08-16", 1], ["2019-08-17", 0], ["2019-08-18", 0], ["2019-08-19", 0], ["2019-08-20", 0], ["2019-08-21", 5], ["2019-08-22", 1], ["2019-08-23", 1], ["2019-08-24", 0], ["2019-08-25", 0], ["2019-08-26", 0], ["2019-08-27", 0], ["2019-08-28", 1], ["2019-08-29", 0], ["2019-08-30", 0], ["2019-08-31", 0], ["2019-09-01", 0], ["2019-09-02", 0], ["2019-09-03", 0], ["2019-09-04", 0], ["2019-09-05", 1], ["2019-09-06", 0], ["2019-09-07", 0], ["2019-09-08", 0], ["2019-09-09", 0], ["2019-09-10", 0], ["2019-09-11", 1], ["2019-09-12", 0], ["2019-09-13", 1], ["2019-09-14", 0], ["2019-09-15", 0], ["2019-09-16", 0], ["2019-09-17", 1], ["2019-09-18", 0], ["2019-09-19", 1], ["2019-09-20", 0], ["2019-09-21", 0], ["2019-09-22", 0], ["2019-09-23", 1], ["2019-09-24", 0], ["2019-09-25", 1], ["2019-09-26", 0], ["2019-09-27", 1], ["2019-09-28", 0], ["2019-09-29", 0], ["2019-09-30", 1], ["2019-10-01", 0], ["2019-10-02", 0], ["2019-10-03", 0], ["2019-10-04", 0], ["2019-10-05", 0], ["2019-10-06", 0], ["2019-10-07", 0], ["2019-10-08", 0], ["2019-10-09", 0], ["2019-10-10", 2], ["2019-10-11", 0], ["2019-10-12", 0], ["2019-10-13", 1], ["2019-10-14", 0], ["2019-10-15", 0], ["2019-10-16", 0], ["2019-10-17", 2], ["2019-10-18", 0], ["2019-10-19", 0], ["2019-10-20", 0], ["2019-10-21", 0], ["2019-10-22", 0], ["2019-10-23", 2], ["2019-10-24", 0], ["2019-10-25", 0], ["2019-10-26", 0], ["2019-10-27", 0], ["2019-10-28", 0], ["2019-10-29", 0], ["2019-10-30", 1], ["2019-10-31", 0], ["2019-11-01", 0], ["2019-11-02", 0], ["2019-11-03", 0], ["2019-11-04", 0], ["2019-11-05", 1], ["2019-11-06", 0], ["2019-11-07", 0], ["2019-11-08", 0], ["2019-11-09", 0], ["2019-11-10", 1], ["2019-11-11", 0], ["2019-11-12", 0], ["2019-11-13", 0], ["2019-11-14", 0], ["2019-11-15", 0], ["2019-11-16", 0], ["2019-11-17", 0], ["2019-11-18", 1], ["2019-11-19", 0], ["2019-11-20", 0], ["2019-11-21", 0], ["2019-11-22", 0], ["2019-11-23", 1], ["2019-11-24", 0], ["2019-11-25", 0], ["2019-11-26", 0], ["2019-11-27", 0], ["2019-11-28", 1], ["2019-11-29", 0], ["2019-11-30", 0], ["2019-12-01", 0], ["2019-12-02", 0], ["2019-12-03", 1], ["2019-12-04", 0], ["2019-12-05", 1], ["2019-12-06", 0], ["2019-12-07", 0], ["2019-12-08", 0], ["2019-12-09", 0], ["2019-12-10", 2], ["2019-12-11", 0], ["2019-12-12", 0], ["2019-12-13", 0], ["2019-12-14", 2], ["2019-12-15", 0], ["2019-12-16", 1], ["2019-12-17", 1], ["2019-12-18", 0], ["2019-12-19", 0], ["2019-12-20", 0], ["2019-12-21", 1], ["2019-12-22", 1], ["2019-12-23", 0], ["2019-12-24", 1], ["2019-12-25", 0], ["2019-12-26", 2], ["2019-12-27", 0], ["2019-12-28", 0], ["2019-12-29", 0], ["2019-12-30", 0], ["2019-12-31", 2], ["2020-01-01", 1], ["2020-01-02", 0], ["2020-01-03", 0], ["2020-01-04", 1], ["2020-01-05", 0], ["2020-01-06", 0], ["2020-01-07", 0], ["2020-01-08", 1], ["2020-01-09", 0], ["2020-01-10", 0], ["2020-01-11", 0], ["2020-01-12", 1]]
-            }]
-
-        };
-
-        myChart.setOption(option);
-    </script></div>
+            
+        </div>
+    </div>
+</div>
                 
 
 
 
 
-<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left is-sticky">
     
         
 <div class="card widget">
@@ -666,27 +540,56 @@ var _hmt = _hmt || [];
 </div>
     
         
+
+    <div class="card widget toc-scroll" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#Springboot提供的actuator">
+        <span class="has-mr-6">1</span>
+        <span>Springboot提供的actuator</span>
+        </a></li><li>
+        <a class="is-flex" href="#context-close">
+        <span class="has-mr-6">2</span>
+        <span>context.close</span>
+        </a></li><li>
+        <a class="is-flex" href="#springboot启动写入app-pid">
+        <span class="has-mr-6">3</span>
+        <span>springboot启动写入app.pid</span>
+        </a></li><li>
+        <a class="is-flex" href="#SpringApplication-exit">
+        <span class="has-mr-6">4</span>
+        <span>SpringApplication.exit()</span>
+        </a></li><li>
+        <a class="is-flex" href="#Controller获取程序的context关闭">
+        <span class="has-mr-6">5</span>
+        <span>Controller获取程序的context关闭</span>
+        </a></li><li>
+        <a class="is-flex" href="#总结一下：">
+        <span class="has-mr-6">6</span>
+        <span>总结一下：</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
     
     
-</div>
-
-                
-                
-
-
-
-
-<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-3 column-right ">
     
+        <div class="column-right-shadow  ">
         
+            
     <div class="card widget">
         <div class="card-content">
         <h3 class="menu-label">最新评论</h3><span class="menu-label1" id="body_hot_comment">加载中，最新评论有1分钟延迟...<span>
         </div>
     </div>
 
-    
-        <div class="card widget">
+        
+            <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
             最新文章
@@ -764,8 +667,8 @@ var _hmt = _hmt || [];
         
     </div>
 </div>
-    
-        <div class="card widget">
+        
+            <div class="card widget">
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
@@ -832,8 +735,8 @@ var _hmt = _hmt || [];
         </div>
     </div>
 </div>
-    
-        <div class="card widget">
+        
+            <div class="card widget">
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
@@ -985,8 +888,8 @@ var _hmt = _hmt || [];
         </div>
     </div>
 </div>
-    
-        <div class="card widget">
+        
+            <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
             标签云
@@ -994,8 +897,8 @@ var _hmt = _hmt || [];
         <a href="/tags/最长回文/" style="font-size: 11.67px;">最长回文</a>&nbsp; <a href="/tags/Z字变换/" style="font-size: 11.67px;">Z字变换</a>&nbsp; <a href="/tags/数据结构/" style="font-size: 11.67px;">数据结构</a>&nbsp; <a href="/tags/ios/" style="font-size: 11.67px;">ios</a>&nbsp; <a href="/tags/nfc/" style="font-size: 11.67px;">nfc</a>&nbsp; <a href="/tags/health/" style="font-size: 11.67px;">health</a>&nbsp; <a href="/tags/marathon/" style="font-size: 11.67px;">marathon</a>&nbsp; <a href="/tags/Effective-Java/" style="font-size: 11.67px;">Effective-Java</a>&nbsp; <a href="/tags/读书笔记/" style="font-size: 11.67px;">读书笔记</a>&nbsp; <a href="/tags/python3基础/" style="font-size: 11.67px;">python3基础</a>&nbsp; <a href="/tags/博客统计插件/" style="font-size: 11.67px;">博客统计插件</a>&nbsp; <a href="/tags/分治算法/" style="font-size: 11.67px;">分治算法</a>&nbsp; <a href="/tags/字符串/" style="font-size: 11.67px;">字符串</a>&nbsp; <a href="/tags/滑动窗口/" style="font-size: 11.67px;">滑动窗口</a>&nbsp; <a href="/tags/分治/" style="font-size: 11.67px;">分治</a>&nbsp; <a href="/tags/反转整数/" style="font-size: 11.67px;">反转整数</a>&nbsp; <a href="/tags/字符串转整数/" style="font-size: 11.67px;">字符串转整数</a>&nbsp; <a href="/tags/递归回溯/" style="font-size: 11.67px;">递归回溯</a>&nbsp; <a href="/tags/最优解/" style="font-size: 11.67px;">最优解</a>&nbsp; <a href="/tags/debug/" style="font-size: 11.67px;">debug</a>&nbsp; <a href="/tags/调试代码/" style="font-size: 11.67px;">调试代码</a>&nbsp; <a href="/tags/经验成长/" style="font-size: 11.67px;">经验成长</a>&nbsp; <a href="/tags/西安/" style="font-size: 11.67px;">西安</a>&nbsp; <a href="/tags/长安/" style="font-size: 11.67px;">长安</a>&nbsp; <a href="/tags/旅行/" style="font-size: 11.67px;">旅行</a>&nbsp; <a href="/tags/幂等性/" style="font-size: 11.67px;">幂等性</a>&nbsp; <a href="/tags/restful-api/" style="font-size: 11.67px;">restful-api</a>&nbsp; <a href="/tags/前端技术/" style="font-size: 11.67px;">前端技术</a>&nbsp; <a href="/tags/sql/" style="font-size: 11.67px;">sql</a>&nbsp; <a href="/tags/docker/" style="font-size: 11.67px;">docker</a>&nbsp; <a href="/tags/query/" style="font-size: 11.67px;">query</a>&nbsp; <a href="/tags/feign/" style="font-size: 11.67px;">feign</a>&nbsp; <a href="/tags/spring-cloud/" style="font-size: 11.67px;">spring cloud</a>&nbsp; <a href="/tags/中心扩展/" style="font-size: 11.67px;">中心扩展</a>&nbsp; <a href="/tags/vim/" style="font-size: 11.67px;">vim</a>&nbsp; <a href="/tags/hash冲突/" style="font-size: 11.67px;">hash冲突</a>&nbsp; <a href="/tags/rehash/" style="font-size: 11.67px;">rehash</a>&nbsp; <a href="/tags/索引/" style="font-size: 11.67px;">索引</a>&nbsp; <a href="/tags/spring/" style="font-size: 11.67px;">spring</a>&nbsp; <a href="/tags/b-tree/" style="font-size: 11.67px;">b+tree</a>&nbsp;
     </div>
 </div>
-    
-        <div class="card widget">
+        
+            <div class="card widget">
     <div class="card-content">
     <div class="g-ads-y">
         <div class="menu">
@@ -1021,6 +924,8 @@ var _hmt = _hmt || [];
 
 
 
+        
+        </div>
     
     
 </div>
@@ -1035,7 +940,7 @@ var _hmt = _hmt || [];
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="辣椒の酱" height="28">
+                    <img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191121122803.png" alt="springboot优雅的停止服务" height="28">
                 
                 </a>
                 <p class="is-size-7">
