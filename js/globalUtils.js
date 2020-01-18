@@ -1,1 +1,115 @@
-eval(function(p,a,c,k,e,r){e=function(c){return(c<62?'':e(parseInt(c/62)))+((c=c%62)>35?String.fromCharCode(c+29):c.toString(36))};if('0'.replace(0,e)==0){while(c--)r[e(c)]=k[c];k=[function(e){return r[e]||e}];e=function(){return'([5689acfgijlprt-xzA-LN-RT-Z]|1\\w)'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('Y.E.setExpire=(t,Z,A)=>{F 10={11:Z,12:9.u(),A:A};G.setItem(t,13.stringify(10))};Y.E.getExpire=t=>{F a=G.getItem(t);6(!a){8 a}a=13.parse(a);6(9.u()-a.12>a.A){G.removeItem(t);8 null}8 a.11};9.E.Format=H(c){5 o={"M+":f.14()+1,"d+":f.getDate(),"h+":f.I(),"m+":f.J(),"s+":f.getSeconds(),"q+":Math.floor((f.14()+3)/3),"S":f.getMilliseconds()};6(/(y+)/.16(c))c=c.17(v.$1,(f.getFullYear()+"").18(4-v.$1.j));for(5 k in o)6(l v("("+k+")").16(c))c=c.17(v.$1,(v.$1.j==1)?(o[k]):(("00"+o[k]).18((""+o[k]).j)));8 c};H getDateDiff(19){5 K=1a*B;5 L=K*B;5 w=L*24;5 halfamonth=w*15;5 1b=w*30;5 u=l 9().p();5 g=u-19;6(g<0){8}5 N=g/1b;5 O=g/(7*w);5 P=g/w;5 Q=g/L;5 R=g/K;6(N>=1){i=" "+x(N)+"月前"}r 6(O>=1){i=" "+x(O)+"周前"}r 6(P>=1){i=" "+x(P)+"天前"}r 6(Q>=1){i=" "+x(Q)+"小时前"}r 6(R>=1){i=" "+x(R)+"分钟前"}r i=" 刚刚";8 i};5 expireTime1H=1a*B*B;H isNightRange(1c,1d){F T=l 9();5 1e=T.I()+":"+T.J();5 C=1c.U(":");6(C.j!=2){8 D}5 z=1d.U(":");6(z.j!=2){8 D}5 V=1e.U(":");6(z.j!=2){8 D}5 b=l 9();5 e=l 9();5 n=l 9();b.W(C[0]);b.X(C[1]);e.W(z[0]);e.X(z[1]);n.W(V[0]);n.X(V[1]);1f.1g(n.p());6(n.p()-b.p()>0&&n.p()-e.p()<0){8 true}r{1f.1g("u 9 is："+n.I()+":"+n.J()+"，is not Night！");8 D}};',[],79,'|||||var|if||return|Date|val||fmt|||this|diffValue||result|length||new||||getTime||else||key|now|RegExp|day|parseInt||stre|expire|60|strb|false|prototype|let|localStorage|function|getHours|getMinutes|minute|hour||monthC|weekC|dayC|hourC|minC||nowDate|split|strn|setHours|setMinutes|Storage|value|obj|data|time|JSON|getMonth||test|replace|substr|dateTimeStamp|1000|month|beginTime|endTime|nowTime|console|log'.split('|'),0,{}))
+// author by removef
+// https://removeif.github.io/
+Storage.prototype.setExpire = (key, value, expire) => {
+    let obj = {
+        data: value,
+        time: Date.now(),
+        expire: expire
+    };
+    localStorage.setItem(key, JSON.stringify(obj));
+}
+
+Storage.prototype.getExpire = key => {
+    let val = localStorage.getItem(key);
+    if (!val) {
+        return val;
+    }
+    val = JSON.parse(val);
+    if (Date.now() - val.time > val.expire) {
+        localStorage.removeItem(key);
+        return null;
+    }
+    return val.data;
+}
+
+Date.prototype.Format = function (fmt) { //author: meizz
+    var o = {
+        "M+": this.getMonth() + 1,                 //月份
+        "d+": this.getDate(),                    //日
+        "h+": this.getHours(),                   //小时
+        "m+": this.getMinutes(),                 //分
+        "s+": this.getSeconds(),                 //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds()             //毫秒
+    };
+    if (/(y+)/.test(fmt))
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt))
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+
+function getDateDiff(dateTimeStamp) {
+    var minute = 1000 * 60;
+    var hour = minute * 60;
+    var day = hour * 24;
+    var halfamonth = day * 15;
+    var month = day * 30;
+    var now = new Date().getTime();
+    var diffValue = now - dateTimeStamp;
+    if (diffValue < 0) {
+        return;
+    }
+    var monthC = diffValue / month;
+    var weekC = diffValue / (7 * day);
+    var dayC = diffValue / day;
+    var hourC = diffValue / hour;
+    var minC = diffValue / minute;
+    if (monthC >= 1) {
+        result = " " + parseInt(monthC) + "月前";
+    }
+    else if (weekC >= 1) {
+        result = " " + parseInt(weekC) + "周前";
+    }
+    else if (dayC >= 1) {
+        result = " " + parseInt(dayC) + "天前";
+    }
+    else if (hourC >= 1) {
+        result = " " + parseInt(hourC) + "小时前";
+    }
+    else if (minC >= 1) {
+        result = " " + parseInt(minC) + "分钟前";
+    } else
+        result = " 刚刚";
+    return result;
+}
+
+var expireTime1H = 1000 * 60 * 60; // 1小时过期
+function isNightRange(beginTime, endTime) {
+    let nowDate = new Date();
+    var nowTime = nowDate.getHours() + ":" + nowDate.getMinutes();
+    var strb = beginTime.split(":");
+    if (strb.length != 2) {
+        return false;
+    }
+
+    var stre = endTime.split(":");
+    if (stre.length != 2) {
+        return false;
+    }
+
+    var strn = nowTime.split(":");
+    if (stre.length != 2) {
+        return false;
+    }
+
+    var b = new Date();
+    var e = new Date();
+    var n = new Date();
+
+    b.setHours(strb[0]);
+    b.setMinutes(strb[1]);
+    e.setHours(stre[0]);
+    e.setMinutes(stre[1]);
+    n.setHours(strn[0]);
+    n.setMinutes(strn[1]);
+
+    console.log(n.getTime());
+    if (n.getTime() - b.getTime() > 0 && n.getTime() - e.getTime() < 0) {
+        return true;
+    } else {
+        console.log("now Date is：" + n.getHours() + ":" + n.getMinutes() + "，is not Night！");
+        return false;
+    }
+}

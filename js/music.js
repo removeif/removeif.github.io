@@ -1,1 +1,94 @@
-eval(function(p,a,c,k,e,r){e=function(c){return(c<62?'':e(parseInt(c/62)))+((c=c%62)>35?String.fromCharCode(c+29):c.toString(36))};if('0'.replace(0,e)==0){while(c--)r[e(c)]=k[c];k=[function(e){return r[e]||e}];e=function(){return'([25689a-df-hj-zA-Z]|1\\w)'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('2 f;2 9;$.A("B://C.D.E/F/G/H/I/3/J?K=L&M=N&O=P",c(n){2 5=[];2 g;g=n;g.Q();$.R(g,c(i,e){5.S(...T.U(e.V))});9=5;W(2 i=0;i<9.o;i++){9[i].X=t;2 $6=$(\'<6><Y>\'+9[i].title+\'</Y>&h;&h;&h;&h;时长：\'+9[i].time+\'&h;&h;&h;&h; 歌手：\'+9[i].author+\'</6>\');$6.Z(\'8\',i);$6.a(\'k-style-type\',\'10\');$6.a(\'height\',\'40px\');$6.a(\'d\',\'#m\');$6.11(c(12){2 8=u(v.8);p(9[8]);$(\'#j #\'+f).a(\'d\',\'#m\');$(v).a(\'d\',\'#q\');f=8;13.14()});2 $j=$(\'#j\');$j.w($6)}2 b=15.floor(15.random()*9.o);$(\'#j #\'+b).a(\'d\',\'#q\');f=b;p(9[b])});c p(5,playendcallback){mePlayer({16:\'default\',17:5,target:\'.17\',18:t},c(){2 b;b=f+1;if(b>=9.o){b=0}p(9[b]);$(\'#j #\'+f).a(\'d\',\'#m\');$(\'#j #\'+b).a(\'d\',\'#q\');f=b;13.14()});2 x=5.r;if(x==undefined){$(\'#r\').1a("")}else{$(\'#r\').1a("<s>"+x+"</s>")}}2 y;$.A("B://C.D.E/F/G/H/I/4/J?K=L&M=N&O=P",c(n){2 5=[];2 g;g=n;g.Q();$.R(g,c(i,e){5.S(...T.U(e.V))});$(\'#l-k\').w("");W(2 i=0;i<5.o;i++){2 $6=$("<s>"+(i+1)+"."+5[i].r+"</s>");$6.Z(\'8\',i);$6.11(c(12){2 8=u(v.8);1b(5[8],8);$(\'#l-k #\'+y).a(\'d\',\'#m\');y=8});$(\'#l-k\').w($6)}});c 1b(5,8){new DPlayer({container:document.getElementById(\'dplayer\'),18:1c,16:\'#42b983\',X:\'t\'===\'1c\',lang:\'z-CN\'===\'z-CN\'?\'z-cn\':\'en\',preload:\'10\',volume:u(\'0.7\'),l:{1e:5[\'1e\'],pic:\'\',thumbnails:\'\'}});$(\'#l-k #\'+f).a(\'d\',\'#m\');$(\'#l-k #\'+8).a(\'d\',\'#q\')}',[],77,'||var|||data|li||id|musicJsons|css|index|function|color||lastIndex|source1|nbsp||musiclist|list|video|888888|source|length|playMusic|3273dc|desc|blockquote|false|Number|this|append|descr|lastVideoIndex|zh|getJSON|https|api|github|com|repos|removeif|issue_database|issues|comments|per_page|100|client_id|46a9f3481b46ea0129d8|client_secret|79c7c9cb847e141757d7864453bcbf89f0655b24|reverse|each|push|JSON|parse|body|for|loop|span|attr|none|click|event|mePlayerMethod|play|Math|theme|music|autoplay||html|playVideo|true||url'.split('|'),0,{}))
+// author by removef
+// https://removeif.github.io/
+// 音乐处理
+var lastIndex;
+var musicJsons;
+$.getJSON("../json_data/music.json", function (data) {
+    musicJsons = data;
+    for (var i = 0; i < musicJsons.length; i++) {
+        musicJsons[i].loop = false;
+        var $li = $('<li><span>' + musicJsons[i].title + '</span>&nbsp;&nbsp;&nbsp;&nbsp;时长：' + musicJsons[i].time + '&nbsp;&nbsp;&nbsp;&nbsp; 歌手：' + musicJsons[i].author + '</li>');
+        $li.attr('id', i);
+        $li.css('list-style-type', 'none');
+        $li.css('height', '40px');
+        $li.css('color', '#888888');
+        $li.click(function (event) {
+            var id = Number(this.id);
+            playMusic(musicJsons[id]);
+            $('#musiclist #' + lastIndex).css('color', '#888888');
+            $(this).css('color', '#3273dc');
+            lastIndex = id;
+            mePlayerMethod.play();
+        });
+        var $musiclist = $('#musiclist');
+        $musiclist.append($li);
+    }
+
+    var index = Math.floor(Math.random() * musicJsons.length);
+    $('#musiclist #' + index).css('color', '#3273dc');
+    lastIndex = index;
+    playMusic(musicJsons[index]);
+});
+
+function playMusic(data, playendcallback) {
+    mePlayer({
+        theme: 'default',
+        music: data,
+        target: '.music',
+        autoplay: false
+    }, function () {
+        var index;
+        index = lastIndex + 1;
+        if (index >= musicJsons.length) {
+            index = 0;
+        }
+        playMusic(musicJsons[index]);
+        $('#musiclist #' + lastIndex).css('color', '#888888');
+        $('#musiclist #' + index).css('color', '#3273dc');
+        lastIndex = index;
+        mePlayerMethod.play();
+    });
+    var descr = data.desc;
+    if (descr == undefined) {
+        $('#desc').html("");
+    } else {
+        $('#desc').html("<blockquote>" + descr + "</blockquote>");
+    }
+}
+
+// 视频处理
+var lastVideoIndex;
+$.getJSON("../json_data/video.json", function (data) {
+    $('#video-list').append("");
+    for (var i = 0; i < data.length; i++) {
+        var $li = $("<blockquote>"+(i+1)+"." + data[i].desc + "</blockquote>");
+        $li.attr('id', i);
+        $li.click(function (event) {
+            var id = Number(this.id);
+            playVideo(data[id],id);
+            $('#video-list #' + lastVideoIndex).css('color', '#888888');
+            lastVideoIndex = id;
+        });
+        $('#video-list').append($li);
+    }
+
+});
+
+function playVideo(data,id) {
+    new DPlayer({
+        container: document.getElementById('dplayer'),
+        autoplay: true,
+        theme: '#42b983',
+        loop: 'false' === 'true',
+        lang: 'zh-CN' === 'zh-CN' ? 'zh-cn' : 'en',
+        preload: 'none',
+        volume: Number('0.7'),
+        video: {
+            url: data['url'],
+            pic: '',
+            thumbnails: ''
+        }
+    });
+    $('#video-list #' + lastIndex).css('color', '#888888');
+    $('#video-list #' + id).css('color', '#3273dc');
+}

@@ -1,1 +1,62 @@
-eval(function(p,a,c,k,e,r){e=function(c){return c.toString(36)};if('0'.replace(0,e)==0){while(c--)r[e(c)]=k[c];k=[function(e){return r[e]||e}];e=function(){return'[0-9a-fh-r]'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('d 0=e.getExpire(\'5\');3(0==null||0==undefined){3(m("19:9","23:59")||m("9:9","07:9")){0=\'f\'}6{0=\'h\'}e.n("5",0,o)}d a;d 1;i j(p){3(p==\'f\'){7.k.2+=\' 5\';3(1){1.2=1.2.8(/ 4-b/g,\'\')+\' 4-c\'}}6{7.k.2=7.k.2.8(/ 5/g,\'\');3(1){1.2=1.2.8(/ 4-c/g,\'\')+\' 4-b\'}}}i l(){a=7.q(\'5-nav\');1=7.q(\'5-icon\');3(!a||!1){setTimeout(l,100)}6{a.addEventListener(\'click\',r);3(0){1.2=1.2.8(/ 4-b/g,\'\')+\' 4-c\'}6{1.2=1.2.8(/ 4-c/g,\'\')+\' 4-b\'}}}i r(){3(0==\'h\'){0=\'f\'}6{0=\'h\'}j(0);e.n(\'5\',0,o)}l();j(0);',[],28,'isNight|nightIcon|className|if|fa|night|else|document|replace|00|nightNav|moon|lightbulb|var|localStorage|true||false|function|applyNight|body|findNightIcon|isNightRange|setExpire|expireTime1H|value|getElementById|switchNight'.split('|'),0,{}))
+// author by removef
+// https://removeif.github.io/
+
+var isNight = localStorage.getExpire('night');
+
+// 第一次进来判断是白天还是晚上
+if (isNight == null || isNight == undefined) {
+    if (isNightRange("19:00", "23:59") || isNightRange("00:00", "07:00")) {
+        isNight = 'true';
+    } else {
+        isNight = 'false';
+    }
+    localStorage.setExpire("night", isNight, expireTime1H);
+}
+
+// 参考自 https://www.imaegoo.com/
+var nightNav;
+var nightIcon;
+
+function applyNight(value) {
+    if (value == 'true') {
+        document.body.className += ' night'
+        if (nightIcon) {
+            nightIcon.className = nightIcon.className.replace(/ fa-moon/g, '') + ' fa-lightbulb'
+        }
+    } else {
+        document.body.className = document.body.className.replace(/ night/g, '')
+        if (nightIcon) {
+            nightIcon.className = nightIcon.className.replace(/ fa-lightbulb/g, '') + ' fa-moon'
+        }
+    }
+}
+
+function findNightIcon() {
+    nightNav = document.getElementById('night-nav');
+    nightIcon = document.getElementById('night-icon');
+    if (!nightNav || !nightIcon) {
+        setTimeout(findNightIcon, 100);
+    } else {
+        nightNav.addEventListener('click', switchNight);
+        if (isNight) {
+            nightIcon.className = nightIcon.className.replace(/ fa-moon/g, '') + ' fa-lightbulb'
+        } else {
+            nightIcon.className = nightIcon.className.replace(/ fa-lightbulb/g, '') + ' fa-moon'
+        }
+    }
+}
+
+function switchNight() {
+
+    if (isNight == 'false') {
+        isNight = 'true';
+    } else {
+        isNight = 'false';
+    }
+
+    applyNight(isNight);
+    localStorage.setExpire('night', isNight, expireTime1H);
+}
+
+findNightIcon();
+applyNight(isNight);

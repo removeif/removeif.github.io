@@ -1,1 +1,54 @@
-eval(function(p,a,c,k,e,r){e=function(c){return(c<62?'':e(parseInt(c/62)))+((c=c%62)>35?String.fromCharCode(c+29):c.toString(36))};if('0'.replace(0,e)==0){while(c--)r[e(c)]=k[c];k=[function(e){return r[e]||e}];e=function(){return'[346-9cdf-hj-zA-O]'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('$(9(){$.getJSON("o://api.p.com/repos/j/issue_database/issues/2/comments?per_page=100&client_id=46a9f3481b46ea0129d8&client_secret=79c7c9cb847e141757d7864453bcbf89f0655b24",9(u){m c=[];m n;n=u;n.reverse();$.q(n,9(i,e){c.push(...JSON.parse(e.body))});$(\'.7-d\').4("");let r=c.v((f,a,b)=>f.w==0);c=c.v((f,a,b)=>f.w!=0).sort(9(a,b){return Math.random()>.5?-1:1});$(\'.7-d\').k("<3 6=\'x-g-f\'><8>大佬们</3><8><y>");$.q(c,9(i,e){m 4="<3 6=\\"z\\">";A(e.l==undefined){4+="    <s 6=\\"t\\" l=\\"o://B.C.D/E/j/j.p.F/G/7/H.I\\" g=\\"图片链接不可用，使用的默认图片\\">"}else{4+="    <s 6=\\"t\\" l=\\""+e.l+"\\">"}4+="<3 6=\'J-h\' g=\\""+e.h+"\\">    网址：<a K=\\""+e.L+"\\" M=\\"N\\">"+e.O+"</a>    <8>时间："+e.date+"<8>简介："+e.h+"</3>    </3>";$(\'.7-d\').k(4)});A(r.length>0){$(\'.7-d\').k("<3 6=\'x-g-f\'><8>异常的大佬们</3><8><y></3>");$.q(r,9(i,e){m 4="<3 6=\\"z\\">";4+="    <s 6=\\"t\\" l=\\"o://B.C.D/E/j/j.p.F/G/7/H.I\\" g=\\"图片链接不可用，使用的默认图片\\">";4+="<3 6=\'J-h\' g=\\""+e.h+"\\">    网址：<a K=\\""+e.L+"\\" M=\\"N\\">"+e.O+"</a>    <8>访问时间："+e.stopTime+"<8>简介："+e.h+"</3>    </3>";$(\'.7-d\').k(4)})}$(\'.7-d\').k("</3>")})});',[],51,'|||div|html||class|links|br|function|||data|content||item|title|desc||removeif|append|src|var|source1|https|github|each|notValid|img|ava|source|filter|valid|friend|hr|cardm|if|cdn|jsdelivr|net|gh|io|images|nopic|jpg|text|href|url|target|_blank|name'.split('|'),0,{}))
+// author by removef
+// https://removeif.github.io/
+$(function () { //获取处理友链数据
+    $.getJSON("https://api.github.com/repos/removeif/issue_database/issues/2/comments?per_page=100&client_id=46a9f3481b46ea0129d8&client_secret=79c7c9cb847e141757d7864453bcbf89f0655b24", function (source) {
+        var data = [];
+        var source1;
+        source1 = source;
+        source1.reverse();
+        $.each(source1, function (i, e) {
+            data.push(...JSON.parse(e.body));
+        });
+        $('.links-content').html("");
+
+        // 随机排序过滤失效的
+        let notValid = data.filter((item, a, b) => item.valid == 0);
+        data = data.filter((item, a, b) => item.valid != 0).sort(function (a, b) {
+            return Math.random() > .5 ? -1 : 1;
+        });
+        $('.links-content').append("<div class='friend-title-item'><br>大佬们<br><br><hr></div>");
+        $.each(data, function (i, e) {
+            var html = "<div class=\"friend-card-item\">";
+            if (e.src == undefined) {
+                html += "    <img class=\"ava\" src=\"/img/links/nopic.jpg\" title=\"图片链接不可用，使用的默认图片\">";
+            } else {
+                html += "    <img class=\"ava\" src=\"" + e.src + "\">";
+            }
+            html +=
+                "<div class='text-desc' title=\""+e.desc+"\">    网址：<a href=\"" + e.url + "\" target=\"_blank\">" + e.name + "</a>" +
+                "    <br>时间：" + e.date +
+                "<br>简介：" + e.desc + "</div>" +
+                "    </div>";
+
+            $('.links-content').append(html);
+        });
+
+        // 过期的
+        if (notValid.length > 0) {
+            $('.links-content').append("<div class='friend-title-item'><br>异常的大佬们<br><br><hr></div></div>");
+            $.each(notValid, function (i, e) {
+                var html = "<div class=\"friend-card-item\">";
+                html += "    <img class=\"ava\" src=\"/img/links/nopic.jpg\" title=\"图片链接不可用，使用的默认图片\">";
+                html +=
+                    "<div class='text-desc' title=\""+e.desc+"\">    网址：<a href=\"" + e.url + "\" target=\"_blank\">" + e.name + "</a>" +
+                    "    <br>访问时间：" + e.stopTime +
+                    "<br>简介：" + e.desc + "</div>" +
+                    "    </div>";
+
+                $('.links-content').append(html);
+            })
+        }
+
+        $('.links-content').append("</div>");
+    })
+});

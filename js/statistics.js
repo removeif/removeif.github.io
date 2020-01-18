@@ -1,1 +1,21 @@
-eval(function(p,a,c,k,e,r){e=function(c){return c.toString(36)};if('0'.replace(0,e)==0){while(c--)r[e(c)]=k[c];k=[function(e){return r[e]||e}];e=function(){return'[2-9a-mo-s]'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('function g(){h n=i j("9/9/k c:c:c");3.setTime(3.getTime()+l),m=(3-n)/a/4/4/o,7=b.d(m),p=(3-n)/a/4/4-o*7,5=b.d(p),1==e(5).f&&(5="0"+5),q=(3-n)/a/4-1440*7-4*5,6=b.d(q),1==e(6).f&&(6="0"+6),r=(3-n)/a-86400*7-3600*5-4*6,8=b.round(r),1==e(8).f&&(8="0"+8),document.getElementById("statistic-times").innerHTML="❤️本站自<s><2> k.9.9</2><s> 已运行 <2>"+7+"</2> 天 <2>"+5+"</2> 小时 <2>"+6+"</2> 分 <2>"+8+"</2> 秒！❤️"}h 3=i j;setInterval("g()",l);',[],29,'||strong|now|60|hnum|mnum|dnum|snum|11|1e3|Math|00|floor|String|length|createtime|var|new|Date|2018|250|days||24|hours|minutes|seconds|span'.split('|'),0,{}))
+// author by removef
+// https://removeif.github.io/
+function createtime() {
+    var n = new Date("11/11/2018 00:00:00");
+    now.setTime(now.getTime() + 250),
+        days = (now - n) / 1e3 / 60 / 60 / 24,
+        dnum = Math.floor(days),
+        hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+        hnum = Math.floor(hours),
+    1 == String(hnum).length && (hnum = "0" + hnum),
+        minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+        mnum = Math.floor(minutes),
+    1 == String(mnum).length && (mnum = "0" + mnum),
+        seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+        snum = Math.round(seconds),
+    1 == String(snum).length && (snum = "0" + snum),
+        document.getElementById("statistic-times").innerHTML = "❤️本站自<span><strong> 2018.11.11</strong><span> 已运行 <strong>" + dnum + "</strong> 天 <strong>" + hnum + "</strong> 小时 <strong>" + mnum + "</strong> 分 <strong>" + snum + "</strong> 秒！❤️";
+}
+
+var now = new Date;
+setInterval("createtime()", 250);
