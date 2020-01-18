@@ -3,7 +3,14 @@
 // 音乐处理
 var lastIndex;
 var musicJsons;
-$.getJSON("../json_data/music.json", function (data) {
+$.getJSON("https://api.github.com/repos/removeif/issue_database/issues/3/comments?per_page=100&client_id=46a9f3481b46ea0129d8&client_secret=79c7c9cb847e141757d7864453bcbf89f0655b24", function (source) {
+    var data = [];
+    var source1;
+    source1 = source;
+    source1.reverse();
+    $.each(source1, function (i, e) {
+        data.push(...JSON.parse(e.body));
+    });
     musicJsons = data;
     for (var i = 0; i < musicJsons.length; i++) {
         musicJsons[i].loop = false;
@@ -58,7 +65,14 @@ function playMusic(data, playendcallback) {
 
 // 视频处理
 var lastVideoIndex;
-$.getJSON("../json_data/video.json", function (data) {
+$.getJSON("https://api.github.com/repos/removeif/issue_database/issues/4/comments?per_page=100&client_id=46a9f3481b46ea0129d8&client_secret=79c7c9cb847e141757d7864453bcbf89f0655b24", function (source) {
+    var data = [];
+    var source1;
+    source1 = source;
+    source1.reverse();
+    $.each(source1, function (i, e) {
+        data.push(...JSON.parse(e.body));
+    });
     $('#video-list').append("");
     for (var i = 0; i < data.length; i++) {
         var $li = $("<blockquote>"+(i+1)+"." + data[i].desc + "</blockquote>");

@@ -8,7 +8,14 @@ $(function () { // 获取一句诗
 });
 
 $(function () { // 获取记录数据
-    $.getJSON("../json_data/record.json", function (data) {
+    $.getJSON("https://api.github.com/repos/removeif/issue_database/issues/5/comments?per_page=100&client_id=46a9f3481b46ea0129d8&client_secret=79c7c9cb847e141757d7864453bcbf89f0655b24", function (source) {
+        var data = [];
+        var source1;
+        source1 = source;
+        source1.reverse();
+        $.each(source1, function (i, e) {
+            data.push(...JSON.parse(e.body));
+        });
         $.each(data, function (i, e) {
             var html = '<li class="time-axis-item">' +
                 '<div class="time-axis-date">' + e.date + '<span></span></div>' +
