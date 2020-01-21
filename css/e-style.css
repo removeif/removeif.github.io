@@ -1,0 +1,26 @@
+.night .button.is-white,
+.night .button.is-transparent {
+  color: #c0c0c0;
+}
+.night hr {
+  background-color: #989898;
+}
+.night .navbar-menu {
+  background-color: unset;
+}
+.night #index_hot_div {
+  color: #c0c0c0;
+}
+.night #index_hot_div {
+  filter: unset !important;
+}
+.night #index_hot_div .item {
+  filter: brightness(0.6) !important;
+}
+.content .gt-container .gt-comment-edit {
+  margin-right: 2%;
+}
+.content a img {
+  margin: auto;
+  display: block;
+}
