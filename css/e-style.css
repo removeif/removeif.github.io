@@ -17,6 +17,9 @@
 .night #index_hot_div .item {
   filter: brightness(0.6) !important;
 }
+.night .gt-container .gt-meta {
+  border-bottom: 2px solid #989898;
+}
 .content .gt-container .gt-comment-edit {
   margin-right: 2%;
 }
@@ -26,4 +29,7 @@
 }
 .content .gt-container .gt-comment-admin .gt-comment-content {
   border: 0.01em solid #deeafb;
+}
+.content .gt-container .gt-comment-header {
+  width: 100%;
 }
