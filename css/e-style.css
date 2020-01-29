@@ -30,6 +30,8 @@
 .content .gt-container .gt-comment-admin .gt-comment-content {
   border: 0.01em solid #deeafb;
 }
-.content .gt-container .gt-comment-header {
-  width: 100%;
+@media screen and (max-width: 1087px) {
+  .content .gt-container .gt-comment-header {
+    width: 100%;
+  }
 }
