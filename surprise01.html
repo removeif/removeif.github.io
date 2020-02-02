@@ -4,7 +4,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v2.0.3/images/wico.png">
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@master/img/wico.png">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext">
     <meta name="description" content="惊喜吧">
     <meta name="keywords" content="辣椒の酱,辣椒の酱,纪念日">
     <title>辣椒の酱</title>
@@ -18,7 +19,7 @@
         }
         body
         {
-            font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+            font-family: 'Monda', "PingFang SC", "Microsoft YaHei", sans-serif;
             background: #79a8ae;
             color: #CFEBE4;
             font-size: 18px;
@@ -117,8 +118,8 @@
     <img src="/images/tuzi.jpg" id="logo">
 </div>
 <canvas class="canvas" width="1820" height="905"></canvas>
-<p class="text" style="color: #ed3073;">
-    We fell in love
+<p class="text" style="color: #ffe102;font-size: larger;">
+    Since 2015.12.01
     <br/>
     <span id="span_dt_dt"></span>
 </p>
@@ -150,7 +151,7 @@
         init: function () {
             S.Drawing.init('.canvas');
             document.body.classList.add('body--ready');
-            S.UI.simulate("嘿嘿|I'm|辣椒の酱|Nice|to|Meet|You|#countdown 3|#time");
+            S.UI.simulate("Hello|I'm|removeif|Nice|To|Meet|You|Welcome|#countdown 5|#time");
             S.Drawing.loop(function () {
                 S.Shape.render();
             });
@@ -288,7 +289,7 @@
                     default:
                         S.Shape.switchShape(S.ShapeBuilder.letter(current[0] === cmd ? 'HacPai' : current));
                 }
-            }, 2000, sequence.length);
+            }, 3000, sequence.length);
         }
         return {
             simulate: function (action) {
