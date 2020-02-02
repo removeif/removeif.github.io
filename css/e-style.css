@@ -20,6 +20,12 @@
 .night .gt-container .gt-meta {
   border-bottom: 2px solid #989898;
 }
+.night figure.highlight figcaption * {
+  color: unset;
+}
+.night figure.highlight figcaption.level .level-right a {
+  color: #c0c0c0;
+}
 .content .gt-container .gt-comment-edit {
   margin-right: 2%;
 }
