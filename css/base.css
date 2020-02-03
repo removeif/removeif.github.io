@@ -10293,10 +10293,10 @@ fieldset[disabled] .select select:hover {
   }
   .column.is-3-widescreen {
     flex: none;
-    width: 25%;
+    width: 24%;
   }
   .column.is-6-widescreen {
-    width: 50%;
+    width: 52%;
   }
   .column.is-4-widescreen {
     flex: none;
@@ -11279,6 +11279,25 @@ a.navbar-item.is-active,
   -o-transform: rotate(360deg);
   -ms-transform: rotate(360deg);
 }
+.content .gt-container .gt-comment-edit {
+  margin-right: 2%;
+}
+.content a img {
+  margin: auto;
+  display: block;
+}
+.content .gt-container .gt-comment-admin .gt-comment-content {
+  border: 0.01em solid #deeafb;
+}
+@media screen and (max-width: 1087px) {
+  .content .gt-container .gt-comment-header {
+    width: 100%;
+  }
+}
+.toc-scroll {
+  max-height: 225px;
+  overflow: auto;
+}
 .content .gt-container .gt-comment-header {
   font-size: 0.875em;
   position: relative;
@@ -11312,42 +11331,6 @@ a.navbar-item.is-active,
 .gt-container .gt-comment-content:hover {
   -webkit-box-shadow: unset !important;
   box-shadow: unset !important;
-}
-.body_hot_comment .comment-content .card-comment-item .ava,
-.media-left,
-.is-6-widescreen .card-image {
-  display: none;
-}
-.card {
-  background-color: unset;
-  box-shadow: unset;
-}
-.navbar,
-footer.footer {
-  background-color: unset;
-}
-body:not(.night) .navbar:hover,
-body:not(.night) .footer:hover,
-body:not(.night) .card:hover,
-body:not(.night) .pagination:hover,
-body:not(.night) .post-navigation:hover {
-  background-color: #deeafb;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05), 0 0 1px rgba(0,0,0,0.1);
-}
-.pagination,
-.post-navigation {
-  padding: 10px;
-}
-.pagination .pagination-link:not(.is-current),
-.pagination .pagination-previous,
-.pagination .pagination-next {
-  background-color: rgba(255,255,255,0);
-}
-.timeline .media:last-child:after {
-  background: unset;
-}
-.content .gt-container .gt-comment-admin .gt-comment-content {
-  border: 2px solid #deeafb;
 }
 .night {
   color: #c0c0c0 !important;
@@ -11615,4 +11598,32 @@ body:not(.night) .post-navigation:hover {
 .night #post-calendar {
   background-color: #626161;
   border-radius: 20rem;
+}
+.night .button.is-white,
+.night .button.is-transparent {
+  color: #c0c0c0;
+}
+.night hr {
+  background-color: #989898;
+}
+.night .navbar-menu {
+  background-color: unset;
+}
+.night #index_hot_div {
+  color: #c0c0c0;
+}
+.night #index_hot_div {
+  filter: unset !important;
+}
+.night #index_hot_div .item {
+  filter: brightness(0.6) !important;
+}
+.night .gt-container .gt-meta {
+  border-bottom: 2px solid #989898;
+}
+.night figure.highlight figcaption * {
+  color: unset;
+}
+.night figure.highlight figcaption.level .level-right a {
+  color: #c0c0c0;
 }

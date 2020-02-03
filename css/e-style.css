@@ -1,47 +1,36 @@
-.night .button.is-white,
-.night .button.is-transparent {
-  color: #c0c0c0;
+.body_hot_comment .comment-content .card-comment-item .ava,
+.media-left,
+.is-6-widescreen .card-image {
+  display: none;
 }
-.night hr {
-  background-color: #989898;
+.card {
+  background-color: unset;
+  box-shadow: unset;
 }
-.night .navbar-menu {
+.navbar,
+footer.footer {
   background-color: unset;
 }
-.night #index_hot_div {
-  color: #c0c0c0;
+body:not(.night) .navbar:hover,
+body:not(.night) .footer:hover,
+body:not(.night) .card:hover,
+body:not(.night) .pagination:hover,
+body:not(.night) .post-navigation:hover {
+  background-color: #deeafb;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05), 0 0 1px rgba(0,0,0,0.1);
 }
-.night #index_hot_div {
-  filter: unset !important;
+.pagination,
+.post-navigation {
+  padding: 10px;
 }
-.night #index_hot_div .item {
-  filter: brightness(0.6) !important;
+.pagination .pagination-link:not(.is-current),
+.pagination .pagination-previous,
+.pagination .pagination-next {
+  background-color: rgba(255,255,255,0);
 }
-.night .gt-container .gt-meta {
-  border-bottom: 2px solid #989898;
-}
-.night figure.highlight figcaption * {
-  color: unset;
-}
-.night figure.highlight figcaption.level .level-right a {
-  color: #c0c0c0;
-}
-.content .gt-container .gt-comment-edit {
-  margin-right: 2%;
-}
-.content a img {
-  margin: auto;
-  display: block;
+.timeline .media:last-child:after {
+  background: unset;
 }
 .content .gt-container .gt-comment-admin .gt-comment-content {
-  border: 0.01em solid #deeafb;
-}
-@media screen and (max-width: 1087px) {
-  .content .gt-container .gt-comment-header {
-    width: 100%;
-  }
-}
-.toc-scroll {
-  max-height: 225px;
-  overflow: auto;
+  border: 2px solid #deeafb;
 }
