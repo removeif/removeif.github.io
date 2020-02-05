@@ -30,9 +30,6 @@ body:not(.night) .post-navigation:hover {
 .timeline .media:last-child:after {
   background: unset;
 }
-.content .gt-container .gt-comment-admin .gt-comment-content {
-  border: 2px solid #deeafb;
-}
 .footer {
   box-shadow: 0px 4px 10px 10px rgba(0,0,0,0.05);
   padding: 3rem 1.5rem 2rem;
