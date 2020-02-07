@@ -34,3 +34,8 @@ body:not(.night) .post-navigation:hover {
   box-shadow: 0px 4px 10px 10px rgba(0,0,0,0.05);
   padding: 3rem 1.5rem 2rem;
 }
+@media screen and (max-width: 1087px) {
+  .navbar-menu {
+    background-color: unset;
+  }
+}
