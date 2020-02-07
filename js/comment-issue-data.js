@@ -1,7 +1,7 @@
 // 评论issues仓库 by.removeif https://removeif.github.io/
 var repoIssuesUrl = "https://api.github.com/repos/removeif/blog_comment/issues";
 // 写comment count值
-var reqCommentCountUrl = repoIssuesUrl + "?client_id=" + clientId + "&client_secret=" + clientSecret + "&t=" + new Date().getTime() + "&labels=Gitalk,";
+var reqCommentCountUrl = repoIssuesUrl + "?t=" + new Date().getTime() + "&labels=Gitalk,";
 // 评论缓存key
 var COMMENT_CACHE_KEY = "commentKey";
 // 管理员名称,评论时添加 [博主] 后缀
