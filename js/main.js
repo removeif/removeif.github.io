@@ -177,3 +177,25 @@
         });
     }
 }(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings));
+
+$(document).ready(function () {
+    /* 添加背景色 */
+    var navbar = $(".is-fixed-top");
+    var navbar1 = $(".justify-content-start");
+    if (navbar.offset().top > 50) {
+        navbar.addClass("navbar-highlight");
+        navbar1.addClass("navbar-highlight");
+    } else {
+        navbar.removeClass("navbar-highlight");
+        navbar1.removeClass("navbar-highlight");
+    }
+    $(window).scroll(function () {
+        if (navbar.offset().top > 50) {
+            navbar.addClass("navbar-highlight");
+            navbar1.addClass("navbar-highlight");
+        } else {
+            navbar.removeClass("navbar-highlight");
+            navbar1.removeClass("navbar-highlight");
+        }
+    });
+});

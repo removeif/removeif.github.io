@@ -3,7 +3,29 @@
 // 音乐处理
 var lastIndex;
 var musicJsons;
-$.getJSON("https://api.github.com/repos/removeif/issue_database/issues/3/comments?per_page=100&client_id=46a9f3481b46ea0129d8&client_secret=79c7c9cb847e141757d7864453bcbf89f0655b24", function (source) {
+$(function () { //获取处理友链数据
+    $.ajax({
+        type: "get",
+        url: "https://api.github.com/repos/removeif/issue_database/issues/3/comments?per_page=100",
+        headers: {      //请求头
+            Accept: "application/json; charset=utf-8",
+            Authorization: "" + authorizationToken  //这是获取的token
+        },
+        data: "",
+        contentType: "application/json",  //推荐写这个
+        dataType: "json",
+        error: function () {
+            console.log('req error');
+        },
+        success: function (data) {
+            loadMusic(data);
+        }
+    });
+
+});
+
+function loadMusic(source){
+
     var data = [];
     var source1;
     source1 = source;
@@ -35,7 +57,7 @@ $.getJSON("https://api.github.com/repos/removeif/issue_database/issues/3/comment
     $('#musiclist #' + index).css('color', '#3273dc');
     lastIndex = index;
     playMusic(musicJsons[index]);
-});
+}
 
 function playMusic(data, playendcallback) {
     mePlayer({
@@ -65,7 +87,28 @@ function playMusic(data, playendcallback) {
 
 // 视频处理
 var lastVideoIndex;
-$.getJSON("https://api.github.com/repos/removeif/issue_database/issues/4/comments?per_page=100&client_id=46a9f3481b46ea0129d8&client_secret=79c7c9cb847e141757d7864453bcbf89f0655b24", function (source) {
+$(function () { //获取处理友链数据
+    $.ajax({
+        type: "get",
+        url: "https://api.github.com/repos/removeif/issue_database/issues/4/comments?per_page=100",
+        headers: {      //请求头
+            Accept: "application/json; charset=utf-8",
+            Authorization: "" + authorizationToken  //这是获取的token
+        },
+        data: "",
+        contentType: "application/json",  //推荐写这个
+        dataType: "json",
+        error: function () {
+            console.log('req error');
+        },
+        success: function (data) {
+            loadVideo(data);
+        }
+    });
+
+});
+
+function loadVideo(source) {
     var data = [];
     var source1;
     source1 = source;
@@ -85,8 +128,7 @@ $.getJSON("https://api.github.com/repos/removeif/issue_database/issues/4/comment
         });
         $('#video-list').append($li);
     }
-
-});
+}
 
 function playVideo(data,id) {
     new DPlayer({

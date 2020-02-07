@@ -113,3 +113,10 @@ function isNightRange(beginTime, endTime) {
         return false;
     }
 }
+
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window));
+
+// 对应仓库 clientId、clientSecret 关于这两个参数的安全问题，查看 https://removeif.github.io/2019/09/19/博客源码分享.html#1-热门推荐，最新评论：
+var clientId = "46a9f3481b46ea0129d8";
+var clientSecret = "79c7c9cb847e141757d7864453bcbf89f0655b24";
+var authorizationToken = 'Basic ' + btoa(clientId + ':' + clientSecret);

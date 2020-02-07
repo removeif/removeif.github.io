@@ -11361,9 +11361,15 @@ a.navbar-item.is-active,
   max-height: 500px;
   overflow: auto;
 }
+.navbar-highlight {
+  background-color: #fff !important;
+}
 .night {
   color: #c0c0c0 !important;
   background-color: #000;
+}
+.night .navbar-highlight {
+  background-color: #151313 !important;
 }
 .night .content blockquote {
   background-color: #151313;
