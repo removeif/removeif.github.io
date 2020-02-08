@@ -129,6 +129,10 @@ function addCommentInfo(result,resultArr,item,endIndex,i,contentStr){
     });
     // 请求完之后渲染
     if(endIndex == i){
+        // 排序
+        resultArr = resultArr.sort(function (a, b) {
+            return b.date.localeCompare(a.date);
+        });
         renderCommentData(resultArr);
         // 存入缓存
         var resultMap = {};
@@ -147,7 +151,7 @@ function loadCommentDataAndRender() {
     // req(repoIssuesUrl + "/comments?sort=created&direction=desc&per_page=7&page=1",fillComments())
     $.ajax({ // !!!!!!!此处ajax请求本该提出来作为一个方法，但是我实在不知道怎么提取，麻烦考到此处知道的网友告知一下，蟹蟹
         type: "get",
-        url: repoIssuesUrl + "/comments?sort=created&direction=desc&per_page=7&page=1",
+        url: repoIssuesUrl + "/comments?sort=created&direction=desc&per_page=8&page=1",
         headers: {      //请求头
             Accept: "application/json; charset=utf-8",
             Authorization: "" + authorizationToken  //这是获取的token
