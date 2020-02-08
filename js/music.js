@@ -3,7 +3,7 @@
 // 音乐处理
 var lastIndex;
 var musicJsons;
-$(function () { //获取处理友链数据
+$(function () {
     $.ajax({
         type: "get",
         url: "https://api.github.com/repos/removeif/issue_database/issues/3/comments?per_page=100",
@@ -87,7 +87,7 @@ function playMusic(data, playendcallback) {
 
 // 视频处理
 var lastVideoIndex;
-$(function () { //获取处理友链数据
+$(function () {
     $.ajax({
         type: "get",
         url: "https://api.github.com/repos/removeif/issue_database/issues/4/comments?per_page=100",

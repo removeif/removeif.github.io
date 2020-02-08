@@ -1,13 +1,13 @@
 // author by removef
 // https://removeif.github.io/
-$(function () { // 获取一句诗
-    $.post("https://api.gushi.ci/all.json", {}, function (data, status) {
-        var htmlC = "<blockquote>" + data.origin + "<br>\"" + data.content + "\"<br>–" + data.author + "</blockquote>";
-        $("#poetry-container-time").append("<p>" + new Date().Format("yyyy.MM.dd/hh:mm:ss") + "</p>" + htmlC);
-    })
-});
+// $(function () { // 获取一句诗
+//     $.post("https://api.gushi.ci/all.json", {}, function (data, status) {
+//         var htmlC = "<blockquote>" + data.origin + "<br>\"" + data.content + "\"<br>–" + data.author + "</blockquote>";
+//         $("#poetry-container-time").append("<p>" + new Date().Format("yyyy.MM.dd/hh:mm:ss") + "</p>" + htmlC);
+//     })
+// });
 
-$(function () { //获取处理友链数据
+$(function () {
     $.ajax({
         type: "get",
         url: "https://api.github.com/repos/removeif/issue_database/issues/5/comments?per_page=100",
