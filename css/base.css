@@ -10371,6 +10371,9 @@ fieldset[disabled] .select select:hover {
   .content .gt-container .gt-comment-header {
     width: 100%;
   }
+  .g-ads-x {
+    display: none;
+  }
 }
 .navbar-main {
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -11364,6 +11367,11 @@ a.navbar-item.is-active,
 .navbar-highlight {
   background-color: #fff !important;
 }
+.gt-container .gt-comment-owner {
+  padding: 0.2em 0.2em !important;
+  font-size: 0.875em !important;
+  margin: 0 0.5em 0 0.5em !important;
+}
 .night {
   color: #c0c0c0 !important;
   background-color: #000;
@@ -11665,4 +11673,15 @@ a.navbar-item.is-active,
   color: #3273dc;
   background: #7a7a7a;
   filter: unset !important;
+}
+.night .friend-card-item {
+  color: unset;
+}
+.night .g-ads-x,
+.night .g-ads-y,
+.night .google-auto-placed {
+  filter: brightness(0.6) !important;
+}
+.night .friend-card-item {
+  color: unset;
 }
