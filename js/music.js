@@ -4,24 +4,9 @@
 var lastIndex;
 var musicJsons;
 $(function () {
-    $.ajax({
-        type: "get",
-        url: "https://api.github.com/repos/removeif/issue_database/issues/3/comments?per_page=100",
-        headers: {      //请求头
-            Accept: "application/json; charset=utf-8",
-            Authorization: "" + authorizationToken  //这是获取的token
-        },
-        data: "",
-        contentType: "application/json",  //推荐写这个
-        dataType: "json",
-        error: function () {
-            console.log('req error');
-        },
-        success: function (data) {
-            loadMusic(data);
-        }
+    ajaxReqForGitHub("https://api.github.com/repos/removeif/issue_database/issues/3/comments?per_page=100",function (data) {
+        loadMusic(data);
     });
-
 });
 
 function loadMusic(source){
@@ -88,24 +73,9 @@ function playMusic(data, playendcallback) {
 // 视频处理
 var lastVideoIndex;
 $(function () {
-    $.ajax({
-        type: "get",
-        url: "https://api.github.com/repos/removeif/issue_database/issues/4/comments?per_page=100",
-        headers: {      //请求头
-            Accept: "application/json; charset=utf-8",
-            Authorization: "" + authorizationToken  //这是获取的token
-        },
-        data: "",
-        contentType: "application/json",  //推荐写这个
-        dataType: "json",
-        error: function () {
-            console.log('req error');
-        },
-        success: function (data) {
-            loadVideo(data);
-        }
+    ajaxReqForGitHub("https://api.github.com/repos/removeif/issue_database/issues/4/comments?per_page=100",function (data) {
+        loadVideo(data);
     });
-
 });
 
 function loadVideo(source) {

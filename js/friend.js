@@ -1,22 +1,8 @@
 // author by removef
 // https://removeif.github.io/
 $(function () { //获取处理友链数据
-    $.ajax({
-        type: "get",
-        url: "https://api.github.com/repos/removeif/issue_database/issues/2/comments?per_page=100",
-        headers: {      //请求头
-            Accept: "application/json; charset=utf-8",
-            Authorization: "" + authorizationToken  //这是获取的token
-        },
-        data: "",
-        contentType: "application/json",  //推荐写这个
-        dataType: "json",
-        error: function () {
-            console.log('req error');
-        },
-        success: function (data) {
-            loadFriends(data);
-        }
+    ajaxReqForGitHub("https://api.github.com/repos/removeif/issue_database/issues/2/comments?per_page=100",function (data) {
+        loadFriends(data);
     });
 });
 

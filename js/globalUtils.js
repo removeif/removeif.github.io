@@ -120,3 +120,23 @@ var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(win
 var clientId = "46a9f3481b46ea0129d8";
 var clientSecret = "79c7c9cb847e141757d7864453bcbf89f0655b24";
 var authorizationToken = 'Basic ' + btoa(clientId + ':' + clientSecret);
+
+function ajaxReqForGitHub(url, call) {
+    $.ajax({
+        type: "get",
+        url: url,
+        headers: {      //请求头
+            Accept: "application/json; charset=utf-8",
+            Authorization: "" + authorizationToken  //这是获取的token
+        },
+        data: "",
+        contentType: "application/json",  //推荐写这个
+        dataType: "json",
+        error: function () {
+            console.log('req error:url=' + url);
+        },
+        success: function (data) {
+            call(data);
+        }
+    });
+}

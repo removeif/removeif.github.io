@@ -8,24 +8,9 @@
 // });
 
 $(function () {
-    $.ajax({
-        type: "get",
-        url: "https://api.github.com/repos/removeif/issue_database/issues/5/comments?per_page=100",
-        headers: {      //请求头
-            Accept: "application/json; charset=utf-8",
-            Authorization: "" + authorizationToken  //这是获取的token
-        },
-        data: "",
-        contentType: "application/json",  //推荐写这个
-        dataType: "json",
-        error: function () {
-            console.log('req error');
-        },
-        success: function (data) {
-            loadRecord(data);
-        }
+    ajaxReqForGitHub("https://api.github.com/repos/removeif/issue_database/issues/5/comments?per_page=100",function (data) {
+        loadRecord(data);
     });
-
 });
 
 function loadRecord(source) {
