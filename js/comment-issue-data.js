@@ -230,7 +230,7 @@ function loadSelfTalkGitalk() { //加载碎碎念
     if($("#comment-container1").length <= 0){
         return;
     }
-    $.getScript("/js/gitalk_self.min.js", function () {
+    $.getScript("https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v2.2.3/js/gitalk_self.min.js", function () {
         var gitalk = new Gitalk({
             clientID: '46a9f3481b46ea0129d8',
             clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
