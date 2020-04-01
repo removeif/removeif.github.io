@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://removeif.github.io/about/index.html</loc>
+    
+    <lastmod>2020-04-01T01:14:14.792Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://removeif.github.io/self-talking/index.html</loc>
+    
+    <lastmod>2020-04-01T01:14:14.792Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://removeif.github.io/friend/index.html</loc>
+    
+    <lastmod>2020-04-01T01:14:14.792Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://removeif.github.io/media/index.html</loc>
+    
+    <lastmod>2020-04-01T01:14:14.792Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://removeif.github.io/album/index.html</loc>
     
     <lastmod>2020-03-27T10:49:26.686Z</lastmod>
@@ -12,34 +40,6 @@
     <loc>https://removeif.github.io/database/mysql/mysql%E5%85%81%E8%AE%B8%E6%9C%80%E5%A4%A7sql%E8%AF%AD%E5%8F%A5%E9%95%BF%E5%BA%A6%E9%85%8D%E7%BD%AE.html</loc>
     
     <lastmod>2020-03-25T09:52:49.595Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://removeif.github.io/self-talking/index.html</loc>
-    
-    <lastmod>2020-03-25T04:37:38.929Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://removeif.github.io/media/index.html</loc>
-    
-    <lastmod>2020-03-25T04:37:38.928Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://removeif.github.io/about/index.html</loc>
-    
-    <lastmod>2020-03-25T04:37:38.927Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://removeif.github.io/friend/index.html</loc>
-    
-    <lastmod>2020-03-25T04:37:38.926Z</lastmod>
     
   </url>
   
