@@ -1,0 +1,116 @@
+.body_hot_comment .comment-content .card-comment-item .ava,
+.media-left,
+.is-6-widescreen .card-image {
+  display: none;
+}
+.card {
+  background-color: unset;
+}
+.navbar,
+footer.footer {
+  background-color: unset;
+}
+body:not(.night) .navbar:hover,
+body:not(.night) .footer:hover,
+body:not(.night) .card:hover,
+body:not(.night) .pagination:hover,
+body:not(.night) .post-navigation:hover {
+  background-color: #deeafb;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05), 0 0 1px rgba(0,0,0,0.1);
+}
+.pagination,
+.post-navigation {
+  padding: 10px;
+}
+.pagination .pagination-link:not(.is-current),
+.pagination .pagination-previous,
+.pagination .pagination-next {
+  background-color: rgba(255,255,255,0);
+}
+.timeline .media:last-child:after {
+  background: unset;
+}
+.footer {
+  box-shadow: 0px 4px 10px 10px rgba(0,0,0,0.05);
+  padding: 3rem 1.5rem 2rem;
+}
+@media screen and (max-width: 1087px) {
+  .navbar-menu {
+    background-color: unset;
+  }
+}
+@media screen and (min-width: 769px) and (max-width: 1087px) {
+  .card {
+    margin-top: 4rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .section {
+    padding: 7rem 1.5rem;
+  }
+}
+.text-right {
+  text-align: right;
+}
+.text-left {
+  text-align: left;
+}
+.font1_1 {
+  font-size: 1.1rem;
+}
+#hitokoto {
+  text-align: center;
+  cursor: pointer;
+  padding: 1rem;
+}
+hr {
+  margin: 0rem 0;
+}
+.level:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+.night .gt-container .gt-header-textarea:hover {
+  background-color: #000;
+}
+.night .aplayer .aplayer-miniswitcher {
+  background: #c0c0c0 !important;
+}
+.title,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5,
+.content h6 {
+  font-weight: bold;
+}
+strong {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+.content strong {
+  font-size: unset;
+}
+#hitokoto strong {
+  font-size: unset;
+}
+.aplayer-narrow {
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+.aplayer-narrow:hover {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+.aplayer {
+  transition: all 0.5s ease-out;
+}
+.aplayer .aplayer-miniswitcher {
+  background: #fff !important;
+}
