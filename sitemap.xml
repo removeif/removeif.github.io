@@ -2,9 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://removeif.github.io/about/index.html</loc>
+    <loc>https://removeif.github.io/java/design-mode/java-strategy-pattern.html</loc>
     
-    <lastmod>2020-04-22T10:29:24.518Z</lastmod>
+    <lastmod>2020-07-02T09:44:39.047Z</lastmod>
     
   </url>
   
@@ -16,14 +16,21 @@
   </url>
   
   <url>
-    <loc>https://removeif.github.io/self-talking/index.html</loc>
+    <loc>https://removeif.github.io/friend/index.html</loc>
     
     <lastmod>2020-04-22T10:29:24.518Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://removeif.github.io/friend/index.html</loc>
+    <loc>https://removeif.github.io/about/index.html</loc>
+    
+    <lastmod>2020-04-22T10:29:24.518Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://removeif.github.io/self-talking/index.html</loc>
     
     <lastmod>2020-04-22T10:29:24.518Z</lastmod>
     
