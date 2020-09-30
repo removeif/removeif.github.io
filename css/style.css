@@ -12070,7 +12070,7 @@ textarea {
   font-family: 'Monda', "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 body {
-  background: url("/img/background.png");
+  background: url("https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@master/img/background.png");
 }
 .img-x {
   position: relative;
