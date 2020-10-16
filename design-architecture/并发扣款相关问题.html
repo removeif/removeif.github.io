@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>并发扣款相关问题 - 辣椒の酱</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="辣椒の酱"><meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="辣椒の酱"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta description="java,辣椒の酱,removeif,技术分享,后端开发,支付框架,数据接口,算法,leetcode"><meta property="og:type" content="blog"><meta property="og:title" content="辣椒の酱"><meta property="og:url" content="https://removeif.github.io/"><meta property="og:site_name" content="辣椒の酱"><meta property="og:description" content="java,辣椒の酱,removeif,技术分享,后端开发,支付框架,数据接口,算法,leetcode"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png"><meta property="article:published_time" content="2019-09-05T13:40:53.000Z"><meta property="article:modified_time" content="2020-02-02T02:00:25.000Z"><meta property="article:author" content="removeif"><meta property="article:tag" content="支付系统"><meta property="article:tag" content="支付架构"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://removeif.github.io/"},"headline":"辣椒の酱","image":["https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@latest/img/avatar.png"],"datePublished":"2019-09-05T13:40:53.000Z","dateModified":"2020-02-02T02:00:25.000Z","author":{"@type":"Person","name":"removeif"},"description":"java,技术分享,后端开发,支付框架,数据接口,算法,leetcode"}</script><link rel="canonical" href="https://removeif.github.io/design-architecture/%E5%B9%B6%E5%8F%91%E6%89%A3%E6%AC%BE%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98.html"><link rel="alternate" href="/atom.xml" title="辣椒の酱" type="application/atom+xml"><link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.2/css/default.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><script>(function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+                else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();</script><script>var _hmt = _hmt || [];
+                (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?90a0e914cd2c9e93e206cc9131b19416";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();</script><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.2/js/globalUtils.min.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><script src="https://www.googletagmanager.com/gtag/js?id=UA-154601528-1" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'UA-154601528-1');</script><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><script data-ad-client="ca-pub-6343805421927634" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 5.2.0"></head><body class="is-3-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="辣椒の酱" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/media">影音</a><a class="navbar-item" href="/album">相册</a><a class="navbar-item" href="/friend">友链</a><a class="navbar-item" href="/message">留言</a><a class="navbar-item" href="/self-talking">碎碎念</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Join Gitter" href="https://gitter.im/hexo-theme-amazing/community"><i class="fab fa-gitter"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.2/js/theme-setting.min.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><div class="card widget"><div class="g-ads-x"><div class="card-content"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6343805421927634" data-ad-slot="5134765588"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20190905214320.png" alt="并发扣款相关问题"></span></div><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2019-09-05  <a class="commentCountImg" href="/design-architecture/%E5%B9%B6%E5%8F%91%E6%89%A3%E6%AC%BE%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98.html#comment-container"><span class="display-none-class">e348f0bbf7cb89628dc09d57990b6c3b</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="e348f0bbf7cb89628dc09d57990b6c3b">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>27 分钟  <i class="fas fa-pencil-alt"> </i>4.0 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">并发扣款相关问题</h1><div class="content"><blockquote>
+<p>继续解答星球水友提问。<br>沈老师，我们有个业务，同一个用户在并发“查询，逻辑计算，扣款”的情况下，余额可能出现不一致，请问有什么优化方法么？</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="并发扣款，如何保证数据的一致性？"><a href="#并发扣款，如何保证数据的一致性？" class="headerlink" title="并发扣款，如何保证数据的一致性？"></a>并发扣款，如何保证数据的一致性？</h2><p><strong>扣款的业务场景是怎样的？</strong></p>
+<p>用户购买商品的过程中，要对余额进行查询与修改，大致的业务流程如下：</p>
+<p><strong>第一步</strong>，从数据库查询用户现有余额：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> money <span class="keyword">FROM</span> t_yue <span class="keyword">WHERE</span> uid=$uid</span><br></pre></td></tr></table></figure>
+<p>不妨设查询出来的$old_money=100元。</p>
+<p><strong>第二步</strong>，业务层实施业务逻辑计算，比如：<br>（1）先查询购买商品的价格，例如是80元；<br>（2）再查询产品是否有活动，以及活动折扣，例如是9折；<br>（3）比对余额是否足够，足够时才往下走；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>($old_money&gt; <span class="number">80</span>\*<span class="number">0.9</span>)&#123;    </span><br><span class="line">    $new_money=$old_money-<span class="number">80</span>\*<span class="number">0.9</span>=<span class="number">28</span>;</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Not enough minerals&quot;</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>第三步</strong>，将数据库中的余额进行修改。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t_yue <span class="keyword">SET</span> money=new_money <span class="keyword">WHERE</span> uid=uid;</span><br></pre></td></tr></table></figure>
+
+<p>在并发量低的情况下，这个流程没有任何问题，原有金额100元，购买了80元的九折商品（72元），剩余28元。</p>
+<p><strong>同一个用户，并发扣款可能出现什么问题？</strong></p>
+<p>在分布式环境中，如果并发量很大，这种“查询+修改”的业务有一定概率出现数据不一致。</p>
+<p>极限情况下，可能出现这样的异常流程：</p>
+<p><strong>步骤一</strong>，业务1和业务2并发查询余额，是100元。</p>
+<p><em>画外音：这些并发查询，是在不同的站点实例/服务实例上完成的，进程内互斥锁肯定解决不了。</em><br><strong>步骤二</strong>，业务1和业务2并发进行逻辑计算，算出各自业务的余额，假设业务1算出的余额是28元，业务2算出的余额是38元。</p>
+<p><strong>步骤三</strong>，业务1对数据库中的余额先进行修改，设置成28元。</p>
+<p>业务2对数据库中的余额后进行修改，设置成38元。</p>
+<p>此时异常出现了，原有金额100元，业务1扣除了72元，业务2扣除了62元，最后剩余38元。<br><em>画外音：假设业务1先写回余额，业务2再写回余额。</em></p>
+<p><strong>常见的解决方案？</strong></p>
+<p>对于此案例，同一个用户，并发扣款时，有小概率会出现异常，可以对每一个用户进行分布式锁互斥，例如：在redis/zk里抢到一个key才能继续操作，否则禁止操作。</p>
+<p>这种<strong>悲观锁</strong>方案确实可行，但要引入额外的组件(redis/zk)，并且会降低吞吐量。</p>
+<p><strong>对于小概率的不一致，有没有乐观锁的方案呢？</strong></p>
+<p>对并发扣款进行进一步的分析发现：</p>
+<p>（1）业务1写回时，旧余额100，这是一个初始状态；新余额28，这是一个结束状态。理论上只有在旧余额为100时，新余额才应该写回成功。</p>
+<p>而业务1并发写回时，旧余额确实是100，理应写回成功。</p>
+<p>（2）业务2写回时，旧余额100，这是一个初始状态；新余额28，这是一个结束状态。理论上只有在旧余额为100时，新余额才应该写回成功。</p>
+<p>可实际上，这个时候数据库中的金额已经变为28了，所以业务2的并发写回，不应该成功。</p>
+<p><strong>如何低成本实施乐观锁？</strong></p>
+<p>在set写回的时候，加上初始状态的条件compare，只有初始状态不变时，才允许set写回成功，Compare And Set（CAS），是一种常见的降低读写锁冲突，保证数据一致性的方法。</p>
+<p><strong>此时业务要怎么改？</strong></p>
+<p>使用CAS解决高并发时数据一致性问题，只需要在进行set操作时，compare初始值，如果初始值变换，不允许set成功。</p>
+<p>具体到这个case，只需要将：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t_yue <span class="keyword">SET</span> money=$new_money <span class="keyword">WHERE</span> uid=$uid;</span><br></pre></td></tr></table></figure>
+<p>升级为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t_yue <span class="keyword">SET</span> money=$new_money <span class="keyword">WHERE</span> uid=$uid <span class="keyword">AND</span> money=$old_money</span><br></pre></td></tr></table></figure>
+<p>并发操作发生时：</p>
+<p>业务1执行：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t_yue <span class="keyword">SET</span> money=<span class="number">28</span> <span class="keyword">WHERE</span> uid=$uid <span class="keyword">AND</span> money=<span class="number">100</span>;</span><br></pre></td></tr></table></figure>
+
+<p>业务2执行：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t_yue <span class="keyword">SET</span> money=<span class="number">38</span> <span class="keyword">WHERE</span> uid=$uid <span class="keyword">AND</span> money=<span class="number">100</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这两个操作同时进行时，只可能有一个执行成功。</p>
+<p><strong>怎么判断哪个并发执行成功，哪个并发执行失败呢？</strong></p>
+<p>set操作，其实无所谓成功或者失败，业务能通过affect rows来判断：</p>
+<ul>
+<li>写回成功的，affect rows为1</li>
+<li>写回失败的，affect rows为0</li>
+</ul>
+<p><strong>总结</strong></p>
+<p>高并发“查询并修改”的场景，可以用CAS（Compare and Set）的方式解决数据一致性问题。对应到业务，即在set的时候，加上初始条件的比对即可。</p>
+<p>优化不难，只改了半行SQL，但确实能解决问题。<br>但希望大家有收获<strong>，思路比结论重要</strong>。</p>
+<h2 id="并发扣款一致性优化，CAS下ABA问题"><a href="#并发扣款一致性优化，CAS下ABA问题" class="headerlink" title="并发扣款一致性优化，CAS下ABA问题"></a>并发扣款一致性优化，CAS下ABA问题</h2><p>上文中提到：用CAS乐观锁，可以在尽量不影响吞吐量的情况下，保证数据的一致性。</p>
+<p>大家有非常多的留言，大概有这么几类：</p>
+<p>（1）<strong>是否存在ABA问题？</strong></p>
+<p>（2）<strong>为什么不能用</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t_yue <span class="keyword">SET</span> money=money-$diff <span class="keyword">AND</span> money&gt;=$diff;</span><br></pre></td></tr></table></figure>
+
+<p>（3）能否借助<strong>redis事务</strong>来扣减余额； 能，上文有讲。</p>
+<p>问题比较多，今天先聊第一个问题，ABA。 </p>
+<p><strong>什么是ABA问题？</strong></p>
+<p>CAS乐观锁机制确实能够提升吞吐，并保证一致性，但在极端情况下可能会出现ABA问题。</p>
+<p>考虑如下操作：</p>
+<ul>
+<li>并发1（上）：获取出数据的初始值是A，后续计划实施CAS乐观锁，期望数据仍是A的时候，修改才能成功</li>
+<li>并发2：将数据修改成B</li>
+<li>并发3：将数据修改回A</li>
+<li>并发1（下）：CAS乐观锁，检测发现初始值还是A，进行数据修改</li>
+</ul>
+<p>上述并发环境下，并发1在修改数据时，虽然还是A，但已经不是初始条件的A了，中间发生了A变B，B又变A的变化，此A已经非彼A，数据却成功修改，可能导致错误，这就是CAS引发的所谓的ABA问题。</p>
+<p><strong>余额操作，出现ABA问题并不会对业务产生影响</strong>，因为对于“余额”属性来说，前一个A为100余额，与后一个A为100余额，本质是相同的。</p>
+<p>但其他场景未必是这样，举一个堆栈操作的例子： A1 B C A1 F</p>
+<p>并发1（上）：读取栈顶的元素为“A1”</p>
+<p>并发2：进行了2次出栈</p>
+<p>并发3：又进行了1次出栈</p>
+<p>并发1（下）：实施CAS乐观锁，发现栈顶还是“A1”，于是修改为A2</p>
+<p>此时会出现系统错误，因为此“A1”非彼“A1”</p>
+<p><strong>ABA问题可以怎么优化？</strong></p>
+<p>ABA问题导致的原因，是CAS过程中只简单进行了“值”的校验，再有些情况下，“值”相同不会引入错误的业务逻辑（例如余额），有些情况下，“值”虽然相同，却已经不是原来的数据了（例如堆栈）。</p>
+<p>因此，CAS不能只比对“值”，还必须确保是原来的数据，才能修改成功。</p>
+<p><strong>常见的实践</strong>是，将“值”比对，升级为“版本号”的比对，一个数据一个版本，<strong>版本变化，即使值相同，也不应该修改成功</strong>。</p>
+<p>余额并发读写例子，引入版本号的具体实践如下：</p>
+<p>（1）<strong>余额表要升级</strong>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t_yue(uid, money)</span><br></pre></td></tr></table></figure>
+
+<p>升级为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t_yue(uid, money, version)</span><br></pre></td></tr></table></figure>
+
+<p>（2）<strong>查询余额时，同时查询版本号</strong>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> money <span class="keyword">FROM</span> t_yue <span class="keyword">WHERE</span> <span class="keyword">sid</span>=$<span class="keyword">sid</span></span><br></pre></td></tr></table></figure>
+
+<p>升级为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> money,<span class="keyword">version</span> <span class="keyword">FROM</span> t_yue <span class="keyword">WHERE</span> <span class="keyword">sid</span>=$<span class="keyword">sid</span></span><br></pre></td></tr></table></figure>
+
+<p>假设有并发操作，都会将版本号查询出来。</p>
+<p>（3）设置余额时，必须版本号相同，并且版本号要修改。</p>
+<p>旧版本“值”比对：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t_yue <span class="keyword">SET</span> money=<span class="number">38</span> <span class="keyword">WHERE</span> uid=$uid <span class="keyword">AND</span> money=<span class="number">100</span>;</span><br></pre></td></tr></table></figure>
+
+<p>升级为“版本号”比对：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t_yue <span class="keyword">SET</span> money=<span class="number">38</span>,<span class="keyword">version</span>=$version_new <span class="keyword">WHERE</span> uid=$uid <span class="keyword">AND</span> <span class="keyword">version</span>=$version_old;</span><br></pre></td></tr></table></figure>
+
+<p>此时假设有并发操作，首先操作的请求会修改版本号，并发操作会执行失败。</p>
+<p><em>画外音：<strong>version</strong>通用，本例是强行用version举例而已，实际上本例可以用余额“值”比对。</em></p>
+<p>总结</p>
+<ul>
+<li><code>select&amp;set</code>业务场景，在并发时会出现一致性问题</li>
+<li>基于“值”的CAS乐观锁，可能导致ABA问题</li>
+<li>CAS乐观锁，必须保证修改时的“此数据”就是“彼数据”，应该由“值”比对，优化为“版本号”比对</li>
+</ul>
+<h2 id="并发扣款一致性，幂等性问题"><a href="#并发扣款一致性，幂等性问题" class="headerlink" title="并发扣款一致性，幂等性问题"></a>并发扣款一致性，幂等性问题</h2><p>分享了同一个用户并发扣款时，有一定概率出现数据不一致，可以使用CAS乐观锁的方式，在不降低吞吐量，并且只有少量修改的情况下，保证数据的一致性。</p>
+<p>文章发布不到24小时，就有近200的评论。</p>
+<p>其中，问的比较多的是<strong>ABA问题</strong>，这个问题已经在《<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MjM5ODYxMDA5OQ==&mid=2651962761&idx=1&sn=11513a9e34bf77b4545ecdc289f4c8fd&chksm=bd2d08558a5a8143ce15fbd9722fbcc42593b55480ca5eba7b19b2911763bb15bde65e9a2c4b&scene=21#wechat_redirect">并发扣款一致性优化，CAS下ABA问题，这个话题还没聊完！！！</a>》中扩展。</p>
+<p>其次，问的比较多的是作业题，为什么一定要用<code>select&amp;set</code>的方式进行<strong>余额写回</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t_yue <span class="keyword">SET</span> money=$new_money <span class="keyword">WHERE</span> uid=$uid <span class="keyword">AND</span> money=$old_money;</span><br></pre></td></tr></table></figure>
+
+<p>为什么<strong>不能采用</strong>直接扣减的方法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t_yue <span class="keyword">SET</span> money=money-$diff <span class="keyword">WHERE</span> uid=$uid;</span><br></pre></td></tr></table></figure>
+
+<p>很人说，在并发情况下，会将money扣成负数。</p>
+<p>为了保证余额<strong>不被扣成负数</strong>，再加一个where条件：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t_yue <span class="keyword">SET</span> money=money-$diff <span class="keyword">WHERE</span> uid=$uid* <span class="keyword">AND</span> money-$diff&gt;<span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>这样是否可行？</strong></p>
+<p><em>画外音：额，撇开业务不谈，这个SQL用列做运算，其实是不好的，建议使用：</em></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t_yue <span class="keyword">SET</span> money=money-$diff <span class="keyword">WHERE</span> uid=$uid <span class="keyword">AND</span> money&gt;$diff;</span><br></pre></td></tr></table></figure>
+
+<p>很遗憾，仍然不行。原因在《<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MjM5ODYxMDA5OQ==&mid=2651962738&idx=1&sn=d2d91a380bad06af9f7b9f7a80db26b3&chksm=bd2d08ae8a5a81b8a7f044af52c5e6e77ec3df2bb4a9c91cd450c3fd932e8dade56afb09f784&scene=21#wechat_redirect">并发扣款，如何保证数据的一致性？</a>》一文里点赞最多的评论，<strong>不幂等</strong>。</p>
+<p><em>画外音：说明绝大部分同学，能够回答正确作业。</em></p>
+<p>聊幂等性之前，先看另一个测试用例的case。</p>
+<p>假设有一个服务接口，<strong>注册新用户</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">bool <span class="title">RegisterUser</span><span class="params">($uid, $name)</span></span>&#123;</span><br><span class="line">​         <span class="comment">//**查看uid是否已经存在***</span></span><br><span class="line">​         select uid from t_user where uid=$uid;</span><br><span class="line">​         <span class="comment">//**不是新用户，返回失败***</span></span><br><span class="line">​         <span class="keyword">if</span>(rows&gt;<span class="number">0</span>)<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">​         <span class="keyword">else</span>&#123;</span><br><span class="line">​              <span class="comment">//**把新用户插入用户表***</span></span><br><span class="line">​              <span class="function">insert into t_user <span class="title">values</span><span class="params">($uid, $name)</span></span>;</span><br><span class="line">​              <span class="comment">//**返回成功***</span></span><br><span class="line">​              <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">​         &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有一个测试工程师，对该接口写了一个<strong>测试用例</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">bool <span class="title">TestCase_RegisterUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">​         <span class="comment">//**造一些假数据***</span></span><br><span class="line">​         <span class="keyword">long</span> uid=<span class="number">123</span>;</span><br><span class="line">​         String name=<span class="string">&#x27;shenjian&#x27;</span>;</span><br><span class="line">​         <span class="comment">//**调用被测试的接口***</span></span><br><span class="line">​         bool result= RegisterUser(uid,name);</span><br><span class="line">​         <span class="comment">//预期注册成功，**对结果进行断言判断***</span></span><br><span class="line">​         Assert(result,<span class="keyword">true</span>);</span><br><span class="line">​         <span class="comment">//**返回测试结果***</span></span><br><span class="line">​         <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>这是不是一个好的测试用例？这个用例存在什么问题？</strong></p>
+<p>你会发现，相同条件下，这个测试用例执行两次，得到的结果不一样：</p>
+<p>（1）第一次执行，第一次造数据，调用接口，注册成功；</p>
+<p>（2）第二次执行，又造了一次相同的数据，调用接口，注册会失败；</p>
+<p>这不是一个好的测试用例，多次执行结果不同。</p>
+<p><strong>什么是幂等性？</strong></p>
+<p>相同条件下，执行同一请求，得到的结果相同，才符合幂等性。</p>
+<p><em>画外音：Google一下，比我解释得更好，但意思应该说清楚了。</em> </p>
+<p><strong>如何将上面的测试用例改为符合“幂等性”的测试用例呢？</strong></p>
+<p>只需要加一行代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">bool <span class="title">TestCase_RegisterUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">​        <span class="comment">//造一些假数据*</span></span><br><span class="line">​        <span class="keyword">long</span> uid=<span class="number">123</span>;</span><br><span class="line">​        String name=’shenjian’;</span><br><span class="line">​        <span class="comment">//**先删除这个伪造的用户***</span></span><br><span class="line">​        DeleteUser(uid);</span><br><span class="line">​        <span class="comment">//调用被测试的接口*</span></span><br><span class="line">​        bool result= RegisterUser(uid,name);</span><br><span class="line">​        <span class="comment">//预期注册成功，对结果进行断言判断*</span></span><br><span class="line">​        Assert(result,<span class="keyword">true</span>);</span><br><span class="line">​        <span class="comment">//返回测试结果*</span></span><br><span class="line">​        <span class="keyword">return</span> result;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，<strong>在相同条件下</strong>，不管这个用例执行多少次，得到的测试结果都是相同的。</p>
+<p>是不是对幂等性有点感觉了。</p>
+<p>读请求，一般是幂等的。</p>
+<p>写请求，视情况而定：</p>
+<ul>
+<li><code>insert x</code>，一般来说不是幂等的，重复插入得到的结果不一定一样</li>
+<li><code>delete x</code>，一般来说是幂等的，删除多次得到的结果仍相同</li>
+<li><code>set a=x</code>，是幂等的</li>
+<li><code>set a=a-x</code>，不是幂等的</li>
+<li>…</li>
+</ul>
+<p>因此，这么扣减余额：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t_yue <span class="keyword">SET</span> money=$new_money <span class="keyword">WHERE</span> uid=$uid <span class="keyword">AND</span> money=$old_money;</span><br></pre></td></tr></table></figure>
+
+<p><strong>是幂等操作</strong>。</p>
+<p>要是这么扣减余额：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t_yue <span class="keyword">SET</span> money=money-$diff <span class="keyword">WHERE</span> uid=$uid <span class="keyword">AND</span> money-$diff&gt;<span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>不是幂等操作</strong>。</p>
+<p>聊到这里，或许有朋友要抬杠了，<strong>测试用例会重复执行，扣款怎么会重复执行呢？</strong></p>
+<p><code>重试。</code></p>
+<p>重试，是异常处理里很常见的手段。</p>
+<p>你在写业务的时候有没有写过这样的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">result = DoSomething();</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">false</span>==result || TIMEOUT)&#123;</span><br><span class="line">​         <span class="comment">//**错误，或者超时，重试一次***</span></span><br><span class="line">​         result= DoSomething();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> result;</span><br></pre></td></tr></table></figure>
+
+<p>当然，又会有朋友抬杠了，我从来不重试！！！</p>
+<p><em>画外音：额，这是合格，还是不合格呢？</em></p>
+<p>你可以决定业务代码怎么写，你<strong>不能决定底层框架代码怎么写</strong>：</p>
+<p>（1）站点框架有没有自动重试？</p>
+<p>（2）服务框架有没有自动重试？</p>
+<p>（3）服务连接池，数据库连接池有没有自动重试？</p>
+<p><em>画外音：</em></p>
+<p><em>（1）服务化分层的架构中，建议只入口层重试，服务层不要重试，防止雪崩；</em></p>
+<p><em>（2）dubbo底层，调用超时是默认重试的，这个设计不好；</em></p>
+<p>因此，<strong>在有重试的架构体系里，幂等性是需要考虑的一个问题</strong>。</p>
+<p>现在该懂了，为啥扣款和充值业务，一般使用：</p>
+<ul>
+<li><code>select&amp;set，配合CAS方案</code></li>
+</ul>
+<p>而不使用：</p>
+<ul>
+<li><code>set money-=X</code>方案</li>
+</ul>
+<p><em>画外音：充了100电话费，怎么多了200块？</em></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/xXju0y64KKUiD06QE0LoeA">参考自文章</a>.</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>并发扣款相关问题</p><p><a href="https://removeif.github.io/design-architecture/%E5%B9%B6%E5%8F%91%E6%89%A3%E6%AC%BE%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98.html">https://removeif.github.io/design-architecture/%E5%B9%B6%E5%8F%91%E6%89%A3%E6%AC%BE%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98.html</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>辣椒の酱</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2019-09-05</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2020-02-02</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># 相关文章</span><br><span>  1.<a class="is-size-6" href="/design-architecture/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E6%94%AF%E6%92%91%E7%99%BE%E4%B8%87QPS.html" target="_blank">秒杀系统如何支撑百万QPS</a><br></span><span>  2.<a class="is-size-6" href="/design-architecture/restful-api-%E8%AE%BE%E8%AE%A1%E4%BB%A5%E5%8F%8A%E5%B9%82%E7%AD%89%E6%80%A7%E7%9B%B8%E5%85%B3%E8%AE%BE%E8%AE%A1.html" target="_blank">restful api 设计以及幂等性相关设计</a><br></span><span>  3.<a class="is-size-6" href="/design-architecture/%E6%94%AF%E4%BB%98%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1-%E8%BD%AC%E8%BD%BD.html" target="_blank">支付系统设计(转载)</a><br></span></div><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># 推荐文章</span><br><span>  1.<a class="is-size-6" href="/theme/%E5%8D%9A%E5%AE%A2%E6%BA%90%E7%A0%81%E5%88%86%E4%BA%AB.html" target="_blank">博客源码分享</a><br></span><span>  2.<a class="is-size-6" href="/breaking-news/2019%E5%B9%B4%E5%9B%BD%E5%BA%8670%E5%91%A8%E5%B9%B4%E9%98%85%E5%85%B5%E5%AE%8C%E6%95%B4%E5%9B%BE%E6%96%87%E8%A7%A3%E8%AF%B4.html" target="_blank">2019年国庆70周年阅兵完整图文解说(收藏!)</a><br></span><span>  3.<a class="is-size-6" href="/theme/%E5%8D%9A%E5%AE%A2%E4%B8%ADgitalk%E6%9C%80%E6%96%B0%E8%AF%84%E8%AE%BA%E7%9A%84%E8%8E%B7%E5%8F%96.html" target="_blank">博客中gitalk最新评论的获取</a><br></span><span>  4.<a class="is-size-6" href="/law/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E5%88%91%E4%BA%8B%E8%AF%89%E8%AE%BC%E6%B3%95.html" target="_blank">中华人民共和国刑事诉讼法</a><br></span><span>  5.<a class="is-size-6" href="/java/design-mode/java-strategy-pattern.html" target="_blank">Java-策略模式</a><br></span><span>  6.<a class="is-size-6" href="/database/mysql/mysql%E5%85%81%E8%AE%B8%E6%9C%80%E5%A4%A7sql%E8%AF%AD%E5%8F%A5%E9%95%BF%E5%BA%A6%E9%85%8D%E7%BD%AE.html" target="_blank">mysql允许最大sql语句长度配置</a><br></span></div></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/css/share.min.css"><div class="social-share"></div><script src="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135456.png" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135550.png" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/java/basic/Java%E6%97%A5%E5%BF%97%E7%9A%84%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95.html"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Java日志的正确使用方法</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/database/mysql/MyBatis%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98.html"><span class="level-item">MyBatis二级缓存</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--><div class="card"><div class="card-content"><div class="title is-5">评论</div><div id="comment-container"></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/gitalk/1.6.0/gitalk.css"><script> $.getScript('https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.2/js/gitalk.min.js', function () { 
+            var gitalk = new Gitalk({
+            language:'zh-CN',
+            id: 'e348f0bbf7cb89628dc09d57990b6c3b',
+            repo: 'blog_comment',
+            owner: 'removeif',
+            clientID: '46a9f3481b46ea0129d8',
+            clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+            admin: ["removeif"],
+            createIssueManually: true,
+            distractionFreeMode: false,
+            perPage: 10,
+            pagerDirection: 'last',
+            
+            
+            enableHotKey: true,
+            isLocked: false
+        })
+        gitalk.render('comment-container')});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="is-flex is-mobile" href="#并发扣款，如何保证数据的一致性？"><span>并发扣款，如何保证数据的一致性？</span></a></li><li><a class="is-flex is-mobile" href="#并发扣款一致性优化，CAS下ABA问题"><span>并发扣款一致性优化，CAS下ABA问题</span></a></li><li><a class="is-flex is-mobile" href="#并发扣款一致性，幂等性问题"><span>并发扣款一致性，幂等性问题</span></a></li></ul></div></div><style>.menu-list > li > a.is-active + .menu-list { display: block; }.menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png" alt="辣椒の酱"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">辣椒の酱</p><p class="is-size-6 is-block">尚未执佩剑，转眼即江湖</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>阿尔及利亚</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">118</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">42</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">92</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://weibo.com/removeif" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/removeif"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Weibo" href="https://weibo.com/removeif"><i class="fab fa-weibo"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="mailto:removeif@163.com"><i class="fa fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Next" href="https://removeif.github.io/remove.io"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div><div><hr><p id="hitokoto">:D 一言句子获取中...</p><script type="text/javascript" defer>function getYiyan(){
+                                $.getJSON("https://v1.hitokoto.cn/", function (data) {
+                                if(data){
+                                    $('#hitokoto').html("");
+                                    $('#hitokoto').append("<strong style='color: #3273dc;'>"+data.hitokoto+"</strong>"+
+                                    "<p>"+"来源《"+data.from+"》</p><p>提供者-"+data.creator+"</p>");
+                                }});}
+                                $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});</script></div></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新评论</h3><span class="body_hot_comment">加载中，最新评论有1分钟缓存...</span></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/java/design-mode/java-strategy-pattern.html"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200702174616.png" alt="Java-策略模式"></a></figure><div class="media-content"><p class="date"><time dateTime="2020-07-02T09:42:48.000Z">2020-07-02</time></p><p class="title"><a href="/java/design-mode/java-strategy-pattern.html">Java-策略模式</a></p><p class="categories"><a href="/categories/java/">java</a> / <a href="/categories/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/database/mysql/mysql%E5%85%81%E8%AE%B8%E6%9C%80%E5%A4%A7sql%E8%AF%AD%E5%8F%A5%E9%95%BF%E5%BA%A6%E9%85%8D%E7%BD%AE.html"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200325175024.png" alt="mysql允许最大sql语句长度配置"></a></figure><div class="media-content"><p class="date"><time dateTime="2020-03-25T09:46:12.000Z">2020-03-25</time></p><p class="title"><a href="/database/mysql/mysql%E5%85%81%E8%AE%B8%E6%9C%80%E5%A4%A7sql%E8%AF%AD%E5%8F%A5%E9%95%BF%E5%BA%A6%E9%85%8D%E7%BD%AE.html">mysql允许最大sql语句长度配置</a></p><p class="categories"><a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a> / <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/">mysql</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/develop/github-gpg-failed-to-sign-the-data.html"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200320192248.png" alt="github gpg failed to sign the data"></a></figure><div class="media-content"><p class="date"><time dateTime="2020-03-20T11:05:03.000Z">2020-03-20</time></p><p class="title"><a href="/develop/github-gpg-failed-to-sign-the-data.html">github gpg failed to sign the data</a></p><p class="categories"><a href="/categories/develop/">develop</a> / <a href="/categories/develop/git/">git</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/database/mysql/mysql-like%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96.html"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200317222901.png" alt="mysql-like模糊查询优化"></a></figure><div class="media-content"><p class="date"><time dateTime="2020-03-17T14:25:24.000Z">2020-03-17</time></p><p class="title"><a href="/database/mysql/mysql-like%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96.html">mysql-like模糊查询优化</a></p><p class="categories"><a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a> / <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/">mysql</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/english-learn/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95.html"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200311193237.png" alt="英语语法-基本语法"></a></figure><div class="media-content"><p class="date"><time dateTime="2020-03-11T11:44:04.000Z">2020-03-11</time></p><p class="title"><a href="/english-learn/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95.html">英语语法-基本语法</a></p><p class="categories"><a href="/categories/English/">English</a> / <a href="/categories/English/grammar/">grammar</a></p></div></article></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/categories/English/"><span class="level-start"><span class="level-item">English</span></span><span class="level-end"><span class="level-item tag">19</span></span></a><ul class="mr-0"><li><a class="level is-mobile is-marginless" href="/categories/English/grammar/"><span class="level-start"><span class="level-item">grammar</span></span><span class="level-end"><span class="level-item tag">19</span></span></a></li></ul></li><li><a class="level is-mobile is-marginless" href="/categories/algorithm/"><span class="level-start"><span class="level-item">algorithm</span></span><span class="level-end"><span class="level-item tag">15</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/develop/"><span class="level-start"><span class="level-item">develop</span></span><span class="level-end"><span class="level-item tag">2</span></span></a><ul class="mr-0"><li><a class="level is-mobile is-marginless" href="/categories/develop/git/"><span class="level-start"><span class="level-item">git</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></li><li><a class="level is-mobile is-marginless" href="/categories/health/"><span class="level-start"><span class="level-item">health</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/ios/"><span class="level-start"><span class="level-item">ios</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/java/"><span class="level-start"><span class="level-item">java</span></span><span class="level-end"><span class="level-item tag">31</span></span></a><ul class="mr-0"><li><a class="level is-mobile is-marginless" href="/categories/java/JVM/"><span class="level-start"><span class="level-item">JVM</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/java/elasticsearch6/"><span class="level-start"><span class="level-item">elasticsearch6</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></li><a class="level is-mobile is-marginless" href="/categories/"><span class="level-start"><span class="level-item">查看全部&gt;&gt;</span></span></a></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2020/07/"><span class="level-start"><span class="level-item">七月 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2020/03/"><span class="level-start"><span class="level-item">三月 2020</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2020/02/"><span class="level-start"><span class="level-item">二月 2020</span></span><span class="level-end"><span class="level-item tag">14</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2020/01/"><span class="level-start"><span class="level-item">一月 2020</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/12/"><span class="level-start"><span class="level-item">十二月 2019</span></span><span class="level-end"><span class="level-item tag">15</span></span></a></li><a class="level is-mobile is-marginless" href="/archives/"><span class="level-start"><span class="level-item">查看全部&gt;&gt;</span></span></a></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/English/"><span class="tag">English</span><span class="tag is-grey-lightest">19</span></a></div><div class="control"><a class="tags has-addons" href="/tags/grammar/"><span class="tag">grammar</span><span class="tag is-grey-lightest">19</span></a></div><div class="control"><a class="tags has-addons" href="/tags/java/"><span class="tag">java</span><span class="tag is-grey-lightest">19</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B3%95%E5%BE%8B/"><span class="tag">法律</span><span class="tag is-grey-lightest">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="tag">设计模式</span><span class="tag is-grey-lightest">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag is-grey-lightest">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/"><span class="tag">工具教程</span><span class="tag is-grey-lightest">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/springboot/"><span class="tag">springboot</span><span class="tag is-grey-lightest">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/think/"><span class="tag">think</span><span class="tag is-grey-lightest">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"><span class="tag">二分查找</span><span class="tag is-grey-lightest">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Git/"><span class="tag">Git</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/dp/"><span class="tag">dp</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/elasticsearch6/"><span class="tag">elasticsearch6</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/hexo%E4%B8%BB%E9%A2%98/"><span class="tag">hexo主题</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/icarus%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/"><span class="tag">icarus主题配置</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/redis/"><span class="tag">redis</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/spring/"><span class="tag">spring</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"><span class="tag">动态规划</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"><span class="tag">双指针</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%94%AF%E4%BB%98%E6%9E%B6%E6%9E%84/"><span class="tag">支付架构</span><span class="tag is-grey-lightest">2</span></a></div></div><div class="field is-grouped is-grouped-multiline"><a class="tags has-addons" href="/tags/"><span class="tag">查看全部&gt;&gt;</span></a></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=removeifFeedsId&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="removeifFeedsId" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div><p class="help">输入邮箱开始订阅，更博后邮件通知！</p></form></div></div></div><div class="card widget"><div class="g-ads-x"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3></div><br><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-format="auto" data-full-width-responsive="true" data-ad-client="ca-pub-6343805421927634" data-ad-slot="5134765588"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="辣椒の酱" height="28"></a><p class="size-small"><span>&copy; 2020 辣椒の酱</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️本站自 <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> 已运行 <strong>" + dnum + "</strong> 天 <strong>" + hnum + "</strong> 小时 <strong>" + mnum + "</strong> 分 <strong>" + snum + "</strong> 秒！❤️";
+        }var now = new Date();setInterval("createTime('2018/11/11 00:00:00')", 250,"");</script><br></span><div class="size-small"><span>❤️感谢 <strong><span id="busuanzi_value_site_uv">99+</span></strong> 小伙伴的 <strong><span id="busuanzi_value_site_pv">99+</span></strong> 次光临！❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a></p></div><div class="sideMusic"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.2/js/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script><meting-js style="width: auto;height: 2000px;" server="netease" type="playlist" id="2364053447" theme="#2980b9" loop="all" autoplay="false" order="list" storageName="aplayer-setting" lrctype="0" list-max-height="400px" fixed="true"></meting-js></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.2/js/column.min.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.2/js/main.min.js" defer></script><script>$.getScript('https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.2/js/comment-issue-data.min.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','removeif','blog_comment',false);})</script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(true){
+                $.getScript('https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.2/js/comment-issue-data.min.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','removeif','blog_comment',false);});
+            }
+            if(false){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script></body></html>
