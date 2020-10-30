@@ -11911,11 +11911,8 @@ hr {
 .night strong {
   color: #fff;
 }
-.night .time-axis-achievement {
-  background-color: #151313;
-  color: #fff;
-}
-.night .time-axis-title {
+.night .time-axis-main .time-axis-achievement,
+.night .time-axis-main .time-axis-title {
   background-color: #151313;
   color: #fff;
 }
@@ -12232,6 +12229,15 @@ hr {
 }
 .night .article-licensing .licensing-title a {
   color: #3273dc !important;
+}
+.night .content h1,
+.night .content h2,
+.night .content h3,
+.night .content h4,
+.night .content h5,
+.night .content h6 {
+  color: #c0c0c0;
+  font-weight: 800;
 }
 .aplayer-narrow {
   -webkit-transform: translateX(-100%);
@@ -12581,4 +12587,8 @@ hr {
 }
 .font1_1 {
   font-size: 1.1rem;
+}
+.hljs-comment,
+.hljs-quote {
+  color: #42bb35 !important;
 }
