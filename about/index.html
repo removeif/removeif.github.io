@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>辣椒の酱</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="辣椒の酱"><meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="辣椒の酱"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta description="java,辣椒の酱,removeif,技术分享,后端开发,支付框架,数据接口,算法,leetcode"><meta property="og:type" content="blog"><meta property="og:title" content="辣椒の酱"><meta property="og:url" content="https://removeif.github.io/"><meta property="og:site_name" content="辣椒の酱"><meta property="og:description" content="java,辣椒の酱,removeif,技术分享,后端开发,支付框架,数据接口,算法,leetcode"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png"><meta property="article:published_time" content="2018-11-11T00:24:49.000Z"><meta property="article:modified_time" content="2020-10-30T09:27:22.728Z"><meta property="article:author" content="removeif"><meta property="article:tag" content="java,elasticsearch,设计模式,sql"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://removeif.github.io/"},"headline":"辣椒の酱","image":["https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@latest/img/avatar.png"],"datePublished":"2018-11-11T00:24:49.000Z","dateModified":"2020-10-30T09:27:22.728Z","author":{"@type":"Person","name":"removeif"},"description":"java,技术分享,后端开发,支付框架,数据接口,算法,leetcode"}</script><link rel="canonical" href="https://removeif.github.io/about/index.html"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="alternate" href="/atom.xml" title="辣椒の酱" type="application/atom+xml"><link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.3/css/default.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><script>(function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+                else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();</script><script>var _hmt = _hmt || [];
+                (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?90a0e914cd2c9e93e206cc9131b19416";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();</script><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.3/js/globalUtils.min.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><script src="https://www.googletagmanager.com/gtag/js?id=UA-154601528-1" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'UA-154601528-1');</script><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><script data-ad-client="ca-pub-6343805421927634" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 5.2.0"></head><body class="is-3-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="辣椒の酱" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/media">影音</a><a class="navbar-item" href="/album">相册</a><a class="navbar-item" href="/friend">友链</a><a class="navbar-item" href="/message">留言</a><a class="navbar-item" href="/self-talking">碎碎念</a><a class="navbar-item is-active" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Join Gitter" href="https://gitter.im/hexo-theme-amazing/community"><i class="fab fa-gitter"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.3/js/theme-setting.min.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><div class="card widget"><div class="g-ads-x"><div class="card-content"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6343805421927634" data-ad-slot="5134765588"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20201030172650.png" alt="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20201030172650.png"></span></div><article class="card-content article" role="article"><h1 class="title is-3 is-size-4-mobile"> </h1><div class="content"><h4 id="个人简介"><a href="#个人简介" class="headerlink" title="个人简介"></a>个人简介</h4><hr>
+<p>分享很喜欢的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BD%97%E6%B0%B8%E6%B5%A9/26814?fr=aladdin">老罗</a>的一段话：</p>
+<blockquote>
+<p>“<strong><em>每一个生命来到世间都注定改变世界，别无选择。要么变得好一点，要么变得坏一点。你如果走进社会为了生存为了什么不要脸的理由，变成了一个恶心的成年人社会中的一员，那你就把这个世界变得恶心了一点点。如果你一生刚正不阿，如果你一生耿直，没有做任何恶心的事情，没做对别人有害的事情，一辈子拼了老命勉强把自己身边的几个人照顾好了，没有成名没有发财，没有成就伟大的事业，然后耿着脖子一生正直，到了七八十岁耿着脖子去世了。你这一生是不是没有改变世界？你还是改变世界了，你把这个世界变得美好了一点点。因为世界上又多了一个好人。</em></strong>“</p>
+</blockquote>
+<p>善恶终有报,天道好轮回。不信抬头看,苍天饶过谁。<br>无论何时何地，我们都要保持一颗积极乐观、善良感恩的心。<br>但行好事莫问前程，永远年轻，永远热内盈眶，永远保持<strong>正能量</strong>。<br>💪💪💪💪💪💪冲鸭！！！！</p>
+<p>-&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>个人信息：<br>计算机科学与技术专业<br>从事JAVA后端开发<br>码畜一枚<br>坚信代码改变世界</p>
+<br>
+
+<h4 id="博客信息"><a href="#博客信息" class="headerlink" title="博客信息"></a>博客信息</h4><hr>
+<ul>
+<li>网站采用的<a target="_blank" rel="noopener" href="http://github.com/ppoffice/hexo-theme-icarus">Icarus主题</a> </li>
+<li>追求尽可能的简洁，清晰，易用。</li>
+<li>在Icarus主题之上进行了部分修改。</li>
+</ul>
+<p><strong><em>更新日志：</em></strong><br>–<em>2020.03.18：加入pjax支持</em><br>–<em>2020.03.01：独立出主题仓库<a target="_blank" rel="noopener" href="https://github.com/removeif/hexo-theme-amazing">hexo-theme-amazing</a></em><br>–<em>2020.01.18：适配icarus3.0代码</em><br>–<em>2019.11.17：增加深色主题开关</em><br>–<em>2019.10.30：去图，精简卡片</em><br>–<em>2019.10.22：改版部分显示，优化速度</em><br>–<em>2019.10.16：文章列表加上评论数显示</em><br>–<em>2019.10.13：改版评论</em><br>–<em>2019.09.25：图片、资源接入CDN免费jsDelivr、文章加入置顶</em><br>–<em>2019.09.19：开源<a target="_blank" rel="noopener" href="https://github.com/removeif/hexo-theme-icarus-removeif">博客代码</a></em><br>–<em>2019.09.19：修改布局，拉伸布局，更宽的展示</em><br>–<em>2019.09.18：修改友链ui为一行三个，并适配移动端，暗黑模式文章增加评论链接，增加留言链接</em><br>–<em>2019.09.14：增加<a href="https://removeif.github.io/remove.io/">精简next主题</a></em><br>–<em>2019.09.14：利用中秋节放假，重做了首页的热门推荐、加个widget最新评论框、归档页加入文章贡献概览面板</em></p>
+<br>
+
+<h4 id="本站推荐索引"><a href="#本站推荐索引" class="headerlink" title="本站推荐索引"></a>本站推荐索引</h4><hr>
+<p><strong>博客主题相关</strong></p>
+<ul>
+<li><a href="https://removeif.github.io/theme/github-Issue-%E4%BD%9C%E4%B8%BA%E5%8D%9A%E5%AE%A2%E5%BE%AE%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%BA%94%E7%94%A8.html">github Issue 作为博客微型数据库的应用</a></li>
+<li><a href="https://removeif.github.io/theme/github-page%E7%BD%91%E7%AB%99cdn%E4%BC%98%E5%8C%96%E5%8A%A0%E9%80%9F.html">github page网站cdn优化加速</a></li>
+<li><a href="https://removeif.github.io/theme/%E5%8D%9A%E5%AE%A2%E6%BA%90%E7%A0%81%E5%88%86%E4%BA%AB.html">博客源码分享</a></li>
+<li><a href="https://removeif.github.io/theme/%E5%8D%9A%E5%AE%A2%E6%8D%A2%E8%82%A4%E7%9A%84%E4%B8%80%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E6%80%9D%E8%B7%AF.html">博客换肤的一种实现方式思路</a></li>
+<li><a href="https://removeif.github.io/theme/%E5%8D%9A%E5%AE%A2%E4%B8%ADgitalk%E6%9C%80%E6%96%B0%E8%AF%84%E8%AE%BA%E7%9A%84%E8%8E%B7%E5%8F%96.html">博客中gitalk最新评论的获取</a></li>
+<li><a href="https://removeif.github.io/theme/%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0picgo%E5%B7%A5%E5%85%B7github%E5%9B%BE%E4%BC%A0%E4%BD%BF%E7%94%A8.html">博客图片上传picgo工具github图传使用</a></li>
+<li><a href="https://removeif.github.io/theme/%E5%AE%89%E8%A3%85%E3%80%81%E9%83%A8%E5%88%86%E9%85%8D%E7%BD%AEicarus%E4%B8%BB%E9%A2%98%E4%B8%AD%E6%96%87%E7%89%88.html">安装、部分配置icarus主题中文版</a></li>
+</ul>
+<p><strong>技术知识点</strong></p>
+<ul>
+<li><a href="https://removeif.github.io/java/basic/Java%E5%B9%B6%E5%8F%91%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9.html">Java并发知识点</a><br>
+
+</li>
+</ul>
+<p><strong>法律法规</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://search.chinalaw.gov.cn/search2.html">法律法规数据库</a></li>
+<li><a href="https://removeif.github.io/law/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E5%9B%BD%E6%97%97%E6%B3%95.html">中华人民共和国国旗法</a></li>
+<li><a href="https://removeif.github.io/law/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E5%AE%AA%E6%B3%95.html">中华人民共和国宪法</a></li>
+<li><a href="https://removeif.github.io/law/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E6%B6%88%E8%B4%B9%E8%80%85%E6%9D%83%E7%9B%8A%E4%BF%9D%E6%8A%A4%E6%B3%95.html">中华人民共和国消费者权益保护法</a></li>
+<li><a href="https://removeif.github.io/law/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E5%88%91%E4%BA%8B%E8%AF%89%E8%AE%BC%E6%B3%95.html">中华人民共和国刑事诉讼法</a></li>
+<li><a href="https://removeif.github.io/law/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E5%A9%9A%E5%A7%BB%E6%B3%95.html">中华人民共和国婚姻法</a></li>
+<li><a href="https://removeif.github.io/law/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%B3%95.html">中华人名共和国网络安全法</a>  </li>
+<li><a href="https://removeif.github.io/law/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E5%8A%B3%E5%8A%A8%E6%B3%95.html">中华人民共和国劳动法</a><br>
+
+</li>
+</ul>
+<p><strong>其他</strong></p>
+<ul>
+<li><a href="https://removeif.github.io/music/">网易云音乐歌单分享</a></li>
+<li><a href="https://removeif.github.io/anniversary.html">纪念页</a></li>
+<li><a href="https://removeif.github.io/clock.html">模仿AppleWatch时钟</a><br>
+
+</li>
+</ul>
+<p><strong>捐赠</strong></p>
+<p><code>感觉博客不错、对你有帮助的话，欢迎捐赠，支持以下3种一次性捐赠，感谢！</code></p>
+<div class="img-x">
+
+<p><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135456.png" alt="支付宝捐赠"> <img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135550.png" alt="微信捐赠"></p>
+</div>
+
+<p><code>点击浏览以下广告捐赠</code></p>
+<div class="g-ads-x">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <ins class="adsbygoogle" 
+    style="display:block; text-align:left;" 
+    data-ad-layout="in-article" 
+    data-ad-format="fluid" 
+    data-ad-client="ca-pub-6343805421927634" 
+    data-ad-slot="5134765588"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<br>
+
+<h4 id="计划"><a href="#计划" class="headerlink" title="计划"></a>计划</h4><p><strong>2020计划</strong></p>
+<hr>
+<p>2019.12.31</p>
+<blockquote>
+<p><strong>2020-GOALS</strong>              </p>
+<ul>
+<li><input disabled="" type="checkbox"> 跑两三场马拉松</li>
+<li><input disabled="" type="checkbox"> 多学习，多写博文，年终达到150篇</li>
+<li><input disabled="" type="checkbox"> 多读书，平均每天1h，年底至少300h</li>
+<li><input disabled="" type="checkbox"> 晚上多跑步，一周至少两次，体重减少10斤</li>
+<li><input disabled="" type="checkbox"> 去一次2-3天的旅行</li>
+</ul>
+</blockquote>
+<p><strong>2019计划</strong></p>
+<hr>
+<p>2018.12.31/21:59:00-&gt;更新于2019.12.31</p>
+<blockquote>
+<p><strong>2019-GOALS</strong></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 购买的专业书籍至少看完一遍（并发、重构、设计模式…）-&gt; 95%</li>
+<li><input checked="" disabled="" type="checkbox"> 微信读书每天一个小时(目前时长:95h,年终总计300小时) -&gt; 100%,405h</li>
+<li><input checked="" disabled="" type="checkbox"> 坚持每周去两次健身房(多练肚子、力量、学会蝶泳) -&gt; 50%,蝶泳90%,其余30%左右</li>
+<li><input disabled="" type="checkbox"> 至少完成一项 前后端分离项目 -&gt; 20%,烂尾</li>
+<li><input disabled="" type="checkbox"> 完成一项 微服务项目(类似公司使用相关技术) -&gt; 20%,烂尾</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>不辞职</strong> -&gt; 100%</li>
+<li><input checked="" disabled="" type="checkbox"> 多交朋友、多换位思考、多与朋友交流沟通 -&gt; 70%</li>
+<li><input checked="" disabled="" type="checkbox"> 居安思危，多思考关注相关专业前景，生活环境 -&gt; 50%</li>
+<li><input checked="" disabled="" type="checkbox"> Java基础技能强化 -&gt; 50%</li>
+<li><input checked="" disabled="" type="checkbox"> 多买书 -&gt; 100% (新增哈利波特1-4汉英版)</li>
+<li><input checked="" disabled="" type="checkbox"> 学习更多的新菜(至少三项) -&gt; 60%</li>
+<li><input checked="" disabled="" type="checkbox"> 少买电子产品，少网购，少逛数码产品 -&gt; 60%(新增华米运动手表2二手,一加2二手，小米电纸书)</li>
+<li><input disabled="" type="checkbox"> 学英语记单词、学数学、多看视频教程 -&gt; 20%</li>
+<li><input checked="" disabled="" type="checkbox"> <del>少玩游戏</del>  -2019.06卸载游戏 -&gt; 80%</li>
+</ul>
+<p><strong>额外：</strong></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 追了很多剧</li>
+<li><input checked="" disabled="" type="checkbox"> 写了好些博客文章，修改开源了博客源码</li>
+<li><input checked="" disabled="" type="checkbox"> 年末去了一趟西安旅行，看了一场移动的演出《驼铃传奇》，强烈安利！</li>
+<li><input checked="" disabled="" type="checkbox"> 入坑马拉松，跑了3场半程马拉松，一场全程马拉松</li>
+</ul>
+<p><strong>总结：</strong></p>
+<ul>
+<li>有优点有缺点，没坚持下来的还是太多，追了太多剧。以后多学习，多思考！</li>
+</ul>
+</blockquote>
+<br>
+
+<h4 id="时间轴记录"><a href="#时间轴记录" class="headerlink" title="时间轴记录"></a>时间轴记录</h4><hr>
+<div class="time-axis-main">
+    <ul class="time-axis"></ul>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@master/js/about-me.js"></script>
+<br>
+<br></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/css/share.min.css"><div class="social-share"></div><script src="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135456.png" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135550.png" alt="微信"></span></a></div></div></div><!--!--><div class="card"><div class="card-content"><div id="comment-container"></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/gitalk/1.6.0/gitalk.css"><script> $.getScript('https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.3/js/gitalk.min.js', function () { 
+            var gitalk = new Gitalk({
+            language:'zh-CN',
+            id: 'a7224db13f3a49096aa27c1876d1a947',
+            repo: 'blog_comment',
+            owner: 'removeif',
+            clientID: '46a9f3481b46ea0129d8',
+            clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+            admin: ["removeif"],
+            createIssueManually: true,
+            distractionFreeMode: false,
+            perPage: 10,
+            pagerDirection: 'last',
+            
+            
+            enableHotKey: true,
+            isLocked: true
+        })
+        gitalk.render('comment-container')});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><!--!--><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png" alt="辣椒の酱"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">辣椒の酱</p><p class="is-size-6 is-block">尚未执佩剑，转眼即江湖</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>阿尔及利亚</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">118</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">42</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">92</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://weibo.com/removeif" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/removeif"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Weibo" href="https://weibo.com/removeif"><i class="fab fa-weibo"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="mailto:removeif@163.com"><i class="fa fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Next" href="https://removeif.github.io/remove.io"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div><div><hr><p id="hitokoto">:D 一言句子获取中...</p><script type="text/javascript" defer>function getYiyan(){
+                                $.getJSON("https://v1.hitokoto.cn/", function (data) {
+                                if(data){
+                                    $('#hitokoto').html("");
+                                    $('#hitokoto').append("<strong style='color: #3273dc;'>"+data.hitokoto+"</strong>"+
+                                    "<p>"+"来源《"+data.from+"》</p><p>提供者-"+data.creator+"</p>");
+                                }});}
+                                $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});</script></div></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新评论</h3><span class="body_hot_comment">加载中，最新评论有1分钟缓存...</span></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/java/design-mode/java-strategy-pattern.html"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200702174616.png" alt="Java-策略模式"></a></figure><div class="media-content"><p class="date"><time dateTime="2020-07-02T09:42:48.000Z">2020-07-02</time></p><p class="title"><a href="/java/design-mode/java-strategy-pattern.html">Java-策略模式</a></p><p class="categories"><a href="/categories/java/">java</a> / <a href="/categories/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/database/mysql/mysql%E5%85%81%E8%AE%B8%E6%9C%80%E5%A4%A7sql%E8%AF%AD%E5%8F%A5%E9%95%BF%E5%BA%A6%E9%85%8D%E7%BD%AE.html"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200325175024.png" alt="mysql允许最大sql语句长度配置"></a></figure><div class="media-content"><p class="date"><time dateTime="2020-03-25T09:46:12.000Z">2020-03-25</time></p><p class="title"><a href="/database/mysql/mysql%E5%85%81%E8%AE%B8%E6%9C%80%E5%A4%A7sql%E8%AF%AD%E5%8F%A5%E9%95%BF%E5%BA%A6%E9%85%8D%E7%BD%AE.html">mysql允许最大sql语句长度配置</a></p><p class="categories"><a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a> / <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/">mysql</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/develop/github-gpg-failed-to-sign-the-data.html"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200320192248.png" alt="github gpg failed to sign the data"></a></figure><div class="media-content"><p class="date"><time dateTime="2020-03-20T11:05:03.000Z">2020-03-20</time></p><p class="title"><a href="/develop/github-gpg-failed-to-sign-the-data.html">github gpg failed to sign the data</a></p><p class="categories"><a href="/categories/develop/">develop</a> / <a href="/categories/develop/git/">git</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/database/mysql/mysql-like%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96.html"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200317222901.png" alt="mysql-like模糊查询优化"></a></figure><div class="media-content"><p class="date"><time dateTime="2020-03-17T14:25:24.000Z">2020-03-17</time></p><p class="title"><a href="/database/mysql/mysql-like%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96.html">mysql-like模糊查询优化</a></p><p class="categories"><a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a> / <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/">mysql</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/english-learn/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95.html"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200311193237.png" alt="英语语法-基本语法"></a></figure><div class="media-content"><p class="date"><time dateTime="2020-03-11T11:44:04.000Z">2020-03-11</time></p><p class="title"><a href="/english-learn/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95.html">英语语法-基本语法</a></p><p class="categories"><a href="/categories/English/">English</a> / <a href="/categories/English/grammar/">grammar</a></p></div></article></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/categories/English/"><span class="level-start"><span class="level-item">English</span></span><span class="level-end"><span class="level-item tag">19</span></span></a><ul class="mr-0"><li><a class="level is-mobile is-marginless" href="/categories/English/grammar/"><span class="level-start"><span class="level-item">grammar</span></span><span class="level-end"><span class="level-item tag">19</span></span></a></li></ul></li><li><a class="level is-mobile is-marginless" href="/categories/algorithm/"><span class="level-start"><span class="level-item">algorithm</span></span><span class="level-end"><span class="level-item tag">15</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/develop/"><span class="level-start"><span class="level-item">develop</span></span><span class="level-end"><span class="level-item tag">2</span></span></a><ul class="mr-0"><li><a class="level is-mobile is-marginless" href="/categories/develop/git/"><span class="level-start"><span class="level-item">git</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></li><li><a class="level is-mobile is-marginless" href="/categories/health/"><span class="level-start"><span class="level-item">health</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/ios/"><span class="level-start"><span class="level-item">ios</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/java/"><span class="level-start"><span class="level-item">java</span></span><span class="level-end"><span class="level-item tag">31</span></span></a><ul class="mr-0"><li><a class="level is-mobile is-marginless" href="/categories/java/JVM/"><span class="level-start"><span class="level-item">JVM</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/java/elasticsearch6/"><span class="level-start"><span class="level-item">elasticsearch6</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></li><a class="level is-mobile is-marginless" href="/categories/"><span class="level-start"><span class="level-item">查看全部&gt;&gt;</span></span></a></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2020/07/"><span class="level-start"><span class="level-item">七月 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2020/03/"><span class="level-start"><span class="level-item">三月 2020</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2020/02/"><span class="level-start"><span class="level-item">二月 2020</span></span><span class="level-end"><span class="level-item tag">14</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2020/01/"><span class="level-start"><span class="level-item">一月 2020</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/12/"><span class="level-start"><span class="level-item">十二月 2019</span></span><span class="level-end"><span class="level-item tag">15</span></span></a></li><a class="level is-mobile is-marginless" href="/archives/"><span class="level-start"><span class="level-item">查看全部&gt;&gt;</span></span></a></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/English/"><span class="tag">English</span><span class="tag is-grey-lightest">19</span></a></div><div class="control"><a class="tags has-addons" href="/tags/grammar/"><span class="tag">grammar</span><span class="tag is-grey-lightest">19</span></a></div><div class="control"><a class="tags has-addons" href="/tags/java/"><span class="tag">java</span><span class="tag is-grey-lightest">19</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B3%95%E5%BE%8B/"><span class="tag">法律</span><span class="tag is-grey-lightest">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="tag">设计模式</span><span class="tag is-grey-lightest">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag is-grey-lightest">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/"><span class="tag">工具教程</span><span class="tag is-grey-lightest">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/springboot/"><span class="tag">springboot</span><span class="tag is-grey-lightest">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/think/"><span class="tag">think</span><span class="tag is-grey-lightest">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"><span class="tag">二分查找</span><span class="tag is-grey-lightest">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Git/"><span class="tag">Git</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/dp/"><span class="tag">dp</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/elasticsearch6/"><span class="tag">elasticsearch6</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/hexo%E4%B8%BB%E9%A2%98/"><span class="tag">hexo主题</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/icarus%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/"><span class="tag">icarus主题配置</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/redis/"><span class="tag">redis</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/spring/"><span class="tag">spring</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"><span class="tag">动态规划</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"><span class="tag">双指针</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%94%AF%E4%BB%98%E6%9E%B6%E6%9E%84/"><span class="tag">支付架构</span><span class="tag is-grey-lightest">2</span></a></div></div><div class="field is-grouped is-grouped-multiline"><a class="tags has-addons" href="/tags/"><span class="tag">查看全部&gt;&gt;</span></a></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=removeifFeedsId&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="removeifFeedsId" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div><p class="help">输入邮箱开始订阅，更博后邮件通知！</p></form></div></div></div><div class="card widget"><div class="g-ads-x"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3></div><br><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-format="auto" data-full-width-responsive="true" data-ad-client="ca-pub-6343805421927634" data-ad-slot="5134765588"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="辣椒の酱" height="28"></a><p class="size-small"><span>&copy; 2020 辣椒の酱</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️本站自 <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> 已运行 <strong>" + dnum + "</strong> 天 <strong>" + hnum + "</strong> 小时 <strong>" + mnum + "</strong> 分 <strong>" + snum + "</strong> 秒！❤️";
+        }var now = new Date();setInterval("createTime('2018/11/11 00:00:00')", 250,"");</script><br></span><div class="size-small"><span>❤️感谢 <strong><span id="busuanzi_value_site_uv">99+</span></strong> 小伙伴的 <strong><span id="busuanzi_value_site_pv">99+</span></strong> 次光临！❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a></p></div><div class="sideMusic"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.3/js/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script><meting-js style="width: auto;height: 2000px;" server="netease" type="playlist" id="2364053447" theme="#2980b9" loop="all" autoplay="false" order="list" storageName="aplayer-setting" lrctype="0" list-max-height="400px" fixed="true"></meting-js></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.3/js/column.min.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.3/js/main.min.js" defer></script><script>$.getScript('https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.3/js/comment-issue-data.min.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','removeif','blog_comment',false);})</script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(true){
+                $.getScript('https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v4.0.3/js/comment-issue-data.min.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','removeif','blog_comment',false);});
+            }
+            if(false){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script></body></html>
