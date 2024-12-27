@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>mysql数据库索引解析 - 辣椒の酱</title><link rel="manifest" href="/page.test/manifest.json"><meta name="application-name" content="辣椒の酱"><meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="辣椒の酱"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="java,辣椒の酱,removeif,技术分享,后端开发,支付框架,数据接口,算法,leetcode"><meta property="og:type" content="blog"><meta property="og:title" content="辣椒の酱"><meta property="og:url" content="https://removeif.github.io/"><meta property="og:site_name" content="辣椒の酱"><meta property="og:description" content="java,辣椒の酱,removeif,技术分享,后端开发,支付框架,数据接口,算法,leetcode"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png"><meta property="article:published_time" content="2019-06-04T19:36:04.000Z"><meta property="article:modified_time" content="2024-12-27T09:42:47.550Z"><meta property="article:author" content="removeif"><meta property="article:tag" content="mysql"><meta property="article:tag" content="索引"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://removeif.github.io/"},"headline":"辣椒の酱","image":["https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@latest/img/avatar.png"],"datePublished":"2019-06-04T19:36:04.000Z","dateModified":"2024-12-27T09:42:47.550Z","author":{"@type":"Person","name":"removeif"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject"}},"description":"java,技术分享,后端开发,支付框架,数据接口,算法,leetcode"}</script><link rel="canonical" href="https://removeif.github.io/database/mysql/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E8%A7%A3%E6%9E%90.html"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="alternate" href="/page.test/atom.xml" title="辣椒の酱" type="application/atom+xml"><link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v6.0.1/css/default.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><script>(function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+                else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();</script><script>var _hmt = _hmt || [];
+                (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?90a0e914cd2c9e93e206cc9131b19416";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();</script><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v6.0.1/js/globalUtils.min.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?123123a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css"><script src="https://www.googletagmanager.com/gtag/js?id=UA-154601528-1" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'UA-154601528-1');</script><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdnjs.loli.net/ajax/libs/pace/1.2.4/pace.min.js"></script><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/cookieconsent/3.1.1/cookieconsent.min.css"><script data-ad-client="ca-pub-6343805421927634" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body class="is-3-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/page.test/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="辣椒の酱" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/page.test/">首页</a><a class="navbar-item" href="/page.test/archives">归档</a><a class="navbar-item" href="/page.test/categories">分类</a><a class="navbar-item" href="/page.test/tags">标签</a><a class="navbar-item" href="/page.test/media">影音</a><a class="navbar-item" href="/page.test/album">相册</a><a class="navbar-item" href="/page.test/friend">友链</a><a class="navbar-item" href="/page.test/message">留言</a><a class="navbar-item" href="/page.test/self-talking">碎碎念</a><a class="navbar-item" href="/page.test/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Join Gitter" href="https://gitter.im/hexo-theme-amazing/community"><i class="fab fa-gitter"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v6.0.1/js/theme-setting.min.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><!--!--><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620153720.png" alt="mysql数据库索引解析"></span></div><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2019-06-04  <a class="commentCountImg" href="/page.test/database/mysql/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E8%A7%A3%E6%9E%90.html#comment-container"><span class="display-none-class">ce99c6766a2f1bbb43d385a13286cd68</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="ce99c6766a2f1bbb43d385a13286cd68">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>30 分钟  <i class="fas fa-pencil-alt"> </i>4.5 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">mysql数据库索引解析</h1><div class="content"><blockquote>
+<p>摘要<br>看了很多关于索引的博客，讲的大同小异。但是始终没有让我明白关于索引的一些概念，如B-Tree索引，Hash索引，唯一索引….或许有很多人和我一样，没搞清楚概念就开始研究B-Tree，B+Tree等结构，导致在面试的时候答非所问！</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="索引是什么"><a href="#索引是什么" class="headerlink" title="索引是什么?"></a>索引是什么?</h3><p>索引是帮助MySQL高效获取数据的数据结构。</p>
+<h3 id="索引能干什么"><a href="#索引能干什么" class="headerlink" title="索引能干什么?"></a>索引能干什么?</h3><p>索引非常关键，尤其是当表中的数据量越来越大时，索引对于性能的影响愈发重要。 索引能够轻易将查询性能提高好几个数量级，总的来说就是可以明显的提高查询效率。</p>
+<h3 id="索引的分类"><a href="#索引的分类" class="headerlink" title="索引的分类?"></a>索引的分类?</h3><ol>
+<li><p>从存储结构上来划分：BTree索引（B-Tree或B+Tree索引），Hash索引，full-index全文索引，R-Tree索引。这里所描述的是索引存储时保存的形式，</p>
+</li>
+<li><p>从应用层次来分：普通索引，唯一索引，复合索引</p>
+</li>
+<li><p>根据中数据的物理顺序与键值的逻辑（索引）顺序关系：聚集索引，非聚集索引。</p>
+</li>
+</ol>
+<p>平时讲的索引类型一般是指在应用层次的划分。就像手机分类：安卓手机，IOS手机 与 华为手机，苹果手机，OPPO手机一样。</p>
+<p><strong>普通索引****：</strong>即一个索引只包含单个列，一个表可以有多个单列索引</p>
+<p><strong>唯一索引：</strong>索引列的值必须唯一，但允许有空值</p>
+<p><strong>复合索引：</strong>多列值组成一个索引，专门用于组合搜索，其效率大于索引合并</p>
+<p><strong>聚簇索引(聚集索引)：</strong>并不是一种单独的索引类型，而是一种数据存储方式。具体细节取决于不同的实现，InnoDB的聚簇索引其实就是在同一个结构中保存了B-Tree索引(技术上来说是B+Tree)和数据行。</p>
+<p><strong>非聚簇索引：</strong>不是聚簇索引，就是非聚簇索引</p>
+<h3 id="索引的底层实现"><a href="#索引的底层实现" class="headerlink" title="索引的底层实现"></a>索引的底层实现</h3><p>mysql默认存储引擎innodb只显式支持B-Tree( 从技术上来说是B+Tree)索引，对于频繁访问的表，innodb会透明建立自适应hash索引，即在B树索引基础上建立hash索引，可以显著提高查找效率，对于客户端是透明的，不可控制的，隐式的。</p>
+<p>不谈存储引擎，只讨论实现(抽象)</p>
+<h4 id="Hash索引"><a href="#Hash索引" class="headerlink" title="Hash索引"></a>Hash索引</h4><p>基于哈希表实现，只有精确匹配索引所有列的查询才有效，对于每一行数据，存储引擎都会对所有的索引列计算一个哈希码（hash code），并且Hash索引将所有的哈希码存储在索引中，同时在索引表中保存指向每个数据行的指针。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620153804.png"></p>
+<h4 id="B-Tree索引（MySQL使用B-Tree）"><a href="#B-Tree索引（MySQL使用B-Tree）" class="headerlink" title="B-Tree索引（MySQL使用B+Tree）"></a>B-Tree索引（MySQL使用B+Tree）</h4><p>B-Tree能加快数据的访问速度，因为存储引擎不再需要进行全表扫描来获取数据，数据分布在各个节点之中。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620153834.png"></p>
+<p>B+Tree索引</p>
+<p>是B-Tree的改进版本，同时也是数据库索引索引所采用的存储结构。数据都在叶子节点上，并且增加了顺序访问指针，每个叶子节点都指向相邻的叶子节点的地址。相比B-Tree来说，进行范围查找时只需要查找两个节点，进行遍历即可。而B-Tree需要获取所有节点，相比之下B+Tree效率更高。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620153924.png"></p>
+<p>结合存储引擎来讨论（一般默认使用B+Tree）</p>
+<p>案例：假设有一张学生表，id为主键</p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">name</th>
+<th align="left">birthday</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">Tom</td>
+<td align="left">1996-01-01</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">Jann</td>
+<td align="left">1996-01-04</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">Ray</td>
+<td align="left">1996-01-08</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">Michael</td>
+<td align="left">1996-01-10</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">Jack</td>
+<td align="left">1996-01-13</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">Steven</td>
+<td align="left">1996-01-23</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">Lily</td>
+<td align="left">1996-01-25</td>
+</tr>
+</tbody></table>
+<p><strong>在MyISAM引擎中的实现</strong>（二级索引也是这样实现的）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620153946.png"></p>
+<p>在InnoDB中的实现</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620154003.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620154020.png"></p>
+<h3 id="为什么索引结构默认使用B-Tree，而不是Hash，二叉树，红黑树？"><a href="#为什么索引结构默认使用B-Tree，而不是Hash，二叉树，红黑树？" class="headerlink" title="为什么索引结构默认使用B+Tree，而不是Hash，二叉树，红黑树？"></a>为什么索引结构默认使用B+Tree，而不是Hash，二叉树，红黑树？</h3><p>B+tree：因为B树<strong>不管叶子节点还是非叶子节点，都会保存数据</strong>，这样导致在非叶子节点中能保存的指针数量变少（有些资料也称为扇出），指针少的情况下要保存大量数据，只能增加树的高度，导致IO操作变多，查询性能变低；</p>
+<p>Hash：虽然可以快速定位，但是没有顺序，IO复杂度高。</p>
+<p>二叉树：树的高度不均匀，不能自平衡，查找效率跟数据有关（树的高度），并且IO代价高。</p>
+<p>红黑树：树的高度随着数据量增加而增加，IO代价高。</p>
+<blockquote>
+<p>红黑树:</p>
+<ol>
+<li>每个节点或者是黑色，或者是红色。</li>
+<li>根节点是黑色。</li>
+<li>每个叶子节点是黑色。 [注意：这里叶子节点，是指为空的叶子节点！]</li>
+<li>如果一个节点是红色的，则它的子节点必须是黑色的。</li>
+<li>从一个节点到该节点的子孙节点的所有路径上包含相同数目的黑节点。</li>
+</ol>
+</blockquote>
+<h3 id="为什么官方建议使用自增长主键作为索引？"><a href="#为什么官方建议使用自增长主键作为索引？" class="headerlink" title="为什么官方建议使用自增长主键作为索引？"></a>为什么官方建议使用自增长主键作为索引？</h3><p>结合B+Tree的特点，自增主键是连续的，在插入过程中尽量减少页分裂，即使要进行页分裂，也只会分裂很少一部分。并且能减少数据的移动，每次插入都是插入到最后。总之就是减少分裂和移动的频率。</p>
+<p>插入连续的数据：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/b5d1b710ly4g3pc5ln9mmg20di04fjsq.gif"></p>
+<p>插入非连续的数据</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/b5d1b710ly4g3pc6246isg20di04fjwr.gif"></p>
+<h3 id="简单总结下"><a href="#简单总结下" class="headerlink" title="简单总结下"></a>简单总结下</h3><ol>
+<li>MySQL使用B+Tree作为索引数据结构。 </li>
+<li>B+Tree在新增数据时，会根据索引指定列的值对旧的B+Tree做调整。</li>
+<li>从物理存储结构上说，B-Tree和B+Tree都以页(4K)来划分节点的大小，但是由于B+Tree中中间节点不存储数据，因此B+Tree能够在同样大小的节点中，存储更多的key，提高查找效率。 </li>
+<li>影响MySQL查找性能的主要还是磁盘IO次数，大部分是磁头移动到指定磁道的时间花费。</li>
+<li>MyISAM存储引擎下索引和数据存储是分离的，InnoDB索引和数据存储在一起。 </li>
+<li>InnoDB存储引擎下索引的实现，(辅助索引)全部是依赖于主索引建立的(辅助索引中叶子结点存储的并不是数据的地址，还是主索引的值，因此，所有依赖于辅助索引的都是先根据辅助索引查到主索引，再根据主索引查数据的地址)。 </li>
+<li>由于InnoDB索引的特性，因此如果主索引不是自增的(id作主键)，那么每次插入新的数据，都很可能对B+Tree的主索引进行重整，影响性能。因此，尽量以自增id作为InnoDB的主索引。</li>
+</ol>
+<h2 id="InnoDB一棵B-树能存多少行数据？为什么要用B-树？而不是其他树？"><a href="#InnoDB一棵B-树能存多少行数据？为什么要用B-树？而不是其他树？" class="headerlink" title="InnoDB一棵B+树能存多少行数据？为什么要用B+树？而不是其他树？"></a>InnoDB一棵B+树能存多少行数据？为什么要用B+树？而不是其他树？</h2><p>InnoDB一棵B+树可以存放多少行数据？这个问题的简单回答是：约2千万。为什么是这么多呢？因为这是可以算出来的，要搞清楚这个问题，我们先从InnoDB索引数据结构、数据组织方式说起。</p>
+<p>我们都知道计算机在存储数据的时候，有最小存储单元，这就好比我们今天进行现金的流通最小单位是一毛。在计算机中磁盘存储数据最小单元是扇区，一个扇区的大小是512字节，而文件系统（例如XFS/EXT4）他的最小单元是块，一个块的大小是4k，而对于我们的InnoDB存储引擎也有自己的最小储存单元——页（Page），一个页的大小是16K。</p>
+<p>innodb的所有数据文件（后缀为ibd的文件），他的大小始终都是16384（16k）的整数倍。</p>
+<p>磁盘扇区、文件系统、InnoDB存储引擎都有各自的最小存储单元。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620154236.png"></p>
+<p>在MySQL中我们的InnoDB页的大小默认是16k，当然也可以通过参数设置：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like </span><br><span class="line">'innodb_page_size';</span><br><span class="line">+------------------+-------+</span><br><span class="line">| Variable_name| Value|</span><br><span class="line">+------------------+-------+</span><br><span class="line">| innodb_page_size | 16384|</span><br><span class="line">+------------------+-------+</span><br><span class="line">1 row in set(0.00sec)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>数据表中的数据都是存储在页中的，所以一个页中能存储多少行数据呢？假设一行数据的大小是1k，那么一个页可以存放16行这样的数据。</p>
+<p>如果数据库只按这样的方式存储，那么如何查找数据就成为一个问题，因为我们不知道要查找的数据存在哪个页中，也不可能把所有的页遍历一遍，那样太慢了。所以人们想了一个办法，用B+树的方式组织这些数据。如图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620154344.png"></p>
+<p>我们先将数据记录按主键进行排序，分别存放在不同的页中（为了便于理解我们这里一个页中只存放3条记录，实际情况可以存放很多），除了存放数据的页以外，还有存放键值+指针的页，如图中page number=3的页，该页存放键值和指向数据页的指针，这样的页由N个键值+指针组成。当然它也是排好序的。这样的数据组织形式，我们称为索引组织表。现在来看下，要查找一条数据，怎么查？</p>
+<p>如<strong>select * from user where id=5</strong>;</p>
+<p>这里id是主键,我们通过这棵B+树来查找，首先找到根页，你怎么知道user表的根页在哪呢？其实每张表的根页位置在表空间文件中是固定的，即page number=3的页（这点我们下文还会进一步证明），找到根页后通过二分查找法，定位到id=5的数据应该在指针P5指向的页中，那么进一步去page number=5的页中查找，同样通过二分查询法即可找到id=5的记录：</p>
+<p><strong>| 5 | zhao2 | 27 |</strong></p>
+<p>现在我们清楚了InnoDB中主键索引B+树是如何组织数据、查询数据的，我们总结一下：</p>
+<p>1、InnoDB存储引擎的最小存储单元是页，页可以用于存放数据也可以用于存放键值+指针，在B+树中叶子节点存放数据，非叶子节点存放键值+指针。</p>
+<p>2、索引组织表通过非叶子节点的二分查找法以及指针确定数据在哪个页中，进而在去数据页中查找到需要的数据；</p>
+<h3 id="那么回到我们开始的问题，通常一棵B-树可以存放多少行数据？"><a href="#那么回到我们开始的问题，通常一棵B-树可以存放多少行数据？" class="headerlink" title="那么回到我们开始的问题，通常一棵B+树可以存放多少行数据？"></a>那么回到我们开始的问题，通常一棵B+树可以存放多少行数据？</h3><p>这里我们先假设B+树高为2，即存在一个根节点和若干个叶子节点，那么这棵B+树的存放总记录数为：<strong>根节点指针数*单个叶子节点记录行数</strong>。</p>
+<p>上文我们已经说明单个叶子节点（页）中的记录数=16K/1K=16。（这里假设一行记录的数据大小为1k，实际上现在很多互联网业务数据记录大小通常就是1K左右）。</p>
+<p><strong>那么现在我们需要计算出非叶子节点能存放多少指针？</strong></p>
+<p>其实这也很好算，我们假设主键ID为bigint类型，长度为8字节，而指针大小在InnoDB源码中设置为6字节，这样一共14字节，我们一个页中能存放多少这样的单元，其实就代表有多少指针，即<strong>16384/14=1170</strong>。那么可以算出一棵高度为2的B+树，能存放<strong>1170*16=18720</strong>条这样的数据记录。</p>
+<p><strong>根据同样的原理我们可以算出一个高度为3的B+树可以存放</strong>：<strong>1170*1170*16=21902400</strong>条这样的记录。</p>
+<p>所以在InnoDB中B+树高度一般为1-3层，它就能满足千万级的数据存储。在查找数据时一次页的查找代表一次IO，所以通过主键索引查询通常只需要1-3次IO操作即可查找到数据。</p>
+<h3 id="怎么得到InnoDB主键索引B-树的高度？"><a href="#怎么得到InnoDB主键索引B-树的高度？" class="headerlink" title="怎么得到InnoDB主键索引B+树的高度？"></a>怎么得到InnoDB主键索引B+树的高度？</h3><p>上面我们通过推断得出B+树的高度通常是1-3，下面我们从另外一个侧面证明这个结论。在InnoDB的表空间文件中，约定<strong>page number为3</strong>的代表主键索引的根页，而在根页偏移量为<strong>64</strong>的地方存放了该B+树的page level。如果page level为1，树高为2，page level为2，则树高为3。即B+树的高度=page level+1；下面我们将从实际环境中尝试找到这个page level。</p>
+<p>在实际操作之前，你可以通过InnoDB元数据表确认主键索引根页的page number为3，你也可以从《InnoDB存储引擎》这本书中得到确认。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">b.name, a.name, index_id, type, a.space, a.PAGE_NO</span><br><span class="line">FROM</span><br><span class="line">information_schema.INNODB_SYS_INDEXES a,</span><br><span class="line">information_schema.INNODB_SYS_TABLES b</span><br><span class="line">WHERE</span><br><span class="line">a.table_id = b.table_id AND a.space &lt;&gt; 0;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>执行结果：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620154405.png"></p>
+<p>可以看出数据库dbt3下的customer表、lineitem表主键索引根页的page number均为3，而其他的二级索引page number为4。关于二级索引与主键索引的区别请参考MySQL相关书籍，本文不在此介绍。</p>
+<p><strong>下面我们对数据库表空间文件做想相关的解析：</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620154422.png"></p>
+<p>因为主键索引B+树的根页在整个表空间文件中的第3个页开始，所以可以算出它在文件中的偏移量：<strong>16384*3=49152（16384为页大小）</strong>。</p>
+<p>另外根据《InnoDB存储引擎》中描述在根页的64偏移量位置前2个字节，保存了page level的值，因此我们想要的page level的值在整个文件中的偏移量为：<strong>16384*3+64=49152+64=49216</strong>，前2个字节中。</p>
+<p><strong>接下来我们用hexdump工具，查看表空间文件指定偏移量上的数据：</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620154438.png"></p>
+<p><strong>linetem表的page level为2，B+树高度为page level+1=3；<strong><strong>region表的page level为0，B+树高度为page level+1=1；</strong></strong>customer表的page level为2，B+树高度为page level+1=3；</strong></p>
+<p><strong>这三张表的数据量如下：</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/20190620154455.png"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>lineitem表的数据行数为600多万，B+树高度为3，customer表数据行数只有15万，B+树高度也为3。可以看出尽管数据量差异较大，这两个表树的高度都是3，换句话说这两个表通过索引查询效率并没有太大差异，因为都只需要做3次IO。那么如果有一张表行数是一千万，那么他的B+树高度依旧是3，查询效率仍然不会相差太大。</p>
+<p>region表只有5行数据，当然他的B+树高度为1。</p>
+<h3 id="最后回顾一道面试题"><a href="#最后回顾一道面试题" class="headerlink" title="最后回顾一道面试题"></a>最后回顾一道面试题</h3><p>有一道MySQL的面试题，为什么MySQL的索引要使用B+树而不是其它树形结构？比如B树？</p>
+<p>现在这个问题的复杂版本可以参考本文；</p>
+<p><strong>他的简单版本回答是：</strong></p>
+<p>因为B树不管叶子节点还是非叶子节点，都会保存数据，这样导致在非叶子节点中能保存的指针数量变少（有些资料也称为扇出），指针少的情况下要保存大量数据，只能增加树的高度，导致IO操作变多，查询性能变低；</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本文从一个问题出发，逐步介绍了InnoDB索引组织表的原理、查询方式，并结合已有知识，回答该问题，结合实践来证明。当然为了表述简单易懂，文中忽略了一些细枝末节，比如一个页中不可能所有空间都用于存放数据，它还会存放一些少量的其他字段比如page level，index number等等，另外还有页的填充因子也导致一个页不可能全部用于保存数据。关于二级索引数据存取方式可以参考MySQL相关书籍，他的要点是结合主键索引进行回表查询。<br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzA3MTUzOTcxOQ==&amp;mid=2452966459&amp;idx=1&amp;sn=91fd510de84bed68067bfcf94808f2ae&amp;scene=21#wechat_redirect">参考</a><br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzA3MTUzOTcxOQ==&amp;mid=2452966459&amp;idx=1&amp;sn=91fd510de84bed68067bfcf94808f2ae&amp;scene=21#wechat_redirect">参考</a></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>mysql数据库索引解析</p><p><a href="https://removeif.github.io/database/mysql/mysql数据库索引解析.html">https://removeif.github.io/database/mysql/mysql数据库索引解析.html</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><a href="https://removeif.github.io"><p>辣椒の酱</p></a></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2019-06-04</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2024-12-27</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># 相关文章</span><br><span>  1.<a class="is-size-6" href="/page.test/database/mysql/mysql%E5%85%81%E8%AE%B8%E6%9C%80%E5%A4%A7sql%E8%AF%AD%E5%8F%A5%E9%95%BF%E5%BA%A6%E9%85%8D%E7%BD%AE.html" target="_blank">mysql允许最大sql语句长度配置</a><br></span><span>  2.<a class="is-size-6" href="/page.test/database/mysql/mysql-like%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96.html" target="_blank">mysql-like模糊查询优化</a><br></span><span>  3.<a class="is-size-6" href="/page.test/database/mysql/mysql-b-Tree%E7%B4%A2%E5%BC%95.html" target="_blank">mysql-b+Tree索引</a><br></span><span>  4.<a class="is-size-6" href="/page.test/database/mysql/mysql%E9%AB%98%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E8%A7%84%E8%8C%83%E6%96%B9%E6%B3%95.html" target="_blank">mysql高性能优化规范方法</a><br></span><span>  5.<a class="is-size-6" href="/page.test/database/%E5%B8%B8%E8%A7%81sql%E9%94%99%E8%AF%AF%E5%86%99%E6%B3%95.html" target="_blank">常见sql错误写法</a><br></span><span>  6.<a class="is-size-6" href="/page.test/database/mysql/mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88.html" target="_blank">mysql索引优化方案</a><br></span><span>  7.<a class="is-size-6" href="/page.test/database/mysql/%E4%B8%80%E6%AC%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E8%BF%87%E7%A8%8B.html" target="_blank">一次数据库的死锁问题排查过程</a><br></span><span>  8.<a class="is-size-6" href="/page.test/database/mysql/%E4%B8%80%E5%8D%83%E8%A1%8C-MySQL-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%BD%AC%E8%BD%BD.html" target="_blank">一千行 MySQL 学习笔记(转载)</a><br></span></div><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># 推荐文章</span><br><span>  1.<a class="is-size-6" href="/page.test/theme/%E5%8D%9A%E5%AE%A2%E6%BA%90%E7%A0%81%E5%88%86%E4%BA%AB.html" target="_blank">博客源码分享</a><br></span><span>  2.<a class="is-size-6" href="/page.test/breaking-news/2019%E5%B9%B4%E5%9B%BD%E5%BA%8670%E5%91%A8%E5%B9%B4%E9%98%85%E5%85%B5%E5%AE%8C%E6%95%B4%E5%9B%BE%E6%96%87%E8%A7%A3%E8%AF%B4.html" target="_blank">2019年国庆70周年阅兵完整图文解说(收藏!)</a><br></span><span>  3.<a class="is-size-6" href="/page.test/theme/%E5%8D%9A%E5%AE%A2%E4%B8%ADgitalk%E6%9C%80%E6%96%B0%E8%AF%84%E8%AE%BA%E7%9A%84%E8%8E%B7%E5%8F%96.html" target="_blank">博客中gitalk最新评论的获取</a><br></span><span>  4.<a class="is-size-6" href="/page.test/law/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E5%88%91%E4%BA%8B%E8%AF%89%E8%AE%BC%E6%B3%95.html" target="_blank">中华人民共和国刑事诉讼法</a><br></span><span>  5.<a class="is-size-6" href="/page.test/theme/Github-Action%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2.html" target="_blank">Github-Action自动部署Hexo博客</a><br></span><span>  6.<a class="is-size-6" href="/page.test/java/frame/springboot-dubbo-nacos-example.html" target="_blank">springboot接入dubbo-nacos注册中心</a><br></span></div></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/css/share.min.css"><div class="social-share"></div><script src="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135456.png" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135550.png" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/page.test/think/%E9%98%BF%E9%87%8C%E4%B8%80%E5%B9%B4%E7%9A%84%E6%88%90%E9%95%BF%E7%BB%8F%E5%8E%86.html"><i class="level-item fas fa-chevron-left"></i><span class="level-item">阿里一年的成长经历</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/page.test/java/basic/java%E6%B3%A8%E8%A7%A3Annotation%E8%AF%B4%E6%98%8E%E5%AE%9E%E4%BE%8B.html"><span class="level-item">java注解Annotation说明实例</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--><div class="card"><div class="card-content"><div class="title is-5">评论</div><div id="comment-container"></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/gitalk/1.6.0/gitalk.css"><script> $.getScript('https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v6.0.1/js/gitalk.min.js', function () { 
+            var gitalk = new Gitalk({
+            language:'zh-CN',
+            id: 'ce99c6766a2f1bbb43d385a13286cd68',
+            repo: 'blog_comment',
+            owner: 'removeif',
+            clientID: '46a9f3481b46ea0129d8',
+            clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+            admin: ["removeif"],
+            createIssueManually: true,
+            distractionFreeMode: false,
+            perPage: 10,
+            pagerDirection: 'last',
+            
+            
+            enableHotKey: true,
+            isLocked: false
+        })
+        gitalk.render('comment-container')});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><ul class="menu-list"><li><a class="is-flex is-mobile" href="#索引是什么"><span>索引是什么?</span></a></li><li><a class="is-flex is-mobile" href="#索引能干什么"><span>索引能干什么?</span></a></li><li><a class="is-flex is-mobile" href="#索引的分类"><span>索引的分类?</span></a></li><li><a class="is-flex is-mobile" href="#索引的底层实现"><span>索引的底层实现</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#Hash索引"><span>Hash索引</span></a></li><li><a class="is-flex is-mobile" href="#B-Tree索引（MySQL使用B-Tree）"><span>B-Tree索引（MySQL使用B+Tree）</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#为什么索引结构默认使用B-Tree，而不是Hash，二叉树，红黑树？"><span>为什么索引结构默认使用B+Tree，而不是Hash，二叉树，红黑树？</span></a></li><li><a class="is-flex is-mobile" href="#为什么官方建议使用自增长主键作为索引？"><span>为什么官方建议使用自增长主键作为索引？</span></a></li><li><a class="is-flex is-mobile" href="#简单总结下"><span>简单总结下</span></a></li></ul><li><a class="is-flex is-mobile" href="#InnoDB一棵B-树能存多少行数据？为什么要用B-树？而不是其他树？"><span>InnoDB一棵B+树能存多少行数据？为什么要用B+树？而不是其他树？</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#那么回到我们开始的问题，通常一棵B-树可以存放多少行数据？"><span>那么回到我们开始的问题，通常一棵B+树可以存放多少行数据？</span></a></li><li><a class="is-flex is-mobile" href="#怎么得到InnoDB主键索引B-树的高度？"><span>怎么得到InnoDB主键索引B+树的高度？</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#小结"><span>小结</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#最后回顾一道面试题"><span>最后回顾一道面试题</span></a></li><li><a class="is-flex is-mobile" href="#总结"><span>总结</span></a></li></ul></li></ul></div></div><style>.menu-list > li > a.is-active + .menu-list { display: block; }.menu-list > li > a + .menu-list { display: none; }</style><script src="/page.test/js/toc.js" defer></script></div><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png" alt="辣椒の酱"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">辣椒の酱</p><p class="is-size-6 is-block">尚未执佩剑，转眼即江湖</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>阿尔及利亚</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/page.test/archives"><p class="title">121</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/page.test/categories"><p class="title">43</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/page.test/tags"><p class="title">95</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://weibo.com/removeif" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/removeif"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Weibo" href="https://weibo.com/removeif"><i class="fab fa-weibo"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="mailto:removeif@163.com"><i class="fa fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Next" href="https://removeif.github.io/remove.io"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/page.test/atom.xml"><i class="fas fa-rss"></i></a></div><div><hr><p id="hitokoto">:D 一言句子获取中...</p><script type="text/javascript" defer>function getYiyan(){
+                                $.getJSON("https://v1.hitokoto.cn/", function (data) {
+                                if(data){
+                                    $('#hitokoto').html("");
+                                    $('#hitokoto').append("<strong style='color: #3273dc;'>"+data.hitokoto+"</strong>"+
+                                    "<p>"+"来源《"+data.from+"》</p><p>提供者-"+data.creator+"</p>");
+                                }});}
+                                $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});</script></div></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新评论</h3><span class="body_hot_comment">加载中，最新评论有1分钟缓存...</span></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/page.test/theme/Github-Action%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2.html"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2019/20191221090606.png" alt="Github-Action自动部署Hexo博客"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-22T08:46:08.000Z">2024-12-22</time></p><p class="title"><a href="/page.test/theme/Github-Action%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2.html">Github-Action自动部署Hexo博客</a></p><p class="categories"><a href="/page.test/categories/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2%EF%BC%8CGithub-Action/">自动部署Hexo博客，Github Action</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-04-28T12:44:10.000Z">2023-04-28</time></p><p class="title"><a href="/page.test/think/%E5%90%8E%E7%BB%AD%E8%AE%A1%E5%88%92.html">后续计划</a></p><p class="categories"><a href="/page.test/categories/think/">think</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/page.test/java/frame/springboot-dubbo-nacos-example.html"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2021/20201219120230.png" alt="springboot接入dubbo-nacos注册中心"></a></figure><div class="media-content"><p class="date"><time dateTime="2020-12-19T11:58:23.000Z">2020-12-19</time></p><p class="title"><a href="/page.test/java/frame/springboot-dubbo-nacos-example.html">springboot接入dubbo-nacos注册中心</a></p><p class="categories"><a href="/page.test/categories/java/">java</a> / <a href="/page.test/categories/java/springboot/">springboot</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/page.test/java/design-mode/java-strategy-pattern.html"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200702174616.png" alt="Java-策略模式"></a></figure><div class="media-content"><p class="date"><time dateTime="2020-07-02T17:42:48.000Z">2020-07-02</time></p><p class="title"><a href="/page.test/java/design-mode/java-strategy-pattern.html">Java-策略模式</a></p><p class="categories"><a href="/page.test/categories/java/">java</a> / <a href="/page.test/categories/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/page.test/database/mysql/mysql%E5%85%81%E8%AE%B8%E6%9C%80%E5%A4%A7sql%E8%AF%AD%E5%8F%A5%E9%95%BF%E5%BA%A6%E9%85%8D%E7%BD%AE.html"><img src="https://cdn.jsdelivr.net/gh/removeif/blog_image/img/2020/20200325175024.png" alt="mysql允许最大sql语句长度配置"></a></figure><div class="media-content"><p class="date"><time dateTime="2020-03-25T17:46:12.000Z">2020-03-25</time></p><p class="title"><a href="/page.test/database/mysql/mysql%E5%85%81%E8%AE%B8%E6%9C%80%E5%A4%A7sql%E8%AF%AD%E5%8F%A5%E9%95%BF%E5%BA%A6%E9%85%8D%E7%BD%AE.html">mysql允许最大sql语句长度配置</a></p><p class="categories"><a href="/page.test/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a> / <a href="/page.test/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/">mysql</a></p></div></article></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/page.test/categories/English/"><span class="level-start"><span class="level-item">English</span></span><span class="level-end"><span class="level-item tag">19</span></span></a><ul class="mr-0"><li><a class="level is-mobile is-marginless" href="/page.test/categories/English/grammar/"><span class="level-start"><span class="level-item">grammar</span></span><span class="level-end"><span class="level-item tag">19</span></span></a></li></ul></li><li><a class="level is-mobile is-marginless" href="/page.test/categories/algorithm/"><span class="level-start"><span class="level-item">algorithm</span></span><span class="level-end"><span class="level-item tag">15</span></span></a></li><li><a class="level is-mobile is-marginless" href="/page.test/categories/develop/"><span class="level-start"><span class="level-item">develop</span></span><span class="level-end"><span class="level-item tag">2</span></span></a><ul class="mr-0"><li><a class="level is-mobile is-marginless" href="/page.test/categories/develop/git/"><span class="level-start"><span class="level-item">git</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></li><li><a class="level is-mobile is-marginless" href="/page.test/categories/health/"><span class="level-start"><span class="level-item">health</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/page.test/categories/ios/"><span class="level-start"><span class="level-item">ios</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/page.test/categories/java/"><span class="level-start"><span class="level-item">java</span></span><span class="level-end"><span class="level-item tag">32</span></span></a><ul class="mr-0"><li><a class="level is-mobile is-marginless" href="/page.test/categories/java/JVM/"><span class="level-start"><span class="level-item">JVM</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/page.test/categories/java/elasticsearch6/"><span class="level-start"><span class="level-item">elasticsearch6</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></li><a class="level is-mobile is-marginless" href="/page.test/categories/"><span class="level-start"><span class="level-item">查看全部&gt;&gt;</span></span></a></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/page.test/archives/2024/12/"><span class="level-start"><span class="level-item">十二月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/page.test/archives/2023/04/"><span class="level-start"><span class="level-item">四月 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/page.test/archives/2020/12/"><span class="level-start"><span class="level-item">十二月 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/page.test/archives/2020/07/"><span class="level-start"><span class="level-item">七月 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/page.test/archives/2020/03/"><span class="level-start"><span class="level-item">三月 2020</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><a class="level is-mobile is-marginless" href="/page.test/archives/"><span class="level-start"><span class="level-item">查看全部&gt;&gt;</span></span></a></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/page.test/tags/English/"><span class="tag">English</span><span class="tag is-grey-lightest">19</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/grammar/"><span class="tag">grammar</span><span class="tag is-grey-lightest">19</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/java/"><span class="tag">java</span><span class="tag is-grey-lightest">19</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/%E6%B3%95%E5%BE%8B/"><span class="tag">法律</span><span class="tag is-grey-lightest">8</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="tag">设计模式</span><span class="tag is-grey-lightest">8</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/mysql/"><span class="tag">mysql</span><span class="tag is-grey-lightest">7</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/springboot/"><span class="tag">springboot</span><span class="tag is-grey-lightest">5</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/think/"><span class="tag">think</span><span class="tag is-grey-lightest">5</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/"><span class="tag">工具教程</span><span class="tag is-grey-lightest">5</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"><span class="tag">二分查找</span><span class="tag is-grey-lightest">3</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/Git/"><span class="tag">Git</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/dp/"><span class="tag">dp</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/elasticsearch6/"><span class="tag">elasticsearch6</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/hexo%E4%B8%BB%E9%A2%98/"><span class="tag">hexo主题</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/icarus%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/"><span class="tag">icarus主题配置</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/redis/"><span class="tag">redis</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/spring/"><span class="tag">spring</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"><span class="tag">动态规划</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"><span class="tag">双指针</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/page.test/tags/%E6%94%AF%E4%BB%98%E6%9E%B6%E6%9E%84/"><span class="tag">支付架构</span><span class="tag is-grey-lightest">2</span></a></div></div><div class="field is-grouped is-grouped-multiline"><a class="tags has-addons" href="/page.test/tags/"><span class="tag">查看全部&gt;&gt;</span></a></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=removeifFeedsId&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="removeifFeedsId" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div><p class="help">输入邮箱开始订阅，更博后邮件通知！</p></form></div></div></div><div class="card widget"><div class="g-ads-x"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3></div><br><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-format="auto" data-full-width-responsive="true" data-ad-client="ca-pub-6343805421927634" data-ad-slot="5134765588"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/page.test/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="辣椒の酱" height="28"></a><p class="size-small"><span>&copy; 2024 辣椒の酱</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️本站自 <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> 已运行 <strong>" + dnum + "</strong> 天 <strong>" + hnum + "</strong> 小时 <strong>" + mnum + "</strong> 分 <strong>" + snum + "</strong> 秒！❤️";
+        }var now = new Date();setInterval("createTime('2018/11/11 00:00:00')", 250,"");</script><br></span><div class="size-small"><span>❤️感谢 <strong><span id="busuanzi_value_site_uv">99+</span></strong> 小伙伴的 <strong><span id="busuanzi_value_site_pv">99+</span></strong> 次光临！❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a></p></div><div class="sideMusic"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v6.0.1/js/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script><meting-js style="width: auto;height: 2000px;" server="netease" type="playlist" id="2364053447" theme="#2980b9" loop="all" autoplay="false" order="list" storageName="aplayer-setting" lrctype="0" list-max-height="400px" fixed="true"></meting-js></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v6.0.1/js/column.min.js"></script><script src="/page.test/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/page.test/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/cookieconsent/3.1.1/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-right",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v6.0.1/js/main.min.js" defer></script><script>$.getScript('https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v6.0.1/js/comment-issue-data.min.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','removeif','blog_comment',false);})</script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/page.test/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/page.test/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(true){
+                $.getScript('https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v6.0.1/js/comment-issue-data.min.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','removeif','blog_comment',false);});
+            }
+            if(false){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script></body></html>
